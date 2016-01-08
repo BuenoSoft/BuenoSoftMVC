@@ -6,7 +6,6 @@
 * Date:    2011-06-18                                                          *
 * Author:  Olivier PLATHEY                                                     *
 *******************************************************************************/
-namespace Lib;
 define('FPDF_VERSION','1.7');
 class FPDF
 {
@@ -104,27 +103,30 @@ function FPDF($orientation='P', $unit='mm', $size='A4')
 	if(defined('FPDF_FONTPATH'))
 	{
 		$this->fontpath = FPDF_FONTPATH;
-		if(substr($this->fontpath,-1)!='/' && substr($this->fontpath,-1)!='\\')
-			$this->fontpath .= '/';
-	}
-	elseif(is_dir(dirname(__FILE__).'/font'))
-		$this->fontpath = dirname(__FILE__).'/font/';
-	else
-		$this->fontpath = '';
-	// Core fonts
+		if (substr($this->fontpath, -1) != '/' && substr($this->fontpath, -1) != '\\') {
+                $this->fontpath .= '/';
+            }
+        }
+ elseif (is_dir(dirname(__FILE__) . '/font')) {
+            $this->fontpath = dirname(__FILE__) . '/font/';
+        } else {
+            $this->fontpath = '';
+        }
+        // Core fonts
 	$this->CoreFonts = array('courier', 'helvetica', 'times', 'symbol', 'zapfdingbats');
 	// Scale factor
-	if($unit=='pt')
-		$this->k = 1;
-	elseif($unit=='mm')
-		$this->k = 72/25.4;
-	elseif($unit=='cm')
-		$this->k = 72/2.54;
-	elseif($unit=='in')
-		$this->k = 72;
-	else
-		$this->Error('Incorrect unit: '.$unit);
-	// Page sizes
+	if ($unit == 'pt') {
+            $this->k = 1;
+        } elseif ($unit == 'mm') {
+            $this->k = 72 / 25.4;
+        } elseif ($unit == 'cm') {
+            $this->k = 72 / 2.54;
+        } elseif ($unit == 'in') {
+            $this->k = 72;
+        } else {
+            $this->Error('Incorrect unit: ' . $unit);
+        }
+        // Page sizes
 	$this->StdPageSizes = array('a3'=>array(841.89,1190.55), 'a4'=>array(595.28,841.89), 'a5'=>array(420.94,595.28),
 		'letter'=>array(612,792), 'legal'=>array(612,1008));
 	$size = $this->_getpagesize($size);
@@ -171,9 +173,10 @@ function SetMargins($left, $top, $right=null)
 	// Set left, top and right margins
 	$this->lMargin = $left;
 	$this->tMargin = $top;
-	if($right===null)
-		$right = $left;
-	$this->rMargin = $right;
+	if ($right === null) {
+            $right = $left;
+        }
+        $this->rMargin = $right;
 }
 
 function SetLeftMargin($margin)
@@ -1728,21 +1731,23 @@ function _putcatalog()
 {
 	$this->_out('/Type /Catalog');
 	$this->_out('/Pages 1 0 R');
-	if($this->ZoomMode=='fullpage')
-		$this->_out('/OpenAction [3 0 R /Fit]');
-	elseif($this->ZoomMode=='fullwidth')
-		$this->_out('/OpenAction [3 0 R /FitH null]');
-	elseif($this->ZoomMode=='real')
-		$this->_out('/OpenAction [3 0 R /XYZ null null 1]');
-	elseif(!is_string($this->ZoomMode))
-		$this->_out('/OpenAction [3 0 R /XYZ null null '.sprintf('%.2F',$this->ZoomMode/100).']');
-	if($this->LayoutMode=='single')
-		$this->_out('/PageLayout /SinglePage');
-	elseif($this->LayoutMode=='continuous')
-		$this->_out('/PageLayout /OneColumn');
-	elseif($this->LayoutMode=='two')
-		$this->_out('/PageLayout /TwoColumnLeft');
-}
+	if ($this->ZoomMode == 'fullpage') {
+            $this->_out('/OpenAction [3 0 R /Fit]');
+        } elseif ($this->ZoomMode == 'fullwidth') {
+            $this->_out('/OpenAction [3 0 R /FitH null]');
+        } elseif ($this->ZoomMode == 'real') {
+            $this->_out('/OpenAction [3 0 R /XYZ null null 1]');
+        } elseif (!is_string($this->ZoomMode)) {
+            $this->_out('/OpenAction [3 0 R /XYZ null null ' . sprintf('%.2F', $this->ZoomMode / 100) . ']');
+        }
+        if ($this->LayoutMode == 'single') {
+            $this->_out('/PageLayout /SinglePage');
+        } elseif ($this->LayoutMode == 'continuous') {
+            $this->_out('/PageLayout /OneColumn');
+        } elseif ($this->LayoutMode == 'two') {
+            $this->_out('/PageLayout /TwoColumnLeft');
+        }
+    }
 
 function _putheader()
 {
@@ -1778,9 +1783,10 @@ function _enddoc()
 	$this->_out('xref');
 	$this->_out('0 '.($this->n+1));
 	$this->_out('0000000000 65535 f ');
-	for($i=1;$i<=$this->n;$i++)
-		$this->_out(sprintf('%010d 00000 n ',$this->offsets[$i]));
-	// Trailer
+	for ($i = 1; $i <= $this->n; $i++) {
+            $this->_out(sprintf('%010d 00000 n ', $this->offsets[$i]));
+        }
+        // Trailer
 	$this->_out('trailer');
 	$this->_out('<<');
 	$this->_puttrailer();
