@@ -33,10 +33,6 @@ class PagosController extends Controller
                 "paginador" => $this->getPaginator()->getPages()
             ));
         }
-        else {
-            Session::set("msg","Debe ser administrador para acceder.");
-            $this->redirect(array('Main','index.php'));
-        }
     }
     public function add(){
         if($this->checkUser()){

@@ -31,8 +31,11 @@ class TipocomModel extends Model
         $consulta->execute(array($tc->getNombre(),$tc->getId()));
         return ($consulta->rowCount() > 0) ? $tc->getId() : null;
     }
-    public function eliminame($tc){
+    public function eliminame($tc, $notUsed = true){
         $sql="delete from tipo_compras where tcId=?";
+        if ($notUsed === true) {
+            $sql .= ' AND tcId NOT IN (SELECT DISTINCT tcId FROM compras)';
+        }
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($tc->getId()));
         return ($consulta->rowCount() > 0) ? $tc->getId() : null;

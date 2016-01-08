@@ -58,8 +58,11 @@ class ModeloModel extends Model
         $consulta->execute(array($modelo->getNombre(),$modelo->getMarca()->getId(),$modelo->getId()));
         return ($consulta->rowCount() > 0) ? $modelo->getId() : null;
     }
-    public function eliminame($modelo){
+    public function eliminame($modelo, $notUsed = true){
         $sql="delete from modelos where modId=?";
+        if ($notUsed === true) {
+            $sql .= ' AND modId NOT IN (SELECT DISTINCT modId FROM vehiculos)';
+        }
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($modelo->getId()));
         return ($consulta->rowCount() > 0) ? $modelo->getId() : null;

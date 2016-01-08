@@ -31,12 +31,15 @@ class RolModel extends Model
         $consulta->execute(array($rol->getNombre(),$rol->getId()));
         return ($consulta->rowCount() > 0) ? $rol->getId() : null;
     }
-    public function eliminame($rol){
-        $sql="delete from roles where rolId=?";
+    public function eliminame($rol, $notUsed = true) {
+        $sql = "DELETE FROM roles WHERE rolId = ?";
+        if ($notUsed === true) {
+            $sql .= ' AND rolId NOT IN (SELECT DISTINCT rolId FROM usuarios)';
+        }
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($rol->getId()));
         return ($consulta->rowCount() > 0) ? $rol->getId() : null;
-    }
+}
     public function obtenerPorId($id) {
         $consulta = $this->getBD()->prepare("SELECT * FROM roles WHERE rolId = ?");
         $consulta->execute(array($id));

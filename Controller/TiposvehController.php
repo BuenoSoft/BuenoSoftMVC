@@ -16,11 +16,7 @@ class TiposvehController extends Controller
             $this->redirect(array("index.php"), array(
                 "tiposveh" => $this->modelo->obtenerTodos()
             )); 
-        }
-        else {
-            Session::set("msg","Debe ser administrador para acceder.");
-            $this->redirect(array('Main','index.php'));
-        }    
+        } 
     }
     public function add(){
         if($this->checkUser()){
@@ -58,9 +54,9 @@ class TiposvehController extends Controller
             if (isset($_GET['p'])){
                 $tv = $this->modelo->obtenerPorId($_GET['p']); 
                 $id = $this->modelo->eliminame($tv);
-                Session::set("msg", (isset($id)) ? "Tipo de Vehículo Borrado" : "Hay vehículos con este tipo");
+                Session::set("msg", (isset($id)) ? "Tipo de Vehículo Borrado" : "No se pudo borrar el tipo");
                 header("Location:index.php?c=tiposveh&a=index");
-            }                           
+            }                            
         }
     }
     private function checkDates(){

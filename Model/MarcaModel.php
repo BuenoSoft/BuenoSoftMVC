@@ -30,8 +30,11 @@ class MarcaModel extends Model
             return null;
         }
     }
-    public function eliminame($marca){
+    public function eliminame($marca, $notUsed = true){
         $sql="delete from marcas where marId=?";
+        if ($notUsed === true) {
+            $sql .= ' AND marId NOT IN (SELECT DISTINCT marId FROM modelos)';
+        }
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($marca->getId()));
         return ($consulta->rowCount() > 0) ? $marca->getId() : null;                

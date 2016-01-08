@@ -31,8 +31,11 @@ class TipovehModel extends Model
         $consulta->execute(array($tv->getNombre(),$tv->getId()));
         return ($consulta->rowCount() > 0) ? $tv->getId() : null;
     }
-    public function eliminame($tv){
+    public function eliminame($tv, $notUsed = true){
         $sql="delete from tipo_vehiculos where tvId=?";
+        if ($notUsed === true) {
+            $sql .= ' AND tvId NOT IN (SELECT DISTINCT tvId FROM vehiculos)';
+        }
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($tv->getId()));
         return ($consulta->rowCount() > 0) ? $tv->getId() : null;                

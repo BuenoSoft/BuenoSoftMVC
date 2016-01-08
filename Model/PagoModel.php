@@ -2,7 +2,6 @@
 namespace Model;
 use \PDO;
 use App\Model;
-use Clases\Compra;
 use Clases\Pago;
 class PagoModel extends Model
 {
