@@ -1,8 +1,9 @@
 <?php
 namespace Model;
 use \PDO;
-use App\Model;
-use Clases\TipoVehiculo;
+use \App\Model;
+use \App\Session;
+use \Clases\TipoVehiculo;
 class TipovehModel extends Model
 {
     function __construct() {
@@ -20,16 +21,34 @@ class TipovehModel extends Model
         return $datos;
     }
     public function guardame($tv){
+        if($this->check($tv->getNombre())){
+            Session::set('msg', 'El Tipo de vehículo ya existe');
+            return null;
+        }
         $sql="insert into tipo_vehiculos(tvNombre) values(?)";
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($tv->getNombre()));
         return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
     }
     public function modificame($tv){
+        $aux = $this->obtenerPorId($tv->getId()); 
+        if(!$tv->equals($aux)){
+            if($this->check($tv->getNombre())){
+                Session::set('msg', 'El rol ya existe');
+                return null;
+            }        
+        }
         $sql="update tipo_vehiculos set tvNombre=? where tvId=?";
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($tv->getNombre(),$tv->getId()));
         return ($consulta->rowCount() > 0) ? $tv->getId() : null;
+    }
+    private function check($unique) { 
+        $query = 'SELECT tvId FROM tipo_vehiculos WHERE tvNombre = ?'; 
+        $consulta = $this->getBD()->prepare($query); 
+        $consulta->execute([$unique]); 
+        // Indicar si hay algo en la base de datos con este nombre 
+        return $consulta->rowCount() > 0; 
     }
     public function eliminame($tv, $notUsed = true){
         $sql="delete from tipo_vehiculos where tvId=?";

@@ -1,6 +1,7 @@
 <?php
 namespace Clases;
-class Rol {
+class Rol 
+{
     private $id;
     private $nombre;
     function getId() {
@@ -10,10 +11,13 @@ class Rol {
         return $this->nombre;
     }    
     function setNombre($nombre) {
-        $this->nombre = $nombre;
+        $this->nombre = strtoupper($nombre);
     }
     function __construct($xid, $xnombre) {
         $this->id = $xid;
-        $this->nombre = $xnombre;
+        $this->nombre = strtoupper($xnombre);
+    }
+    public function equals(Rol $obj){
+        return $this->nombre == $obj->nombre;                
     }
 }

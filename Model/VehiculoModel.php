@@ -1,11 +1,10 @@
 <?php
 namespace Model;
 use \PDO;
-use App\Model;
-use Clases\TipoVehiculo;
-use Clases\Marca;
-use Clases\Modelo;
-use Clases\Vehiculo;
+use \App\Model;
+use \App\Session;
+use \Clases\Modelo;
+use \Clases\Vehiculo;
 class VehiculoModel extends Model
 {
     private $mod_tv;
@@ -43,16 +42,34 @@ class VehiculoModel extends Model
         }
     }
     public function guardame($veh){
+        if($this->check($veh->getMat())){
+            Session::set('msg', 'El vehículo ya existe');
+            return null;
+        }
         $sql="insert into vehiculos(vehMatricula,vehPrecio,vehCantidad,vehDescrip,vehFoto,modId,tvId) values(?,?,?,?,?,?,?)";
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($veh->getMat(),$veh->getPrecio(),$veh->getCant(),$veh->getDescrip(),$veh->getFoto(),$veh->getModelo()->getId(),$veh->getTipo()->getId()));
         return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
     }
     public function modificame($veh){
+        $aux = $this->obtenerPorId($veh->getId()); 
+        if(!$veh->equals($aux)){
+            if($this->check($veh->getMat())){
+                Session::set('msg', 'El vehículo ya existe');
+                return null;
+            }        
+        }
         $sql="update vehiculos set vehMatricula=?,vehPrecio=?,vehCantidad=?,vehDescrip=?,modId=?,tvId=? where vehId=?";
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($veh->getMat(),$veh->getPrecio(),$veh->getCant(),$veh->getDescrip(),$veh->getModelo()->getId(),$veh->getTipo()->getId(),$veh->getId()));
         return ($consulta->rowCount() > 0) ? $veh->getId() : null;
+    }
+    private function check($unique) { 
+        $query = 'SELECT vehId FROM vehiculos WHERE vehMatricula = ?'; 
+        $consulta = $this->getBD()->prepare($query); 
+        $consulta->execute([$unique]); 
+        // Indicar si hay algo en la base de datos con este nombre 
+        return $consulta->rowCount() > 0; 
     }
     public function mod_foto($veh){
         $sql="update vehiculos set vehFoto=? where vehId=?";

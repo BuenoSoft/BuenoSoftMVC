@@ -17,14 +17,17 @@ class Modelo {
         $this->id = $id;
     }
     function setNombre($nombre) {
-        $this->nombre = $nombre;
+        $this->nombre = strtoupper($nombre);
     }
     function setMarca($marca) {
         $this->marca = $marca;
     }
     function __construct($xid, $xnombre, $xmarca) {
         $this->id = $xid;
-        $this->nombre = $xnombre;
+        $this->nombre = strtoupper($xnombre);
         $this->marca = $xmarca;
+    }
+    public function equals(Modelo $obj){
+        return $this->nombre == $obj->nombre;                
     }
 }

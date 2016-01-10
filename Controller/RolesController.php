@@ -1,9 +1,9 @@
 <?php
 namespace Controller;
-use App\Controller;
-use App\Session;
-use Model\RolModel;
-use Clases\Rol;
+use \App\Controller;
+use \App\Session;
+use \Model\RolModel;
+use \Clases\Rol;
 class RolesController extends Controller 
 {
     private $modelo;
@@ -23,8 +23,8 @@ class RolesController extends Controller
             if (isset($_POST['btnaceptar'])) {
                 if($this->checkDates()) {                
                     $rol = new Rol(0, $_POST['txtnom']);
-                    $this->modelo->guardame($rol);
-                    Session::set("msg","Rol Creado");
+                    $id= $this->modelo->guardame($rol);
+                    Session::set("msg",(isset($id)) ? "Rol Creado" : Session::get('msg')); 
                     header("Location:index.php?c=roles&a=index");
                     exit();
                 }
@@ -38,8 +38,8 @@ class RolesController extends Controller
             if (Session::get('id')!=null && isset($_POST['btnaceptar'])){                             
                 if($this->checkDates()) {                
                     $rol= new Rol($_POST['hid'],$_POST['txtnom']);
-                    $this->modelo->modificame($rol);
-                    Session::set("msg","Rol Editado");
+                    $id= $this->modelo->modificame($rol);
+                    Session::set("msg",(isset($id)) ? "Rol Editado" : Session::get('msg'));
                     header("Location:index.php?c=roles&a=index");
                     exit();
                 }

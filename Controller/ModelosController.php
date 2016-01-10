@@ -1,10 +1,10 @@
 <?php
 namespace Controller;
-use App\Controller;
-use App\Session;
-use Model\MarcaModel;
-use Model\ModeloModel;
-use Clases\Modelo;
+use \App\Controller;
+use \App\Session;
+use \Model\MarcaModel;
+use \Model\ModeloModel;
+use \Clases\Modelo;
 class ModelosController extends Controller
 {
     private $mod_mar;
@@ -34,8 +34,8 @@ class ModelosController extends Controller
                 if($this->checkDates()) {
                     $marca = $this->mod_mar->obtenerPorId($_POST['txtmar']);
                     $modelo = new Modelo(0,$_POST['txtnom'] , $marca);
-                    $this->mod_mod->guardame($modelo);
-                    Session::set("msg","Modelo Creado");
+                    $id = $this->mod_mod->guardame($modelo);
+                    Session::set("msg",(isset($id)) ? "Modelo Creado" : Session::get('msg')); 
                     header("Location:index.php?c=modelos&a=index");
                     exit();
                 }
@@ -54,8 +54,8 @@ class ModelosController extends Controller
                 if($this->checkDates()) { 
                     $marca = $this->mod_mar->obtenerPorId($_POST['txtmar']);
                     $modelo = new Modelo($_POST['hid'],$_POST['txtnom'] , $marca);
-                    $this->mod_mod->modificame($modelo);
-                    Session::set("msg","Modelo Editado");
+                    $id = $this->mod_mod->modificame($modelo);
+                    Session::set("msg",(isset($id)) ? "Modelo Editado" : Session::get('msg'));
                     header("Location:index.php?c=modelos&a=index");
                     exit();
                 }

@@ -1,6 +1,7 @@
 <?php
 namespace Clases;
-class Marca {
+class Marca 
+{
     private $id;
     private $nombre;
     function getId() {
@@ -10,10 +11,13 @@ class Marca {
         return $this->nombre;
     }    
     function setNombre($nombre) {
-        $this->nombre = $nombre;
+        $this->nombre = strtoupper($nombre);
     }
     function __construct($xid, $xnombre) {
         $this->id = $xid;
-        $this->nombre = $xnombre;
-    }    
+        $this->nombre = strtoupper($xnombre);
+    }
+    public function equals(Marca $obj){
+        return $this->nombre == $obj->nombre;                
+    }
 }

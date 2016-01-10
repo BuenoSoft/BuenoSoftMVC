@@ -2,6 +2,7 @@
 namespace Model;
 use \PDO;
 use \App\Model;
+use \App\Session;
 use \Clases\Rol;
 class RolModel extends Model
 {
@@ -20,16 +21,34 @@ class RolModel extends Model
         return $datos;
     }
     public function guardame($rol){
+        if($this->check($rol->getNombre())){
+            Session::set('msg', 'El rol ya existe');
+            return null;
+        }
         $sql="insert into roles(rolNombre) values(?)";
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($rol->getNombre()));
         return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
     }
     public function modificame($rol){
+        $aux = $this->obtenerPorId($rol->getId()); 
+        if(!$rol->equals($aux)){
+            if($this->check($rol->getNombre())){
+                Session::set('msg', 'El rol ya existe');
+                return null;
+            }        
+        }
         $sql="update roles set rolNombre=? where rolId=?";
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($rol->getNombre(),$rol->getId()));
         return ($consulta->rowCount() > 0) ? $rol->getId() : null;
+    }
+    private function check($unique) { 
+        $query = 'SELECT rolId FROM roles WHERE rolNombre = ?'; 
+        $consulta = $this->getBD()->prepare($query); 
+        $consulta->execute([$unique]); 
+        // Indicar si hay algo en la base de datos con este nombre 
+        return $consulta->rowCount() > 0; 
     }
     public function eliminame($rol, $notUsed = true) {
         $sql = "DELETE FROM roles WHERE rolId = ?";
@@ -39,7 +58,7 @@ class RolModel extends Model
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($rol->getId()));
         return ($consulta->rowCount() > 0) ? $rol->getId() : null;
-}
+    }
     public function obtenerPorId($id) {
         $consulta = $this->getBD()->prepare("SELECT * FROM roles WHERE rolId = ?");
         $consulta->execute(array($id));

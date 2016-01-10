@@ -1,9 +1,9 @@
 <?php
 namespace Controller;
-use App\Controller;
-use App\Session;
-use Model\TipocomModel;
-use Clases\TipoCompra;
+use \App\Controller;
+use \App\Session;
+use \Model\TipocomModel;
+use \Clases\TipoCompra;
 class TiposcomController extends Controller
 {
     private $modelo;
@@ -23,8 +23,8 @@ class TiposcomController extends Controller
             if (isset($_POST['btnaceptar'])) {
                 if($this->checkDates()) { 
                     $tc= new TipoCompra(0, $_POST['txtnom']);
-                    $this->modelo->guardame($tc);
-                    Session::set("msg","Tipo de Compra Creada");
+                    $id = $this->modelo->guardame($tc);
+                    Session::set("msg",(isset($id)) ? "Tipo de Compra Creada" : Session::get('msg'));
                     header("Location:index.php?c=tiposcom&a=index");
                     exit();
                 }
@@ -38,8 +38,8 @@ class TiposcomController extends Controller
             if (Session::get('id')!=null && isset($_POST['btnaceptar'])){                             
                 if($this->checkDates()) {     
                     $tc= new TipoCompra($_POST['hid'], $_POST['txtnom']);
-                    $this->modelo->modificame($tc);
-                    Session::set("msg","Tipo de Compra Editada");
+                    $id = $this->modelo->modificame($tc);
+                    Session::set("msg",(isset($id)) ? "Tipo de Compra Editada" : Session::get('msg'));
                     header("Location:index.php?c=tiposcom&a=index"); 
                     exit();
                 }

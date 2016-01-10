@@ -1,12 +1,12 @@
 <?php
 namespace Controller;
-use App\Controller;
-use App\Session;
-use Model\TipocomModel;
-use Model\VehiculoModel;
-use Model\UsuarioModel;
-use Model\CompraModel;
-use Clases\Compra;
+use \App\Controller;
+use \App\Session;
+use \Model\TipocomModel;
+use \Model\VehiculoModel;
+use \Model\UsuarioModel;
+use \Model\CompraModel;
+use \Clases\Compra;
 class ComprasController extends Controller
 {
     private $mod_tc;

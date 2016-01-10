@@ -1,9 +1,9 @@
 <?php
 namespace Model;
 use \PDO;
-use App\Model;
-use Clases\Rol;
-use Clases\Usuario;
+use \App\Model;
+use \App\Session;
+use \Clases\Usuario;
 class UsuarioModel extends Model
 {    
     private $mod_r;
@@ -25,6 +25,10 @@ class UsuarioModel extends Model
         }
     }
     public function guardame($usuario){
+        if($this->check($usuario->getNick())){
+            Session::set('msg', 'El usuario ya existe');
+            return null;
+        }
         $sql="insert into usuarios(usuNick,usuPass,usuMail,usuNombre,usuApellido,rolId) values(?,?,?,?,?,?)";
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(
@@ -36,6 +40,13 @@ class UsuarioModel extends Model
         return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
     }
     public function modificame($usuario){
+        $aux = $this->obtenerPorId($usuario->getId()); 
+        if(!$usuario->equals($aux)){
+            if($this->check($usuario->getNombre())){
+                Session::set('msg', 'El usuario ya existe');
+                return null;
+            }        
+        }
         $sql="update usuarios set usuNick=?,usuPass=?,usuMail=?,usuNombre=?,usuApellido=?,rolId=? where usuId=?";
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(
@@ -46,6 +57,13 @@ class UsuarioModel extends Model
                 )
             );
         return ($consulta->rowCount() > 0) ? $usuario->getId() : null;
+    }
+    private function check($unique) { 
+        $query = 'SELECT usuId FROM usuarios WHERE usuNick = ?'; 
+        $consulta = $this->getBD()->prepare($query); 
+        $consulta->execute([$unique]); 
+        // Indicar si hay algo en la base de datos con este nombre 
+        return $consulta->rowCount() > 0; 
     }
     public function eliminame($usuario){
         $sql="update usuarios set usuStatus=0 where usuId=?";

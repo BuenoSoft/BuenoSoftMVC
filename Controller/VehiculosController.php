@@ -1,12 +1,12 @@
 <?php
 namespace Controller;
-use App\Controller;
-use App\Session;
-use Lib\Upload;
-use Model\ModeloModel;
-use Model\TipovehModel;
-use Model\VehiculoModel;
-use Clases\Vehiculo;
+use \App\Controller;
+use \App\Session;
+use \Lib\Upload;
+use \Model\ModeloModel;
+use \Model\TipovehModel;
+use \Model\VehiculoModel;
+use \Clases\Vehiculo;
 class VehiculosController extends Controller
 {
     private $upload;
@@ -44,8 +44,8 @@ class VehiculosController extends Controller
                             $tipo = $this->mod_tv->obtenerPorId(htmlspecialchars($_POST['txt_tipo']));
                             $modelo = $this->mod_m->obtenerPorId(htmlspecialchars($_POST['txtmod']));                            
                             $veh= new Vehiculo(0,$_POST['txtmat'],$_POST['txtprecio'],$_POST['txtcant'],$_POST['txtdes'],$ruta,1,$modelo,$tipo);
-                            $this->mod_v->guardame($veh);
-                            Session::set("msg","Vehículo Creado");
+                            $id = $this->mod_v->guardame($veh);
+                            Session::set("msg",(isset($id)) ? "Vehículo Creado" : Session::get('msg'));
                             header("Location:index.php?c=vehiculos&a=index");
                             exit();
                         }
@@ -68,8 +68,8 @@ class VehiculosController extends Controller
                     $tipo = $this->mod_tv->obtenerPorId($_POST['txt_tipo']);
                     $modelo = $this->mod_m->obtenerPorId($_POST['txtmod']);
                     $veh= new Vehiculo($_POST['hid'],$_POST['txtmat'],$_POST['txtprecio'],$_POST['txtcant'],$_POST['txtdes'],'',1,$modelo,$tipo);
-                    $this->mod_v->modificame($veh);
-                    Session::set("msg","Vehículo Editado");
+                    $id = $this->mod_v->modificame($veh);
+                    Session::set("msg",(isset($id)) ? "Vehículo Editado" : Session::get('msg'));
                     header("Location:index.php?c=vehiculos&a=index");
                     exit();                                                     
                 }

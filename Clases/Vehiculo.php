@@ -1,6 +1,7 @@
 <?php
 namespace Clases;
-class Vehiculo {
+class Vehiculo 
+{
     private $id;
     private $mat;
     private $precio;
@@ -50,7 +51,7 @@ class Vehiculo {
         $this->cant = $cant;
     }
     function setDescrip($descrip) {
-        $this->descrip = $descrip;
+        $this->descrip = strtoupper($descrip);
     }
     function setFoto($foto) {
         $this->foto = $foto;
@@ -69,18 +70,21 @@ class Vehiculo {
         $this->mat = $xmat;
         $this->precio = $xprecio;
         $this->cant = $xcant;
-        $this->descrip = $xdescrip;
+        $this->descrip = strtoupper($xdescrip);
         $this->foto = $xfoto;
         $this->status = $xstatus;
         $this->modelo = $xmodelo;
         $this->tipo = $xtipo;
     }
-    private function hayStock(){
-        return $this->cant >0;
+    public function equals(Vehiculo $obj){
+        return $this->mat == $obj->mat;                
     }
     public function quitarStock($xcant){
         if($this->hayStock()){
             $this->cant -= $xcant;
         }
+    }
+    private function hayStock(){
+        return $this->cant >0;
     }
 }

@@ -1,11 +1,11 @@
 <?php
 namespace Controller;
-use App\Controller;
-use App\Session;
-use Model\VehiculoModel;
-use Model\CompraModel;
-use Model\PagoModel;
-use Clases\Pago;
+use \App\Controller;
+use \App\Session;
+use \Model\VehiculoModel;
+use \Model\CompraModel;
+use \Model\PagoModel;
+use \Clases\Pago;
 class PagosController extends Controller
 {
     private $mod_v;

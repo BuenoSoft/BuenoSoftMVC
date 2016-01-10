@@ -1,8 +1,9 @@
 <?php
 namespace Model;
 use \PDO;
-use App\Model;
-use Clases\Marca;
+use \App\Model;
+use \App\Session;
+use \Clases\Marca;
 class MarcaModel extends Model
 {
     function __construct() {
@@ -39,16 +40,34 @@ class MarcaModel extends Model
         $consulta->execute(array($marca->getId()));
         return ($consulta->rowCount() > 0) ? $marca->getId() : null;                
     }
+    public function guardame($marca){
+        if($this->check($marca->getNombre())){
+            Session::set('msg', 'La Marca ya existe');
+            return null;
+        }
+        $sql="insert into marcas(marNombre) values(?)";
+        $consulta = $this->getBD()->prepare($sql);
+        $consulta->execute(array($marca->getNombre()));
+        return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
+    }
     public function modificame($marca){
+        $aux = $this->obtenerPorId($marca->getId()); 
+        if(!$marca->equals($aux)){
+            if($this->check($marca->getNombre())){
+                Session::set('msg', 'La Marca ya existe');
+                return null;
+            }        
+        }
         $sql="update marcas set marNombre=? where marId=?";
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($marca->getNombre(),$marca->getId()));
         return ($consulta->rowCount() > 0) ? $marca->getId() : null;
     }
-    public function guardame($marca){
-        $sql="insert into marcas(marNombre) values(?)";
-        $consulta = $this->getBD()->prepare($sql);
-        $consulta->execute(array($marca->getNombre()));
-        return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
+    private function check($unique) { 
+        $query = 'SELECT marId FROM marcas WHERE marNombre = ?'; 
+        $consulta = $this->getBD()->prepare($query); 
+        $consulta->execute([$unique]); 
+        // Indicar si hay algo en la base de datos con este nombre 
+        return $consulta->rowCount() > 0; 
     }
 }

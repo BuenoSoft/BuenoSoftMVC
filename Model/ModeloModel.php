@@ -1,9 +1,10 @@
 <?php
 namespace Model;
 use \PDO;
-use App\Model;
-use Clases\Marca;
-use Clases\Modelo;
+use \App\Model;
+use \App\Session;
+use \Clases\Marca;
+use \Clases\Modelo;
 class ModeloModel extends Model
 {
     private $mod_mar;
@@ -47,16 +48,34 @@ class ModeloModel extends Model
         }
     }   
     public function guardame($modelo){
+        if($this->check($modelo->getNombre())){
+            Session::set('msg', 'El Modelo ya existe');
+            return null;
+        }
         $sql="insert into modelos(modNombre,marId) values(?,?)";
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($modelo->getNombre(),$modelo->getMarca()->getId()));
         return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
     }
     public function modificame($modelo){
+        $aux = $this->obtenerPorId($modelo->getId()); 
+        if(!$modelo->equals($aux)){
+            if($this->check($modelo->getNombre())){
+                Session::set('msg', 'El Modelo ya existe');
+                return null;
+            }        
+        }
         $sql="update modelos set modNombre=?,marId=? where modId=?";
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($modelo->getNombre(),$modelo->getMarca()->getId(),$modelo->getId()));
         return ($consulta->rowCount() > 0) ? $modelo->getId() : null;
+    }
+    private function check($unique) { 
+        $query = 'SELECT modId FROM modelos WHERE modNombre = ?'; 
+        $consulta = $this->getBD()->prepare($query); 
+        $consulta->execute([$unique]); 
+        // Indicar si hay algo en la base de datos con este nombre 
+        return $consulta->rowCount() > 0; 
     }
     public function eliminame($modelo, $notUsed = true){
         $sql="delete from modelos where modId=?";

@@ -1,9 +1,9 @@
 <?php
 namespace Controller;
-use App\Controller;
-use App\Session;
-use Model\MarcaModel;
-use Clases\Marca;
+use \App\Controller;
+use \App\Session;
+use \Model\MarcaModel;
+use \Clases\Marca;
 class MarcasController extends Controller
 {
     private $modelo;
@@ -27,8 +27,8 @@ class MarcasController extends Controller
             if (isset($_POST['btnaceptar'])) {
                 if($this->checkDates()) {  
                     $marca = new Marca(0, $_POST['txtnom']);
-                    $this->modelo->guardame($marca);
-                    Session::set("msg","Marca Creada");
+                    $id = $this->modelo->guardame($marca);
+                    Session::set("msg",(isset($id)) ? "Marca Creada" : Session::get('msg')); 
                     header("Location:index.php?c=marcas&a=index");
                     exit();
                 }
@@ -42,8 +42,8 @@ class MarcasController extends Controller
             if (Session::get('id')!=null && isset($_POST['btnaceptar'])){                             
                 if($this->checkDates()) {  
                     $marca = new Marca($_POST['hid'], $_POST['txtnom']);
-                    $this->modelo->modificame($marca);
-                    Session::set("msg","Marca Editada");
+                    $id = $this->modelo->modificame($marca);
+                    Session::set("msg",(isset($id)) ? "Marca Editada" : Session::get('msg'));
                     header("Location:index.php?c=marcas&a=index");
                     exit();
                 }

@@ -1,8 +1,9 @@
 <?php
 namespace Model;
 use \PDO;
-use App\Model;
-use Clases\TipoCompra;
+use \App\Model;
+use \App\Session;
+use \Clases\TipoCompra;
 class TipocomModel extends Model
 {
     function __construct() {
@@ -20,16 +21,34 @@ class TipocomModel extends Model
         return $datos;
     }
     public function guardame($tc){
+        if($this->check($tc->getNombre())){
+            Session::set('msg', 'El Tipo de compra ya existe');
+            return null;
+        }
         $sql="insert into tipo_compras(tcNombre) values(?)";
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($tc->getNombre()));
         return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
     }
     public function modificame($tc){
+        $aux = $this->obtenerPorId($tc->getId()); 
+        if(!$tc->equals($aux)){
+            if($this->check($tc->getNombre())){
+                Session::set('msg', 'El Tipo de compra ya existe');
+                return null;
+            }        
+        }
         $sql="update tipo_compras set tcNombre=? where tcId=?";
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($tc->getNombre(),$tc->getId()));
         return ($consulta->rowCount() > 0) ? $tc->getId() : null;
+    }
+    private function check($unique) { 
+        $query = 'SELECT tcId FROM tipo_compras WHERE tcNombre = ?'; 
+        $consulta = $this->getBD()->prepare($query); 
+        $consulta->execute([$unique]); 
+        // Indicar si hay algo en la base de datos con este nombre 
+        return $consulta->rowCount() > 0; 
     }
     public function eliminame($tc, $notUsed = true){
         $sql="delete from tipo_compras where tcId=?";

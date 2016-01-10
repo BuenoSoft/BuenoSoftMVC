@@ -1,10 +1,10 @@
 <?php
 namespace Controller;
-use App\Controller;
-use App\Session;
-use Model\UsuarioModel;
-use Model\RolModel;
-use Clases\Usuario;
+use \App\Controller;
+use \App\Session;
+use \Model\UsuarioModel;
+use \Model\RolModel;
+use \Clases\Usuario;
 class UsuariosController extends Controller
 {
     private $mod_r;
@@ -54,8 +54,8 @@ class UsuariosController extends Controller
             if($this->checkDates()) {  
                 $rol = $this->mod_r->obtenerPorId($_POST['txtrol']);
                 $usuario = new Usuario(0, $_POST['txtnick'], md5($_POST['txtpass']), $_POST['txtcor'], $_POST['txtnom'],$_POST['txtape'], 1, $rol);
-                $this->mod_u->guardame($usuario);
-                Session::set("msg","Usuario Creado");
+                $id = $this->mod_u->guardame($usuario);
+                Session::set("msg",(isset($id)) ? "Usuario Creado" : Session::get('msg'));
                 $ruta= $this->checkUser() ? "index.php?c=usuarios&a=index" : "index.php?c=main&a=index";
                 header("Location:".$ruta);                
                 exit();
@@ -72,8 +72,8 @@ class UsuariosController extends Controller
                 if($this->checkDates()) {
                     $rol = $this->mod_r->obtenerPorId($_POST['txtrol']);
                     $usuario = new Usuario($_POST['hid'], $_POST['txtnick'], md5($_POST['txtpass']), $_POST['txtcor'], $_POST['txtnom'],$_POST['txtape'], 1, $rol);
-                    $this->mod_u->modificame($usuario);  
-                    Session::set("msg","Usuario Editado");
+                    $id = $this->mod_u->modificame($usuario);  
+                    Session::set("msg",(isset($id)) ? "Usuario Editado" : Session::get('msg'));
                     header("Location:index.php?c=usuarios&a=index");
                     exit();
                 }

@@ -1,8 +1,8 @@
 <?php
 namespace Controller;
-use App\Controller;
-use App\Session;
-use Model\VehiculoModel;
+use \App\Controller;
+use \App\Session;
+use \Model\VehiculoModel;
 include('./Lib/fpdf/FPDF.php');
 class PdfController extends Controller
 {

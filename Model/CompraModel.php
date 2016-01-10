@@ -1,12 +1,10 @@
 <?php
 namespace Model;
 use \PDO;
-use App\Model;
-use Clases\Rol;
-use Clases\Usuario;
-use Clases\TipoCompra;
-use Clases\Compra;
-use Clases\Pago;
+use \App\Model;
+use \Clases\Usuario;
+use \Clases\Compra;
+use \Clases\Pago;
 class CompraModel extends Model
 {
     private $mod_r;

@@ -1,9 +1,9 @@
 <?php
 namespace Controller;
-use App\Controller;
-use App\Session;
-use Model\TipovehModel;
-use Clases\TipoVehiculo;
+use \App\Controller;
+use \App\Session;
+use \Model\TipovehModel;
+use \Clases\TipoVehiculo;
 class TiposvehController extends Controller
 {
     private $modelo;
@@ -23,8 +23,8 @@ class TiposvehController extends Controller
             if (isset($_POST['btnaceptar'])) {
                 if($this->checkDates()) {  
                     $tv = new TipoVehiculo(0, $_POST['txtnom']);
-                    $this->modelo->guardame($tv);
-                    Session::set("msg","Tipo de Vehículo Creado");
+                    $id = $this->modelo->guardame($tv);
+                    Session::set("msg",(isset($id)) ? "Tipo de Vehículo Creado" : Session::get('msg'));
                     header("Location:index.php?c=tiposveh&a=index");
                     exit();
                 }
@@ -38,8 +38,8 @@ class TiposvehController extends Controller
             if (Session::get('id')!=null && isset($_POST['btnaceptar'])){ 
                 if($this->checkDates()) {         
                     $tv = new TipoVehiculo($_POST['hid'], $_POST['txtnom']);
-                    $this->modelo->modificame($tv);
-                    Session::set("msg","Tipo de Vehículos Editado");
+                    $id = $this->modelo->modificame($tv);
+                    Session::set("msg",(isset($id)) ? "Tipo de Vehículos Editado" : Session::get('msg'));
                     header("Location:index.php?c=tiposveh&a=index");
                     exit();
                 }
