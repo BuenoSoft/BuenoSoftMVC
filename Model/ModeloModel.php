@@ -12,7 +12,7 @@ class ModeloModel extends Model
         parent::__construct();
         $this->mod_mar = new MarcaModel();
     }
-    public function obtenerXDataList($criterio){
+    public function findByMarcas($criterio){
         $datos= array();
         $sql="select * from marcas where marNombre like ? limit 0,10";
         $consulta = $this->getBD()->prepare($sql);
@@ -23,31 +23,31 @@ class ModeloModel extends Model
         }
         return $datos;
     }
-    public function buscador($criterio){
+    public function find($criterio = null){
         $datos= array();
         $sql="select * from modelos where modNombre like ?";
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array("%".$criterio."%")); 
         foreach($consulta->fetchAll(PDO::FETCH_ASSOC) as $row){
-            $marca = $this->mod_mar->obtenerPorId($row['marId']);
+            $marca = $this->mod_mar->findById($row['marId']);
             $modelo = new Modelo($row['modId'], $row['modNombre'],$marca);
             array_push($datos,$modelo);
         }
         return $datos;
     }
-    public function obtenerPorId($id) {
+    public function findById($id) {
         $consulta = $this->getBD()->prepare("SELECT * FROM modelos WHERE modId = ?");
         $consulta->execute(array($id));
         if($consulta->rowCount() > 0) {
             $res= $consulta->fetchAll(PDO::FETCH_ASSOC)[0];
-            $marca = $this->mod_mar->obtenerPorId($res['marId']);
+            $marca = $this->mod_mar->findById($res['marId']);
             return new Modelo($res['modId'], $res['modNombre'],$marca);
         }
         else {
             return null;
         }
     }   
-    public function guardame($modelo){
+    public function create($modelo){
         if($this->check($modelo->getNombre())){
             Session::set('msg', 'El Modelo ya existe');
             return null;
@@ -57,7 +57,7 @@ class ModeloModel extends Model
         $consulta->execute(array($modelo->getNombre(),$modelo->getMarca()->getId()));
         return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
     }
-    public function modificame($modelo){
+    public function update($modelo){
         $aux = $this->obtenerPorId($modelo->getId()); 
         if(!$modelo->equals($aux)){
             if($this->check($modelo->getNombre())){
@@ -77,7 +77,7 @@ class ModeloModel extends Model
         // Indicar si hay algo en la base de datos con este nombre 
         return $consulta->rowCount() > 0; 
     }
-    public function eliminame($modelo, $notUsed = true){
+    public function delete($modelo, $notUsed = true){
         $sql="delete from modelos where modId=?";
         if ($notUsed === true) {
             $sql .= ' AND modId NOT IN (SELECT DISTINCT modId FROM vehiculos)';

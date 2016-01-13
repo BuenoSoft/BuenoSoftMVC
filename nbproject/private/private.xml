@@ -5,16 +5,16 @@
             <url>Controller/ComprasController.php</url>
             <bookmark id="1">
                 <name/>
-                <line>44</line>
+                <line>35</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/html/amnesia_1/Model/RolModel.php</file>
-            <file>file:/var/www/html/amnesia_1/Clases/Rol.php</file>
-            <file>file:/var/www/html/amnesia_1/Controller/RolesController.php</file>
+            <file>file:/var/www/html/amnesia_1/Model/CompraModel.php</file>
+            <file>file:/var/www/html/amnesia_1/Controller/PagosController.php</file>
+            <file>file:/var/www/html/amnesia_1/Clases/Compra.php</file>
         </group>
     </open-files>
 </project-private>

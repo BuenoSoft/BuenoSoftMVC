@@ -9,7 +9,7 @@ class TipocomModel extends Model
     function __construct() {
         parent::__construct();
     }
-    public function obtenerTodos(){
+    public function find($criterio = null){
         $sql="select * from tipo_compras";
         $datos= array();
         $consulta = $this->getBD()->prepare($sql);
@@ -20,7 +20,7 @@ class TipocomModel extends Model
         }
         return $datos;
     }
-    public function guardame($tc){
+    public function create($tc){
         if($this->check($tc->getNombre())){
             Session::set('msg', 'El Tipo de compra ya existe');
             return null;
@@ -30,8 +30,8 @@ class TipocomModel extends Model
         $consulta->execute(array($tc->getNombre()));
         return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
     }
-    public function modificame($tc){
-        $aux = $this->obtenerPorId($tc->getId()); 
+    public function update($tc){
+        $aux = $this->findById($tc->getId()); 
         if(!$tc->equals($aux)){
             if($this->check($tc->getNombre())){
                 Session::set('msg', 'El Tipo de compra ya existe');
@@ -50,7 +50,7 @@ class TipocomModel extends Model
         // Indicar si hay algo en la base de datos con este nombre 
         return $consulta->rowCount() > 0; 
     }
-    public function eliminame($tc, $notUsed = true){
+    public function delete($tc, $notUsed = true){
         $sql="delete from tipo_compras where tcId=?";
         if ($notUsed === true) {
             $sql .= ' AND tcId NOT IN (SELECT DISTINCT tcId FROM compras)';
@@ -59,7 +59,7 @@ class TipocomModel extends Model
         $consulta->execute(array($tc->getId()));
         return ($consulta->rowCount() > 0) ? $tc->getId() : null;
     }
-    public function obtenerPorId($id) {
+    public function findById($id) {
         $consulta = $this->getBD()->prepare("SELECT * FROM tipo_compras WHERE tcId = ?");
         $consulta->execute(array($id));
         if($consulta->rowCount() > 0) {

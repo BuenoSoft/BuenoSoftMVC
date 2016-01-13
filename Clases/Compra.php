@@ -1,6 +1,8 @@
 <?php
 namespace Clases;
-class Compra 
+use \App\IPersiste;
+use \Model\CompraModel;
+class Compra implements IPersiste
 {
     private $id;
     private $fecha;
@@ -10,6 +12,7 @@ class Compra
     private $user;
     private $veh;
     private $pagos;
+    private $modelo;
     function getId() {
         return $this->id;
     }
@@ -55,7 +58,7 @@ class Compra
     function setPagos($pagos) {
         $this->pagos = $pagos;
     }
-    function __construct($xid, $xfecha, $xcuotas, $xcant, $xtipo, $xuser, $xveh) {
+    function __construct($xid = 0, $xfecha = null, $xcuotas = null, $xcant = null, $xtipo = null, $xuser = null, $xveh = null) {
         $this->id = $xid;
         $this->fecha = $xfecha;
         $this->cuotas = $xcuotas;
@@ -83,4 +86,39 @@ class Compra
         }
         return false;
     }
+    public function save(){
+        $this->modelo = new CompraModel();
+        return ($this->id == 0) ? $this->modelo->create($this) : $this->modelo->update($this); 
+    }
+    public function find($criterio = null){
+        $this->modelo = new CompraModel();
+        return $this->modelo->find($criterio); 
+    }
+    public function findById($id){
+        $this->modelo = new CompraModel();
+        return $this->modelo->findById($id);
+    }
+    public function findByClientes($criterio){
+        $this->modelo = new CompraModel();
+        return $this->modelo->findByClientes($criterio);
+    }
+    public function findByVeh($criterio){
+        $this->modelo = new CompraModel();
+        return $this->modelo->findByVeh($criterio);
+    }
+    public function add_pago($pago){
+        $this->modelo = new CompraModel();
+        return $this->modelo->add_pago($this,$pago);
+    }
+    public function del_pago($pago){
+        $this->modelo = new CompraModel();
+        return $this->modelo->del_pago($this,$pago);
+    }
+    public function find_pago($pago_id){
+        $this->modelo = new CompraModel();
+        return $this->modelo->find_pago($this->id, $pago_id);
+    }
+
+    public function del() { }
+
 }

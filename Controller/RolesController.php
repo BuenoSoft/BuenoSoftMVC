@@ -2,19 +2,16 @@
 namespace Controller;
 use \App\Controller;
 use \App\Session;
-use \Model\RolModel;
 use \Clases\Rol;
 class RolesController extends Controller 
 {
-    private $modelo;
     function __construct() {
         parent::__construct();
-        $this->modelo= new RolModel();
     }
     public function index(){
         if($this->checkUser()){
             $this->redirect(array("index.php"),array(
-                "roles" => $this->modelo->obtenerTodos()
+                "roles" => (new Rol())->find()
             )); 
         }   
     }
@@ -23,7 +20,7 @@ class RolesController extends Controller
             if (isset($_POST['btnaceptar'])) {
                 if($this->checkDates()) {                
                     $rol = new Rol(0, $_POST['txtnom']);
-                    $id= $this->modelo->guardame($rol);
+                    $id = $rol->save();
                     Session::set("msg",(isset($id)) ? "Rol Creado" : Session::get('msg')); 
                     header("Location:index.php?c=roles&a=index");
                     exit();
@@ -38,22 +35,22 @@ class RolesController extends Controller
             if (Session::get('id')!=null && isset($_POST['btnaceptar'])){                             
                 if($this->checkDates()) {                
                     $rol= new Rol($_POST['hid'],$_POST['txtnom']);
-                    $id= $this->modelo->modificame($rol);
+                    $id = $rol->save();
                     Session::set("msg",(isset($id)) ? "Rol Editado" : Session::get('msg'));
                     header("Location:index.php?c=roles&a=index");
                     exit();
                 }
             }
             $this->redirect(array('edit.php'),array(
-                "rol" => $this->modelo->obtenerPorId(Session::get('id'))
+                "rol" => (new Rol())->findById(Session::get('id'))
             ));
         }        
     }
     public function delete(){
         if($this->checkUser()){
             if (isset($_GET['p'])){
-                $rol = $this->modelo->obtenerPorId($_GET['p']);
-                $id= $this->modelo->eliminame($rol);
+                $rol = (new Rol())->findById($_GET['p']);
+                $id= $rol->del();
                 Session::set("msg", (isset($id)) ? "Rol Borrado" : "No se pudo borrar el rol");
                 header("Location:index.php?c=roles&a=index");
             }                           
@@ -69,7 +66,7 @@ class RolesController extends Controller
         }
     }
     private function checkUser(){
-        if(Session::get("log_in")!= null and Session::get("log_in")->getRol()->getNombre() == "admin"){
+        if(Session::get("log_in")!= null and Session::get("log_in")->getRol()->getNombre() == "ADMIN"){
             return true;
         }
         else {

@@ -2,17 +2,12 @@
 namespace Controller;
 use \App\Controller;
 use \App\Session;
-use \Model\UsuarioModel;
-use \Model\RolModel;
+use \Clases\Rol;
 use \Clases\Usuario;
 class UsuariosController extends Controller
 {
-    private $mod_r;
-    private $mod_u;
     function __construct(){
         parent::__construct();
-        $this->mod_u= new UsuarioModel();
-        $this->mod_r= new RolModel();
     }
     public function login(){
         if(Session::isLoggedIn()){
@@ -24,10 +19,10 @@ class UsuariosController extends Controller
             if(empty($_POST['user']) or empty($_POST['pass'])){ 
                 Session::set("msg","Ingrese los datos obligatorios (*) para continuar.");
             } else {
-                $usuario = $this->mod_u->login(array($_POST['user'],$_POST['pass']));
+                $usuario = (new Usuario())->findByLogin(array($_POST['user'],$_POST['pass']));
                 if (isset($usuario)){
                     Session::login();
-                    Session::set("log_in",$usuario);                    
+                    Session::set("log_in",$usuario);  
                     Session::set("msg","Acceso concedido... Usuario: ". $usuario->getNick());
                     header("Location:index.php?c=main&a=index");
                     exit();
@@ -52,9 +47,9 @@ class UsuariosController extends Controller
     public function add(){
         if (isset($_POST['btnaceptar'])) {
             if($this->checkDates()) {  
-                $rol = $this->mod_r->obtenerPorId($_POST['txtrol']);
+                $rol = (new Rol())->findById($_POST['txtrol']);
                 $usuario = new Usuario(0, $_POST['txtnick'], md5($_POST['txtpass']), $_POST['txtcor'], $_POST['txtnom'],$_POST['txtape'], 1, $rol);
-                $id = $this->mod_u->guardame($usuario);
+                $id = $usuario->save();
                 Session::set("msg",(isset($id)) ? "Usuario Creado" : Session::get('msg'));
                 $ruta= $this->checkUser() ? "index.php?c=usuarios&a=index" : "index.php?c=main&a=index";
                 header("Location:".$ruta);                
@@ -62,7 +57,7 @@ class UsuariosController extends Controller
             }
         }
         $this->redirect(array('add.php'), array(
-            "roles" => $this->mod_r->obtenerTodos()
+            "roles" => (new Rol())->obtenerTodos()
         ));
     }
     public function edit(){        
@@ -70,17 +65,17 @@ class UsuariosController extends Controller
             Session::set("id",$_GET['p']);
             if (Session::get('id')!=null && isset($_POST['btnaceptar'])){                            
                 if($this->checkDates()) {
-                    $rol = $this->mod_r->obtenerPorId($_POST['txtrol']);
+                    $rol = (new Rol())->findById($_POST['txtrol']);
                     $usuario = new Usuario($_POST['hid'], $_POST['txtnick'], md5($_POST['txtpass']), $_POST['txtcor'], $_POST['txtnom'],$_POST['txtape'], 1, $rol);
-                    $id = $this->mod_u->modificame($usuario);  
+                    $id = $usuario->save();  
                     Session::set("msg",(isset($id)) ? "Usuario Editado" : Session::get('msg'));
                     header("Location:index.php?c=usuarios&a=index");
                     exit();
                 }
             }
             $this->redirect(array('edit.php'), array(
-                "usuario" => $this->mod_u->obtenerPorId(Session::get('id')),
-                "roles" => $this->mod_r->obtenerTodos()
+                "usuario" => (new Usuario())->findById(Session::get('id')),
+                "roles" => (new Rol())->find()
             ));
         }
     }
@@ -88,8 +83,8 @@ class UsuariosController extends Controller
     public function delete(){
         if($this->checkUser()){
             if (isset($_GET['p'])){
-                $usuario = $this->mod_u->obtenerPorId($_GET['p']);
-                $id = $this->mod_u->eliminame($usuario);                
+                $usuario = (new Usuario())->findById($_GET['p']);
+                $id = $usuario->del();                
                 Session::set("msg", (isset($id)) ? "Usuario Borrado" : "No se pudo borrar el usuario");
                 header("Location:index.php?c=usuarios&a=index");
             }            
@@ -98,8 +93,8 @@ class UsuariosController extends Controller
     public function reload(){
         if($this->checkUser()){
             if (isset($_GET['p'])){
-                $usuario = $this->mod_u->obtenerPorId($_GET['p']);
-                $id = $this->mod_u->reactivame($usuario);
+                $usuario = (new Usuario())->findById($_GET['p']);
+                $id = $usuario->rec();
                 Session::set("msg", (isset($id)) ? "Usuario Reactivado" : "No se pudo reactivar el usuario");
                 header("Location:index.php?c=usuarios&a=index");
             }        
@@ -109,7 +104,7 @@ class UsuariosController extends Controller
         if($this->checkUser()){
             Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
             Session::set('b',(isset($_POST['txtbuscador'])) ? $_POST['txtbuscador'] : Session::get('b'));     
-            $usuarios= (Session::get('b')!="") ? $this->getPaginator()->paginar($this->mod_u->buscador(Session::get('b')), Session::get('p')) : array();
+            $usuarios= (Session::get('b')!="") ? $this->getPaginator()->paginar((new Usuario)->find(Session::get('b')), Session::get('p')) : array();
             $this->redirect(array("index.php"),array(
                 "usuarios" => $usuarios,
                 "paginador" => $this->getPaginator()->getPages()
@@ -126,7 +121,7 @@ class UsuariosController extends Controller
         }
     }
     private function checkUser(){
-        if(Session::get("log_in")!= null and Session::get("log_in")->getRol()->getNombre() == "admin"){
+        if(Session::get("log_in")!= null and Session::get("log_in")->getRol()->getNombre() == "ADMIN"){
             return true;
         }
         else {

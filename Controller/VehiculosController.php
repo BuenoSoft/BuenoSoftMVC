@@ -3,29 +3,22 @@ namespace Controller;
 use \App\Controller;
 use \App\Session;
 use \Lib\Upload;
-use \Model\ModeloModel;
-use \Model\TipovehModel;
-use \Model\VehiculoModel;
+use \Clases\TipoVehiculo;
+use \Clases\Modelo;
 use \Clases\Vehiculo;
 class VehiculosController extends Controller
 {
     private $upload;
-    private $mod_m;
-    private $mod_tv;
-    private $mod_v;
     function __construct() {
         parent::__construct();
-        $this->upload = new Upload("vehiculos");
-        $this->mod_m = new ModeloModel();
-        $this->mod_tv = new TipovehModel();
-        $this->mod_v = new VehiculoModel();
+        $this->upload = new Upload("vehiculos");        
     }
     public function index(){
         if($this->checkUser()){
             Session::set('mod','');
             Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
             Session::set('b',(isset($_POST['txtbuscador'])) ? $_POST['txtbuscador'] : Session::get('b'));
-            $vehiculos =(Session::get('b')!="") ? $this->getPaginator()->paginar($this->mod_v->buscador(Session::get('b')), Session::get('p')) : array();
+            $vehiculos =(Session::get('b')!="") ? $this->getPaginator()->paginar((new Vehiculo())->find(Session::get('b')), Session::get('p')) : array();
             $this->redirect(array("index.php"),array(
                 "vehiculos" => $vehiculos,
                 "paginador" => $this->getPaginator()->getPages()
@@ -35,16 +28,16 @@ class VehiculosController extends Controller
     public function add(){
         if($this->checkUser()){
             Session::set('mod', isset($_POST['txtmod']) ? $_POST['txtmod'] : Session::get('mod'));
-            $modelos=(Session::get('mod')!="") ? $this->mod_v->obtenerXDataList(Session::get('mod')) : array(); 
+            $modelos=(Session::get('mod')!="") ? (new Vehiculo())->findByModelos(Session::get('mod')) : array(); 
             if (isset($_POST['btnaceptar'])) {
                 if($this->checkDates()) {
                     if(isset($_FILES['foto'])){
                         $ruta= $this->upload->uploadImage($_FILES['foto']);
                         if($ruta!= null){
-                            $tipo = $this->mod_tv->obtenerPorId(htmlspecialchars($_POST['txt_tipo']));
-                            $modelo = $this->mod_m->obtenerPorId(htmlspecialchars($_POST['txtmod']));                            
+                            $tipo = (new TipoVehiculo())->findById(htmlspecialchars($_POST['txt_tipo']));
+                            $modelo = (new Modelo())->findById(htmlspecialchars($_POST['txtmod']));                            
                             $veh= new Vehiculo(0,$_POST['txtmat'],$_POST['txtprecio'],$_POST['txtcant'],$_POST['txtdes'],$ruta,1,$modelo,$tipo);
-                            $id = $this->mod_v->guardame($veh);
+                            $id = $veh->save();
                             Session::set("msg",(isset($id)) ? "Vehículo Creado" : Session::get('msg'));
                             header("Location:index.php?c=vehiculos&a=index");
                             exit();
@@ -54,7 +47,7 @@ class VehiculosController extends Controller
             }
             $this->redirect(array('add.php'),array(
                 'modelos' => $modelos,
-                'tiposveh' => $this->mod_tv->obtenerTodos()
+                'tiposveh' => (new TipoVehiculo())->find()
             ));
         }
     }
@@ -62,22 +55,22 @@ class VehiculosController extends Controller
         if($this->checkUser()){
             Session::set("id",$_GET['p']);
             Session::set('mod', isset($_POST['txtmod']) ? $_POST['txtmod'] : Session::get('mod'));
-            $modelos = (Session::get('mod')!="") ? $this->mod_v->obtenerXDataList(Session::get('mod')) : array();
+            $modelos = (Session::get('mod')!="") ? (new Vehiculo())->findByModelos(Session::get('mod')) : array();
             if (Session::get('id')!=null && isset($_POST['btnaceptar'])){
                 if($this->checkDates()) {
-                    $tipo = $this->mod_tv->obtenerPorId($_POST['txt_tipo']);
-                    $modelo = $this->mod_m->obtenerPorId($_POST['txtmod']);
+                    $tipo = (new TipoVehiculo())->findById($_POST['txt_tipo']);
+                    $modelo = (new Modelo())->findById($_POST['txtmod']);
                     $veh= new Vehiculo($_POST['hid'],$_POST['txtmat'],$_POST['txtprecio'],$_POST['txtcant'],$_POST['txtdes'],'',1,$modelo,$tipo);
-                    $id = $this->mod_v->modificame($veh);
+                    $id = $veh->save();
                     Session::set("msg",(isset($id)) ? "Vehículo Editado" : Session::get('msg'));
                     header("Location:index.php?c=vehiculos&a=index");
                     exit();                                                     
                 }
             }
             $this->redirect(array('edit.php'), array(
-                'vehiculo' => $this->mod_v->obtenerPorId(Session::get('id')),
+                'vehiculo' => (new Vehiculo())->findById(Session::get('id')),
                 'modelos' => $modelos,
-                'tiposveh' => $this->mod_tv->obtenerTodos()
+                'tiposveh' => (new TipoVehiculo())->find()
             ));
         }
     }
@@ -87,24 +80,24 @@ class VehiculosController extends Controller
                 if(isset($_FILES['foto'])){
                     $ruta= $this->upload->uploadImage($_FILES['foto']);
                     if($ruta!= null){
-                        $veh = $this->mod_v->obtenerPorId(Session::get('id'));
+                        $veh = (new Vehiculo())->findById(Session::get('id'));
                         $veh->setFoto($ruta);
-                        $this->mod_v->mod_foto($veh);
+                        $veh->saveImg();
                         header("Location:index.php?c=vehiculos&a=edit&p=".$veh->getId());
                         exit();                    
                     }
                 }                                             
             }
             $this->redirect(array('foto.php'),array(
-                'vehiculo' => $this->mod_v->obtenerPorId(Session::get('id'))
+                'vehiculo' => (new Vehiculo())->findById(Session::get('id'))
             ));
         }
     }
     public function delete(){
         if($this->checkUser()){
             if (isset($_GET['p'])){
-                $veh = $this->mod_v->obtenerPorId($_GET['p']);
-                $id = $this->mod_v->eliminame($veh);
+                $veh = (new Vehiculo())->findById($_GET['p']);
+                $id = $veh->del();
                 Session::set("msg", (isset($id)) ? "Vehículo Borrado" : "No se pudo borrar el vehículo");
                 header("Location:index.php?c=vehiculos&a=index");               
             }            
@@ -113,8 +106,8 @@ class VehiculosController extends Controller
     public function reload(){
         if($this->checkUser()){
             if (isset($_GET['p'])){
-                $veh = $this->mod_v->obtenerPorId($_GET['p']);
-                $id = $this->mod_v->reactivame($veh);
+                $veh = (new Vehiculo())->findById($_GET['p']);
+                $id = $veh->rec();
                 Session::set("msg", (isset($id)) ? "Vehículo Reactivado" : "No se pudo reactivar el vehículo");
                 header("Location:index.php?c=vehiculos&a=index");                
             }                     
@@ -134,7 +127,7 @@ class VehiculosController extends Controller
         }
     }
     private function checkUser(){
-        if(Session::get("log_in")!= null and Session::get("log_in")->getRol()->getNombre() == "admin"){
+        if(Session::get("log_in")!= null and Session::get("log_in")->getRol()->getNombre() == "ADMIN"){
             return true;
         }
         else {

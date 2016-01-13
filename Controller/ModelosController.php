@@ -2,24 +2,19 @@
 namespace Controller;
 use \App\Controller;
 use \App\Session;
-use \Model\MarcaModel;
-use \Model\ModeloModel;
+use \Clases\Marca;
 use \Clases\Modelo;
 class ModelosController extends Controller
 {
-    private $mod_mar;
-    private $mod_mod;
     function __construct() {
         parent::__construct();
-        $this->mod_mar = new MarcaModel();
-        $this->mod_mod = new ModeloModel();
     }
     public function index(){
         if($this->checkUser()){
             Session::set('mar', '');
             Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
             Session::set('b',(isset($_POST['txtbuscador'])) ? $_POST['txtbuscador'] : Session::get('b'));
-            $modelos =(Session::get('b')!="") ? $this->getPaginator()->paginar($this->mod_mod->buscador(Session::get('b')), Session::get('p')) : array();
+            $modelos =(Session::get('b')!="") ? $this->getPaginator()->paginar((new Modelo)->find(Session::get('b')), Session::get('p')) : array();
             $this->redirect(array("index.php"),array(
                 "modelos" => $modelos,
                 "paginador" => $this->getPaginator()->getPages()
@@ -29,12 +24,12 @@ class ModelosController extends Controller
     public function add(){
         if($this->checkUser()){ 
             Session::set('mar', isset($_POST['txtmar']) ? $_POST['txtmar'] : Session::get('mar'));
-            $marcas = (Session::get('mar')!="") ? $this->mod_mod->obtenerXDataList(Session::get('mar')) : array();
+            $marcas = (Session::get('mar')!="") ? (new Modelo)->findByMarcas(Session::get('mar')) : array();
             if (isset($_POST['btnaceptar'])) {
                 if($this->checkDates()) {
-                    $marca = $this->mod_mar->obtenerPorId($_POST['txtmar']);
+                    $marca = (new Marca())->findById($_POST['txtmar']);
                     $modelo = new Modelo(0,$_POST['txtnom'] , $marca);
-                    $id = $this->mod_mod->guardame($modelo);
+                    $id = $modelo->save();
                     Session::set("msg",(isset($id)) ? "Modelo Creado" : Session::get('msg')); 
                     header("Location:index.php?c=modelos&a=index");
                     exit();
@@ -49,19 +44,19 @@ class ModelosController extends Controller
         if($this->checkUser()){           
             Session::set("id",$_GET['p']);
             Session::set('mar', isset($_POST['txtmar']) ? $_POST['txtmar'] : Session::get('mar'));
-            $marcas = (Session::get('mar')!="") ? $this->mod_mod->obtenerXDataList(Session::get('mar')) : array();
+            $marcas = (Session::get('mar')!="") ? (new Modelo)->findByMarcas(Session::get('mar')) : array();
             if (Session::get('id')!=null && isset($_POST['btnaceptar'])){                                         
                 if($this->checkDates()) { 
-                    $marca = $this->mod_mar->obtenerPorId($_POST['txtmar']);
+                    $marca = (new Marca())->findById($_POST['txtmar']);
                     $modelo = new Modelo($_POST['hid'],$_POST['txtnom'] , $marca);
-                    $id = $this->mod_mod->modificame($modelo);
+                    $id = $modelo->save();
                     Session::set("msg",(isset($id)) ? "Modelo Editado" : Session::get('msg'));
                     header("Location:index.php?c=modelos&a=index");
                     exit();
                 }
             }
             $this->redirect(array('edit.php'),array(
-                "modelo" => $this->mod_mod->obtenerPorId(Session::get('id')),
+                "modelo" => (new Modelo)->findById(Session::get('id')),
                 'marcas' => $marcas
             ));
         }
@@ -69,8 +64,8 @@ class ModelosController extends Controller
     public function delete(){
         if($this->checkUser()){
             if (isset($_GET['p'])){
-                $modelo= $this->mod_mod->obtenerPorId($_GET['p']);
-                $id = $this->mod_mod->eliminame($modelo);
+                $modelo= (new Modelo)->findById($_GET['p']);
+                $id = $modelo->del();
                 Session::set("msg", (isset($id)) ? "Modelo Borrado" : "No se pudo borrar el modelo");
                 header("Location:index.php?c=modelos&a=index"); 
             }                           
@@ -86,7 +81,7 @@ class ModelosController extends Controller
         }
     }
     private function checkUser(){
-        if(Session::get("log_in")!= null and Session::get("log_in")->getRol()->getNombre() == "admin"){
+        if(Session::get("log_in")!= null and Session::get("log_in")->getRol()->getNombre() == "ADMIN"){
             return true;
         }
         else {

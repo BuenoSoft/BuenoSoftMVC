@@ -5,7 +5,8 @@
  * @author detectivejd
  */
 namespace App;
-abstract class Model {
+abstract class Model implements IModel
+{
     protected $db;
     function __construct() {
         $this->db = new Database();

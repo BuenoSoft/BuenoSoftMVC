@@ -2,19 +2,16 @@
 namespace Controller;
 use \App\Controller;
 use \App\Session;
-use \Model\TipocomModel;
 use \Clases\TipoCompra;
 class TiposcomController extends Controller
 {
-    private $modelo;
     function __construct() {
         parent::__construct();
-        $this->modelo= new TipocomModel();
     }
     public function index(){
         if($this->checkUser()){
             $this->redirect(array("index.php"),array(
-                "tiposcom" => $this->modelo->obtenerTodos()
+                "tiposcom" => (new TipoCompra())->find()
             )); 
         }    
     }
@@ -23,7 +20,7 @@ class TiposcomController extends Controller
             if (isset($_POST['btnaceptar'])) {
                 if($this->checkDates()) { 
                     $tc= new TipoCompra(0, $_POST['txtnom']);
-                    $id = $this->modelo->guardame($tc);
+                    $id = $tc->save();
                     Session::set("msg",(isset($id)) ? "Tipo de Compra Creada" : Session::get('msg'));
                     header("Location:index.php?c=tiposcom&a=index");
                     exit();
@@ -38,22 +35,22 @@ class TiposcomController extends Controller
             if (Session::get('id')!=null && isset($_POST['btnaceptar'])){                             
                 if($this->checkDates()) {     
                     $tc= new TipoCompra($_POST['hid'], $_POST['txtnom']);
-                    $id = $this->modelo->modificame($tc);
+                    $id = $tc->save();
                     Session::set("msg",(isset($id)) ? "Tipo de Compra Editada" : Session::get('msg'));
                     header("Location:index.php?c=tiposcom&a=index"); 
                     exit();
                 }
             }
             $this->redirect(array('edit.php'),array(
-                "tipocom" => $this->modelo->obtenerPorId(Session::get('id'))
+                "tipocom" => (new TipoCompra())->findById(Session::get('id'))
             ));
         }       
     }
     public function delete(){
         if($this->checkUser()){
             if (isset($_GET['p'])){
-                $tc = $this->modelo->obtenerPorId($_GET['p']); 
-                $id = $this->modelo->eliminame($tc);
+                $tc = (new TipoCompra())->findById($_GET['p']); 
+                $id = $tc->del($tc);
                 Session::set("msg", (isset($id)) ? "Tipo de Compra Borrada" : "No se pudo borrar el tipo");
                 header("Location:index.php?c=tiposcom&a=index");
             }                           
@@ -73,7 +70,7 @@ class TiposcomController extends Controller
         }
     }
     private function checkUser(){
-        if(Session::get("log_in")!= null and Session::get("log_in")->getRol()->getNombre() == "admin"){
+        if(Session::get("log_in")!= null and Session::get("log_in")->getRol()->getNombre() == "ADMIN"){
             return true;
         }
         else {

@@ -9,7 +9,7 @@ class RolModel extends Model
     function __construct() {
         parent::__construct();
     }
-    public function obtenerTodos(){
+    public function find($criterio = null){
         $sql="select * from roles";
         $datos= array();
         $consulta = $this->getBD()->prepare($sql);
@@ -20,7 +20,7 @@ class RolModel extends Model
         }
         return $datos;
     }
-    public function guardame($rol){
+    public function create($rol){
         if($this->check($rol->getNombre())){
             Session::set('msg', 'El rol ya existe');
             return null;
@@ -30,8 +30,8 @@ class RolModel extends Model
         $consulta->execute(array($rol->getNombre()));
         return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
     }
-    public function modificame($rol){
-        $aux = $this->obtenerPorId($rol->getId()); 
+    public function update($rol){
+        $aux = $this->findById($rol->getId()); 
         if(!$rol->equals($aux)){
             if($this->check($rol->getNombre())){
                 Session::set('msg', 'El rol ya existe');
@@ -50,7 +50,7 @@ class RolModel extends Model
         // Indicar si hay algo en la base de datos con este nombre 
         return $consulta->rowCount() > 0; 
     }
-    public function eliminame($rol, $notUsed = true) {
+    public function delete($rol, $notUsed = true) {
         $sql = "DELETE FROM roles WHERE rolId = ?";
         if ($notUsed === true) {
             $sql .= ' AND rolId NOT IN (SELECT DISTINCT rolId FROM usuarios)';
@@ -59,7 +59,7 @@ class RolModel extends Model
         $consulta->execute(array($rol->getId()));
         return ($consulta->rowCount() > 0) ? $rol->getId() : null;
     }
-    public function obtenerPorId($id) {
+    public function findById($id) {
         $consulta = $this->getBD()->prepare("SELECT * FROM roles WHERE rolId = ?");
         $consulta->execute(array($id));
         if($consulta->rowCount() > 0) {

@@ -9,7 +9,7 @@ class MarcaModel extends Model
     function __construct() {
         parent::__construct();
     }
-    public function buscador($criterio){
+    public function find($criterio = null){
         $datos= array();
         $sql="select * from marcas where marNombre like ?";
         $consulta = $this->getBD()->prepare($sql);
@@ -20,7 +20,7 @@ class MarcaModel extends Model
         }
         return $datos;
     }
-    public function obtenerPorId($id) {
+    public function findById($id) {
         $consulta = $this->getBD()->prepare("SELECT * FROM marcas WHERE marId = ?");
         $consulta->execute(array($id));
         if($consulta->rowCount() > 0) {
@@ -31,7 +31,7 @@ class MarcaModel extends Model
             return null;
         }
     }
-    public function eliminame($marca, $notUsed = true){
+    public function delete($marca, $notUsed = true){
         $sql="delete from marcas where marId=?";
         if ($notUsed === true) {
             $sql .= ' AND marId NOT IN (SELECT DISTINCT marId FROM modelos)';
@@ -40,7 +40,7 @@ class MarcaModel extends Model
         $consulta->execute(array($marca->getId()));
         return ($consulta->rowCount() > 0) ? $marca->getId() : null;                
     }
-    public function guardame($marca){
+    public function create($marca){
         if($this->check($marca->getNombre())){
             Session::set('msg', 'La Marca ya existe');
             return null;
@@ -50,7 +50,7 @@ class MarcaModel extends Model
         $consulta->execute(array($marca->getNombre()));
         return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
     }
-    public function modificame($marca){
+    public function update($marca){
         $aux = $this->obtenerPorId($marca->getId()); 
         if(!$marca->equals($aux)){
             if($this->check($marca->getNombre())){

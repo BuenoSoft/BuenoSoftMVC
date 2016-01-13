@@ -1,6 +1,8 @@
 <?php
 namespace Clases;
-class Usuario 
+use \App\IPersiste;
+use \Model\UsuarioModel;
+class Usuario implements IPersiste
 {
     private $id;
     private $nick;
@@ -10,6 +12,7 @@ class Usuario
     private $apellido;
     private $status;
     private $rol;
+    private $modelo;
     function getId() {
         return $this->id;
     }
@@ -55,7 +58,7 @@ class Usuario
     function setRol($rol) {
         $this->rol = $rol;
     }
-    function __construct($xid, $xnick, $xpass, $xcorreo, $xnombre, $xapellido, $xstatus, $xrol) {
+    function __construct($xid = 0, $xnick = null, $xpass = null, $xcorreo = null, $xnombre = null, $xapellido = null, $xstatus = null, $xrol = null) {
         $this->id = $xid;
         $this->nick = $xnick;
         $this->pass = $xpass;
@@ -67,5 +70,29 @@ class Usuario
     }
     public function equals(Usuario $obj){
         return $this->nick == $obj->nick;                
+    }  
+    public function save(){
+        $this->modelo = new UsuarioModel();
+        return ($this->id == 0) ? $this->modelo->create($this) : $this->modelo->update($this); 
+    }
+    public function del(){
+        $this->modelo = new UsuarioModel();
+        return $this->modelo->delete($this);
+    }
+    public function rec(){
+        $this->modelo = new UsuarioModel();
+        return $this->modelo->reactive($this);
+    }
+    public function find($criterio = null){
+        $this->modelo = new UsuarioModel();
+        return $this->modelo->find($criterio); 
+    }
+    public function findById($id){
+        $this->modelo = new UsuarioModel();
+        return $this->modelo->findById($id);
+    }
+    public function findByLogin($dates = array()){
+        $this->modelo = new UsuarioModel();
+        return $this->modelo->findBylogin($dates);
     }
 }

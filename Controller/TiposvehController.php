@@ -2,19 +2,16 @@
 namespace Controller;
 use \App\Controller;
 use \App\Session;
-use \Model\TipovehModel;
 use \Clases\TipoVehiculo;
 class TiposvehController extends Controller
 {
-    private $modelo;
     function __construct() {
         parent::__construct();
-        $this->modelo= new TipovehModel();
     }
     public function index(){
         if($this->checkUser()){
             $this->redirect(array("index.php"), array(
-                "tiposveh" => $this->modelo->obtenerTodos()
+                "tiposveh" => (new TipoVehiculo())->find()
             )); 
         } 
     }
@@ -23,7 +20,7 @@ class TiposvehController extends Controller
             if (isset($_POST['btnaceptar'])) {
                 if($this->checkDates()) {  
                     $tv = new TipoVehiculo(0, $_POST['txtnom']);
-                    $id = $this->modelo->guardame($tv);
+                    $id = $tv->save();
                     Session::set("msg",(isset($id)) ? "Tipo de Vehículo Creado" : Session::get('msg'));
                     header("Location:index.php?c=tiposveh&a=index");
                     exit();
@@ -38,22 +35,22 @@ class TiposvehController extends Controller
             if (Session::get('id')!=null && isset($_POST['btnaceptar'])){ 
                 if($this->checkDates()) {         
                     $tv = new TipoVehiculo($_POST['hid'], $_POST['txtnom']);
-                    $id = $this->modelo->modificame($tv);
+                    $id = $tv->save();
                     Session::set("msg",(isset($id)) ? "Tipo de Vehículos Editado" : Session::get('msg'));
                     header("Location:index.php?c=tiposveh&a=index");
                     exit();
                 }
             }
             $this->redirect(array('edit.php'),array(
-                "tv" => $this->modelo->obtenerPorId(Session::get('id'))
+                "tv" => (new TipoVehiculo())->findById(Session::get('id'))
             ));
         }        
     }
     public function delete(){
         if($this->checkUser()){
             if (isset($_GET['p'])){
-                $tv = $this->modelo->obtenerPorId($_GET['p']); 
-                $id = $this->modelo->eliminame($tv);
+                $tv = (new TipoVehiculo())->findById($_GET['p']); 
+                $id = $tv->del($tv);
                 Session::set("msg", (isset($id)) ? "Tipo de Vehículo Borrado" : "No se pudo borrar el tipo");
                 header("Location:index.php?c=tiposveh&a=index");
             }                            
@@ -69,7 +66,7 @@ class TiposvehController extends Controller
         }
     }
     private function checkUser(){
-        if(Session::get("log_in")!= null and Session::get("log_in")->getRol()->getNombre() == "admin"){
+        if(Session::get("log_in")!= null and Session::get("log_in")->getRol()->getNombre() == "ADMIN"){
             return true;
         }
         else {

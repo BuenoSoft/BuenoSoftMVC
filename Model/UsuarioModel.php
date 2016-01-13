@@ -11,20 +11,8 @@ class UsuarioModel extends Model
         parent::__construct();
         $this->mod_r= new RolModel();
     }    
-    public function login($load = array()){
-        $sql="select * from usuarios where usuNick = :user and usuPass = :pass and usuStatus = 1";
-        $consulta = $this->getBD()->prepare($sql);        
-        $consulta->execute(array('user' =>$load[0],'pass' => md5($load[1])));
-        if ($consulta->rowCount() > 0) {            
-            $res= $consulta->fetchAll(PDO::FETCH_ASSOC)[0];
-            $rol= $this->mod_r->obtenerPorId($res['rolId']);
-            return new Usuario($res['usuId'], $res['usuNick'], $res['usuPass'], $res['usuMail'], $res['usuNombre'], $res['usuApellido'], $res['usuStatus'], $rol);
-        }
-        else {
-            return null;
-        }
-    }
-    public function guardame($usuario){
+    
+    public function create($usuario){
         if($this->check($usuario->getNick())){
             Session::set('msg', 'El usuario ya existe');
             return null;
@@ -39,7 +27,7 @@ class UsuarioModel extends Model
             );
         return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
     }
-    public function modificame($usuario){
+    public function update($usuario){
         $aux = $this->obtenerPorId($usuario->getId()); 
         if(!$usuario->equals($aux)){
             if($this->check($usuario->getNombre())){
@@ -65,40 +53,53 @@ class UsuarioModel extends Model
         // Indicar si hay algo en la base de datos con este nombre 
         return $consulta->rowCount() > 0; 
     }
-    public function eliminame($usuario){
+    public function delete($usuario, $notUsed = true){
         $sql="update usuarios set usuStatus=0 where usuId=?";
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($usuario->getId()));
         return ($consulta->rowCount() > 0) ? $usuario->getId(): null;
     }
-    public function reactivame($usuario){
+    public function reactive($usuario){
         $sql="update usuarios set usuStatus=1 where usuId=?";
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($usuario->getId()));
         return ($consulta->rowCount() > 0) ? $usuario->getId() : null;
     }
-    public function obtenerPorId($id) {
+    public function find($criterio = null){
+        $datos= array();        
+        $sql="SELECT * FROM usuarios u where u.usuNick like ?";
+        $consulta = $this->getBD()->prepare($sql);
+        $consulta->execute(array("%".$criterio."%"));
+        foreach($consulta->fetchAll(PDO::FETCH_ASSOC) as $row){
+            $rol= $this->mod_r->findById($row['rolId']);
+            $usuario = new Usuario($row['usuId'], $row['usuNick'], $row['usuPass'], $row['usuMail'], $row['usuNombre'],$row['usuApellido'], $row['usuStatus'], $rol);
+            array_push($datos,$usuario);
+        }
+        return $datos;
+    }
+    public function findById($id) {
         $consulta = $this->getBD()->prepare("SELECT * FROM usuarios WHERE usuId = ?");
         $consulta->execute(array($id));
         if($consulta->rowCount() > 0) {
             $res= $consulta->fetchAll(PDO::FETCH_ASSOC)[0];
-            $rol= $this->mod_r->obtenerPorId($res['rolId']);
+            $rol= $this->mod_r->findById($res['rolId']);
             return new Usuario($res['usuId'], $res['usuNick'], $res['usuPass'], $res['usuMail'], $res['usuNombre'], $res['usuApellido'], $res['usuStatus'], $rol);
         }
         else {
             return null;
         }
     }
-    public function buscador($criterio){
-        $datos= array();        
-        $sql="SELECT * FROM usuarios u where u.usuNick like ?";
-        $consulta = $this->getBD()->prepare($sql);
-        $consulta->execute(array("%".$criterio."%"));
-        foreach($consulta->fetchAll(PDO::FETCH_ASSOC) as $row){
-            $rol= $this->mod_r->obtenerPorId($row['rolId']);
-            $usuario = new Usuario($row['usuId'], $row['usuNick'], $row['usuPass'], $row['usuMail'], $row['usuNombre'],$row['usuApellido'], $row['usuStatus'], $rol);
-            array_push($datos,$usuario);
+    public function findBylogin($load = array()){
+        $sql="select * from usuarios where usuNick = :user and usuPass = :pass and usuStatus = 1";
+        $consulta = $this->getBD()->prepare($sql);        
+        $consulta->execute(array('user' =>$load[0],'pass' => md5($load[1])));
+        if ($consulta->rowCount() > 0) {            
+            $res= $consulta->fetchAll(PDO::FETCH_ASSOC)[0];
+            $rol= $this->mod_r->findById($res['rolId']);
+            return new Usuario($res['usuId'], $res['usuNick'], $res['usuPass'], $res['usuMail'], $res['usuNombre'], $res['usuApellido'], $res['usuStatus'], $rol);
         }
-        return $datos;
-    }
+        else {
+            return null;
+        }
+    }    
 }

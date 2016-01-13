@@ -2,16 +2,14 @@
 namespace Controller;
 use \App\Controller;
 use \App\Session;
-use \Model\VehiculoModel;
+use \Clases\Vehiculo;
 include('./Lib/fpdf/FPDF.php');
 class PdfController extends Controller
 {
     private $pdf;
-    private $mod_v;
     function __construct() {
         parent::__construct();
         $this->pdf = new \FPDF();
-        $this->mod_v = new VehiculoModel();
     }
    public function rep_vehiculos(){
         if($this->checkUser()){
@@ -27,7 +25,7 @@ class PdfController extends Controller
             $this->pdf->Cell(40,5,'Modelo',1);
             $this->pdf->Cell(30,5,'Tipo',1);
             $this->pdf->Ln(8);
-            foreach ($this->mod_v->obtenerTodos() as $vehiculo){
+            foreach ((new Vehiculo())->find() as $vehiculo){
                 $this->pdf->Cell(30,5,$vehiculo->getId(),1);
                 $this->pdf->Cell(30,5,$vehiculo->getMat(),1);
                 $this->pdf->Cell(30,5,$vehiculo->getCant(),1);
@@ -40,7 +38,7 @@ class PdfController extends Controller
         }
     }
     private function checkUser(){
-        if(Session::get("log_in")!= null and Session::get("log_in")->getRol()->getNombre() == "admin"){
+        if(Session::get("log_in")!= null and Session::get("log_in")->getRol()->getNombre() == "ADMIN"){
             return true;
         }
         else {

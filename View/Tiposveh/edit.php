@@ -11,6 +11,6 @@
     </table>
     <p>
         <input type="submit" value="Aceptar" name="btnaceptar" />&nbsp;
-        <a href="index.php?c=roles&a=index"><input type="button" value="Cancelar" name="btncancelar" /></a>            
+        <a href="index.php?c=tiposveh&a=index"><input type="button" value="Cancelar" name="btncancelar" /></a>            
     </p>
 </form>

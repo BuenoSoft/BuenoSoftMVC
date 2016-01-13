@@ -10,7 +10,7 @@
             <td>
                 <input id="tcom" list="tipcompras" required="required" name="txttipcom" value="<?php echo \App\Session::get('tic'); ?>" />
                 <datalist id="tipcompras">
-                    <?php foreach (Session::get('tiposcom') as $tipocom) { ?>
+                    <?php foreach ($tiposcom as $tipocom) { ?>
                         <option value="<?php echo $tipocom->getId(); ?>"><?php echo $tipocom->getNombre(); ?></option> 
                     <?php } ?>                   
                 </datalist>
@@ -21,7 +21,7 @@
             <td>
                 <input id="cli" list="clientes" required="required" name="txtcli" value="<?php echo \App\Session::get('cli'); ?>" />
                 <datalist id="clientes">
-                    <?php foreach(Session::get('clientes') as $cliente) { ?>
+                    <?php foreach($clientes as $cliente) { ?>
                         <option value="<?php echo $cliente->getId(); ?>"><?php echo $cliente->getNick(); ?></option>
                     <?php } ?>
                 </datalist> &nbsp;
@@ -33,7 +33,7 @@
             <td>
                 <input id="veh" list="vehiculos" required="required" name="txtveh" value="<?php echo \App\Session::get('veh'); ?>" />
                 <datalist id="vehiculos">
-                    <?php foreach(Session::get('vehiculos') as $vehiculo) { ?>
+                    <?php foreach($vehiculos as $vehiculo) { ?>
                         <option value="<?php echo $vehiculo->getId(); ?>"><?php echo $vehiculo->getMat(); ?></option> 
                     <?php } ?>
                 </datalist> &nbsp;

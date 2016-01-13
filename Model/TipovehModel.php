@@ -9,7 +9,7 @@ class TipovehModel extends Model
     function __construct() {
         parent::__construct();
     }
-    public function obtenerTodos(){
+    public function find($criterio = null){
         $sql="select * from tipo_vehiculos";
         $datos= array();
         $consulta = $this->getBD()->prepare($sql);
@@ -20,7 +20,7 @@ class TipovehModel extends Model
         }
         return $datos;
     }
-    public function guardame($tv){
+    public function create($tv){
         if($this->check($tv->getNombre())){
             Session::set('msg', 'El Tipo de vehículo ya existe');
             return null;
@@ -30,11 +30,11 @@ class TipovehModel extends Model
         $consulta->execute(array($tv->getNombre()));
         return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
     }
-    public function modificame($tv){
-        $aux = $this->obtenerPorId($tv->getId()); 
+    public function update($tv){
+        $aux = $this->findById($tv->getId()); 
         if(!$tv->equals($aux)){
             if($this->check($tv->getNombre())){
-                Session::set('msg', 'El rol ya existe');
+                Session::set('msg', 'El Tipo de vehículo ya existe');
                 return null;
             }        
         }
@@ -50,7 +50,7 @@ class TipovehModel extends Model
         // Indicar si hay algo en la base de datos con este nombre 
         return $consulta->rowCount() > 0; 
     }
-    public function eliminame($tv, $notUsed = true){
+    public function delete($tv, $notUsed = true){
         $sql="delete from tipo_vehiculos where tvId=?";
         if ($notUsed === true) {
             $sql .= ' AND tvId NOT IN (SELECT DISTINCT tvId FROM vehiculos)';
@@ -59,7 +59,7 @@ class TipovehModel extends Model
         $consulta->execute(array($tv->getId()));
         return ($consulta->rowCount() > 0) ? $tv->getId() : null;                
     }
-    public function obtenerPorId($id) {
+    public function findById($id) {
         $consulta = $this->getBD()->prepare("SELECT * FROM tipo_vehiculos WHERE tvId = ?");
         $consulta->execute(array($id));
         if($consulta->rowCount() > 0) {
