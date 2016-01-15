@@ -36,4 +36,15 @@ abstract class Controller
     protected function getPaginator(){
         return $this->paginador;
     }
+    protected function checkUser(){
+        if(Session::get("log_in")!= null and Session::get("log_in")->getRol()->getNombre() == $this->getTypeRole()){
+            return true;
+        }
+        else {
+            Session::set("msg","Debe loguearse como ". $this->getMessageRole() ." para acceder.");
+            $this->redirect(array('Main','index.php'));
+        }
+    }
+    protected function getMessageRole(){ }
+    protected function getTypeRole(){ }
 }

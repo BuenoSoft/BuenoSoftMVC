@@ -24,7 +24,7 @@ class CompraModel extends Model
         $this->mod_m = new ModeloModel();
         $this->mod_p = new PagoModel();
     }
-    public function find($criterio){
+    public function find($criterio = null){
         $datos= array();
         $sql="select c.comId as id, c.tcId as tipoc, c.usuId as usuario, c.vehId as veh, c.comFecha as fecha, "
                 . "c.comCuotas as cuotas, c.comCantidad as cant from compras c inner join usuarios u on "

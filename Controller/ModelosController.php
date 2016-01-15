@@ -80,13 +80,10 @@ class ModelosController extends Controller
             return true;
         }
     }
-    private function checkUser(){
-        if(Session::get("log_in")!= null and Session::get("log_in")->getRol()->getNombre() == "ADMIN"){
-            return true;
-        }
-        else {
-            Session::set("msg","Debe ser administrador para acceder.");
-            $this->redirect(array('Main','index.php'));
-        }
+    protected function getMessageRole() {
+        return "administrador";
+    }
+    protected function getTypeRole() {
+        return "ADMIN";
     }
 }

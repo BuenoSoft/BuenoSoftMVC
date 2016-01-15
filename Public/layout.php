@@ -16,7 +16,11 @@
                         <div id="top_menu">
                             <ul>
                                 <?php if(\App\Session::isLoggedIn() == true){ ?>
-                                    <li><a href="index.php?c=usuarios&a=tareas">Tareas</a></li>
+                                    <?php if(\App\Session::get("log_in")!= null and \App\Session::get("log_in")->getRol()->getNombre() == "ADMIN"){ ?>
+                                        <li><a href="index.php?c=usuarios&a=tareas">Tareas</a></li>
+                                    <?php } else if(\App\Session::get("log_in")!= null and \App\Session::get("log_in")->getRol()->getNombre() == "NORMAL"){ ?>  
+                                        <li><a href="index.php?c=consultas&a=index">Consultas</a></li>
+                                    <?php } ?>    
                                     <li><a href="index.php?c=usuarios&a=logout">Cerrar Sesión</a></li>                                   
                                 <?php } else { ?>
                                     <li><a href="index.php?c=usuarios&a=login">Iniciar Sesión</a></li>

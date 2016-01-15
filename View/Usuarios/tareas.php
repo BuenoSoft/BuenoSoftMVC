@@ -1,3 +1,4 @@
+    <h3>Tareas del Administrador</h3>
     <a href="index.php?c=usuarios&a=index">Mantenimiento de Usuarios</a>
     <br />
     <a href="index.php?c=roles&a=index">Mantenimiento de Roles</a>

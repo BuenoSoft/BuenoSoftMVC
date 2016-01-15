@@ -60,8 +60,8 @@ class ComprasController extends Controller
             Session::set('tic', isset($_POST['txttipcom']) ? $_POST['txttipcom'] : $compra->getTipo()->getId());
             Session::set('cli', isset($_POST['txtcli']) ? $_POST['txtcli'] : $compra->getUser()->getId());
             Session::set('veh', isset($_POST['txtveh']) ? $_POST['txtveh'] : $compra->getVeh()->getId());
-            $clientes = (Session::get('cli')!="") ? (new Compra())->obtenerXCliente(Session::get('cli')) : array();
-            $vehiculos = (Session::get('veh')!="") ? (new Compra())->obtenerXVeh(Session::get('veh')) : array();
+            $clientes = (Session::get('cli')!="") ? (new Compra())->findByClientes(Session::get('cli')) : array();
+            $vehiculos = (Session::get('veh')!="") ? (new Compra())->findByVeh(Session::get('veh')) : array();
             if (Session::get('id')!=null && isset($_POST['btnaceptar'])){
                  if($this->checkDates()) {
                     $tipo =  (new TipoCompra())->findById($_POST['txttipcom']);
@@ -109,13 +109,10 @@ class ComprasController extends Controller
             return true;
         }
     }
-    private function checkUser(){
-        if(Session::get("log_in")!= null and Session::get("log_in")->getRol()->getNombre() == "ADMIN"){
-            return true;
-        }
-        else {
-            Session::set("msg","Debe ser administrador para acceder.");
-            $this->redirect(array('Main','index.php'));
-        }
-    } 
+    protected function getMessageRole() {
+        return "administrador";
+    }
+    protected function getTypeRole() {
+        return "ADMIN";
+    }
 }

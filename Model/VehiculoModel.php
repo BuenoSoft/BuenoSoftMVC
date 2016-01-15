@@ -69,7 +69,7 @@ class VehiculoModel extends Model
         return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
     }
     public function update($veh){
-        $aux = $this->obtenerPorId($veh->getId()); 
+        $aux = $this->findById($veh->getId()); 
         if(!$veh->equals($aux)){
             if($this->check($veh->getMat())){
                 Session::set('msg', 'El vehículo ya existe');
@@ -94,7 +94,7 @@ class VehiculoModel extends Model
         $consulta->execute(array($veh->getFoto(),$veh->getId()));
         return ($consulta->rowCount() > 0) ? $veh->getId() : null;
     }
-    public function delete($veh){
+    public function delete($veh,$notUsed = true){
         $sql="update vehiculos set vehStatus=0 where vehId=?";
         $consulta = $this->getBD()->prepare($sql);
         $consulta->execute(array($veh->getId()));
