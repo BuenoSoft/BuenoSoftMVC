@@ -76,15 +76,9 @@ class Compra implements IPersiste
         $d=strtotime("+30 Days");
         return ($this->cuotas == $this->obtenerNroPago()) ? date("Y/m/d") : date("Y/m/d",$d);       
     }
-    public function checkFecVenc(){        
-        $last=count($this->pagos)-1;
-        if($last >-1){
-            $pago=$this->pagos[$last];
-            if(date("Y/m/d") > $pago->getFecVenc()){
-                return true;
-            }
-        }
-        return false;
+    public function checkFecVenc(){  
+        $this->modelo = new CompraModel();
+        return $this->modelo->checkFecVenc($this);
     }
     public function save(){
         $this->modelo = new CompraModel();

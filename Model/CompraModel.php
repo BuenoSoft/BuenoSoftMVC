@@ -30,7 +30,7 @@ class CompraModel extends Model
                 . "c.comCuotas as cuotas, c.comCantidad as cant from compras c inner join usuarios u on "
                 . "c.usuId = u.usuId where u.usuNick like ?";
         $consulta = $this->getBD()->prepare($sql);
-        $consulta->execute(array("%".$criterio."%"));
+        $consulta->execute(["%".$criterio."%"]);
         foreach($consulta->fetchAll(PDO::FETCH_ASSOC) as $row){
             $tipo = $this->mod_tc->findById($row['tipoc']);
             $user = $this->mod_u->findById($row['usuario']);
@@ -43,7 +43,7 @@ class CompraModel extends Model
     }
     public function findById($id){
         $consulta = $this->getBD()->prepare("SELECT * FROM compras WHERE comId = ?");
-        $consulta->execute(array($id));
+        $consulta->execute([$id]);
         if($consulta->rowCount() > 0) {
             $res = $consulta->fetchAll(PDO::FETCH_ASSOC)[0];
             $tipo = $this->mod_tc->findById($res['tcId']);
@@ -64,7 +64,7 @@ class CompraModel extends Model
                 . "inner join roles r on u.rolId = r.rolId where u.usuStatus = 1 and not r.rolNombre = 'admin' "
                 . "and u.usuNick like ? limit 0,10";
         $consulta = $this->getBD()->prepare($sql);
-        $consulta->execute(array("%".$criterio."%"));
+        $consulta->execute(["%".$criterio."%"]);
         foreach($consulta->fetchAll(PDO::FETCH_ASSOC) as $row){
             $rol= $this->mod_r->findById($row['rol']);
             $usuario = new Usuario($row['id'], $row['nick'], $row['pass'], $row['mail'], $row['nom'],$row['ape'], $row['status'], $rol);
@@ -76,7 +76,7 @@ class CompraModel extends Model
         $datos= array();
         $sql="select * from vehiculos where vehCantidad > 0 and vehMatricula like ? limit 0,10";
         $consulta = $this->getBD()->prepare($sql);
-        $consulta->execute(array("%".$criterio."%"));
+        $consulta->execute(["%".$criterio."%"]);
         foreach($consulta->fetchAll(PDO::FETCH_ASSOC) as $row){
             $tipo = $this->mod_tv->findById($row['tvId']); 
             $modelo = $this->mod_m->findById($row['modId']);
@@ -88,7 +88,7 @@ class CompraModel extends Model
     private function findPagosByCompra($com){
         $datos = array();
         $consulta = $this->getBD()->prepare("SELECT * from pagos where comId = ? order by pagId desc");
-        $consulta->execute(array($com->getId()));
+        $consulta->execute([$com->getId()]);
         foreach($consulta->fetchAll(PDO::FETCH_ASSOC) as $row){
             $pago = new Pago($row['pagId'], $row['pagFecPago'], $row['pagFecVenc'], $row['pagMonto']);
             array_push($datos, $pago); 
@@ -98,15 +98,22 @@ class CompraModel extends Model
     public function create($compra){
         $sql="insert into compras(tcId,usuId,vehId,comFecha,comCuotas,comCantidad) values(?,?,?,?,?,?)";
         $consulta = $this->getBD()->prepare($sql);
-        $consulta->execute(array($compra->getTipo()->getId(),$compra->getUser()->getId(),$compra->getVeh()->getId(),$compra->getFecha(),$compra->getCuotas(),$compra->getCant()));
+        $consulta->execute([$compra->getTipo()->getId(),$compra->getUser()->getId(),
+            $compra->getVeh()->getId(),$compra->getFecha(),$compra->getCuotas(),$compra->getCant()]);
         return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
     }
     public function update($compra){
         $sql="update compras set tcId=?,usuId=?,vehId=?,comFecha=?,comCuotas=?,comCantidad=? where comId=?";
         $consulta = $this->getBD()->prepare($sql);
-        $consulta->execute(array($compra->getTipo()->getId(),$compra->getUser()->getId(),$compra->getVeh()->getId(),$compra->getFecha(),$compra->getCuotas(),$compra->getCant(),$compra->getId()));
+        $consulta->execute([$compra->getTipo()->getId(),$compra->getUser()->getId(),$compra->getVeh()->getId(),
+            $compra->getFecha(),$compra->getCuotas(),$compra->getCant(),$compra->getId()]);
         return ($consulta->rowCount() > 0) ? $compra->getId() : null;
     }  
+    public function checkFecVenc($compra){
+        $consulta = $this->getBD()->prepare("SELECT pagFecVenc as vence from pagos where comId = ? order by pagId desc limit 0,1");
+        $consulta->execute([$compra->getId()]);
+        return count($this->findPagosByCompra($compra))>0 and date("Y-m-d") > $consulta->fetch(PDO::FETCH_ASSOC)['vence'];
+    } 
     public function add_pago($com,$pago){
         return $this->mod_p->add_pago($com, $pago);
     }

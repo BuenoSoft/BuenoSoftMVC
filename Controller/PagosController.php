@@ -12,12 +12,12 @@ class PagosController extends Controller
     public function index(){
         if($this->checkUser()){
             Session::set("id",$_GET['p']);
-            $com = (new Compra())->obtenerPorId(Session::get('id'));
+            $com = (new Compra())->findById(Session::get('id'));
             Session::set('pg', isset($_GET['pg']) ? $_GET['pg'] : 1);
             if($com->getCuotas() == $com->obtenerNroPago() -1){
                 Session::set("msg","Deuda Saldada...");
             }
-            else if($com->checkFecVenc() == true){ 
+            else if($com->checkFecVenc()){ 
                 Session::set("msg","Pago atrasado...");            
             }           
             $this->redirect(array('index.php'),array(
@@ -29,7 +29,7 @@ class PagosController extends Controller
     public function add(){
         if($this->checkUser()){
             Session::set("id",$_GET['p']);
-            $com = (new Compra())->obtenerPorId(Session::get('id'));
+            $com = (new Compra())->findById(Session::get('id'));
             if (isset($_POST['btnaceptar'])) {
                 if($this->checkDates()) {
                     $pago = new Pago($_POST['hpag'], $_POST['hfec'], $com->generarFecVenc(), $_POST['txtmonto']);
@@ -48,7 +48,7 @@ class PagosController extends Controller
         if($this->checkUser()){
             Session::set("id",$_GET['p']);
             if (isset($_GET['pag'])){
-                $com = (new Compra())->obtenerPorId(Session::get('id'));
+                $com = (new Compra())->findById(Session::get('id'));
                 $pag= $com->find_pago($_GET['pag']);
                 $id = $com->del_pago($pag);
                 Session::set("msg", (isset($id)) ? "Pago Borrado" : "No se pudo borrar el pago");
@@ -61,7 +61,7 @@ class PagosController extends Controller
             Session::set("msg","Asegurese de ingresar el monto y/o que sea un nro entero");
             return false;
         }
-        else if((new Compra())->obtenerPorId(Session::get('id'))->getCuotas() == (new Compra())->obtenerPorId(Session::get('id'))->obtenerNroPago() -1){
+        else if((new Compra())->findById(Session::get('id'))->getCuotas() == (new Compra())->findById(Session::get('id'))->obtenerNroPago() -1){
             Session::set("msg","Deuda Saldada.. no puede registrar más pagos");
             return false;
         }
