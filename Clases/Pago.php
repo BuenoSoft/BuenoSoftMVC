@@ -1,11 +1,11 @@
 <?php
 namespace Clases;
-class Pago 
-{
+class Pago {
     private $id;
     private $fecpago;
     private $fecvenc;
     private $monto;
+    private $cuotas;
     function getId() {
         return $this->id;
     }
@@ -27,10 +27,17 @@ class Pago
     function setMonto($monto) {
         $this->monto = $monto;
     }
-    function __construct($xid, $xfecpago, $xfecvenc, $xmonto) {
-        $this->id = $xid;
-        $this->fecpago = $xfecpago;
-        $this->fecvenc = $xfecvenc;
-        $this->monto = $xmonto;
+    function getCuotas() {
+        return $this->cuotas;
+    }
+    function setCuotas($cuotas) {
+        $this->cuotas = $cuotas;
+    }
+    function __construct($id, $fecpago, $fecvenc, $monto, $cuotas) {
+        $this->id = $id;
+        $this->fecpago = $fecpago;
+        $this->fecvenc = $fecvenc;
+        $this->monto = $monto;
+        $this->cuotas = $cuotas;
     }
 }

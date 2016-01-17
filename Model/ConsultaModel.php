@@ -109,7 +109,7 @@ class ConsultaModel extends Model
         $consulta = $this->getBD()->prepare("SELECT * from pagos where comId = ? order by pagId desc");
         $consulta->execute([$com->getId()]);
         foreach($consulta->fetchAll(PDO::FETCH_ASSOC) as $row){
-            $pago = new Pago($row['pagId'], $row['pagFecPago'], $row['pagFecVenc'], $row['pagMonto']);
+            $pago = new Pago($row['pagId'], $row['pagFecPago'], $row['pagFecVenc'], $row['pagMonto'],$row['pagCuotas']);
             array_push($datos, $pago); 
         } 
         return $datos;

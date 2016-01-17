@@ -3,6 +3,11 @@
     <a href="index.php?c=pagos&a=add&p=<?php echo \App\Session::get('id'); ?>">[Crear]</a>&nbsp;
     <a href="index.php?c=compras&a=index">[Volver]</a>
 </p>
+<p>
+    <strong>Pago Total:<?php echo " $".$compra->obtenerPagoTotal(); ?></strong>&nbsp;
+    <strong>Pago Mínimo:<?php echo " $" .$compra->obtenerPagoMinimo(); ?></strong>&nbsp;
+    <strong>Cuotas Restantes:<?php echo " " .$compra->obtenerCuotasRestantes(); ?></strong>
+</p>
 <table>
     <thead>
         <th></th>
@@ -10,6 +15,7 @@
         <th>Fecha de Pago</th>
         <th>Fecha de Vencimiento</th>
         <th>Monto del Pago</th>
+        <th>Cuotas Pagadas</th>
     </thead>
     <tbody>
         <?php foreach ($pagos as $pago) { ?>
@@ -18,7 +24,8 @@
                 <td><?php echo $pago->getId(); ?></td>
                 <td><?php echo $pago->getFecpago(); ?></td>
                 <td><?php echo $pago->getFecvenc(); ?></td>
-                <td><?php echo $pago->getMonto(); ?></td>
+                <td><?php echo "$".$pago->getMonto(); ?></td>
+                <td><?php echo $pago->getCuotas(); ?></td>
             </tr>
         <?php } ?>
     </tbody>

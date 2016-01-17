@@ -68,18 +68,38 @@ class Compra implements IPersiste
         $this->veh = $xveh;
         $this->pagos = array();
     }
-    public function obtenerNroPago(){
-        $nro = count($this->pagos);
-        return ($nro == 0) ? 1 : $nro +1; 
+    public function obtenerPagoTotal(){
+        return $this->veh->getPrecio() * $this->cant;
+    }
+    public function obtenerPagoMinimo(){
+        return $this->obtenerPagoTotal() / $this->cuotas;
+    }
+    public function obtenerCuotasRestantes(){
+        return $this->cuotas - count($this->pagos);
     }
     public function generarFecVenc(){
-        $d=strtotime("+30 Days");
-        return ($this->cuotas == $this->obtenerNroPago()) ? date("Y/m/d") : date("Y/m/d",$d);       
+        if($this->cuotas == $this->find_max_pago()){ 
+            return date("Y-m-d");
+        } 
+        else {
+            $MaxDias = 30;
+            for ($i=0; $i<$MaxDias; $i++) {  
+                $Segundos += 86400;            
+                $caduca = date("D",time()+$Segundos);  
+                if ($caduca == "Sat") {  
+                    $i--;  
+                }  
+                else if ($caduca == "Sun"){  
+                    $i--;  
+                }  
+                else {  
+                    $FechaFinal = date("Y-m-d",time()+$Segundos);  
+                }  
+            } 
+            return $FechaFinal;
+        }
     }
-    public function checkFecVenc(){  
-        $this->modelo = new CompraModel();
-        return $this->modelo->checkFecVenc($this);
-    }
+    
     public function save(){
         $this->modelo = new CompraModel();
         return ($this->id == 0) ? $this->modelo->create($this) : $this->modelo->update($this); 
@@ -112,7 +132,13 @@ class Compra implements IPersiste
         $this->modelo = new CompraModel();
         return $this->modelo->find_pago($this->id, $pago_id);
     }
-
+    public function find_max_pago(){
+        $this->modelo = new CompraModel();
+        return $this->modelo->find_max_pago($this->id);
+    }
+    public function check_fec_venc(){  
+        $this->modelo = new CompraModel();
+        return $this->modelo->check_fec_venc($this->id);
+    }
     public function del() { }
-
 }

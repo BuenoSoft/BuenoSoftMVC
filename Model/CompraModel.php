@@ -4,7 +4,6 @@ use \PDO;
 use \App\Model;
 use \Clases\Usuario;
 use \Clases\Compra;
-use \Clases\Pago;
 class CompraModel extends Model
 {
     private $mod_r;
@@ -36,7 +35,7 @@ class CompraModel extends Model
             $user = $this->mod_u->findById($row['usuario']);
             $veh = $this->mod_v->findById($row['veh']);
             $com = new Compra($row['id'], $row['fecha'], $row['cuotas'], $row['cant'], $tipo, $user, $veh);
-            $com->setPagos($this->findPagosByCompra($com));
+            $com->setPagos($this->find_pagos($com->getId()));
             array_push($datos, $com);          
         }
         return $datos;
@@ -50,7 +49,7 @@ class CompraModel extends Model
             $user = $this->mod_u->findById($res['usuId']);
             $veh = $this->mod_v->findById($res['vehId']);
             $com = new Compra($res['comId'], $res['comFecha'], $res['comCuotas'], $res['comCantidad'], $tipo, $user, $veh);
-            $com->setPagos($this->findPagosByCompra($com));
+            $com->setPagos($this->find_pagos($com->getId()));
             return $com;
         }
         else {
@@ -84,17 +83,7 @@ class CompraModel extends Model
             array_push($datos, $veh);
         }
         return $datos;
-    }
-    private function findPagosByCompra($com){
-        $datos = array();
-        $consulta = $this->getBD()->prepare("SELECT * from pagos where comId = ? order by pagId desc");
-        $consulta->execute([$com->getId()]);
-        foreach($consulta->fetchAll(PDO::FETCH_ASSOC) as $row){
-            $pago = new Pago($row['pagId'], $row['pagFecPago'], $row['pagFecVenc'], $row['pagMonto']);
-            array_push($datos, $pago); 
-        } 
-        return $datos;
-    }
+    }    
     public function create($compra){
         $sql="insert into compras(tcId,usuId,vehId,comFecha,comCuotas,comCantidad) values(?,?,?,?,?,?)";
         $consulta = $this->getBD()->prepare($sql);
@@ -108,12 +97,7 @@ class CompraModel extends Model
         $consulta->execute([$compra->getTipo()->getId(),$compra->getUser()->getId(),$compra->getVeh()->getId(),
             $compra->getFecha(),$compra->getCuotas(),$compra->getCant(),$compra->getId()]);
         return ($consulta->rowCount() > 0) ? $compra->getId() : null;
-    }  
-    public function checkFecVenc($compra){
-        $consulta = $this->getBD()->prepare("SELECT pagFecVenc as vence from pagos where comId = ? order by pagId desc limit 0,1");
-        $consulta->execute([$compra->getId()]);
-        return count($this->findPagosByCompra($compra))>0 and date("Y-m-d") > $consulta->fetch(PDO::FETCH_ASSOC)['vence'];
-    } 
+    }       
     public function add_pago($com,$pago){
         return $this->mod_p->add_pago($com, $pago);
     }
@@ -122,6 +106,15 @@ class CompraModel extends Model
     }
     public function find_pago($com_id,$pago_id){
         return $this->mod_p->find_pago($com_id, $pago_id);
+    }
+    public function find_max_pago($com){
+        return $this->mod_p->find_max_pago($com);
+    }
+    public function find_pagos($com){
+        return $this->mod_p->find_pagos($com);
+    }
+    public function check_fec_venc($com){
+        return $this->mod_p->check_fec_venc($com);
     }
     public function delete($object, $notUsed = true) { }
 }

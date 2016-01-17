@@ -37,7 +37,7 @@ class ComprasController extends Controller
                     $tipo =  (new TipoCompra())->findById($_POST['txttipcom']);
                     $user = (new Usuario())->findById($_POST['txtcli']);
                     $veh = (new Vehiculo())->findById($_POST['txtveh']); 
-                    $com = new Compra(0, $_POST['dtfecha'], $_POST['txtcuotas'], $_POST['txtcant'], $tipo, $user, $veh);
+                    $com = new Compra(0, $_POST['dtfecha'], $this->checkTypeCuota($tipo), $_POST['txtcant'], $tipo, $user, $veh);
                     $com->save();
                     $veh->quitarStock($com->getCant());
                     $veh->save();
@@ -67,7 +67,7 @@ class ComprasController extends Controller
                     $tipo =  (new TipoCompra())->findById($_POST['txttipcom']);
                     $user = (new Usuario())->findById($_POST['txtcli']);
                     $veh = (new Vehiculo())->findById($_POST['txtveh']); 
-                    $com = new Compra($_POST['hid'], $_POST['dtfecha'], $_POST['txtcuotas'], $_POST['txtcant'], $tipo, $user, $veh);
+                    $com = new Compra($_POST['hid'], $_POST['dtfecha'], $this->checkTypeCuota($tipo), $_POST['txtcant'], $tipo, $user, $veh);
                     $com->save();
                     $veh->quitarStock($com->getCant());
                     $veh->save();
@@ -108,6 +108,9 @@ class ComprasController extends Controller
         else {
             return true;
         }
+    }
+    private function checkTypeCuota($tipo){
+        return ($tipo->getNombre() == "CONTADO" ? 1 : $_POST['txtcuotas']);
     }
     protected function getMessageRole() {
         return "administrador";
