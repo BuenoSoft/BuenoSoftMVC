@@ -3,6 +3,7 @@ namespace Model;
 use \PDO;
 use \App\Model;
 use \Clases\Usuario;
+use \Clases\Vehiculo;
 use \Clases\Compra;
 class CompraModel extends Model
 {
@@ -109,6 +110,9 @@ class CompraModel extends Model
     }
     public function find_max_pago($com){
         return $this->mod_p->find_max_pago($com);
+    }
+    public function find_sum_cuotas($com){
+        return $this->mod_p->find_sum_cuotas($com);
     }
     public function find_pagos($com){
         return $this->mod_p->find_pagos($com);

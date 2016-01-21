@@ -5,6 +5,7 @@
         try {
             $rootPath = dirname(__FILE__);
             $file = realpath($rootPath . DS . str_replace("\\", DS, $clase) . ".php");
+            //var_dump($file ."<br />");
             require_once $file;        
         }  
         catch (Exception $ex){

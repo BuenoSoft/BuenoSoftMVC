@@ -68,7 +68,7 @@ class Vehiculo implements IPersiste
     function setTipo($tipo) {
         $this->tipo = $tipo;
     }
-    function __construct($xid =0, $xmat = null, $xprecio = null, $xcant = null, $xdescrip = null, $xfoto = null, $xstatus = null, $xmodelo = null, $xtipo = null) {
+    function __construct($xid = 0, $xmat = null, $xprecio = null, $xcant = null, $xdescrip = null, $xfoto = null, $xstatus = null, $xmodelo = null, $xtipo = null) {
         $this->id = $xid;
         $this->mat = $xmat;
         $this->precio = $xprecio;

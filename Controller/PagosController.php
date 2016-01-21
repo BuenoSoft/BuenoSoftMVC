@@ -63,7 +63,7 @@ class PagosController extends Controller
             Session::set("msg","Asegurese de ingresar el monto y/o cuotas sean nros enteros");
             return false;
         }
-        else if($_POST['txtmonto'] < (new Compra())->findById(Session::get('id'))->obtenerPagoMinimo()){
+        else if($_POST['txtmonto'] < (new Compra())->findById(Session::get('id'))->obtenerPagoMinimo() * $_POST['txtcuotas']){
             Session::set("msg","Monto no válido.. Ingrese nuevamente el monto");
             return false;
         }

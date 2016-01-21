@@ -29,7 +29,7 @@ class PagoModel extends Model
         $consulta->execute(array($com_id,$pago_id));
         if($consulta->rowCount() > 0) {
             $res = $consulta->fetchAll(PDO::FETCH_ASSOC)[0];
-            return new Pago($res['pagId'], $res['pagFecPago'], $res['pagFecVenc'], $res['pagMonto']); 
+            return new Pago($res['pagId'], $res['pagFecPago'], $res['pagFecVenc'], $res['pagMonto'],$res['pagCuotas']); 
         }
         else {
             return null;
@@ -39,6 +39,11 @@ class PagoModel extends Model
         $consulta = $this->getBD()->prepare("SELECT max(pagId) as pago from pagos where comId = ?");
         $consulta->execute(array($com));
         return $consulta->fetch(PDO::FETCH_ASSOC)['pago'] +1;
+    }
+    public function find_sum_cuotas($com){
+        $consulta = $this->getBD()->prepare("SELECT sum(pagCuotas) as cuotas from pagos where comId = ?");
+        $consulta->execute(array($com));
+        return $consulta->fetch(PDO::FETCH_ASSOC)['cuotas'];
     }
     public function check_fec_venc($com){
         $consulta = $this->getBD()->prepare("SELECT pagFecVenc as vence from pagos where comId = ? order by pagId desc limit 0,1");
