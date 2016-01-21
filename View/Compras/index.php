@@ -25,7 +25,7 @@
                 <td><?php echo $compra->getId(); ?></td>
                 <td><?php echo $compra->getUser()->getNick(); ?></td>
                 <td><?php echo $compra->getFecha(); ?></td>
-                <td><?php echo count($compra->getPagos())."/".$compra->getCuotas(); ?></td>
+                <td><?php echo $compra->obtenerCuotasPagadas()."/".$compra->getCuotas(); ?></td>
             </tr>
         <?php }?>
     </tbody>

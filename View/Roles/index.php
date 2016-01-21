@@ -3,7 +3,7 @@
         <a href="index.php?c=roles&a=add">[Crear]</a>&nbsp;
         <a href="index.php?c=usuarios&a=tareas">[Volver]</a>
     </p>    
-    <table>
+    <table> 
         <thead>
             <th colspan="2"></th>
             <th>Rol</th>

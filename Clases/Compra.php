@@ -78,6 +78,10 @@ class Compra implements IPersiste
         $this->modelo = new CompraModel();
         return $this->cuotas - $this->modelo->find_sum_cuotas($this->id);
     }
+    public function obtenerCuotasPagadas(){
+        $this->modelo = new CompraModel();
+        return ($this->modelo->find_sum_cuotas($this->id) > 0) ? $this->modelo->find_sum_cuotas($this->id) : 0;
+    }
     public function generarFecVenc(){
         if($this->cuotas == $this->find_max_pago()){ 
             return date("Y-m-d");

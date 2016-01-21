@@ -14,7 +14,7 @@ class PagosController extends Controller
             Session::set("id",$_GET['p']);
             $com = (new Compra())->findById(Session::get('id'));
             Session::set('pg', isset($_GET['pg']) ? $_GET['pg'] : 1);
-            if($com->getCuotas() == $com->find_max_pago() -1){
+            if($com->obtenerCuotasRestantes() == 0){
                 Session::set("msg","Deuda Saldada...");
             }
             else if($com->check_fec_venc()){ 
@@ -59,8 +59,12 @@ class PagosController extends Controller
         }
     }
     private function checkDates(){
-        if(empty($_POST['txtmonto']) or !ctype_digit($_POST['txtmonto']) or empty($_POST['txtcuotas']) or !ctype_digit($_POST['txtcuotas'])){
-            Session::set("msg","Asegurese de ingresar el monto y/o cuotas sean nros enteros");
+        if(empty($_POST['txtmonto']) or !ctype_digit($_POST['txtmonto'])){
+            Session::set("msg","Asegurese de ingresar el monto como nro entero");
+            return false;
+        }
+        else if(empty($_POST['txtcuotas']) or !ctype_digit($_POST['txtcuotas'])){
+            Session::set("msg","Asegurese de ingresar la cuota como nro entero");
             return false;
         }
         else if($_POST['txtmonto'] < (new Compra())->findById(Session::get('id'))->obtenerPagoMinimo() * $_POST['txtcuotas']){
@@ -71,7 +75,7 @@ class PagosController extends Controller
             Session::set("msg","Cantidad no válida.. Ingrese nuevamente la cantidad de cuotas");
             return false;
         }
-        else if((new Compra())->findById(Session::get('id'))->getCuotas() == (new Compra())->findById(Session::get('id'))->find_max_pago() -1){
+        else if((new Compra())->findById(Session::get('id'))->obtenerCuotasRestantes() == 0){
             Session::set("msg","Deuda Saldada.. no puede registrar más pagos");
             return false;
         }
