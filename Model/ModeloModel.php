@@ -58,7 +58,7 @@ class ModeloModel extends Model
         return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
     }
     public function update($modelo){
-        $aux = $this->obtenerPorId($modelo->getId()); 
+        $aux = $this->findById($modelo->getId()); 
         if(!$modelo->equals($aux)){
             if($this->check($modelo->getNombre())){
                 Session::set('msg', 'El Modelo ya existe');

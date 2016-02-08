@@ -51,7 +51,7 @@ class MarcaModel extends Model
         return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
     }
     public function update($marca){
-        $aux = $this->obtenerPorId($marca->getId()); 
+        $aux = $this->findById($marca->getId()); 
         if(!$marca->equals($aux)){
             if($this->check($marca->getNombre())){
                 Session::set('msg', 'La Marca ya existe');

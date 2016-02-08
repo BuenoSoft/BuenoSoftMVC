@@ -28,7 +28,7 @@ class UsuarioModel extends Model
         return ($consulta->rowCount() > 0) ? $this->getBD()->lastInsertId() : null;
     }
     public function update($usuario){
-        $aux = $this->obtenerPorId($usuario->getId()); 
+        $aux = $this->findById($usuario->getId()); 
         if(!$usuario->equals($aux)){
             if($this->check($usuario->getNombre())){
                 Session::set('msg', 'El usuario ya existe');

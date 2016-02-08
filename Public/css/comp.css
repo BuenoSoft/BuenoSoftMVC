@@ -1,29 +1,66 @@
-.button {
-	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
-	box-shadow:inset 0px 1px 0px 0px #ffffff;
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #c4daf5) );
-	background:-moz-linear-gradient( center top, #ededed 5%, #c4daf5 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#c4daf5');
-	background-color:#ededed;
-	-moz-border-radius:6px;
-	-webkit-border-radius:6px;
-	border-radius:6px;
-	border:1px solid #b8cce6;
-	display:inline-block;
-	color:#789bc2;
-	font-family:arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:6px 24px;
-	text-decoration:none;
-	text-shadow:1px 1px 0px #ffffff;
-}.button:hover {
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #c4daf5), color-stop(1, #ededed) );
-	background:-moz-linear-gradient( center top, #c4daf5 5%, #ededed 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c4daf5', endColorstr='#ededed');
-	background-color:#c4daf5;
-}.button:active {
-	position:relative;
-	top:1px;
+input[type="text"], input[type="email"], input[type="password"], input[type="search"]{
+    border: 2px solid #243D59;
+    width: 200px;
+    height: 25px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    font-weight: bold;
+    font-size: 14px;
+}
+form table label{
+    border: 2px solid #243D59;
+    background: #243D59;
+    color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 25px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    font-weight: bold;
+}
+form table label:hover{
+    background: lightgray;
+    color: black;
+}
+input[type="submit"], input[type="button"]{
+    border: 2px solid black;
+    background: #243D59;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 25px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    font-weight: bold;
+    font-size: 14px;
+}
+input[type="submit"]:hover, input[type="button"]:hover{
+    background: lightgray;
+    color: black;
+}
+input[list]{
+    width: 200px;
+    height: 25px;
+    border: 2px solid #243D59;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    font-weight: bold;
+}
+input[type="date"], input[type="number"] {
+    width: 200px;
+    height: 25px;
+    border: 2px solid #243D59;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    font-weight: bold;
+    font-size: 14px;
+}
+textarea{
+    border: 2px solid #243D59;
+    width: 300px;
+    height: 150px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    font-weight: bold;
+    font-size: 14px;
 }

@@ -1,16 +1,40 @@
-table {
-    border-collapse: collapse;
+table.table1{
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    font-style: normal;    
+}
+.table1 thead th{
+    padding:15px;
+    color:#fff;
+    text-shadow:1px 1px 1px #243D59;
+    border-color: black;
+    background-color:#243D59;    
+    -webkit-border-top-left-radius:5px;
+    -webkit-border-top-right-radius:5px;
+    -moz-border-radius:5px 5px 0px 0px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
 }
 
-table, td, th {
-    border: 1px silver solid;
+.table1 tbody td{
+    padding:2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align:center;
+    background-color:#fff;
+    border: 1px solid #243D59;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+    color:#666;
+    text-shadow:1px 1px 1px #fff;
 }
 
-td, th {
-    padding: 3px 6px;
+.table1 tbody tr:nth-child(even) td{
+    background: lightgray;
 }
 
-td {
-    text-align: left;
-    vertical-align: top;
+.table1 tbody tr:hover td  {
+    background: lightskyblue;
 }

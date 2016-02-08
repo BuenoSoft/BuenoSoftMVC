@@ -36,7 +36,7 @@ class UsuariosController extends Controller
     public function logout(){
         Session::logout();
         Session::set("msg","Acceso finalizado.");
-        $this->redirect(array('Main','index.php'));
+        header("Location:index.php?c=main&a=index");
     }  
     public function tareas(){
         if($this->checkUser()){ 
@@ -57,7 +57,7 @@ class UsuariosController extends Controller
             }
         }
         $this->redirect(array('add.php'), array(
-            "roles" => (new Rol())->obtenerTodos()
+            "roles" => (new Rol())->find()
         ));
     }
     public function edit(){        

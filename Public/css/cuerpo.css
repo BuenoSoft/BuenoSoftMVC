@@ -28,110 +28,96 @@ a:hover {
 	padding-top: 20px;
 }
 
-#header{
+header{
 	width: 900px;
-	height: 100px;
+	height: 50px;
 }
 
-#logo{
-	width: 270px;
-	float: left;
-	margin: 0;
-	padding: 10px 10px 10px 20px;
-	height: 80px;
+section{
+    color: #6E6E6E;
+    padding: 20px 20px 20px 50px;
+    background: white;
+    font-family: "Trebuchet MS", sans-serif;
+    border-radius: 10px;
+    -ms-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    overflow: hidden;
 }
 
-#logo h1{
-	color: #FFFFFF;
-	line-height: 80px;
-	text-shadow: 0 0 0;
-	margin: 0;
-}
-
-#menu{
-	width: 580px;
-	height: 80px;
-	float: left;
-	margin: 0;
-	padding: 10px;
-}
-
-#content{background: #999999;
-	color: #6E6E6E;
-	width: 830px;
-	padding: 20px 20px 20px 50px;
-	background: white;
-	font-family: "Trebuchet MS", sans-serif;
-	border-radius: 10px;
-	-ms-border-radius: 10px;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	-khtml-border-radius: 10px;
-	overflow: hidden;
-}
-
-#content h1, h2 {
+section h1, h2 {
 	color: #0B3861;
 }
 
-#top_menu{
-	height: 60px;
-	position: relative;
-	width: 530px;
-	margin: 0 auto 0 auto;
-	color: white;
-	overflow: hidden;
-	text-transform: uppercase;
-	background: url(../img/menu_background_1.jpg) repeat-x;
-	border-radius: 5px;
+nav{
+    /*Bordes redondeados*/
+    -webkit-border-radius:10px;/*Para chrome y Safari*/
+    -moz-border-radius:10px;/*Para Firefox*/
+    -o-border-radius:10px;/*Para Opera*/
+    border-radius:10px;/*El estandar por defecto*/    
+    background: #ededed;
+    overflow:hidden;
+    position: relative;
+    margin: 0 auto 0 auto;
+    width:900px;
+}
+nav ul{
+    list-style:none;
+    margin:0 10px 0 10px;
+    padding:0;
+}
+nav ul li{
+    /*Bordes redondeados*/
+    -webkit-border-radius:5px;/*Chrome y Safari*/
+    -moz-border-radius:5px;/*Firefox*/
+    -o-border-radius:5px;/*Opera*/
+    border-radius:5px;/*Estandar por defecto*/
+    float:left;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:16px;
+    font-weight:bold;
+    text-align:center;
+    /*Sombras para texto, los mismos parametros que box-shadow*/
+    text-shadow: 0px 1px 0px #FFF;
+}
+nav ul li:hover{
+    /*Degradado de fondo*/
+    background: #243D59;
+    /*Sombras*/
+    -webkit-box-shadow:  1px -1px 0px #FFF;/*Chrome y Safari*/
+    -moz-box-shadow:  1px -1px 0px #FFF;/*Firefox*/
+    -o-box-shadow:  1px -1px 0px #FFF;/*Opera*/
+    box-shadow:  1px -1px 0px #FFF;/*Estandar por defecto*/
+    border:1px solid #E3E3E3;
+}
+nav ul li a{
+    color:#243D59;
+    display:block;
+    padding:10px;
+    text-decoration:none;
+    /*Transiciones*/
+    -webkit-transition: 0.4s linear all;
+    -moz-transition: 0.4s linear all;
+    -o-transition: 0.4s linear all;
+    transition: 0.4s linear all;
+}
+nav ul li a:hover {
+    color: white;
 }
 
-#top_menu ul{
-	line-height: 60px;
-	margin: 0;
-	color: white;
-}
-
-#top_menu ul li{
-	display: inline;
-	margin-left: 15px;
-	padding-left: 15px;
-	border-left: 1px dashed;
-	color: white;
-}
-
- #top_menu ul li:first-child {
-    border-left:none;
-	padding-left: 0;
- }
-
-
-#top_menu ul li a{
-	color: #FFFFFF;
-	font-weight: bold;
-	text-decoration: none;
-}
-
-#top_menu ul li a:hover{
-	text-decoration: underline;
-}
-
-#footer{
+footer{
 	color: #FFFFFF;
 	width: 880px;
 	padding:10px;
 	text-align: center;
 }
 
-#footer a{
+footer a{
 	color: #FFFFFF;
 	text-decoration: none;
 }
 
-#footer a:hover{
-	text-decoration: underline;
-}
-
-#top_menu ul li .current{
+footer a:hover{
 	text-decoration: underline;
 }

@@ -1,6 +1,6 @@
 <h3>Mostrar Mis Compras y Pagos</h3>
 <p>
-    <a href="index.php?c=consultas&a=index">[Volver]</a>
+    <a href="index.php?c=consultas&a=index" title="Volver"><img src="Public/img/go_previous.png" /></a>
 </p>
 <?php foreach($compras as $compra){?>
     <p>
@@ -9,7 +9,7 @@
                 <?php echo "Compra: ".$compra->getId()." Fecha: ".$compra->getFecha()." Vehículo: ".$compra->getVeh()->getMat(); ?>
             </summary> 
             <br />
-            <table>
+            <table class="table1">
                 <thead>
                     <th>Pago</th>
                     <th>Fecha de Pago</th>

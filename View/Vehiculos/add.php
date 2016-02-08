@@ -22,7 +22,7 @@
             <td><input type="file" name="foto" id="foto" required="required" /></td>
         </tr>
         <tr>
-            <td>Modelo del Vehículo: (*)</td>
+            <td><label for="mod">Modelo del Vehículo: (*)</label></td>
             <td>
                 <input id="mod" list="modelos" required="required" name="txtmod" />
                 <datalist id="modelos">
@@ -36,7 +36,7 @@
         <tr>
             <td><label for="tipo">Tipo del Vehículo:</label></td>
             <td>
-                <input id="mod" list="tipos" required="required" name="txt_tipo" />
+                <input id="tipo" list="tipos" required="required" name="txt_tipo" />
                 <datalist id="tipos">
                     <?php foreach ($tiposveh as $tipoveh) { ?>
                         <option value="<?php echo $tipoveh->getId(); ?>"><?php echo $tipoveh->getNombre(); ?></option>
