@@ -13,10 +13,9 @@ abstract class Model implements IModel
     function __construct() {
         $this->db = new Database();
     }
-    public function getBD(){
+    protected function getBD(){
         return $this->db->getConnect();
-    }
-    /*------------------------------------------------------------------------*/       
+    }    
     protected function executeQuery($query, $parameter = array()){
         $consulta = $this->getBD()->prepare($query);
         $consulta->execute($parameter);  
@@ -40,15 +39,8 @@ abstract class Model implements IModel
     }
     /*------------------------------------------------------------------------*/
     private function check($unique) { 
-        $consulta = $this->fetch(
-            $this->getCheckQuery(),
-            $this->getCheckParameter($unique)     
-        );
-        return ($consulta) > 0; 
+        return $this->executeQuery($this->getCheckQuery(), $this->getCheckParameter($unique));
     }
-    abstract protected function getCheckQuery();
-    abstract protected function getCheckParameter($unique);
-    abstract protected function getCheckMessage();
     /*------------------------------------------------------------------------*/
     public function create($object) {
         if($this->check($object)){
@@ -57,8 +49,6 @@ abstract class Model implements IModel
         }
         return $this->executeQuery($this->getCreateQuery(), $this->getCreateParameter($object));
     }
-    abstract protected function getCreateQuery();
-    abstract protected function getCreateParameter($object);
     /*------------------------------------------------------------------------*/    
     public function update($object) {
        $aux = $this->findById($object->getId()); 
@@ -70,32 +60,36 @@ abstract class Model implements IModel
         }
         return $this->executeQuery($this->getUpdateQuery(), $this->getUpdateParameter($object)); 
     }
-    abstract protected function getUpdateQuery();
-    abstract protected function getUpdateParameter($object);
     /*------------------------------------------------------------------------*/
     public function delete($object, $notUsed = true) {
         return $this->executeQuery($this->getDeleteQuery($notUsed), $this->getDeleteParameter($object)); 
     }
-    abstract protected function getDeleteQuery($notUsed = true);
-    abstract protected function getDeleteParameter($object);
+
     /*--------------------------------------------------------------------*/
     public function find($criterio = null) {
         $datos= array();
-        $consulta = $this->getBD()->prepare($this->getFindQuery($criterio));
-        $consulta->execute($this->getFindParameter($criterio)); 
-        foreach($consulta->fetchAll(PDO::FETCH_ASSOC) as $row){
+        foreach($this->fetch($this->getFindQuery($criterio), $this->getFindParameter($criterio)) as $row){
             $obj = $this->createEntity($row); 
             array_push($datos, $obj);
         }
         return $datos;
     }
-    abstract protected function getFindQuery($criterio = null);
-    abstract protected function getFindParameter($criterio = null);
     /*--------------------------------------------------------------------*/
     public function findById($id) {        
         return $this->findByCondition($this->getFindXIdQuery(), array($id));
     }
-    abstract protected function getFindXIdQuery();
     /*--------------------------------------------------------------------*/    
+    abstract protected function getCheckQuery();
+    abstract protected function getCheckParameter($unique);
+    abstract protected function getCheckMessage();
+    abstract protected function getCreateQuery();
+    abstract protected function getCreateParameter($object);    
+    abstract protected function getUpdateQuery();
+    abstract protected function getUpdateParameter($object);    
+    abstract protected function getDeleteQuery($notUsed = true);
+    abstract protected function getDeleteParameter($object);
+    abstract protected function getFindQuery($criterio = null);
+    abstract protected function getFindParameter($criterio = null);    
+    abstract protected function getFindXIdQuery();
     abstract function createEntity($row);
 }
