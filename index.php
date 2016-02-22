@@ -3,10 +3,7 @@
     define("DS", DIRECTORY_SEPARATOR);
     spl_autoload_register(function($clase){
         try {
-            $rootPath = dirname(__FILE__);
-            $file = realpath($rootPath . DS . str_replace("\\", DS, $clase) . ".php");
-            //var_dump($file ."<br />");
-            require_once $file;        
+            require_once realpath(APPLICATION_PATH . DS . str_replace("\\", DS, $clase) . ".php");        
         }  
         catch (Exception $ex){
             echo $ex->getMessage();

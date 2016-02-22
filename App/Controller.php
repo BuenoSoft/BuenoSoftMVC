@@ -1,12 +1,15 @@
 <?php
 namespace App;
 use Lib\Paginador;
+include('./Lib/fpdf/FPDF.php');
 abstract class Controller 
 {
     private $paginador;
+    private $pdf;
     function __construct() {
         session_start();
         $this->paginador = new Paginador();
+        $this->pdf = new \FPDF();
     }
     public function redirect($file = array(), $dates = array()) {
         try {
@@ -31,6 +34,9 @@ abstract class Controller
     }
     protected function getPaginator() {
         return $this->paginador;
+    }
+    protected function getPdf() {
+        return $this->pdf;
     }
     protected function checkUser() {
         if (Session::get("log_in") != null and Session::get("log_in")->getRol()->getNombre() == $this->getTypeRole()) {
