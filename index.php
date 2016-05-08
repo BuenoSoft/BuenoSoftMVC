@@ -9,7 +9,7 @@
             echo $ex->getMessage();
         }
     });
-    $controlador = (!empty($_GET['c'])) ? ucwords($_GET['c']) . 'Controller' : "MainController";
+    $controlador = (!empty($_GET['c'])) ? ucwords($_GET['c']) . 'Controller' : "TodosController";
     $accion = (!empty($_GET['a'])) ? $_GET['a'] : "index";
     try{
         $controlador = "Controller\\" . $controlador;        
