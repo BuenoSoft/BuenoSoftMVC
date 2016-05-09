@@ -35,7 +35,6 @@ class UsuariosController extends AppController
         
     } 
     public function index(){
-        echo "funciono";
         $this->redirect_administrador(["index.php"]);
     }
 }

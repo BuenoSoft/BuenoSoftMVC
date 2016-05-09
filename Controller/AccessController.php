@@ -7,14 +7,20 @@ class AccessController extends AppController
         parent::__construct();
     }    
     public function index(){
-        //if($this->checkUser()){
-            $this->redirect_administrador(['index.php']);
-        //}
+        if($this->checkUser()){
+           $this->redirect_administrador(['index.php']);
+        }
     }        
     protected function getMessageRole() {
-        return "un usuario registrado";
+        return "usuario";
     }
     protected function getTypeRole() {
-        return "Administrador";
+        $opciones = ["Administrador","Supervisor","Usuario"];
+        foreach($opciones as $opcion){
+            if(Session::get("log_in")->getTipo() == $opcion){
+                return $opcion;
+            }
+        }
+        return null;
     }
 }

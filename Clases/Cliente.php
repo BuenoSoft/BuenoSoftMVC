@@ -48,11 +48,11 @@ class Cliente implements IPersiste
     }
 
     function setNombre($nombre) {
-        $this->nombre = strtoupper($nombre);
+        $this->nombre = $nombre;
     }
 
     function setDirnombre($dirnombre) {
-        $this->dirnombre = strtoupper($dirnombre);
+        $this->dirnombre = $dirnombre;
     }
 
     function setDirnumero($dirnumero) {

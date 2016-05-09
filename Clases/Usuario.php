@@ -28,13 +28,13 @@ class Usuario implements IPersiste
         $this->id = $id;
     }
     function setNombre($nombre) {
-        $this->nombre = strtoupper($nombre);
+        $this->nombre = $nombre;
     }
     function setPass($pass) {
         $this->pass = $pass;
     }
     function setTipo($tipo) {
-        $this->tipo = strtoupper($tipo);
+        $this->tipo = $tipo;
     }
     function setCliente($cliente) {
         $this->cliente = $cliente;

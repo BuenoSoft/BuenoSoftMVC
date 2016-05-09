@@ -50,7 +50,7 @@ abstract class Controller
         return $this->pdf;
     }
     
-    protected function checkUser() {
+    protected function checkUser() {                
         if (Session::get("log_in") != null and Session::get("log_in")->getTipo() == $this->getTypeRole()) {
             return true;
         } else {

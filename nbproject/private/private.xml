@@ -14,9 +14,6 @@
         <group>
             <file>file:/var/www/html/BuenoSoftMVC/Controller/UsuariosController.php</file>
             <file>file:/var/www/html/BuenoSoftMVC/Clases/Usuario.php</file>
-            <file>file:/var/www/html/BuenoSoftMVC/Model/UsuarioModel.php</file>
-            <file>file:/var/www/html/BuenoSoftMVC/Model/ClienteModel.php</file>
-            <file>file:/var/www/html/BuenoSoftMVC/App/Model.php</file>
         </group>
     </open-files>
 </project-private>
