@@ -3,7 +3,7 @@
     define("DS", DIRECTORY_SEPARATOR);
     spl_autoload_register(function($clase){
         try {
-            var_dump((APPLICATION_PATH . DS . str_replace("\\", DS, $clase) . ".php")."<br />");
+            //var_dump((APPLICATION_PATH . DS . str_replace("\\", DS, $clase) . ".php")."<br />");
             require_once realpath(APPLICATION_PATH . DS . str_replace("\\", DS, $clase) . ".php");        
         }  
         catch (Exception $ex){

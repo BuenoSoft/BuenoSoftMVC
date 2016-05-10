@@ -7,13 +7,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">RUC del Cliente</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtruc" class="form-control" autofocus required placeholder="Ingrese el RUC si lo tiene" maxlength="12">
+                        <input type="text" name="txtruc" class="form-control" autofocus required placeholder="Ingrese el RUC si lo tiene" onkeypress="return validarNumero(event)" maxlength="12">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre del Cliente</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtnomcli" class="form-control" required placeholder="Ingrese Nombre del Cliente">
+                        <input type="text" name="txtnomcli" class="form-control" required placeholder="Ingrese Nombre del Cliente" onkeypress="return validarTexto(event)">
                     </div>
                 </div>
                 <div class="form-group">
@@ -25,13 +25,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Teléfono del Cliente</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txttelefono" class="form-control" placeholder="Ingrese el Teléfono si lo tiene" maxlength="8">
+                        <input type="text" name="txttelefono" class="form-control"  placeholder="Ingrese el Teléfono si lo tiene" onkeypress="return validarNumero(event)" maxlength="8">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Celular del Cliente</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcelular" class="form-control" placeholder="Ingrese el Celular si lo tiene" maxlength="9">
+                        <input type="text" name="txtcelular" class="form-control" placeholder="Ingrese el Celular si lo tiene" onkeypress="return validarNumero(event)" maxlength="9">
                     </div>
                 </div>
             </div>
@@ -54,10 +54,11 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tipo de Usuario</label>
                     <div class="col-sm-10">
-                        <select class="form-control" name="cboxtipo">
-                            <option selected="selected">Administrador</option>
-                            <option>Supervisor</option>
-                            <option>Cliente</option>
+                        <input id="mar" list="tipos" class="form-control" required="required" name="cboxtipo" />
+                        <datalist id="tipos">
+                            <option value="Administrador">Administrador del Sistema</option>
+                            <option value="Supervisor">Supervisor de Seguridad del Sistema</option>
+                            <option value="Usuario">Usuario logueado como cliente</option>
                         </select>
                     </div>
                 </div>
@@ -65,8 +66,8 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div style="text-align: center;">
-                <input type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" />&nbsp;
-                <a href="index.php?c=usuarios&a=index"><input type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04" /></a>
+                <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme02"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
+                <a href="index.php?c=usuarios&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
             </div>
         </div>
     </div>

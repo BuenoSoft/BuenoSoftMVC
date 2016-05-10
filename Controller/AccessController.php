@@ -1,5 +1,6 @@
 <?php
 namespace Controller;
+use App\Session;
 class AccessController extends AppController
 {
     public function __construct() {
