@@ -7,66 +7,45 @@ class Cliente implements IPersiste
     private $id;
     private $ruc;
     private $nombre;
-    private $dirnombre;
-    private $dirnumero;
+    private $direccion;
     private $telefono;
     private $celular;
     function getId() {
         return $this->id;
     }
-
     function getRuc() {
         return $this->ruc;
     }
-
     function getNombre() {
         return $this->nombre;
     }
-
-    function getDirnombre() {
-        return $this->dirnombre;
+    function getDireccion() {
+        return $this->direccion;
     }
-
-    function getDirnumero() {
-        return $this->dirnumero;
-    }
-
     function getTelefono() {
         return $this->telefono;
     }
-
     function getCelular() {
         return $this->celular;
     }
-
     function setId($id) {
         $this->id = $id;
     }
-
     function setRuc($ruc) {
         $this->ruc = $ruc;
     }
-
     function setNombre($nombre) {
         $this->nombre = $nombre;
     }
-
-    function setDirnombre($dirnombre) {
-        $this->dirnombre = $dirnombre;
-    }
-
-    function setDirnumero($dirnumero) {
-        $this->dirnumero = $dirnumero;
-    }
-
+    function setDireccion($direccion) {
+        $this->direccion = $direccion;
+    }       
     function setTelefono($telefono) {
         $this->telefono = $telefono;
     }
-
     function setCelular($celular) {
         $this->celular = $celular;
     }
-
     function __construct() { }
     /*---------------------------*/
     public function save() {
@@ -74,6 +53,9 @@ class Cliente implements IPersiste
     }        
     public function findById($id) {
         return (new ClienteModel())->findById($id);
+    }
+    public function maxID(){
+        return (new ClienteModel())->maxId();
     }
     public function del() { }
     public function find($criterio = null) { }

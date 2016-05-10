@@ -46,15 +46,15 @@ class Usuario implements IPersiste
     }
 
     public function find($criterio = null) {
-        
+        return (new UsuarioModel())->find($criterio);
     }
 
     public function findById($id) {
-        
+        return (new UsuarioModel())->findById($id);
     }
 
     public function save() {
-        
+        return ($this->id == 0) ? (new UsuarioModel())->create($this) : (new UsuarioModel())->update($this); 
     }
     public function login($datos = []){       
         return (new UsuarioModel())->login($datos);

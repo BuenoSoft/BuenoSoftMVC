@@ -29,8 +29,7 @@
                                             <a href="index.php?c=access&a=index" class="button"><h3>Acceso</h3></a>
                                         </li>
                                     <?php } else {?>
-                                        <li>
-                                            
+                                        <li>                                            
                                             <a href="#" class="button" data-type="zoomin"><h3>Login</h3></a>
                                             <div id="popup" class="overlay-container">
                                                 <div class="window-container zoomin">

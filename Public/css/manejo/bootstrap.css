@@ -4014,7 +4014,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
   .navbar-form .control-label {
     margin-bottom: 0;
-    vertical-align: middle;
+    vertical-align: left;
   }
   .navbar-form .radio,
   .navbar-form .checkbox {

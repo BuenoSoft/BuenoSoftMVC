@@ -57,7 +57,16 @@ abstract class Controller
             Session::set("msg", "Debe loguearse como " . $this->getMessageRole() . " para acceder.");
             header("Location:index.php?c=todos&a=index");
         }
+    }    
+    protected function getTypeRole() { 
+        $opciones = $this->getRoles();
+        foreach($opciones as $opcion){
+            if(Session::get("log_in")->getTipo() == $opcion){
+                return $opcion;
+            }
+        }
+        return null;
     }
     protected function getMessageRole() { }
-    protected function getTypeRole() { }    
+    protected function getRoles(){}
 }

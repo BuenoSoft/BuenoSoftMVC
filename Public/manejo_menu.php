@@ -21,30 +21,17 @@
             <p class="centered">
                 <a href="profile.html"><img src="Public/img/manejo/ui-sam.jpg" class="img-circle" width="60"></a>
             </p>
-            <h5 class="centered">Perfil</h5>              	  	
-            <li class="mt">
-                <a class="active" href="#">
-                    <i class="fa fa-dashboard"></i>
-                    <span>Servicio</span>
-                </a>
-            </li>
+            <h5 class="centered">Perfil</h5> 
             <li class="sub-menu">
                 <a href="javascript:;" >
                     <i class="fa fa-dashboard"></i>
-                    <span>Ejemplos</span>
+                    <span>Servicios</span>
                 </a>
                 <ul class="sub">
-                    <li><a  href="botones.php">Botones</a></li>
-                    <li><a  href="paneles.php">Paneles</a></li>
-                    <li><a  href="calendario.php">Calendario</a></li>
-                    <li><a  href="galeria.php">Galeria</a></li>
-                    <li><a  href="formulario.php">Formulario</a></li>
-                    <li><a  href="tabla.php">tabla</a></li>
-                    <li><a  href="registro.php">registro</a></li>
-                    <li><a  href="grafica.php">Graficas Basicas</a></li>
-                    <li><a  href="grafica2.php">Graficas avanzadas</a></li>
-                    <li><a  href="alertas.php">Alertas y Prioridades</a></li>
-                    <li><a  href="lock_screen.html">Salva pantalla</a></li>
+                    <?php if(App\Session::get('log_in') != null and (App\Session::get('log_in')->getTipo() == "Administrador" or App\Session::get('log_in')->getTipo() == "Supervisor")) {?>
+                        <li><a href="index.php?c=usuarios&a=index">Usuarios</a></li>
+                    <?php } else if(App\Session::get('log_in') != null and (App\Session::get('log_in')->getTipo() == "Usuario" or App\Session::get('log_in')->getTipo() == "Supervisor")) {?>
+                    <?php } ?>
                 </ul>
             </li>	
         </ul>
