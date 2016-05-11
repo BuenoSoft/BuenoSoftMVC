@@ -49,16 +49,31 @@ class UsuariosController extends AppController
     public function add(){
         if($this->checkUser()){
             if(isset($_POST['btnaceptar'])){
-                $cliente = $this->createSujeto();
-                $cliente->save();
-                $usuario = $this->createUsuario();
-                $usuario->setSujeto((new Sujeto())->findById((new Sujeto())->maxID()));                 
-                $id = $usuario->save();
-                Session::set("msg",(isset($id)) ? "Usuario Creado" : Session::get('msg'));
-                header("Location:index.php?c=usuarios&a=index");
-                exit(); 
+                if($this->checkDates()){
+                    $cliente = $this->createSujeto();
+                    $cliente->save();
+                    $usuario = $this->createUsuario();
+                    $usuario->setSujeto((new Sujeto())->findById((new Sujeto())->maxID()));                 
+                    $id = $usuario->save();
+                    Session::set("msg",(isset($id)) ? "Usuario Creado" : Session::get('msg'));
+                    header("Location:index.php?c=usuarios&a=index");
+                    exit();                 
+                }
             }
             $this->redirect_administrador(["add.php"]);        
+        }
+    }
+    private function checkDates(){
+        if($_POST['cboxtiposuj'] == "Empresa" and (strlen($_POST['txtdoc']) > 12) or strlen($_POST['txtdoc']) < 12){
+            Session::set('msg', "Asegurese de ingresar bien el RUC de la empresa");
+            return false;
+        }
+        else if($_POST['cboxtiposuj'] == "Persona" and (strlen($_POST['txtdoc']) > 8) or strlen($_POST['txtdoc']) < 8 ){
+            Session::set('msg', "Asegurese de ingresar bien el C.I de la persona");
+            return false;
+        }
+        else {
+            return true;
         }
     }
     private function createSujeto(){
@@ -69,7 +84,6 @@ class UsuariosController extends AppController
         $sujeto->setDireccion($_POST['txtdir']);
         $sujeto->setTelefono($_POST['txttelefono']);
         $sujeto->setCelular($_POST['txtcelular']);
-        $sujeto->setTipodoc($_POST['cboxtipodoc']);
         $sujeto->setTiposuj($_POST['cboxtiposuj']);
         return $sujeto;
     }

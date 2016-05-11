@@ -10,7 +10,6 @@ class Sujeto implements IPersiste
     private $direccion;
     private $telefono;
     private $celular;
-    private $tipodoc;
     private $tiposuj;
     function getId() {
         return $this->id;
@@ -29,9 +28,6 @@ class Sujeto implements IPersiste
     }
     function getCelular() {
         return $this->celular;
-    }
-    function getTipodoc() {
-        return $this->tipodoc;
     }
     function getTiposuj() {
         return $this->tiposuj;
@@ -53,9 +49,6 @@ class Sujeto implements IPersiste
     }
     function setCelular($celular) {
         $this->celular = $celular;
-    }
-    function setTipodoc($tipodoc) {
-        $this->tipodoc = $tipodoc;
     }
     function setTiposuj($tiposuj) {
         $this->tiposuj = $tiposuj;

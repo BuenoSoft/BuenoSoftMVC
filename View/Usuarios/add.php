@@ -7,31 +7,31 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Documento del Sujeto</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtdoc" class="form-control" autofocus required placeholder="Ingrese el Documento" onkeypress="return validarNumero(event)" maxlength="12">
+                        <input type="text" name="txtdoc" class="form-control" autofocus required placeholder="Ej: 285514564" onkeypress="return validarNumero(event)" maxlength="12">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre del Sujeto</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtnomsuj" class="form-control" required placeholder="Ingrese Nombre del Cliente" onkeypress="return validarTexto(event)">
+                        <input type="text" name="txtnomsuj" class="form-control" required placeholder="Ej: Luis Ottonello" onkeypress="return validarTexto(event)">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Dirección del Sujeto</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtdir" class="form-control" required placeholder="Ingrese la Dirección del Cliente">
+                        <input type="text" name="txtdir" class="form-control" required placeholder="Ej: Dr. Soca 300">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Teléfono del Sujeto</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txttelefono" class="form-control"  placeholder="Ingrese el Teléfono si lo tiene" onkeypress="return validarNumero(event)" maxlength="8">
+                        <input type="text" name="txttelefono" class="form-control"  placeholder="Ej: 47358545" onkeypress="return validarNumero(event)" maxlength="8">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Celular del Sujeto</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcelular" class="form-control" placeholder="Ingrese el Celular si lo tiene" onkeypress="return validarNumero(event)" maxlength="9">
+                        <input type="text" name="txtcelular" class="form-control" placeholder="Ej: 099564565" onkeypress="return validarNumero(event)" maxlength="9">
                     </div>
                 </div>
                 <div class="form-group">
@@ -43,17 +43,7 @@
                             <option value="Persona">Sujeto Tipo Persona</option>
                         </select>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Tipo de Documento</label>
-                    <div class="col-sm-10">
-                        <input list="docs" class="form-control" placeholder="Seleccione un Tipo de Documento" required="required" name="cboxtipodoc" />
-                        <datalist id="docs">
-                            <option value="RUC">Documento de las Empresas</option>
-                            <option value="Cédula">Cédula de Identidad de la Persona</option>
-                        </select>
-                    </div>
-                </div>                
+                </div>               
             </div>
         </div>        
         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -62,13 +52,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre del Usuario</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtuser" class="form-control" required placeholder="Ingrese su Usuario">
+                        <input type="text" name="txtuser" class="form-control" required placeholder="Ej: pop32">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Contraseña</label>
                     <div class="col-sm-10">
-                        <input type="password" name="txtpass" class="form-control" required placeholder="Ingrese su Contraseña">
+                        <input type="password" name="txtpass" class="form-control" required placeholder="Ej: penelope4512">
                     </div>
                 </div>
                 <div class="form-group">

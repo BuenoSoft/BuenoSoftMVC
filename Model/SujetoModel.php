@@ -19,10 +19,10 @@ class SujetoModel extends AppModel
         return "select * from sujetos where sujDocumento = ?";
     }
     protected function getCreateParameter($object) {
-        return [$object->getDocumento(),$object->getNombre(),$object->getDireccion(),$object->getTelefono(), $object->getCelular(),$object->getTipoDoc(),$object->getTipoSuj()  ];
+        return [$object->getDocumento(),$object->getNombre(),$object->getDireccion(),$object->getTelefono(), $object->getCelular(),$object->getTipoSuj()];
     }
     protected function getCreateQuery() {
-        return "insert into sujetos(sujDocumento,sujNombre,sujDireccion,sujTelefono,sujCelular,sujTipoDoc,sujTipoSuj) values(?,?,?,?,?,?,?)";
+        return "insert into sujetos(sujDocumento,sujNombre,sujDireccion,sujTelefono,sujCelular,sujTipoSuj) values(?,?,?,?,?,?)";
     }        
     protected function getUpdateParameter($object) { 
         
@@ -43,7 +43,6 @@ class SujetoModel extends AppModel
         $sujeto->setDireccion($row['sujDireccion']);
         $sujeto->setTelefono($row['sujTelefono']);
         $sujeto->setCelular($row['sujCelular']);
-        $sujeto->setTipodoc($row['sujTipoDoc']);
         $sujeto->setTiposuj($row['sujTipoSuj']);
         return $sujeto;
     }
