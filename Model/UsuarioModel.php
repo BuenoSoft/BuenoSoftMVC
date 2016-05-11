@@ -25,10 +25,10 @@ class UsuarioModel extends AppModel
         return "select * from usuarios where usuNombre = ?";
     }
     protected function getCreateParameter($object) {
-        return [$object->getNombre(), md5($object->getPass()), $object->getTipo(), $object->getCliente()->getId()];
+        return [$object->getNombre(), md5($object->getPass()), $object->getTipo(), $object->getSujeto()->getId()];
     }
     protected function getCreateQuery() {
-        return "insert into usuarios(usuNombre,usuPass,usuTipo,cliId) values(?,?,?,?)"; 
+        return "insert into usuarios(usuNombre,usuPass,usuTipo,sujId) values(?,?,?,?)"; 
     }
     protected function getDeleteParameter($object) {
         
@@ -59,13 +59,13 @@ class UsuarioModel extends AppModel
     }
 
     public function createEntity($row) {
-        $cliente = (new ClienteModel())->findById($row['cliId']);
+        $sujeto = (new SujetoModel())->findById($row['sujId']);
         $usuario = new Usuario();
         $usuario->setId($row['usuId']);
         $usuario->setNombre($row['usuNombre']);
         $usuario->setPass($row['usuPass']);
         $usuario->setTipo($row['usuTipo']);
-        $usuario->setCliente($cliente);
+        $usuario->setSujeto($sujeto);
         return $usuario;
     }
 }

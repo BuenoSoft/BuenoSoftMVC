@@ -21,10 +21,10 @@
             <tbody>
                 <?php foreach($usuarios as $usuario) {?>
                     <tr>
-                        <td><?php echo $usuario->getId() ;?></td>
-                        <td><?php echo $usuario->getNombre() ;?></td>
-                        <td><?php echo $usuario->getTipo() ;?></td>
-                        <td><?php echo $usuario->getCliente()->getId() ;?></td>
+                        <td><?php echo $usuario->getId(); ?></td>
+                        <td><?php echo $usuario->getNombre(); ?></td>
+                        <td><?php echo $usuario->getTipo(); ?></td>
+                        <td><?php echo $usuario->getSujeto()->getNombre(); ?></td>
                     </tr>
                 <?php } ?>
             </tbody>

@@ -1,20 +1,22 @@
 <?php
 namespace Clases;
 use \App\IPersiste;
-use \Model\ClienteModel;
-class Cliente implements IPersiste
+use \Model\SujetoModel;
+class Sujeto implements IPersiste
 {
     private $id;
-    private $ruc;
+    private $documento;
     private $nombre;
     private $direccion;
     private $telefono;
     private $celular;
+    private $tipodoc;
+    private $tiposuj;
     function getId() {
         return $this->id;
     }
-    function getRuc() {
-        return $this->ruc;
+    function getDocumento() {
+        return $this->documento;
     }
     function getNombre() {
         return $this->nombre;
@@ -28,11 +30,17 @@ class Cliente implements IPersiste
     function getCelular() {
         return $this->celular;
     }
+    function getTipodoc() {
+        return $this->tipodoc;
+    }
+    function getTiposuj() {
+        return $this->tiposuj;
+    }
     function setId($id) {
         $this->id = $id;
     }
-    function setRuc($ruc) {
-        $this->ruc = $ruc;
+    function setDocumento($documento) {
+        $this->documento = $documento;
     }
     function setNombre($nombre) {
         $this->nombre = $nombre;
@@ -46,16 +54,22 @@ class Cliente implements IPersiste
     function setCelular($celular) {
         $this->celular = $celular;
     }
+    function setTipodoc($tipodoc) {
+        $this->tipodoc = $tipodoc;
+    }
+    function setTiposuj($tiposuj) {
+        $this->tiposuj = $tiposuj;
+    }
     function __construct() { }
     /*---------------------------*/
     public function save() {
-        return ($this->id == 0) ? (new ClienteModel())->create($this) : (new ClienteModel())->update($this);
+        return ($this->id == 0) ? (new SujetoModel())->create($this) : (new SujetoModel())->update($this);
     }        
     public function findById($id) {
-        return (new ClienteModel())->findById($id);
+        return (new SujetoModel())->findById($id);
     }
     public function maxID(){
-        return (new ClienteModel())->maxId();
+        return (new SujetoModel())->maxId();
     }
     public function del() { }
     public function find($criterio = null) { }

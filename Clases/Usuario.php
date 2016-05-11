@@ -8,7 +8,7 @@ class Usuario implements IPersiste
     private $nombre;
     private $pass;
     private $tipo;
-    private $cliente;
+    private $sujeto;
     function getId() {
         return $this->id;
     }
@@ -21,8 +21,8 @@ class Usuario implements IPersiste
     function getTipo() {
         return $this->tipo;
     }
-    function getCliente() {
-        return $this->cliente;
+    function getSujeto() {
+        return $this->sujeto;
     }
     function setId($id) {
         $this->id = $id;
@@ -36,8 +36,8 @@ class Usuario implements IPersiste
     function setTipo($tipo) {
         $this->tipo = $tipo;
     }
-    function setCliente($cliente) {
-        $this->cliente = $cliente;
+    function setSujeto($sujeto) {
+        $this->sujeto = $sujeto;
     }
     function __construct() { }
 

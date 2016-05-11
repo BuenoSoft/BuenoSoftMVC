@@ -6,8 +6,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- para el popup -->
-        <link href="Public/css/principal/popup.css" rel="stylesheet" type='text/css'> 
-        <!-- para el sitio-->
+        <link href="Public/css/principal/popup.css" rel="stylesheet" type='text/css'>         
+       <!-- para el sitio-->
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
         <link href="Public/css/principal/bootstrap.min.css" rel="stylesheet" type='text/css'>
@@ -30,7 +30,7 @@
                                         </li>
                                     <?php } else {?>
                                         <li>                                            
-                                            <a href="#" class="button" data-type="zoomin"><h3>Login</h3></a>
+                                            <a href="#" class="button" id="button" data-type="zoomin"><h3>Login</h3></a>
                                             <div id="popup" class="overlay-container">
                                                 <div class="window-container zoomin">
                                                     <p style="color: red; font-weight: bold;">
@@ -98,6 +98,7 @@
             <script src="Public/js/principal/scripts.js"></script>
             <script src="Public/js/principal/jquery.flexslider.js"></script>
             <script src="Public/js/principal/modernizr.js"></script>
+            <script src="Public/js/manejo/jquery-ui-1.9.2.custom.min.js"></script>
             <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
             <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
             <!--[if lt IE 9]>

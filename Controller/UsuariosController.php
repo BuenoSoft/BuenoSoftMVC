@@ -1,7 +1,7 @@
 <?php
 namespace Controller;
 use \App\Session;
-use \Clases\Cliente;
+use \Clases\Sujeto;
 use \Clases\Usuario;
 class UsuariosController extends AppController
 {
@@ -49,10 +49,10 @@ class UsuariosController extends AppController
     public function add(){
         if($this->checkUser()){
             if(isset($_POST['btnaceptar'])){
-                $cliente = $this->createCliente();
+                $cliente = $this->createSujeto();
                 $cliente->save();
                 $usuario = $this->createUsuario();
-                $usuario->setCliente((new Cliente())->findById((new Cliente())->maxID()));                 
+                $usuario->setSujeto((new Sujeto())->findById((new Sujeto())->maxID()));                 
                 $id = $usuario->save();
                 Session::set("msg",(isset($id)) ? "Usuario Creado" : Session::get('msg'));
                 header("Location:index.php?c=usuarios&a=index");
@@ -61,24 +61,26 @@ class UsuariosController extends AppController
             $this->redirect_administrador(["add.php"]);        
         }
     }
-    private function createCliente(){
-        $cliente = new Cliente();
-        $cliente->setId(isset($_POST['idcli']) ? $_POST['idcli'] : 0);
-        $cliente->setRuc($_POST['txtruc']);
-        $cliente->setNombre($_POST['txtnomcli']);
-        $cliente->setDireccion($_POST['txtdir']);
-        $cliente->setTelefono($_POST['txttelefono']);
-        $cliente->setCelular($_POST['txtcelular']);
-        return $cliente;
+    private function createSujeto(){
+        $sujeto = new Sujeto();
+        $sujeto->setId(isset($_POST['idsuj']) ? $_POST['idsuj'] : 0);
+        $sujeto->setDocumento($_POST['txtdoc']);
+        $sujeto->setNombre($_POST['txtnomsuj']);
+        $sujeto->setDireccion($_POST['txtdir']);
+        $sujeto->setTelefono($_POST['txttelefono']);
+        $sujeto->setCelular($_POST['txtcelular']);
+        $sujeto->setTipodoc($_POST['cboxtipodoc']);
+        $sujeto->setTiposuj($_POST['cboxtiposuj']);
+        return $sujeto;
     }
     private function createUsuario(){
-        $cliente = $this->createCliente();
+        $sujeto = $this->createSujeto();
         $usuario = new Usuario();
         $usuario->setId(isset($_POST['idusu']) ? $_POST['idusu'] : 0);
         $usuario->setNombre($_POST['txtuser']);
         $usuario->setPass($_POST['txtpass']);
         $usuario->setTipo($_POST['cboxtipo']);
-        $usuario->setCliente($cliente);
+        $usuario->setSujeto($sujeto);
         return $usuario;
     }
     protected function getRoles() {

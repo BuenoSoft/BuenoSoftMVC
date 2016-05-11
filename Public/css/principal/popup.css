@@ -3,7 +3,7 @@
     font-family: sans-serif !important;
     margin-top: 10px !important;
     text-align: center !important;
-    font-weigth: bold !important;    
+    font-weight: bold !important;    
 }	
 .button {	
     text-align: right !important;
@@ -37,7 +37,7 @@
     text-align: center !important;
     z-index: 3 !important;
     border-radius: 5px !important;
-    font-weigth: bold !important;
+    font-weight: bold !important;
 }
 .zoomin {
     -webkit-transform:  scale(1.2);
@@ -73,7 +73,7 @@
     border: 1px solid #727272;
     padding: 5px 14px;
     color: #fdfdfd;
-    font-weigth: bold;
+    font-weight: bold;
     font-size: 18px;
     border-radius: 5px;
     box-shadow: 0 1px 3px #ddd;
