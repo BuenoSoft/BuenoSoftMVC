@@ -8,6 +8,7 @@ class Usuario implements IPersiste
     private $nombre;
     private $pass;
     private $tipo;
+    private $estado;
     private $sujeto;
     function getId() {
         return $this->id;
@@ -20,6 +21,9 @@ class Usuario implements IPersiste
     }
     function getTipo() {
         return $this->tipo;
+    }
+    function getEstado() {
+        return $this->estado;
     }
     function getSujeto() {
         return $this->sujeto;
@@ -36,15 +40,23 @@ class Usuario implements IPersiste
     function setTipo($tipo) {
         $this->tipo = $tipo;
     }
+    function setEstado($estado) {
+        $this->estado = $estado;
+    }
     function setSujeto($sujeto) {
         $this->sujeto = $sujeto;
     }
     function __construct() { }
-
-    public function del() {
-        
+    public function equals(Usuario $obj){
+        return $this->nombre == $obj->nombre;                
     }
-
+/*---------------------------------------------*/
+    public function del() {
+        return (new UsuarioModel())->delete($this);
+    }
+    public function active(){
+        return (new UsuarioModel())->active($this);
+    }
     public function find($criterio = null) {
         return (new UsuarioModel())->find($criterio);
     }

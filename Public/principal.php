@@ -27,10 +27,11 @@
                                     <?php if(\App\Session::isLoggedIn() == true){ ?>
                                         <li>
                                             <a href="index.php?c=access&a=index" class="button"><h3>Acceso</h3></a>
+                                            
                                         </li>
                                     <?php } else {?>
                                         <li>                                            
-                                            <a href="#" class="button" id="button" data-type="zoomin"><h3>Login</h3></a>
+                                            <a href="#" class="button" id="button" data-type="zoomin"><h3>Iniciar Sesion</h3></a>
                                             <div id="popup" class="overlay-container">
                                                 <div class="window-container zoomin">
                                                     <p style="color: red; font-weight: bold;">

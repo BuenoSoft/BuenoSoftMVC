@@ -54,6 +54,9 @@ class Sujeto implements IPersiste
         $this->tiposuj = $tiposuj;
     }
     function __construct() { }
+    public function equals(Sujeto $obj){
+        return $this->documento == $obj->documento;                
+    }
     /*---------------------------*/
     public function save() {
         return ($this->id == 0) ? (new SujetoModel())->create($this) : (new SujetoModel())->update($this);

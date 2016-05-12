@@ -25,16 +25,14 @@ class SujetoModel extends AppModel
         return "insert into sujetos(sujDocumento,sujNombre,sujDireccion,sujTelefono,sujCelular,sujTipoSuj) values(?,?,?,?,?,?)";
     }        
     protected function getUpdateParameter($object) { 
-        
+        return [$object->getDocumento(), $object->getNombre(), $object->getDireccion(), $object->getTelefono(), $object->getCelular(), $object->getTiposuj(), $object->getId()];
     }
     protected function getUpdateQuery() { 
-        
-    }
-    
+       return "update sujetos set sujDocumento = ?,sujNombre = ?,sujDireccion = ?,sujTelefono = ?,sujCelular = ?,sujTipoSuj = ? where sujId = ?"; 
+    }    
     protected function getFindXIdQuery() {
         return "select * from sujetos where sujId = ?";
-    }
-    
+    }    
     public function createEntity($row) {
         $sujeto = new Sujeto();
         $sujeto->setId($row['sujId']);

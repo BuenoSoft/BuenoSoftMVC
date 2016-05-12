@@ -8,7 +8,7 @@
         <!--logo end-->
         <div class="top-menu">            
             <ul class="nav pull-right top-menu">
-                <li><a class="logout" href="index.php?c=usuarios&a=logout">Logout</a></li>
+                <li><a class="logout" href="index.php?c=usuarios&a=logout">Cerrar Sesion</a></li>
             </ul>
         </div>
     </header>
@@ -19,7 +19,7 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
             <p class="centered">
-                <a href="profile.html"><img src="Public/img/manejo/ui-sam.jpg" class="img-circle" width="60"></a>
+                <a href="index.php?c=usuarios&a=view&p=<?php echo \App\Session::get('log_in')->getId(); ?>"><img src="Public/img/manejo/ui-sam.jpg" class="img-circle" width="60"></a>
             </p>
             <h5 class="centered">Perfil</h5> 
             <li class="sub-menu">

@@ -49,20 +49,65 @@ class UsuariosController extends AppController
     public function add(){
         if($this->checkUser()){
             if(isset($_POST['btnaceptar'])){
-                if($this->checkDates()){
-                    $cliente = $this->createSujeto();
-                    $cliente->save();
+          //      if($this->checkDates()){
+                    $sujeto = $this->createSujeto();
+                    $sujeto->save();
                     $usuario = $this->createUsuario();
                     $usuario->setSujeto((new Sujeto())->findById((new Sujeto())->maxID()));                 
                     $id = $usuario->save();
                     Session::set("msg",(isset($id)) ? "Usuario Creado" : Session::get('msg'));
                     header("Location:index.php?c=usuarios&a=index");
                     exit();                 
-                }
+            //    }
             }
             $this->redirect_administrador(["add.php"]);        
         }
     }
+    public function edit(){
+        if($this->checkUser()){
+            Session::set("id",$_GET['p']); 
+            if (Session::get('id')!=null && isset($_POST['btnaceptar'])){
+       //         if($this->checkDates()) {
+                    $sujeto = $this->createSujeto();
+                    $sujeto->save();
+                    $usuario = $this->createUsuario();
+                    $usuario->setSujeto($sujeto);
+                    $id = $usuario->save();
+                    Session::set("msg",(isset($id)) ? "Usuario Editado" : Session::get('msg'));
+                    header("Location:index.php?c=usuarios&a=index");
+                    exit();
+        //        }
+            }
+            $this->redirect_administrador(["edit.php"],["usuario" => (new Usuario())->findById(Session::get('id'))]);  
+        }
+    }
+    public function view(){
+        if($this->checkUser()){
+            Session::set("id",$_GET['p']); 
+            $this->redirect_administrador(["view.php"],["usuario" => (new Usuario())->findById(Session::get('id'))]);
+        }
+    }
+    public function delete(){
+        if($this->checkUser()){
+            if (isset($_GET['p'])){
+                $usuario = (new Usuario())->findById($_GET['p']);
+                $id = $usuario->del();                
+                Session::set("msg", (isset($id)) ? "Usuario Borrado" : "No se pudo borrar el usuario");
+                header("Location:index.php?&c=usuarios&a=index");
+            }            
+        }
+    }
+    public function active(){
+        if($this->checkUser()){
+            if (isset($_GET['p'])){
+                $usuario = (new Usuario())->findById($_GET['p']);
+                $id = $usuario->active();
+                Session::set("msg", (isset($id)) ? "Usuario Activado" : "No se pudo activar el usuario");
+                header("Location:index.php?c=usuarios&a=index");
+            }        
+        }
+    }
+    /*
     private function checkDates(){
         if($_POST['cboxtiposuj'] == "Empresa" and (strlen($_POST['txtdoc']) > 12) or strlen($_POST['txtdoc']) < 12){
             Session::set('msg', "Asegurese de ingresar bien el RUC de la empresa");
@@ -75,10 +120,10 @@ class UsuariosController extends AppController
         else {
             return true;
         }
-    }
+    }*/
     private function createSujeto(){
         $sujeto = new Sujeto();
-        $sujeto->setId(isset($_POST['idsuj']) ? $_POST['idsuj'] : 0);
+        $sujeto->setId(isset($_POST['hid']) ? $_POST['hid'] : 0);
         $sujeto->setDocumento($_POST['txtdoc']);
         $sujeto->setNombre($_POST['txtnomsuj']);
         $sujeto->setDireccion($_POST['txtdir']);
@@ -90,7 +135,7 @@ class UsuariosController extends AppController
     private function createUsuario(){
         $sujeto = $this->createSujeto();
         $usuario = new Usuario();
-        $usuario->setId(isset($_POST['idusu']) ? $_POST['idusu'] : 0);
+        $usuario->setId(isset($_POST['hid']) ? $_POST['hid'] : 0);
         $usuario->setNombre($_POST['txtuser']);
         $usuario->setPass($_POST['txtpass']);
         $usuario->setTipo($_POST['cboxtipo']);

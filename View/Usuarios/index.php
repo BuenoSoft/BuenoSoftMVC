@@ -13,6 +13,7 @@
         </p>
         <table class="table table-bordered table-striped table-condensed">
             <thead>
+                <th></th>
                 <th>Usuario</th>
                 <th>Nombre</th>
                 <th>Tipo</th>
@@ -21,6 +22,15 @@
             <tbody>
                 <?php foreach($usuarios as $usuario) {?>
                     <tr>
+                        <td>
+                            <a href="index.php?c=usuarios&a=view&p=<?php echo $usuario->getId(); ?>">Ver</a>&nbsp;
+                            <a href="index.php?c=usuarios&a=edit&p=<?php echo $usuario->getId(); ?>">Editar</a>&nbsp;
+                            <?php if($usuario->getEstado() == 'H') {?>
+                                <a href="index.php?c=usuarios&a=delete&p=<?php echo $usuario->getId(); ?>" onclick="return confirm('¿Desea borrar el usuario seleccionado?');">Borrar</a>
+                            <?php } else { ?>
+                                <a href="index.php?c=usuarios&a=active&p=<?php echo $usuario->getId(); ?>" onclick="return confirm('¿Desea activar el usuario seleccionado?');">Activar</a>
+                            <?php } ?>
+                        </td>
                         <td><?php echo $usuario->getId(); ?></td>
                         <td><?php echo $usuario->getNombre(); ?></td>
                         <td><?php echo $usuario->getTipo(); ?></td>
