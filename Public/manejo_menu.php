@@ -30,6 +30,10 @@
                 <ul class="sub">
                     <?php if(App\Session::get('log_in') != null and (App\Session::get('log_in')->getTipo() == "Administrador" or App\Session::get('log_in')->getTipo() == "Supervisor")) {?>
                         <li><a href="index.php?c=usuarios&a=index">Usuarios</a></li>
+                        <li><a href="index.php?c=productos&a=index">Productos</a></li>
+                        <li><a href="index.php?c=combustibles&a=index">Combustibles</a></li>
+                        <li><a href="index.php?c=vehiculos&a=index">Vehículos</a></li>
+                        <li><a href="index.php?c=notificaciones&a=index">Notificaciones</a></li>
                         <li><a href="index.php?c=aplicaciones&a=index">Aplicaciones</a></li>
                     <?php } else if(App\Session::get('log_in') != null and (App\Session::get('log_in')->getTipo() == "Usuario" or App\Session::get('log_in')->getTipo() == "Supervisor")) {?>
                     <?php } ?>

@@ -54,10 +54,14 @@ class UsuariosController extends AppController
                     $sujeto->save();
                     $usuario = $this->createUsuario();
                     $usuario->setSujeto((new Sujeto())->findById((new Sujeto())->maxID()));                 
-                    $id = $usuario->save();
-                    Session::set("msg",(isset($id)) ? "Usuario Creado" : Session::get('msg'));
-                    header("Location:index.php?c=usuarios&a=index");
-                    exit();                 
+                    if(isset($id)){
+                        Session::set("msg","Usuario Creado");
+                        header("Location:index.php?c=usuarios&a=index");
+                        exit();
+                    }
+                    else {
+                        Session::set("msg",Session::get('msg'));
+                    }                
             //    }
             }
             $this->redirect_administrador(["add.php"]);        
@@ -73,9 +77,14 @@ class UsuariosController extends AppController
                     $usuario = $this->createUsuario();
                     $usuario->setSujeto($sujeto);
                     $id = $usuario->save();
-                    Session::set("msg",(isset($id)) ? "Usuario Editado" : Session::get('msg'));
-                    header("Location:index.php?c=usuarios&a=index");
-                    exit();
+                    if(isset($id)){
+                        Session::set("msg","Usuario Editado");
+                        header("Location:index.php?c=usuarios&a=index");
+                        exit();
+                    }
+                    else {
+                        Session::set("msg",Session::get('msg'));
+                    }
         //        }
             }
             $this->redirect_administrador(["edit.php"],["usuario" => (new Usuario())->findById(Session::get('id'))]);  

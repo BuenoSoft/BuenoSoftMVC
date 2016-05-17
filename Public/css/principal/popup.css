@@ -5,15 +5,15 @@
     text-align: center !important;
     font-weight: bold !important;    
 }	
-.button {	  
+.mybutton {    
     text-align: right !important;
 }
-.button:active {
+.mybutton:active {
     box-shadow: 0px 0px 25px rgba(0,0,0,0.3),
     inset 0px 0px 20px #412410;
     text-align: right !important;
 }
-.button:hover {
+.mybutton:hover {
     color: #00ABEB; 
 }	
 .overlay-container {

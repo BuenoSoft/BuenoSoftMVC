@@ -41,7 +41,7 @@
                         <datalist id="sujetos">
                             <option value="Empresa">Sujeto Tipo Empresa</option>
                             <option value="Persona">Sujeto Tipo Persona</option>
-                        </select>
+                        </datalist>>
                     </div>
                 </div>               
             </div>

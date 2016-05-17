@@ -6,7 +6,7 @@
         <meta name="description" content="">
         <meta name="author" content="Dashboard">
         <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-        <title>Bienvenido!</title>
+        <title>Buenos Servicios</title>
         <!-- Bootstrap core CSS -->
         <link href="Public/css/manejo/bootstrap.css" rel="stylesheet">
         <!--external css-->

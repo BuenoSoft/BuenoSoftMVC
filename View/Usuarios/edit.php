@@ -75,7 +75,7 @@
                             <option value="Administrador">Administrador del Sistema</option>
                             <option value="Supervisor">Supervisor de Seguridad del Sistema</option>
                             <option value="Usuario">Usuario logueado como cliente</option>
-                        </select>
+                        </datalist>>
                     </div>
                 </div>
             </div>

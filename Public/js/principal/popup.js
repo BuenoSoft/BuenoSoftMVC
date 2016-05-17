@@ -11,7 +11,7 @@
     }
 $(document).ready(function() {
 	
-	$('.button').click(function() {
+	$('.mybutton').click(function() {
 		
 		type = $(this).attr('data-type');
 		

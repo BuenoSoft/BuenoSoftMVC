@@ -43,10 +43,10 @@ class UsuarioModel extends AppModel
         return "update usuarios set usuEstado = ? where usuId = ?";
     }
     protected function getFindParameter($criterio = null) {
-        return ["%".$criterio."%"];
+        return ["filtro" => "%".$criterio."%"];
     }
     protected function getFindQuery($criterio = null) {
-        return "select * from usuarios where usuNombre like ?";
+        return "select * from usuarios u inner join sujetos s on u.sujId = s.sujId where u.usuNombre like :filtro or s.sujDocumento like :filtro";
     }
     protected function getFindXIdQuery() {
         return "select * from usuarios where usuId = ?";
