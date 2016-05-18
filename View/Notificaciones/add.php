@@ -21,9 +21,13 @@
                     <div class="col-sm-10">
                         <input list="veh" class="form-control" placeholder="Seleccione Vehículo" required="required" name="cboxveh" />
                         <datalist id="veh">
-                            <?php foreach ($vehiculos as $vehiculo) { ?>
-                                <option value="<?php echo $vehiculo->getId(); ?>"><?php echo $vehiculo->getMatricula(); ?></option>
-                            <?php }?>                            
+                            <?php 
+                                foreach ($vehiculos as $vehiculo) { 
+                                    if($vehiculo->getEstado() == "H"){ ?>
+                                        <option value="<?php echo $vehiculo->getId(); ?>"><?php echo $vehiculo->getMatricula(); ?></option>
+                            <?php   }                            
+                                }
+                            ?>                            
                         </datalist>&nbsp;
                         <input type="button" onclick="frmadd.submit();" value="Buscar" />
                     </div>

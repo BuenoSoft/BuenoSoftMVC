@@ -1,23 +1,49 @@
 <h3><i class="fa fa-angle-right"></i> Crear Usuario</h3>
-<form class="form-horizontal style-form" method="post" action="index.php?c=usuarios&a=add" name="frmadd">
+<form class="form-horizontal style-form" method="post" action="index.php?c=usuarios&a=add" name="frmadd"> 
+    <script>        
+        $(function() {
+            $("#suj").change(function(){
+                if($("#suj").val()=="Persona"){
+                    $("#txtruc").hide();
+                    $("#txtci").show();
+                }
+                if($("#suj").val()=="Empresa"){
+                    $("#txtci").hide();
+                    $("#txtruc").show();
+                }
+            });
+        });
+    </script>
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
                 <h4><i class="fa fa-angle-right"></i> Datos del Sujeto:</h4>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Documento del Sujeto</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Tipo de Sujeto (*)</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtdoc" class="form-control" autofocus required placeholder="Ej: 285514564" onkeypress="return validarNumero(event)" maxlength="12">
+                        <input id="suj" list="sujetos" class="form-control" placeholder="Seleccione un Tipo de Sujeto" required="required" name="cboxtiposuj" />
+                        <datalist id="sujetos">
+                            <option value="seleccione">Seleccione</option>
+                            <option value="Empresa">Sujeto Tipo Empresa</option>
+                            <option value="Persona">Sujeto Tipo Persona</option>
+                        </datalist>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Nombre del Sujeto</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Documento del Sujeto (*)</label>
+                    <div class="col-sm-10">
+                        <input type="text" id="txtci" name="txtci" class="form-control" autofocus required placeholder="Ej: 28554564 - C.I" onkeypress="return validarNumero(event)" maxlength="8" style="display: none;">
+                        <input type="text" id="txtruc" name="txtruc" class="form-control" autofocus required placeholder="Ej: 285514564788 - RUC" onkeypress="return validarNumero(event)" maxlength="12" style="display: none;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Nombre del Sujeto (*)</label>
                     <div class="col-sm-10">
                         <input type="text" name="txtnomsuj" class="form-control" required placeholder="Ej: Luis Ottonello" onkeypress="return validarTexto(event)">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Dirección del Sujeto</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Dirección del Sujeto (*)</label>
                     <div class="col-sm-10">
                         <input type="text" name="txtdir" class="form-control" required placeholder="Ej: Dr. Soca 300">
                     </div>
@@ -33,36 +59,26 @@
                     <div class="col-sm-10">
                         <input type="text" name="txtcelular" class="form-control" placeholder="Ej: 099564565" onkeypress="return validarNumero(event)" maxlength="9">
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Tipo de Sujeto</label>
-                    <div class="col-sm-10">
-                        <input id="suj" list="sujetos" class="form-control" placeholder="Seleccione un Tipo de Sujeto" required="required" name="cboxtiposuj" />
-                        <datalist id="sujetos">
-                            <option value="Empresa">Sujeto Tipo Empresa</option>
-                            <option value="Persona">Sujeto Tipo Persona</option>
-                        </datalist>>
-                    </div>
-                </div>               
+                </div>                              
             </div>
         </div>        
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
                 <h4><i class="fa fa-angle-right"></i> Datos del Usuario: </h4>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Nombre del Usuario</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Nombre del Usuario (*)</label>
                     <div class="col-sm-10">
                         <input type="text" name="txtuser" class="form-control" required placeholder="Ej: pop32">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Contraseña</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Contraseña (*)</label>
                     <div class="col-sm-10">
                         <input type="password" name="txtpass" class="form-control" required placeholder="Ej: penelope4512">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Tipo de Usuario</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Tipo de Usuario (*)</label>
                     <div class="col-sm-10">
                         <input list="tipos" class="form-control" placeholder="Seleccione un Tipo de Usuario" required="required" name="cboxtipo" />
                         <datalist id="tipos">

@@ -1,7 +1,7 @@
 <h3><i class="fa fa-angle-right"></i> Mantenimiento de Usuarios</h3>
 <p>
-    <a href="index.php?c=usuarios&a=add">Crear</a>&nbsp;
-    <a href="index.php?c=access&a=index">Volver</a>    
+    <a href="index.php?c=access&a=index" class=""><button>Volver</button></a>&nbsp;    
+    <a href="index.php?c=usuarios&a=add"><button>Crear</button></a>    
 </p>
 <div class="content-panel">
     <section id="unseen">

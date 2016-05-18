@@ -49,20 +49,19 @@ class UsuariosController extends AppController
     public function add(){
         if($this->checkUser()){
             if(isset($_POST['btnaceptar'])){
-          //      if($this->checkDates()){
-                    $sujeto = $this->createSujeto();
-                    $sujeto->save();
-                    $usuario = $this->createUsuario();
-                    $usuario->setSujeto((new Sujeto())->findById((new Sujeto())->maxID()));                 
-                    if(isset($id)){
-                        Session::set("msg","Usuario Creado");
-                        header("Location:index.php?c=usuarios&a=index");
-                        exit();
-                    }
-                    else {
-                        Session::set("msg",Session::get('msg'));
-                    }                
-            //    }
+                $sujeto = $this->createSujeto();
+                $sujeto->save();
+                $usuario = $this->createUsuario();
+                $usuario->setSujeto((new Sujeto())->findById((new Sujeto())->maxID()));
+                $id = $usuario->save();
+                if(isset($id)){
+                    Session::set("msg","Usuario Creado");
+                    header("Location:index.php?c=usuarios&a=index");
+                    exit();
+                }
+                else {
+                    Session::set("msg",Session::get('msg'));
+                }                
             }
             $this->redirect_administrador(["add.php"]);        
         }
@@ -71,7 +70,7 @@ class UsuariosController extends AppController
         if($this->checkUser()){
             Session::set("id",$_GET['p']); 
             if (Session::get('id')!=null && isset($_POST['btnaceptar'])){
-       //         if($this->checkDates()) {
+                if($this->checkDates()) {
                     $sujeto = $this->createSujeto();
                     $sujeto->save();
                     $usuario = $this->createUsuario();
@@ -85,7 +84,7 @@ class UsuariosController extends AppController
                     else {
                         Session::set("msg",Session::get('msg'));
                     }
-        //        }
+                }
             }
             $this->redirect_administrador(["edit.php"],["usuario" => (new Usuario())->findById(Session::get('id'))]);  
         }
@@ -115,10 +114,9 @@ class UsuariosController extends AppController
                 header("Location:index.php?c=usuarios&a=index");
             }        
         }
-    }
-    /*
+    }    
     private function checkDates(){
-        if($_POST['cboxtiposuj'] == "Empresa" and (strlen($_POST['txtdoc']) > 12) or strlen($_POST['txtdoc']) < 12){
+        if($_POST['cboxtiposuj'] == "Empresa" and (strlen($_POST['txtdoc']) < 12)){
             Session::set('msg', "Asegurese de ingresar bien el RUC de la empresa");
             return false;
         }
@@ -129,11 +127,11 @@ class UsuariosController extends AppController
         else {
             return true;
         }
-    }*/
+    }
     private function createSujeto(){
         $sujeto = new Sujeto();
         $sujeto->setId(isset($_POST['hid']) ? $_POST['hid'] : 0);
-        $sujeto->setDocumento($_POST['txtdoc']);
+        $sujeto->setDocumento(isset($_POST['txtruc']) ? $_POST['txtruc'] : $_POST['txtci']);
         $sujeto->setNombre($_POST['txtnomsuj']);
         $sujeto->setDireccion($_POST['txtdir']);
         $sujeto->setTelefono($_POST['txttelefono']);

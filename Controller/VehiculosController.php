@@ -23,7 +23,7 @@ class VehiculosController extends AppController
     public function add(){
         if($this->checkUser()){
             Session::set('comb', isset($_POST['cboxcomb']) ? $_POST['cboxcomb'] : Session::get('comb'));
-            $combustibles = (Session::get('comb')!= "") ? (new Combustible())->find(Session::get('comb')) : array();
+            $combustibles = (Session::get('comb')!= "") ? $this->getPaginator()->paginar((new Combustible())->find(Session::get('comb')),1) : array();
             if (isset($_POST['btnaceptar'])) {
                 $veh = $this->createEntity();
                 $id = $veh->save();
@@ -44,7 +44,7 @@ class VehiculosController extends AppController
         if($this->checkUser()){
             Session::set("id",$_GET['p']);
             Session::set('comb', isset($_POST['cboxcomb']) ? $_POST['cboxcomb'] : Session::get('comb'));
-            $combustibles = (Session::get('comb')!= "") ? (new Combustible())->find(Session::get('comb')) : array();
+            $combustibles = (Session::get('comb')!= "") ? $this->getPaginator()->paginar((new Combustible())->find(Session::get('comb')),1) : array();
             if (Session::get('id')!=null && isset($_POST['btnaceptar'])){
                 $veh = $this->createEntity();
                 $id = $veh->save();

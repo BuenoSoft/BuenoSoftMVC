@@ -23,7 +23,7 @@ class NotificacionesController extends AppController
     public function add(){
         if($this->checkUser()){
             Session::set('veh', isset($_POST['cboxveh']) ? $_POST['cboxveh'] : Session::get('veh'));
-            $vehiculos = (Session::get('veh')!= "") ? (new Vehiculo())->find(Session::get('veh')) : array();
+            $vehiculos = (Session::get('veh')!= "") ? $this->getPaginator()->paginar((new Vehiculo())->find(Session::get('veh')),1) : array();
             if (isset($_POST['btnaceptar'])) {
                 $not = $this->createEntity();
                 $id = $not->save();
@@ -45,7 +45,7 @@ class NotificacionesController extends AppController
         if($this->checkUser()){
             Session::set("id",$_GET['p']);
             Session::set('veh', isset($_POST['cboxveh']) ? $_POST['cboxveh'] : Session::get('veh'));
-            $vehiculos = (Session::get('veh')!= "") ? (new Vehiculo())->find(Session::get('veh')) : array();
+            $vehiculos = (Session::get('veh')!= "") ? $this->getPaginator()->paginar((new Vehiculo())->find(Session::get('veh')),1) : array();
             if (Session::get('id')!=null && isset($_POST['btnaceptar'])){
                 $not = $this->createEntity();
                 $id = $not->save();

@@ -1,7 +1,7 @@
 <h3><i class="fa fa-angle-right"></i> Mantenimiento de Notificaciones</h3>
 <p>
-    <a href="index.php?c=notificaciones&a=add">Crear</a>&nbsp;
-    <a href="index.php?c=access&a=index">Volver</a>    
+    <a href="index.php?c=access&a=index"><button>Volver</button></a>&nbsp;  
+    <a href="index.php?c=notificaciones&a=add"><button>Crear</button></a>      
 </p>
 <div class="content-panel">
     <section id="unseen">

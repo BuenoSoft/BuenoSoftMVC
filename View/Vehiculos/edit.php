@@ -89,9 +89,13 @@
                     <div class="col-sm-10">
                         <input list="combustibles" class="form-control" placeholder="Seleccione Combustible" required="required" name="cboxcomb" value="<?php echo $vehiculo->getCombustible()->getId(); ?>" />
                         <datalist id="combustibles">
-                            <?php foreach ($combustibles as $combustible) { ?>
-                                <option value="<?php echo $combustible->getId(); ?>"><?php echo $combustible->getNombre(); ?></option>
-                            <?php }?>                            
+                            <?php 
+                                foreach ($combustibles as $combustible) {
+                                    if($combustible->getEstado() == "H"){ ?>
+                                        <option value="<?php echo $combustible->getId(); ?>"><?php echo $combustible->getNombre(); ?></option>
+                            <?php   }
+                                }
+                            ?>                            
                         </datalist>&nbsp;
                         <input type="button" onclick="frmedit.submit();" value="Buscar" />
                     </div>

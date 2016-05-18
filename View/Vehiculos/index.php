@@ -1,7 +1,7 @@
 <h3><i class="fa fa-angle-right"></i> Mantenimiento de Vehículos</h3>
 <p>
-    <a href="index.php?c=vehiculos&a=add">Crear</a>&nbsp;
-    <a href="index.php?c=access&a=index">Volver</a>    
+    <a href="index.php?c=access&a=index"><button>Volver</button></a>&nbsp; 
+    <a href="index.php?c=vehiculos&a=add"><button>Crear</button></a>       
 </p>
 <div class="content-panel">
     <section id="unseen">
@@ -34,7 +34,7 @@
                         <td><?php echo $vehiculo->getId(); ?></td>
                         <td><?php echo $vehiculo->getMatricula(); ?></td>
                         <td><?php echo $vehiculo->getTipo(); ?></td>
-                        <td><?php echo $vehiculo->getCombustible()->getId(); ?></td>                        
+                        <td><?php echo $vehiculo->getCombustible()->getNombre(); ?></td>                        
                     </tr>
                 <?php }?>
             </tbody>
