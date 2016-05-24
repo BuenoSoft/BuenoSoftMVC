@@ -7,7 +7,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Log de la Notificación</label>
                     <div class="col-sm-10">
-                        <textarea name="txtlog" rows="10" class="form-control" autofocus required="required" placeholder="Ej: Cambio de las ruedas traseras"></textarea>
+                        <textarea name="txtlog" rows="5" cols="67" autofocus required="required" placeholder="Ej: Cambio de las ruedas traseras"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -19,7 +19,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Vehículo</label>
                     <div class="col-sm-10">
-                        <input list="veh" class="form-control" placeholder="Seleccione Vehículo" required="required" name="cboxveh" />
+                        <input list="veh" class="form-control_datalist" placeholder="Seleccione Vehículo" required="required" name="cboxveh" />
                         <datalist id="veh">
                             <?php 
                                 foreach ($vehiculos as $vehiculo) { 
@@ -28,8 +28,8 @@
                             <?php   }                            
                                 }
                             ?>                            
-                        </datalist>&nbsp;
-                        <input type="button" onclick="frmadd.submit();" value="Buscar" />
+                        </datalist>
+                        <input type="button" onclick="frmadd.submit();" value="Buscar" class="btn btn-theme01" />
                     </div>
                 </div>
             </div>

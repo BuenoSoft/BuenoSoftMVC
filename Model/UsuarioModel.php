@@ -19,7 +19,7 @@ class UsuarioModel extends AppModel
         return [$datos[0], md5($datos[1])];
     }
     protected function getCheckMessage() {
-        return "El Usuario ya existe";
+        return "El Usuario ya existe.";
     }
     protected function getCheckParameter($unique) {
         return [$unique->getNombre()];
@@ -28,10 +28,10 @@ class UsuarioModel extends AppModel
         return "select * from usuarios where usuNombre = ?";
     }
     protected function getCreateParameter($object) {
-        return [$object->getNombre(), md5($object->getPass()), $object->getTipo(),'H',$object->getSujeto()->getId()];
+        return [$object->getNombre(), md5($object->getPass()), $object->getTipo(),'H',$object->getDatosUsu()->getId()];
     }
     protected function getCreateQuery() {
-        return "insert into usuarios(usuNombre,usuPass,usuTipo,usuEstado,sujId) values(?,?,?,?,?)"; 
+        return "insert into usuarios(usuNombre,usuPass,usuTipo,usuEstado,datId) values(?,?,?,?,?)"; 
     }
     protected function getDeleteParameter($object) {
         return ['D',$object->getId()];
@@ -46,26 +46,26 @@ class UsuarioModel extends AppModel
         return ["filtro" => "%".$criterio."%"];
     }
     protected function getFindQuery($criterio = null) {
-        return "select * from usuarios u inner join sujetos s on u.sujId = s.sujId where u.usuNombre like :filtro or s.sujDocumento like :filtro";
+        return "select * from usuarios u inner join datosusu d on u.datId = d.datId where u.usuNombre like :filtro or d.datDocumento like :filtro";
     }
     protected function getFindXIdQuery() {
         return "select * from usuarios where usuId = ?";
     }
     protected function getUpdateParameter($object) {
-        return [$object->getNombre(), $object->getPass(), $object->getTipo(),$object->getSujeto()->getId(), $object->getId() ];
+        return [$object->getNombre(), $object->getPass(), $object->getTipo(),$object->getDatosUsu()->getId(), $object->getId()];
     }
     protected function getUpdateQuery() {
-        return "update usuarios set usuNombre = ?,usuPass = ?,usuTipo = ?,sujId = ? where usuId = ?";
+        return "update usuarios set usuNombre = ?,usuPass = ?,usuTipo = ?,datId = ? where usuId = ?";
     }
     public function createEntity($row) {
-        $sujeto = (new SujetoModel())->findById($row['sujId']);
+        $datousu = (new DatosUsuModel())->findById($row['datId']);
         $usuario = new Usuario();
         $usuario->setId($row['usuId']);
         $usuario->setNombre($row['usuNombre']);
         $usuario->setPass($row['usuPass']);
         $usuario->setTipo($row['usuTipo']);
         $usuario->setEstado($row['usuEstado']);
-        $usuario->setSujeto($sujeto);
+        $usuario->setDatoUsu($datousu);
         return $usuario;
     }
 }

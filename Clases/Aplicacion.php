@@ -7,10 +7,10 @@ class Aplicacion implements IPersiste
     private $id;
     private $coordlat;
     private $coordlong;
-    private $ruc;
     private $areaapl;
     private $faja;
-    private $fecha;
+    private $fechaIni;
+    private $fechaFin;
     private $estado;
     private $tratamiento;
     private $viento;
@@ -18,8 +18,6 @@ class Aplicacion implements IPersiste
     private $taquiFin;
     private $tipo;
     private $padron;
-    private $horaIni;
-    private $horaFin;
     private $cultivo;
     private $caudal;
     private $importe;
@@ -35,17 +33,17 @@ class Aplicacion implements IPersiste
     function getCoordlong() {
         return $this->coordlong;
     }
-    function getRuc() {
-        return $this->ruc;
-    }
     function getAreaapl() {
         return $this->areaapl;
     }
     function getFaja() {
         return $this->faja;
     }
-    function getFecha() {
-        return $this->fecha;
+    function getFechaIni() {
+        return $this->fechaIni;
+    }
+    function getFechaFin() {
+        return $this->fechaFin;
     }
     function getEstado() {
         return $this->estado;
@@ -68,12 +66,6 @@ class Aplicacion implements IPersiste
     function getPadron() {
         return $this->padron;
     }
-    function getHoraIni() {
-        return $this->horaIni;
-    }
-    function getHoraFin() {
-        return $this->horaFin;
-    }
     function getCultivo() {
         return $this->cultivo;
     }
@@ -92,6 +84,7 @@ class Aplicacion implements IPersiste
     function getCliente() {
         return $this->cliente;
     }
+    
     function setId($id) {
         $this->id = $id;
     }
@@ -101,17 +94,17 @@ class Aplicacion implements IPersiste
     function setCoordlong($coordlong) {
         $this->coordlong = $coordlong;
     }
-    function setRuc($ruc) {
-        $this->ruc = $ruc;
-    }
     function setAreaapl($areaapl) {
         $this->areaapl = $areaapl;
     }
     function setFaja($faja) {
         $this->faja = $faja;
     }
-    function setFecha($fecha) {
-        $this->fecha = $fecha;
+    function setFechaIni($fechaIni) {
+        $this->fechaIni = $fechaIni;
+    }
+    function setFechaFin($fechaFin) {
+        $this->fechaFin = $fechaFin;
     }
     function setEstado($estado) {
         $this->estado = $estado;
@@ -133,12 +126,6 @@ class Aplicacion implements IPersiste
     }
     function setPadron($padron) {
         $this->padron = $padron;
-    }
-    function setHoraIni($horaIni) {
-        $this->horaIni = $horaIni;
-    }
-    function setHoraFin($horaFin) {
-        $this->horaFin = $horaFin;
     }
     function setCultivo($cultivo) {
         $this->cultivo = $cultivo;
@@ -165,9 +152,17 @@ class Aplicacion implements IPersiste
     public function taquiDif(){
         return $this->taquiFin - $this->taquiIni;
     }
+    public function mostrarDateTimeIni(){
+        $date = date_create($this->fechaIni);
+        return date_format($date, "Y-m-d\TH:i:s");
+    }
+    public function mostrarDateTimeFin(){
+        $date = date_create($this->fechaFin);
+        return date_format($date, "Y-m-d\TH:i:s");
+    }
     /*-----------------------------------------*/        
     public function save() {
-        return ($this->id == 0) ? (new AplicacionModel())->create($this) : (new AplicacionModel())->update($this);
+        return ($this->id == 0) ? (new AplicacionModel())->addApp($this) : (new AplicacionModel())->modApp($this);
     }
     public function find($criterio = null) {
         return (new AplicacionModel())->find($criterio);
@@ -176,4 +171,30 @@ class Aplicacion implements IPersiste
         return (new AplicacionModel())->findById($id);
     }
     public function del() { }
+    /*-----------------------------------------*/
+    public function addPro($pro) {
+        return (new AplicacionModel())->addPro([$this->id, $pro]);
+    }
+    public function delPro($pro) {
+        return (new AplicacionModel())->delPro([$this->id, $pro]);
+    }
+    public function getProductos($criterio = null) {
+        return (new AplicacionModel())->getProductos([$this->id, $criterio]); 
+    }
+    /*-----------------------------------------*/
+    public function addUsu($usado) {
+        return (new AplicacionModel())->addUsu($usado);
+    }
+    public function getUsados($criterio = null){
+        return (new AplicacionModel())->getUsados([$this->id, $criterio]);
+    }
+    public function getUsado($veh){
+        return (new AplicacionModel())->getUsado([$this->id, $veh]);
+    }
+    public function modUsu($usado) {
+        return (new AplicacionModel())->modUsu($usado);    
+    }
+    public function delUsu($usado) {
+        return (new AplicacionModel())->delUsu($usado);    
+    }
 }

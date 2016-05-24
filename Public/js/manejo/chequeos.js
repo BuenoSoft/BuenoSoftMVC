@@ -15,3 +15,21 @@ function validarTexto(e) {
     return patron.test(te);
 }
 
+//Chequeo de la cédula
+function validarCedula(ci){
+    var arrCoefs = [2,9,8,7,6,3,4,1];
+    var suma = 0;
+    var difCoef = parseInt(arrCoefs.length - ci.length);
+    for (var i = ci.length - 1; i > -1; i--) {
+	var dig = ci.substring(i, i+1);
+	var digInt = parseInt(dig);
+	var coef = arrCoefs[i+difCoef];
+	suma = suma + digInt * coef;
+    }
+    if ( (suma % 10) == 0 ) {
+        return true;
+    } else {
+        alert ("Cedula inválida.");
+	return false;
+    }
+}

@@ -1,8 +1,8 @@
 <?php
 namespace Clases;
 use \App\IPersiste;
-use \Model\SujetoModel;
-class Sujeto implements IPersiste
+use \Model\DatosUsuModel;
+class DatosUsu implements IPersiste
 {
     private $id;
     private $documento;
@@ -10,7 +10,7 @@ class Sujeto implements IPersiste
     private $direccion;
     private $telefono;
     private $celular;
-    private $tiposuj;
+    private $tipo;
     function getId() {
         return $this->id;
     }
@@ -29,8 +29,8 @@ class Sujeto implements IPersiste
     function getCelular() {
         return $this->celular;
     }
-    function getTiposuj() {
-        return $this->tiposuj;
+    function getTipo() {
+        return $this->tipo;
     }
     function setId($id) {
         $this->id = $id;
@@ -50,22 +50,22 @@ class Sujeto implements IPersiste
     function setCelular($celular) {
         $this->celular = $celular;
     }
-    function setTiposuj($tiposuj) {
-        $this->tiposuj = $tiposuj;
+    function setTipo($tipo) {
+        $this->tipo = $tipo;
     }
     function __construct() { }
-    public function equals(Sujeto $obj){
+    public function equals(DatosUsu $obj){
         return $this->documento == $obj->documento;                
     }
     /*---------------------------*/
     public function save() {
-        return ($this->id == 0) ? (new SujetoModel())->create($this) : (new SujetoModel())->update($this);
+        return ($this->id == 0) ? (new DatosUsuModel())->create($this) : (new DatosUsuModel())->update($this);
     }        
     public function findById($id) {
-        return (new SujetoModel())->findById($id);
+        return (new DatosUsuModel())->findById($id);
     }
     public function maxID(){
-        return (new SujetoModel())->maxId();
+        return (new DatosUsuModel())->maxId();
     }
     public function del() { }
     public function find($criterio = null) { }

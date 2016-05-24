@@ -1,7 +1,7 @@
 <?php
 namespace Controller;
 use \App\Session;
-use \Clases\Sujeto;
+use \Clases\DatosUsu;
 use \Clases\Usuario;
 class UsuariosController extends AppController
 {
@@ -32,8 +32,7 @@ class UsuariosController extends AppController
     public function logout(){
         Session::logout();
         header("Location:index.php?c=todos&a=index");
-        Session::set("msg","Acceso finalizado.");
-        
+        Session::set("msg","Acceso finalizado.");        
     } 
     public function index(){
         if($this->checkUser()){
@@ -48,11 +47,11 @@ class UsuariosController extends AppController
     }
     public function add(){
         if($this->checkUser()){
-            if(isset($_POST['btnaceptar'])){
-                $sujeto = $this->createSujeto();
-                $sujeto->save();
+            if(isset($_POST["btnaceptar"])){
+                $datousu = $this->createDato();
+                $datousu->save();
                 $usuario = $this->createUsuario();
-                $usuario->setSujeto((new Sujeto())->findById((new Sujeto())->maxID()));
+                $usuario->setDatoUsu((new DatosUsu())->findById((new DatosUsu())->maxID()));
                 $id = $usuario->save();
                 if(isset($id)){
                     Session::set("msg","Usuario Creado");
@@ -71,10 +70,10 @@ class UsuariosController extends AppController
             Session::set("id",$_GET['p']); 
             if (Session::get('id')!=null && isset($_POST['btnaceptar'])){
                 if($this->checkDates()) {
-                    $sujeto = $this->createSujeto();
-                    $sujeto->save();
+                    $datousu = $this->createDatoUsu();
+                    $datousu->save();
                     $usuario = $this->createUsuario();
-                    $usuario->setSujeto($sujeto);
+                    $usuario->setDatoUsu($datousu);
                     $id = $usuario->save();
                     if(isset($id)){
                         Session::set("msg","Usuario Editado");
@@ -114,39 +113,26 @@ class UsuariosController extends AppController
                 header("Location:index.php?c=usuarios&a=index");
             }        
         }
-    }    
-    private function checkDates(){
-        if($_POST['cboxtiposuj'] == "Empresa" and (strlen($_POST['txtdoc']) < 12)){
-            Session::set('msg', "Asegurese de ingresar bien el RUC de la empresa");
-            return false;
-        }
-        else if($_POST['cboxtiposuj'] == "Persona" and (strlen($_POST['txtdoc']) > 8) or strlen($_POST['txtdoc']) < 8 ){
-            Session::set('msg', "Asegurese de ingresar bien el C.I de la persona");
-            return false;
-        }
-        else {
-            return true;
-        }
     }
-    private function createSujeto(){
-        $sujeto = new Sujeto();
-        $sujeto->setId(isset($_POST['hid']) ? $_POST['hid'] : 0);
-        $sujeto->setDocumento(isset($_POST['txtruc']) ? $_POST['txtruc'] : $_POST['txtci']);
-        $sujeto->setNombre($_POST['txtnomsuj']);
-        $sujeto->setDireccion($_POST['txtdir']);
-        $sujeto->setTelefono($_POST['txttelefono']);
-        $sujeto->setCelular($_POST['txtcelular']);
-        $sujeto->setTiposuj($_POST['cboxtiposuj']);
-        return $sujeto;
+    private function createDatoUsu(){
+        $dato = new DatosUsu();
+        $dato->setId(isset($_POST['hid']) ? $_POST['hid'] : 0);
+        $dato->setDocumento(isset($_POST['txtruc']) ? $_POST['txtruc'] : (isset($_POST['txtci']) ? $_POST['txtci'] : null));
+        $dato->setNombre($_POST['txtnom']);
+        $dato->setDireccion($_POST['txtdir']);
+        $dato->setTelefono($_POST['txttelefono']);
+        $dato->setCelular($_POST['txtcelular']);
+        $dato->setTipo($_POST['cboxtipo']);
+        return $dato;
     }
     private function createUsuario(){
-        $sujeto = $this->createSujeto();
+        $datousu = $this->createDatoUsu();
         $usuario = new Usuario();
         $usuario->setId(isset($_POST['hid']) ? $_POST['hid'] : 0);
         $usuario->setNombre($_POST['txtuser']);
         $usuario->setPass($_POST['txtpass']);
         $usuario->setTipo($_POST['cboxtipo']);
-        $usuario->setSujeto($sujeto);
+        $usuario->setDatoUsu($datousu);
         return $usuario;
     }
     protected function getRoles() {

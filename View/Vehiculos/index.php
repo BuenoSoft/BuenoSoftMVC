@@ -1,14 +1,14 @@
 <h3><i class="fa fa-angle-right"></i> Mantenimiento de Vehículos</h3>
 <p>
-    <a href="index.php?c=access&a=index"><button>Volver</button></a>&nbsp; 
-    <a href="index.php?c=vehiculos&a=add"><button>Crear</button></a>       
+    <a href="index.php?c=access&a=index"><button class="btn btn-theme05"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp; 
+    <a href="index.php?c=vehiculos&a=add"><button class="btn btn-theme05"><i class="fa fa-plus"></i>&nbsp;Crear</button></a>       
 </p>
 <div class="content-panel">
-    <section id="unseen">
+    <section id="unseen" style="padding-left: 5px; padding-right: 5px;">
         <p>
             <form name="frmsearch" method="post" action="index.php?c=vehiculos&a=index"> 
-                <input type="search" name="txtbuscador" placeholder="Nombre del Vehículo" width="50" />&nbsp;
-                <input type="button" onclick="frmsearch.submit();" name="btnsearch" value="Aceptar" />
+                <input type="search" name="txtbuscador" placeholder="Nombre del Vehículo" width="50" class="form-control_index" />&nbsp;
+                <input type="button" onclick="frmsearch.submit();" name="btnsearch" value="Buscar" class="btn btn-theme01" />
             </form>        
         </p>
         <table class="table table-bordered table-striped table-condensed">

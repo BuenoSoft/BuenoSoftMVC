@@ -6,7 +6,7 @@
                 <h4><i class="fa fa-angle-right"></i> Datos del Vehículo:</h4>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Número del Vehículo</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-10" style="text-align: center;">
                         <input type="hidden" name="hid" value="<?php echo $vehiculo->getId(); ?>" /><?php echo $vehiculo->getId(); ?>
                     </div>
                 </div>

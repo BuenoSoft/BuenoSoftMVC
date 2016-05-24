@@ -1,4 +1,4 @@
-<h3><i class="fa fa-angle-right"></i> Ver Usuario</h3>
+<h3><i class="fa fa-angle-right"></i> Ver Cliente</h3>
 <div class="form-horizontal style-form">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -67,7 +67,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div style="text-align: center;">
-                <a href="index.php?c=usuarios&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
+                <a href="index.php?c=aplicaciones&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
             </div>
         </div>
     </div>

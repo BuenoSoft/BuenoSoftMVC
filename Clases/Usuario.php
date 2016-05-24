@@ -9,7 +9,7 @@ class Usuario implements IPersiste
     private $pass;
     private $tipo;
     private $estado;
-    private $sujeto;
+    private $datousu;
     function getId() {
         return $this->id;
     }
@@ -25,8 +25,8 @@ class Usuario implements IPersiste
     function getEstado() {
         return $this->estado;
     }
-    function getSujeto() {
-        return $this->sujeto;
+    function getDatoUsu() {
+        return $this->datousu;
     }
     function setId($id) {
         $this->id = $id;
@@ -43,8 +43,8 @@ class Usuario implements IPersiste
     function setEstado($estado) {
         $this->estado = $estado;
     }
-    function setSujeto($sujeto) {
-        $this->sujeto = $sujeto;
+    function setDatoUsu($datousu) {
+        $this->datousu = $datousu;
     }
     function __construct() { }
     public function equals(Usuario $obj){
@@ -64,7 +64,6 @@ class Usuario implements IPersiste
     public function findById($id) {
         return (new UsuarioModel())->findById($id);
     }
-
     public function save() {
         return ($this->id == 0) ? (new UsuarioModel())->create($this) : (new UsuarioModel())->update($this); 
     }

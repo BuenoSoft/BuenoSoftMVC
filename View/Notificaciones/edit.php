@@ -6,14 +6,14 @@
                 <h4><i class="fa fa-angle-right"></i> Datos de la Notificación:</h4>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Número de la Notificación</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-10" style="text-align: center;">
                         <input type="hidden" name="hid" value="<?php echo $notificacion->getId(); ?>" /><?php echo $notificacion->getId(); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Log de la Notificación</label>
                     <div class="col-sm-10">
-                        <textarea name="txtlog" rows="10" class="form-control" autofocus required="required" placeholder="Ej: Cambio de las ruedas traseras"><?php echo $notificacion->getLog(); ?></textarea>
+                        <textarea name="txtlog" rows="5" cols="67" autofocus required="required" placeholder="Ej: Cambio de las ruedas traseras"><?php echo $notificacion->getLog(); ?></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Vehículo</label>
                     <div class="col-sm-10">
-                        <input list="veh" class="form-control" placeholder="Seleccione Vehículo" required="required" name="cboxveh" value="<?php echo $notificacion->getVehiculo()->getId(); ?>" />
+                        <input list="veh" class="form-control_datalist" placeholder="Seleccione Vehículo" required="required" name="cboxveh" value="<?php echo $notificacion->getVehiculo()->getId(); ?>" />
                         <datalist id="veh">
                             <?php 
                                 foreach ($vehiculos as $vehiculo) { 
@@ -40,8 +40,8 @@
                             <?php   }                            
                                 }
                             ?>                            
-                        </datalist>&nbsp;
-                        <input type="button" onclick="frmedit.submit();" value="Buscar" />
+                        </datalist>
+                        <input type="button" onclick="frmedit.submit();" value="Buscar" class="btn btn-theme01"/>
                     </div>
                 </div>
             </div>

@@ -1,48 +1,48 @@
 <?php
 namespace Model;
-use \Clases\Sujeto;
-class SujetoModel extends AppModel 
+use \Clases\DatosUsu;
+class DatosUsuModel extends AppModel 
 {
     public function __construct() {
         parent::__construct();
     }
     public function maxId(){
-        return $this->fetch("select max(sujId) as maximo from sujetos",[])[0]['maximo'];
+        return $this->fetch("select max(datId) as maximo from datosusu",[])[0]['maximo'];
     }
     protected function getCheckMessage() {
-        return "El Sujeto ya existe";
+        return "El Dato de ese usuario ya existe.";
     }
     protected function getCheckParameter($unique) {
         return [$unique->getDocumento()];
     }
     protected function getCheckQuery() {
-        return "select * from sujetos where sujDocumento = ?";
+        return "select * from datosusu where datDocumento = ?";
     }
     protected function getCreateParameter($object) {
         return [$object->getDocumento(),$object->getNombre(),$object->getDireccion(),$object->getTelefono(), $object->getCelular(),$object->getTipoSuj()];
     }
     protected function getCreateQuery() {
-        return "insert into sujetos(sujDocumento,sujNombre,sujDireccion,sujTelefono,sujCelular,sujTipoSuj) values(?,?,?,?,?,?)";
+        return "insert into datosusu(datDocumento,datNombre,datDireccion,datTelefono,datCelular,datTipo) values(?,?,?,?,?,?)";
     }        
     protected function getUpdateParameter($object) { 
         return [$object->getDocumento(), $object->getNombre(), $object->getDireccion(), $object->getTelefono(), $object->getCelular(), $object->getTiposuj(), $object->getId()];
     }
     protected function getUpdateQuery() { 
-       return "update sujetos set sujDocumento = ?,sujNombre = ?,sujDireccion = ?,sujTelefono = ?,sujCelular = ?,sujTipoSuj = ? where sujId = ?"; 
+       return "update datosusu set datDocumento = ?,datNombre = ?,datDireccion = ?,datTelefono = ?,datCelular = ?,datTipo = ? where datId = ?"; 
     }    
     protected function getFindXIdQuery() {
-        return "select * from sujetos where sujId = ?";
+        return "select * from datosusu where datId = ?";
     }    
     public function createEntity($row) {
-        $sujeto = new Sujeto();
-        $sujeto->setId($row['sujId']);
-        $sujeto->setDocumento($row['sujDocumento']);
-        $sujeto->setNombre($row['sujNombre']);
-        $sujeto->setDireccion($row['sujDireccion']);
-        $sujeto->setTelefono($row['sujTelefono']);
-        $sujeto->setCelular($row['sujCelular']);
-        $sujeto->setTiposuj($row['sujTipoSuj']);
-        return $sujeto;
+        $datousu = new DatosUsu();
+        $datousu->setId($row['datId']);
+        $datousu->setDocumento($row['datDocumento']);
+        $datousu->setNombre($row['datNombre']);
+        $datousu->setDireccion($row['datDireccion']);
+        $datousu->setTelefono($row['datTelefono']);
+        $datousu->setCelular($row['datCelular']);
+        $datousu->setTipo($row['datTipo']);
+        return $datousu;
     }
     
     protected function getDeleteParameter($object) { }
