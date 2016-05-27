@@ -12,26 +12,40 @@
             </form>        
         </p>
         <table class="table table-bordered table-striped table-condensed">
-            <thead>
-                <th></th>
-                <th>Aplicación</th>
-                <th>Fecha de Inicio</th>
-                <th>Estado</th>
+            <thead>                
+                <th>Aplicación</th>                
                 <th>Cliente</th>
+                <th>Estado</th>
+                <th>Opciones</th>
             </thead>
             <tbody>
                 <?php foreach ($aplicaciones as $aplicacion) { ?>
                     <tr>
+                        <td><?php echo $aplicacion->getId(); ?></td>
+                        <td><a href="index.php?c=aplicaciones&a=cliente&v=<?php echo $aplicacion->getCliente()->getId(); ?>"><?php echo $aplicacion->getCliente()->getNombre(); ?></a></td>
+                        <td>
+                            <?php  
+                                if($aplicacion->getFechaFin() == null or $aplicacion->getFechaFin() == "0000-00-00 00:00:00"){
+                                    if($aplicacion->getFechaIni() == "0000-00-00 00:00:00"){
+                                        echo "En espera";
+                                    }
+                                    else {
+                                        echo "Iniciado: ".$aplicacion->getFechaIni();
+                                    }
+                                }
+                                else {
+                                    echo "Finalizado: ".$aplicacion->getFechaFin();
+                                }
+                            ?>                        
+                        </td>
                         <td>
                             <a href="index.php?c=aplicaciones&a=view&p=<?php echo $aplicacion->getId(); ?>">Ver</a>&nbsp;
                             <a href="index.php?c=aplicaciones&a=edit&p=<?php echo $aplicacion->getId(); ?>">Editar</a>&nbsp;
                             <a href="index.php?c=tienes&a=index&p=<?php echo $aplicacion->getId(); ?>">Productos</a>&nbsp;
                             <a href="index.php?c=usados&a=index&p=<?php echo $aplicacion->getId(); ?>">Usados</a>&nbsp;
                         </td>
-                        <td><?php echo $aplicacion->getId(); ?></td>
-                        <td><?php echo $aplicacion->getFechaIni(); ?></td>
-                        <td><?php echo $aplicacion->getEstado(); ?></td>
-                        <td><a href="index.php?c=aplicaciones&a=cliente&v=<?php echo $aplicacion->getCliente()->getId(); ?>"><?php echo $aplicacion->getCliente()->getNombre(); ?></a></td>
+                        
+                        
                     </tr>
                 <?php } ?>
             </tbody>

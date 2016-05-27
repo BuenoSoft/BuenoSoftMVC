@@ -5,21 +5,21 @@
             <div class="showback">
                 <h4><i class="fa fa-angle-right"></i> Datos del Combustible:</h4>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Nombre del Combustible</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Nombre del Combustible&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtnombre" class="form-control" required placeholder="Ej: Gasoil" onkeypress="return validarTexto(event)" />
+                        <input type="text" name="txtnombre" class="form-control" required="required" placeholder="Ej: Gasoil" onkeypress="return validarTexto(event)" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Stock del Combustible</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Stock del Combustible&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtstock" class="form-control" required placeholder="Ej: 15" onkeypress="return validarNumero(event)" />
+                        <input type="text" name="txtstock" class="form-control" required="required" placeholder="Ej: 15" onkeypress="return validarNumero(event)" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Carga</label>
                     <div class="col-sm-10">
-                        <input type="date" name="dtfecha" class="form-control" required  value="<?php echo date('Y-m-d')?>"/>
+                        <input type="date" name="dtfecha" class="form-control" />
                     </div>
                 </div>
             </div>

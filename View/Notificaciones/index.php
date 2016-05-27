@@ -12,23 +12,24 @@
             </form>        
         </p>
         <table class="table table-bordered table-striped table-condensed">
-            <thead>
-                <th></th>
+            <thead>                
                 <th>Notificación</th>
+                <th>Vehículo</th>
                 <th>Log</th>
                 <th>Fecha de Inicio</th>
-                <th>Fecha de Cierre</th>
-                <th>Vehículo</th>
+                <th>Fecha de Cierre</th>                
+                <th>Opciones</th>
             </thead>
             <tbody>
                 <?php foreach($notificaciones as $notificacion){ ?>
                     <tr>
-                        <td><a href="index.php?c=notificaciones&a=edit&p=<?php echo $notificacion->getId(); ?>">Editar</a></td>
                         <td><?php echo $notificacion->getId(); ?></td>
+                        <td><a href="index.php?c=notificaciones&a=veh&v=<?php echo $notificacion->getVehiculo()->getId(); ?>"><?php echo $notificacion->getVehiculo()->getMatricula(); ?></a></td>                        
                         <td><?php echo $notificacion->getLog(); ?></td>
                         <td><?php echo $notificacion->getFechaini(); ?></td>
                         <td><?php echo $notificacion->getFechafin(); ?></td>
-                        <td><a href="index.php?c=notificaciones&a=veh&v=<?php echo $notificacion->getVehiculo()->getId(); ?>"><?php echo $notificacion->getVehiculo()->getMatricula(); ?></a></td>
+                        <td><a href="index.php?c=notificaciones&a=edit&p=<?php echo $notificacion->getId(); ?>">Editar</a></td>
+                        
                     </tr>
                 <?php } ?>
             </tbody>

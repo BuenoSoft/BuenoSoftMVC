@@ -5,21 +5,21 @@
             <div class="showback">
                 <h4><i class="fa fa-angle-right"></i> Datos del Producto:</h4>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Código del Producto</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Código del Producto&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcodigo" class="form-control" autofocus required placeholder="Ej: 835-514564" />
+                        <input type="text" name="txtcodigo" class="form-control" autofocus="autofocus" required="required" placeholder="Ej: 835-514564" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Nombre del Producto</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Nombre del Producto&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtnombre" class="form-control" required placeholder="Ej: Aceite" onkeypress="return validarTexto(event)" />
+                        <input type="text" name="txtnombre" class="form-control" required="required" placeholder="Ej: Aceite" onkeypress="return validarTexto(event)" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Marca del Producto</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Marca del Producto&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtmarca" class="form-control" required placeholder="Ej: Castrol" />
+                        <input type="text" name="txtmarca" class="form-control" required="required" placeholder="Ej: Castrol" />
                     </div>
                 </div>
             </div>

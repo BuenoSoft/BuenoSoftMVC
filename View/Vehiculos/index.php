@@ -12,16 +12,20 @@
             </form>        
         </p>
         <table class="table table-bordered table-striped table-condensed">
-            <thead>
-                <th></th>
+            <thead>               
                 <th>Vehículo</th>
                 <th>Matrícula</th>
                 <th>Tipo</th>
                 <th>Combustible</th>
+                <th>Opciones</th>
             </thead>
             <tbody>
                 <?php foreach ($vehiculos as $vehiculo) { ?>
-                    <tr>
+                    <tr>                        
+                        <td><?php echo $vehiculo->getId(); ?></td>
+                        <td><?php echo $vehiculo->getMatricula(); ?></td>
+                        <td><?php echo $vehiculo->getTipo(); ?></td>
+                        <td><?php echo $vehiculo->getCombustible()->getNombre(); ?></td> 
                         <td>
                             <a href="index.php?c=vehiculos&a=view&p=<?php echo $vehiculo->getId(); ?>">Ver</a>&nbsp;
                             <a href="index.php?c=vehiculos&a=edit&p=<?php echo $vehiculo->getId(); ?>">Editar</a>&nbsp;
@@ -31,10 +35,6 @@
                                 <a href="index.php?c=vehiculos&a=active&p=<?php echo $vehiculo->getId(); ?>" onclick="return confirm('¿Desea activar el Vehículo seleccionado?');">Activar</a>
                             <?php }?>
                         </td>
-                        <td><?php echo $vehiculo->getId(); ?></td>
-                        <td><?php echo $vehiculo->getMatricula(); ?></td>
-                        <td><?php echo $vehiculo->getTipo(); ?></td>
-                        <td><?php echo $vehiculo->getCombustible()->getNombre(); ?></td>                        
                     </tr>
                 <?php }?>
             </tbody>

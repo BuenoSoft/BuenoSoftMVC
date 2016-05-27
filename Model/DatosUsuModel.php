@@ -19,13 +19,13 @@ class DatosUsuModel extends AppModel
         return "select * from datosusu where datDocumento = ?";
     }
     protected function getCreateParameter($object) {
-        return [$object->getDocumento(),$object->getNombre(),$object->getDireccion(),$object->getTelefono(), $object->getCelular(),$object->getTipoSuj()];
+        return [$object->getDocumento(),$object->getNombre(),$object->getDireccion(),$object->getTelefono(), $object->getCelular(),$object->getTipo()];
     }
     protected function getCreateQuery() {
         return "insert into datosusu(datDocumento,datNombre,datDireccion,datTelefono,datCelular,datTipo) values(?,?,?,?,?,?)";
     }        
     protected function getUpdateParameter($object) { 
-        return [$object->getDocumento(), $object->getNombre(), $object->getDireccion(), $object->getTelefono(), $object->getCelular(), $object->getTiposuj(), $object->getId()];
+        return [$object->getDocumento(), $object->getNombre(), $object->getDireccion(), $object->getTelefono(), $object->getCelular(), $object->getTipo(), $object->getId()];
     }
     protected function getUpdateQuery() { 
        return "update datosusu set datDocumento = ?,datNombre = ?,datDireccion = ?,datTelefono = ?,datCelular = ?,datTipo = ? where datId = ?"; 

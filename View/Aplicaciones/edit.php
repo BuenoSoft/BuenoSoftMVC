@@ -11,13 +11,13 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Cliente</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Cliente&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input list="clientes" class="form-control_datalist" placeholder="Seleccione Cliente" required="required" name="cliente" value="<?php echo $aplicacion->getCliente()->getId(); ?>" />
                         <datalist id="clientes">
                             <?php
                                 foreach ($usuarios as $usuario){
-                                    if($usuario->getEstado() == "H") { ?>
+                                    if($usuario->getEstado() == "H" and $usuario->getTipo() == "Usuario") { ?>
                                         <option value="<?php echo $usuario->getDatoUsu()->getId() ?>"><?php echo "Documento: ".$usuario->getDatoUsu()->getDocumento()." Nombre: ".$usuario->getDatoUsu()->getNombre();?></option>
                                 <?php                                         
                                     }
@@ -28,50 +28,49 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Tratamiento</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Tratamiento&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <textarea rows="5" cols="67" name="txttrat" required placeholder=""><?php echo $aplicacion->getTratamiento(); ?></textarea>
+                        <textarea rows="5" cols="67" name="txttrat" required="required" placeholder="" class="form-control"><?php echo $aplicacion->getTratamiento(); ?></textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Área Aplicada</label>                                           
+                    <label class="col-sm-2 col-sm-2 control-label">Área Aplicada&nbsp;<font color="red">*</font></label>                                           
                     <div class="col-sm-10">
-                        <input type="text" name="txtarea_apl" class="form-control" required placeholder="" value="<?php echo $aplicacion->getAreaapl(); ?>" /> 
+                        <input type="text" name="txtarea_apl" class="form-control" required="required" placeholder="" value="<?php echo $aplicacion->getAreaapl(); ?>" /> 
                     </div>
-                </div>
-                
+                </div>                
             </div> 
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Coordenadas de Latitud</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Coordenadas de Latitud&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcoordlat" class="form-control" required autofocus placeholder="" value="<?php echo $aplicacion->getCoordlat(); ?>" />
+                        <input type="number" name="txtcoordlat" class="form-control" required="required" autofocus placeholder="" value="<?php echo $aplicacion->getCoordlat(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Coordenadas de Longitud</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Coordenadas de Longitud&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcoordlong" class="form-control" required placeholder="" value="<?php echo $aplicacion->getCoordlong(); ?>" />
+                        <input type="number" name="txtcoordlong" class="form-control" required="required" placeholder="" value="<?php echo $aplicacion->getCoordlong(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Taquímetro Inicial</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txttaquiIni" class="form-control" required placeholder="" value="<?php echo $aplicacion->getTaquiIni(); ?>" />
+                        <input type="number" name="txttaquiIni" class="form-control" required="required" placeholder="" value="<?php echo $aplicacion->getTaquiIni(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Taquímetro Final</label>                        
                     <div class="col-sm-10">
-                        <input type="text" name="txttaquiFin" class="form-control" required placeholder="" value="<?php echo $aplicacion->getTaquiFin(); ?>" />
+                        <input type="number" name="txttaquiFin" class="form-control" required="required" placeholder="" value="<?php echo $aplicacion->getTaquiFin(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Viento</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Viento&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtviento" class="form-control" required placeholder="" value="<?php echo $aplicacion->getViento(); ?>" />
+                        <input type="number" name="txtviento" class="form-control" required="required" placeholder="" value="<?php echo $aplicacion->getViento(); ?>" />
                     </div>
                 </div>
             </div>
@@ -79,83 +78,71 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Padrón</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Padrón&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtpadron" class="form-control" required placeholder="" value="<?php echo $aplicacion->getPadron(); ?>" />
+                        <input type="text" name="txtpadron" class="form-control" required="required" placeholder="" value="<?php echo $aplicacion->getPadron(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Importe</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtimporte" class="form-control" required placeholder="" value="<?php echo $aplicacion->getImporte(); ?>"/>
+                        <input type="number" name="txtimporte" class="form-control" placeholder="" value="<?php echo $aplicacion->getImporte(); ?>"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Inicio</label>
                     <div class="col-sm-10">
-                        <input type="datetime-local" name="dtfechaini" class="form-control" autofocus required="required" value="<?php echo $aplicacion->mostrarDateTimeIni(); ?>" />
+                        <input type="datetime-local" name="dtfechaini" class="form-control" value="<?php echo ($aplicacion->getFechaIni() == null ) ? "" : $aplicacion->mostrarDateTimeIni(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Cierre</label>
                     <div class="col-sm-10">
-                       <input type="datetime-local" name="dtfechafin" class="form-control" autofocus required="required" value="<?php echo ($aplicacion->getFechaFin() == null) ? date("Y-m-d\TH:i:s") : $aplicacion->mostrarDateTimeFin(); ?>" />
+                       <input type="datetime-local" name="dtfechafin" class="form-control" value="<?php echo ($aplicacion->getFechaFin() == null) ? "" : $aplicacion->mostrarDateTimeFin(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Tipo de Aplicación</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Tipo de Aplicación&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input list="tipo" class="form-control" placeholder="Seleccione Tipo" required="required" name="tipos" value="<?php echo $aplicacion->getTipo(); ?>" />
                         <datalist id="tipo">
-                            <option value="Sólido">Sólido</option>
-                            <option value="Líquido">Líquido</option>
+                            <option value="S">Sólido</option>
+                            <option value="L">Líquido</option>
                         </datalist>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Estado</label>
-                    <div class="col-sm-10">
-                        <input id="est" list="estado" class="form-control" placeholder="Seleccione Estado" required="required" name="estados" value="<?php echo $aplicacion->getEstado(); ?>" />
-                        <datalist id="estado">
-                            <option value="Iniciado">Iniciada</option>
-                            <option value="Pendiente">Pendiente</option>
-                            <option value="Finalizada">Finalizada</option>
-                            <option value="Cancelada">Cancelada</option>
-                        </datalist>
-                    </div>
-                </div> 
             </div> 
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">                
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Dosis</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Dosis&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtdosis" class="form-control" required placeholder="" value="<?php echo $aplicacion->getDosis(); ?>" />
+                        <input type="number" name="txtdosis" class="form-control" required="required" placeholder="" value="<?php echo $aplicacion->getDosis(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Hectáreas</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Hectáreas&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txthectareas" class="form-control" required placeholder="" value="<?php echo $aplicacion->getHectareas(); ?>" />
+                        <input type="number" name="txthectareas" class="form-control" required="required" placeholder="" value="<?php echo $aplicacion->getHectareas(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Faja</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Faja&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtfaja" class="form-control" required placeholder="" value="<?php echo $aplicacion->getFaja(); ?>" />
+                        <input type="number" name="txtfaja" class="form-control" required="required" placeholder="" value="<?php echo $aplicacion->getFaja(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Cultivo</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Cultivo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcultivo" class="form-control" required placeholder="" value="<?php echo $aplicacion->getCultivo(); ?>" />
+                        <input type="text" name="txtcultivo" class="form-control" required="required" placeholder="" value="<?php echo $aplicacion->getCultivo(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Caudal</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Caudal&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcaudal" class="form-control" required placeholder="" value="<?php echo $aplicacion->getCaudal(); ?>"/>
+                        <input type="text" name="txtcaudal" class="form-control" required="required" placeholder="" value="<?php echo $aplicacion->getCaudal(); ?>"/>
                     </div>
                 </div>
             </div>

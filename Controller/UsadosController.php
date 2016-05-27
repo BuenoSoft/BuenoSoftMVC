@@ -68,17 +68,6 @@ class UsadosController extends AppController
             ]);
         }
     }
-    public function delete(){
-        if($this->checkUser()){
-            Session::set("id",$_GET['p']);
-            Session::set("v",$_GET['v']);
-            $apl = (new Aplicacion())->findById(Session::get("id"));
-            $usado = $apl->getUsado(Session::get("v"));
-            $id = $apl->delUsu($usado);
-            Session::set("msg", (isset($id)) ? "Uso del Vehículo Borrado" : "No se pudo borrar el vehículo");
-            header("Location:index.php?c=usados&a=index&p=".Session::get("id"));
-        }
-    }
     public function veh(){
         if($this->checkUser()){
             $this->redirect_administrador(["veh.php"],[

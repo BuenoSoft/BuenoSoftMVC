@@ -9,7 +9,7 @@ class AplicacionModel extends AppModel
     protected function getCreateParameter($object) {
         return [
             $object->getCoordlat(), $object->getCoordlong(), $object->getAreaapl(), $object->getFaja(), 
-            $object->getFechaIni(), $object->getFechaFin(), $object->getEstado(), $object->getTratamiento(), 
+            $object->getFechaIni(), $object->getFechaFin(), $object->getTratamiento(), 
             $object->getViento(), $object->getTaquiIni(), $object->getTaquiFin(), $object->getTipo(), 
             $object->getPadron(), $object->getCultivo(), $object->getCaudal(), $object->getImporte(),
             $object->getDosis(), $object->getHectareas(), $object->getCliente()->getId()
@@ -17,9 +17,9 @@ class AplicacionModel extends AppModel
     }
     protected function getCreateQuery() {
         return "insert into aplicaciones(aplCoordLat,aplCoordLong, aplAreaAplicada,aplFaja,"
-            . "aplFechaIni,aplFechaFin,aplEstado,aplTratamiento,aplViento,aplTaquiIni,aplTaquiFin,"
+            . "aplFechaIni,aplFechaFin,aplTratamiento,aplViento,aplTaquiIni,aplTaquiFin,"
             . "aplTipo,aplPadron,aplCultivo,aplCaudal,aplImporte, aplDosis,aplHectareas,datId) "
-            . "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            . "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     }
     /*------------------------------------------------------------------------------------*/
     public function modApp($object){
@@ -27,17 +27,17 @@ class AplicacionModel extends AppModel
     }
     protected function getUpdateQuery() {
         return "update aplicaciones set aplCoordLat = ?,aplCoordLong = ?,aplAreaAplicada = ?,"
-            . "aplFaja = ?,aplFechaIni = ?,aplFechaFin = ?,aplEstado = ?,aplTratamiento = ?,"
+            . "aplFaja = ?,aplFechaIni = ?,aplFechaFin = ?,,aplTratamiento = ?,"
             . "aplViento = ?,aplTaquiIni = ?,aplTaquiFin = ?,aplTipo = ?,aplPadron = ?,aplCultivo = ?,"
             . "aplCaudal = ?,aplImporte = ?,aplDosis = ?,aplHectareas = ?,datId = ? where aplId = ?";
     }
     protected function getUpdateParameter($object) {
         return [
             $object->getCoordlat(), $object->getCoordlong(), $object->getAreaapl(), $object->getFaja(), 
-            $object->getFechaIni(),$object->getFechaFin(), $object->getEstado(), $object->getTratamiento(), 
-            $object->getViento(), $object->getTaquiIni(), $object->getTaquiFin(), $object->getTipo(), 
-            $object->getPadron(), $object->getCultivo(), $object->getCaudal(), $object->getImporte(),
-            $object->getDosis(), $object->getHectareas(), $object->getCliente()->getId(), $object->getId()
+            $object->getFechaIni(),$object->getFechaFin(), $object->getTratamiento(), $object->getViento(), 
+            $object->getTaquiIni(), $object->getTaquiFin(), $object->getTipo(), $object->getPadron(), 
+            $object->getCultivo(), $object->getCaudal(), $object->getImporte(),$object->getDosis(), 
+            $object->getHectareas(), $object->getCliente()->getId(), $object->getId()
         ];
     }    
     
@@ -61,7 +61,6 @@ class AplicacionModel extends AppModel
         $aplicacion->setFaja($row["aplFaja"]);
         $aplicacion->setFechaIni($row["aplFechaIni"]);
         $aplicacion->setFechaFin($row["aplFechaFin"]);
-        $aplicacion->setEstado($row["aplEstado"]);
         $aplicacion->setTratamiento($row["aplTratamiento"]);
         $aplicacion->setViento($row["aplViento"]);
         $aplicacion->setTaquiIni($row["aplTaquiIni"]);
@@ -103,8 +102,5 @@ class AplicacionModel extends AppModel
     }
     public function modUsu($usado) {
         return (new UsadoModel())->modUsu($usado);    
-    }
-    public function delUsu($usado) {
-        return (new UsadoModel())->delete($usado);    
     }
 }

@@ -13,15 +13,19 @@
         </p>
         <table class="table table-bordered table-striped table-condensed">
             <thead>
-                <th></th>
                 <th>Usuario</th>
-                <th>Nombre</th>
+                <th>Nombre de Usuario</th>
+                <th>Nombre Real</th>
                 <th>Tipo</th>
-                <th>Cliente</th>
+                <th>Opciones</th>                
             </thead>
             <tbody>
                 <?php foreach($usuarios as $usuario) {?>
-                    <tr>
+                    <tr>                        
+                        <td><?php echo $usuario->getId(); ?></td>
+                        <td><?php echo $usuario->getNombre(); ?></td>
+                        <td><?php echo $usuario->getDatoUsu()->getNombre(); ?></td>
+                        <td><?php echo $usuario->getTipo(); ?></td>                        
                         <td>
                             <a href="index.php?c=usuarios&a=view&p=<?php echo $usuario->getId(); ?>">Ver</a>&nbsp;
                             <a href="index.php?c=usuarios&a=edit&p=<?php echo $usuario->getId(); ?>">Editar</a>&nbsp;
@@ -31,10 +35,6 @@
                                 <a href="index.php?c=usuarios&a=active&p=<?php echo $usuario->getId(); ?>" onclick="return confirm('¿Desea activar el usuario seleccionado?');">Activar</a>
                             <?php } ?>
                         </td>
-                        <td><?php echo $usuario->getId(); ?></td>
-                        <td><?php echo $usuario->getNombre(); ?></td>
-                        <td><?php echo $usuario->getTipo(); ?></td>
-                        <td><?php echo $usuario->getSujeto()->getNombre(); ?></td>
                     </tr>
                 <?php } ?>
             </tbody>

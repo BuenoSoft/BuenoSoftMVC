@@ -89,7 +89,6 @@ class AplicacionesController extends AppController
         $aplicacion->setFaja($_POST['txtfaja']);
         $aplicacion->setFechaIni($_POST['dtfechaini']);
         $aplicacion->setFechaFin(isset($_POST['dtfechafin']) ? $_POST['dtfechafin'] : null);
-        $aplicacion->setEstado($_POST['estados']);
         $aplicacion->setTratamiento($_POST['txttrat']);
         $aplicacion->setViento($_POST['txtviento']);
         $aplicacion->setTaquiIni($_POST['txttaquiIni']);

@@ -28,7 +28,7 @@ class UsuarioModel extends AppModel
         return "select * from usuarios where usuNombre = ?";
     }
     protected function getCreateParameter($object) {
-        return [$object->getNombre(), md5($object->getPass()), $object->getTipo(),'H',$object->getDatosUsu()->getId()];
+        return [$object->getNombre(), md5($object->getPass()), $object->getTipo(),'H',$object->getDatoUsu()->getId()];
     }
     protected function getCreateQuery() {
         return "insert into usuarios(usuNombre,usuPass,usuTipo,usuEstado,datId) values(?,?,?,?,?)"; 
@@ -46,13 +46,13 @@ class UsuarioModel extends AppModel
         return ["filtro" => "%".$criterio."%"];
     }
     protected function getFindQuery($criterio = null) {
-        return "select * from usuarios u inner join datosusu d on u.datId = d.datId where u.usuNombre like :filtro or d.datDocumento like :filtro";
+        return "select * from usuarios u inner join datosusu d on u.datId = d.datId where d.datNombre like :filtro or d.datDocumento like :filtro";
     }
     protected function getFindXIdQuery() {
         return "select * from usuarios where usuId = ?";
     }
     protected function getUpdateParameter($object) {
-        return [$object->getNombre(), $object->getPass(), $object->getTipo(),$object->getDatosUsu()->getId(), $object->getId()];
+        return [$object->getNombre(), $object->getPass(), $object->getTipo(),$object->getDatoUsu()->getId(), $object->getId()];
     }
     protected function getUpdateQuery() {
         return "update usuarios set usuNombre = ?,usuPass = ?,usuTipo = ?,datId = ? where usuId = ?";

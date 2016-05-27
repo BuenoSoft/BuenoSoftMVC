@@ -20,19 +20,18 @@ class UsadoModel extends AppModel
     }
     protected function getCreateQuery() {
         return "insert into utiliza(aplId,vehId,utiConductor,utiCapacidad) values(?,?,?,?)";
-    }    
+    }
+    /*------------------------------------------------------------------------------------*/
     protected function getUpdateParameter($object) {
         return [$object->getConductor(),$object->getCapacidad(),$object->getAplicacion()->getId(),$object->getVehiculo()->getId()];
     }
     protected function getUpdateQuery() {
         return "update utiliza set utiConductor = ?,utiCapacidad = ? where aplId = ? and vehId = ?";
     }
-    protected function getDeleteParameter($object) {
-        return[$object->getAplicacion()->getId(),$object->getVehiculo()->getId()];
+    public function modUsu($object){
+        return $this->executeQuery($this->getUpdateQuery(), $this->getUpdateParameter($object));
     }
-    protected function getDeleteQuery($notUsed = true) {
-        return "delete from utiliza where aplId = ? and vehId = ?";
-    }
+    /*------------------------------------------------------------------------------------*/
     public function getUsados($dates = []){
         $datos= array();
         foreach($this->fetch($this->getFindQuery(), $this->getFindUsadoParameter($dates)) as $row){
@@ -47,6 +46,7 @@ class UsadoModel extends AppModel
     protected function getFindQuery($criterio = null) {
         return "select * from utiliza u inner join vehiculos v on u.vehId = v.vehId where u.aplId = :id and v.vehMatricula like :filtro or u.utiConductor like :filtro";
     }
+    /*------------------------------------------------------------------------------------*/
     public function getUsado($dates = []){
         return $this->findByCondition($this->getFindXIdQuery(), $this->getFindXIdParameter($dates));
     }
@@ -56,9 +56,7 @@ class UsadoModel extends AppModel
     protected function getFindXIdQuery() { 
         return "select * from utiliza where aplId = ? and vehId = ?";
     }
-    public function modUsu($object){
-        return $this->executeQuery($this->getUpdateQuery(), $this->getUpdateParameter($object));
-    }
+    /*------------------------------------------------------------------------------------*/ 
     public function createEntity($row) {
         $apl = (new AplicacionModel())->findById($row["aplId"]);
         $veh = (new VehiculoModel())->findById($row["vehId"]);
@@ -70,5 +68,22 @@ class UsadoModel extends AppModel
         return $usado;
     }
     protected function getFindParameter($criterio = null) { }
-    
+    protected function getDeleteParameter($object) { }
+    protected function getDeleteQuery($notUsed = true) { }
+    /*-------------------------------------------------------------------------------*/
+    public function addHis($his){
+        return (new HistorialModel())->addHis($his);
+    }
+    public function getHistoriales($dates = []){
+        return (new HistorialModel())->getHistoriales($dates);
+    }
+    public function getHistorial($dates = []){
+        return (new HistorialModel())->getHistorial($dates);
+    }
+    public function modHis($his){
+        return (new HistorialModel())->modHis($his);
+    }
+    public function delHis($his){
+        return (new HistorialModel())->delete($his);
+    }
 }

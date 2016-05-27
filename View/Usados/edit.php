@@ -1,4 +1,4 @@
-<h3>Registrar Vehículo para Aplicación nro <?php echo $usado->getAplicacion()->getId();?></h3>
+<h3>Registrar Vehículo para Aplicación número&nbsp;<?php echo $usado->getAplicacion()->getId();?></h3>
 <form class="form-horizontal style-form" method="post" action="index.php?c=usados&a=edit&p=<?php echo \App\Session::get('id'); ?>&v=<?php echo \App\Session::get('v'); ?>" name="frmedit">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -10,15 +10,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Conductor</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Conductor&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcond" class="form-control" required value="<?php echo $usado->getConductor(); ?>" />
+                        <input type="text" name="txtcond" class="form-control" required="required" value="<?php echo $usado->getConductor(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Capacidad</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Capacidad&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcap" class="form-control" required value="<?php echo $usado->getCapacidad(); ?>" />
+                        <input type="text" name="txtcap" class="form-control" required="required" value="<?php echo $usado->getCapacidad(); ?>" />
                     </div>
                 </div>
             </div>

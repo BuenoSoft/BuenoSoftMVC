@@ -12,16 +12,20 @@
             </form>        
         </p>
         <table class="table table-bordered table-striped table-condensed">
-            <thead>
-                <th></th>
+            <thead>                
                 <th>Producto</th>
+                <th>Nombre</th>                
                 <th>Código</th>
-                <th>Nombre</th>
                 <th>Marca</th>
+                <th>Opciones</th>
             </thead>
             <tbody>
                 <?php foreach($productos as $producto){ ?>
-                <tr>
+                <tr>                    
+                    <td><?php echo $producto->getId(); ?></td>
+                    <td><?php echo $producto->getNombre(); ?></td>
+                    <td><?php echo $producto->getCodigo(); ?></td>
+                    <td><?php echo $producto->getMarca(); ?></td>
                     <td>
                         <a href="index.php?c=productos&a=edit&p=<?php echo $producto->getId(); ?>">Editar</a>&nbsp;
                         <?php if($producto->getEstado() == 'H'){ ?>
@@ -30,10 +34,6 @@
                             <a href="index.php?c=productos&a=active&p=<?php echo $producto->getId(); ?>" onclick="return confirm('¿Desea activar el producto seleccionado?');">Activar</a>
                         <?php }?>
                     </td>
-                    <td><?php echo $producto->getId(); ?></td>
-                    <td><?php echo $producto->getCodigo(); ?></td>
-                    <td><?php echo $producto->getNombre(); ?></td>
-                    <td><?php echo $producto->getMarca(); ?></td>
                 </tr>
                 <?php }?>
             </tbody>

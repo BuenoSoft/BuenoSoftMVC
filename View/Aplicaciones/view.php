@@ -71,8 +71,7 @@
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-            <div class="showback">
-                
+            <div class="showback">                
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Importe</label>
                     <div class="col-sm-10" style="text-align: center;">
@@ -82,37 +81,45 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Inicio</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $aplicacion->getFechaIni(); ?>
+                        <?php 
+                            if($aplicacion->getFechaIni() != "0000-00-00 00:00:00"){
+                                echo $aplicacion->getFechaIni();                             
+                            }
+                        ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Cierre</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $aplicacion->getFechaFin(); ?>
+                        <?php
+                            if($aplicacion->getFechaFin() != null and $aplicacion->getFechaFin() != "0000-00-00 00:00:00"){
+                                echo $aplicacion->getFechaFin();                              
+                            }
+                        ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tipo de Aplicación</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $aplicacion->getTipo(); ?>
+                        <?php 
+                            if($aplicacion->getTipo() == "S"){
+                                echo "Sólido";
+                            } else {
+                                echo "Líquido";
+                            }
+                        ?>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Estado</label>
-                    <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $aplicacion->getEstado(); ?>
-                    </div>
-                </div> 
-            </div> 
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
-            <div class="showback">                
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Dosis</label>
                     <div class="col-sm-10" style="text-align: center;">
                         <?php echo $aplicacion->getDosis(); ?>
                     </div>
                 </div>
+            </div> 
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="showback">                                
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Hectáreas</label>
                     <div class="col-sm-10" style="text-align: center;">

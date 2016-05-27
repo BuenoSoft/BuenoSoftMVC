@@ -13,19 +13,19 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Documento del Sujeto</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtdoc" class="form-control" autofocus required placeholder="Ej: 285514564" onkeypress="return validarNumero(event)" maxlength="12" value="<?php echo $usuario->getDatoUsu()->getDocumento(); ?>" />
+                        <input type="text" name="txtdoc" class="form-control" autofocus required="required" placeholder="Ej: 285514564" onkeypress="return validarNumero(event)" maxlength="12" value="<?php echo $usuario->getDatoUsu()->getDocumento(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre del Sujeto</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtnomsuj" class="form-control" required placeholder="Ej: Luis Ottonello" onkeypress="return validarTexto(event)" value="<?php echo $usuario->getDatoUsu()->getNombre(); ?>">
+                        <input type="text" name="txtnomsuj" class="form-control" required="required" placeholder="Ej: Luis Ottonello" onkeypress="return validarTexto(event)" value="<?php echo $usuario->getDatoUsu()->getNombre(); ?>">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Dirección del Sujeto</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtdir" class="form-control" required placeholder="Ej: Dr. Soca 300" value="<?php echo $usuario->getDatoUsu()->getDireccion(); ?>">
+                        <input type="text" name="txtdir" class="form-control" required="required" placeholder="Ej: Dr. Soca 300" value="<?php echo $usuario->getDatoUsu()->getDireccion(); ?>">
                     </div>
                 </div>
                 <div class="form-group">
@@ -43,7 +43,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tipo de Sujeto</label>
                     <div class="col-sm-10">
-                        <input id="suj" list="sujetos" class="form-control" placeholder="Seleccione un Tipo de Sujeto" required="required" name="cboxtiposuj" value="<?php echo $usuario->getDatoUsu()->getTipo(); ?>" />
+                        <input id="suj" list="sujetos" class="form-control" required="required" placeholder="Seleccione un Tipo de Sujeto" name="cboxtiposuj" value="<?php echo $usuario->getDatoUsu()->getTipo(); ?>" />
                         <datalist id="sujetos">
                             <option value="Empresa">Sujeto Tipo Empresa</option>
                             <option value="Persona">Sujeto Tipo Persona</option>

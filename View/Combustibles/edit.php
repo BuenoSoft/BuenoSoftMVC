@@ -11,21 +11,21 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Nombre del Combustible</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Nombre del Combustible&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtnombre" class="form-control" required placeholder="Ej: Gasoil" onkeypress="return validarTexto(event)" value="<?php echo $combustible->getNombre(); ?>" />
+                        <input type="text" name="txtnombre" class="form-control" required="required" placeholder="Ej: Gasoil" onkeypress="return validarTexto(event)" value="<?php echo $combustible->getNombre(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Stock del Combustible</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Stock del Combustible&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtstock" class="form-control" required placeholder="Ej: 15" onkeypress="return validarNumero(event)" value="<?php echo $combustible->getStock(); ?>" />
+                        <input type="text" name="txtstock" class="form-control" required="required" placeholder="Ej: 15" onkeypress="return validarNumero(event)" value="<?php echo $combustible->getStock(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Carga</label>
                     <div class="col-sm-10">
-                        <input type="date" name="dtfecha" class="form-control" required  value="<?php echo $combustible->getFecha(); ?>" />
+                        <input type="date" name="dtfecha" class="form-control" value="<?php echo $combustible->getFecha(); ?>" />
                     </div>
                 </div>
             </div>

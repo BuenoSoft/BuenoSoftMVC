@@ -48,7 +48,7 @@ class UsuariosController extends AppController
     public function add(){
         if($this->checkUser()){
             if(isset($_POST["btnaceptar"])){
-                $datousu = $this->createDato();
+                $datousu = $this->createDatoUsu();
                 $datousu->save();
                 $usuario = $this->createUsuario();
                 $usuario->setDatoUsu((new DatosUsu())->findById((new DatosUsu())->maxID()));
@@ -69,21 +69,19 @@ class UsuariosController extends AppController
         if($this->checkUser()){
             Session::set("id",$_GET['p']); 
             if (Session::get('id')!=null && isset($_POST['btnaceptar'])){
-                if($this->checkDates()) {
-                    $datousu = $this->createDatoUsu();
-                    $datousu->save();
-                    $usuario = $this->createUsuario();
-                    $usuario->setDatoUsu($datousu);
-                    $id = $usuario->save();
-                    if(isset($id)){
-                        Session::set("msg","Usuario Editado");
-                        header("Location:index.php?c=usuarios&a=index");
-                        exit();
-                    }
-                    else {
-                        Session::set("msg",Session::get('msg'));
-                    }
+                $datousu = $this->createDatoUsu();
+                $datousu->save();
+                $usuario = $this->createUsuario();
+                $usuario->setDatoUsu($datousu);
+                $id = $usuario->save();
+                if(isset($id)){
+                    Session::set("msg","Usuario Editado");
+                    header("Location:index.php?c=usuarios&a=index");
+                    exit();
                 }
+                else {
+                    Session::set("msg",Session::get('msg'));
+                }                
             }
             $this->redirect_administrador(["edit.php"],["usuario" => (new Usuario())->findById(Session::get('id'))]);  
         }
@@ -117,7 +115,7 @@ class UsuariosController extends AppController
     private function createDatoUsu(){
         $dato = new DatosUsu();
         $dato->setId(isset($_POST['hid']) ? $_POST['hid'] : 0);
-        $dato->setDocumento(isset($_POST['txtruc']) ? $_POST['txtruc'] : (isset($_POST['txtci']) ? $_POST['txtci'] : null));
+        $dato->setDocumento($_POST['txtdoc']);
         $dato->setNombre($_POST['txtnom']);
         $dato->setDireccion($_POST['txtdir']);
         $dato->setTelefono($_POST['txttelefono']);

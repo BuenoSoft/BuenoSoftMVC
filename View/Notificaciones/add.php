@@ -5,19 +5,19 @@
             <div class="showback">
                 <h4><i class="fa fa-angle-right"></i> Datos de la Notificación:</h4>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Log de la Notificación</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Log de la Notificación&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <textarea name="txtlog" rows="5" cols="67" autofocus required="required" placeholder="Ej: Cambio de las ruedas traseras"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Fecha de la Notificación</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Fecha de la Notificación&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                       <input type="datetime-local" name="dtfechaini" class="form-control" autofocus required="required" value="<?php echo date("Y-m-d\TH:i:s"); ?>" />
+                        <input type="datetime-local" name="dtfechaini" class="form-control" required="required" value="<?php echo date( "Y-m-d\TH:i:s");?>"  />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Vehículo</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input list="veh" class="form-control_datalist" placeholder="Seleccione Vehículo" required="required" name="cboxveh" />
                         <datalist id="veh">

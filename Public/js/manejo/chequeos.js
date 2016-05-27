@@ -16,7 +16,7 @@ function validarTexto(e) {
 }
 
 //Chequeo de la cédula
-function validarCedula(ci){
+function validarCedula(ci){ 
     var arrCoefs = [2,9,8,7,6,3,4,1];
     var suma = 0;
     var difCoef = parseInt(arrCoefs.length - ci.length);
@@ -32,4 +32,5 @@ function validarCedula(ci){
         alert ("Cedula inválida.");
 	return false;
     }
+
 }

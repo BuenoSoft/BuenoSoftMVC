@@ -11,25 +11,25 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Log de la Notificación</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Log de la Notificación&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <textarea name="txtlog" rows="5" cols="67" autofocus required="required" placeholder="Ej: Cambio de las ruedas traseras"><?php echo $notificacion->getLog(); ?></textarea>
+                        <textarea name="txtlog" rows="5" cols="67" autofocus="autofocus" required="required" placeholder="Ej: Cambio de las ruedas traseras" class="form-control"><?php echo $notificacion->getLog(); ?></textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Fecha de la Notificación</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Fecha de la Notificación&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                       <input type="datetime-local" name="dtfechaini" class="form-control" autofocus required="required" value="<?php echo $notificacion->mostrarDateTimeIni(); ?>" />
+                        <input type="datetime-local" name="dtfechaini" class="form-control" required="required" value="<?php echo ($notificacion->getFechaini() == null) ? "" : $notificacion->mostrarDateTimeIni(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Cierre</label>
                     <div class="col-sm-10">
-                       <input type="datetime-local" name="dtfechafin" class="form-control" autofocus required="required" value="<?php echo ($notificacion->getFechafin() == null) ? date("Y-m-d\TH:i:s") : $notificacion->mostrarDateTimeFin(); ?>" />
+                       <input type="datetime-local" name="dtfechafin" class="form-control" value="<?php echo ($notificacion->getFechafin() == null) ? "" : $notificacion->mostrarDateTimeFin(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Vehículo</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input list="veh" class="form-control_datalist" placeholder="Seleccione Vehículo" required="required" name="cboxveh" value="<?php echo $notificacion->getVehiculo()->getId(); ?>" />
                         <datalist id="veh">

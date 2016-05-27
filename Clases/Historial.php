@@ -1,12 +1,17 @@
 <?php
 namespace Clases;
-class Historial {
-    private $id;
+class Historial 
+{
+    private $usado;
+    private $combustible;
     private $fecha;
     private $cargaIni;
     private $cargaFin;
-    function getId() {
-        return $this->id;
+    function getUsado() {
+        return $this->usado;
+    }
+    function getCombustible() {
+        return $this->combustible;
     }
     function getFecha() {
         return $this->fecha;
@@ -17,8 +22,11 @@ class Historial {
     function getCargaFin() {
         return $this->cargaFin;
     }
-    function setId($id) {
-        $this->id = $id;
+    function setUsado($usado) {
+        $this->usado = $usado;
+    }
+    function setCombustible($combustible) {
+        $this->combustible = $combustible;
     }
     function setFecha($fecha) {
         $this->fecha = $fecha;

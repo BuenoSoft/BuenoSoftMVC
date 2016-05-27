@@ -11,7 +11,6 @@ class Aplicacion implements IPersiste
     private $faja;
     private $fechaIni;
     private $fechaFin;
-    private $estado;
     private $tratamiento;
     private $viento;
     private $taquiIni;
@@ -44,9 +43,6 @@ class Aplicacion implements IPersiste
     }
     function getFechaFin() {
         return $this->fechaFin;
-    }
-    function getEstado() {
-        return $this->estado;
     }
     function getTratamiento() {
         return $this->tratamiento;
@@ -105,9 +101,6 @@ class Aplicacion implements IPersiste
     }
     function setFechaFin($fechaFin) {
         $this->fechaFin = $fechaFin;
-    }
-    function setEstado($estado) {
-        $this->estado = $estado;
     }
     function setTratamiento($tratamiento) {
         $this->tratamiento = $tratamiento;
@@ -193,8 +186,5 @@ class Aplicacion implements IPersiste
     }
     public function modUsu($usado) {
         return (new AplicacionModel())->modUsu($usado);    
-    }
-    public function delUsu($usado) {
-        return (new AplicacionModel())->delUsu($usado);    
     }
 }

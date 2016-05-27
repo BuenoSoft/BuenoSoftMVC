@@ -1,10 +1,10 @@
-<h3>Registrar Vehículo para Aplicación nro <?php echo $aplicacion->getId();?></h3>
+<h3>Registrar Vehículo para Aplicación número&nbsp;<?php echo $aplicacion->getId();?></h3>
 <form class="form-horizontal style-form" method="post" action="index.php?c=usados&a=add&p=<?php echo \App\Session::get('id'); ?>" name="frmadd">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Vehículo</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">                    
                         <input list="vehiculos" class="form-control_datalist" placeholder="Seleccione Vehículo" required="required" name="veh" />
                         <datalist id="vehiculos">
@@ -20,15 +20,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Conductor</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Conductor&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcond" class="form-control" required />
+                        <input type="text" name="txtcond" class="form-control" required="required" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Capacidad</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Capacidad&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcap" class="form-control" required />
+                        <input type="text" name="txtcap" class="form-control" required="required" />
                     </div>
                 </div>
             </div>

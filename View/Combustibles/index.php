@@ -12,28 +12,29 @@
             </form>        
         </p>
         <table class="table table-bordered table-striped table-condensed">
-            <thead>
-                <th></th>
+            <thead>                
                 <th>Combustible</th>
                 <th>Nombre</th>
                 <th>Stock</th>
                 <th>Fecha de Carga</th>
+                <th>Opciones</th>
             </thead>
             <tbody>
                 <?php foreach($combustibles as $combustible){ ?>
                     <tr>
+                        <td><?php echo $combustible->getId(); ?></td>
+                        <td><?php echo $combustible->getNombre(); ?></td>
+                        <td><?php echo $combustible->getStock(); ?></td>
+                        <td><?php echo $combustible->getFecha(); ?></td>
                         <td>
-                            <a href="index.php?c=combustibles&a=edit&p=<?php echo $combustible->getId(); ?>">Editar</a>&nbsp;
+                            <a href="index.php?c=combustibles&a=edit&p=<?php echo $combustible->getId(); ?>" title="editar">Editar</a>&nbsp;
                             <?php if($combustible->getEstado() == 'H'){ ?>
                             <a href="index.php?c=combustibles&a=delete&p=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea borrar el combustible seleccionado?');">Borrar</a>
                         <?php } else {?>
                             <a href="index.php?c=combustibles&a=active&p=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea activar el combustible seleccionado?');">Activar</a>
                         <?php }?>
                         </td>
-                        <td><?php echo $combustible->getId(); ?></td>
-                        <td><?php echo $combustible->getNombre(); ?></td>
-                        <td><?php echo $combustible->getStock(); ?></td>
-                        <td><?php echo $combustible->getFecha(); ?></td>
+                        
                     </tr>
                 <?php } ?>
             </tbody>
