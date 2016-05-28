@@ -20,8 +20,10 @@
                 <th>Opciones</th>                
             </thead>
             <tbody>
-                <?php foreach($usuarios as $usuario) {?>
-                    <tr>                        
+                <?php foreach($usuarios as $usuario) {
+                    $style = ($usuario->getEstado() == "D") ? "color: #BDBDBD;" : "";                    
+                ?>  
+                    <tr style="<?php echo $style; ?>">                        
                         <td><?php echo $usuario->getId(); ?></td>
                         <td><?php echo $usuario->getNombre(); ?></td>
                         <td><?php echo $usuario->getDatoUsu()->getNombre(); ?></td>

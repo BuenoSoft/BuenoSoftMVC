@@ -20,8 +20,10 @@
                 <th>Opciones</th>
             </thead>
             <tbody>
-                <?php foreach($combustibles as $combustible){ ?>
-                    <tr>
+                <?php foreach($combustibles as $combustible){ 
+                    $style = ($combustible->getEstado() == "D") ? "color: #BDBDBD;" : "";    
+                ?>
+                    <tr style="<?php echo $style; ?>">
                         <td><?php echo $combustible->getId(); ?></td>
                         <td><?php echo $combustible->getNombre(); ?></td>
                         <td><?php echo $combustible->getStock(); ?></td>

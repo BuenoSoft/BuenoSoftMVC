@@ -20,8 +20,10 @@
                 <th>Opciones</th>
             </thead>
             <tbody>
-                <?php foreach($productos as $producto){ ?>
-                <tr>                    
+                <?php foreach($productos as $producto){ 
+                    $style = ($producto->getEstado() == "D") ? "color: #BDBDBD;" : "";
+                ?>
+                <tr style="<?php echo $style; ?>">                    
                     <td><?php echo $producto->getId(); ?></td>
                     <td><?php echo $producto->getNombre(); ?></td>
                     <td><?php echo $producto->getCodigo(); ?></td>

@@ -87,7 +87,7 @@ class UsuariosController extends AppController
         }
     }
     public function view(){
-        if($this->checkUser()){
+        if(Session::get("log_in") != null){
             Session::set("id",$_GET['p']); 
             $this->redirect_administrador(["view.php"],["usuario" => (new Usuario())->findById(Session::get('id'))]);
         }

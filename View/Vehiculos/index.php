@@ -20,8 +20,10 @@
                 <th>Opciones</th>
             </thead>
             <tbody>
-                <?php foreach ($vehiculos as $vehiculo) { ?>
-                    <tr>                        
+                <?php foreach ($vehiculos as $vehiculo) { 
+                    $style = ($vehiculo->getEstado() == "D") ? "color: #BDBDBD;" : "";                    
+                ?>                    
+                    <tr style="<?php echo $style; ?>">                                                    
                         <td><?php echo $vehiculo->getId(); ?></td>
                         <td><?php echo $vehiculo->getMatricula(); ?></td>
                         <td><?php echo $vehiculo->getTipo(); ?></td>
@@ -36,7 +38,7 @@
                             <?php }?>
                         </td>
                     </tr>
-                <?php }?>
+                <?php } ?>
             </tbody>
         </table>
         <?php if ($paginador != null) { ?> 

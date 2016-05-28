@@ -12,13 +12,7 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/html/BuenoSoftMVC/Controller/HistorialController.php</file>
-            <file>file:/var/www/html/BuenoSoftMVC/Clases/Historial.php</file>
-            <file>file:/var/www/html/BuenoSoftMVC/Model/HistorialModel.php</file>
-            <file>file:/var/www/html/BuenoSoftMVC/Model/UsadoModel.php</file>
-            <file>file:/var/www/html/BuenoSoftMVC/Clases/Usado.php</file>
-            <file>file:/var/www/html/BuenoSoftMVC/View/Historial/index.php</file>
-            <file>file:/var/www/html/BuenoSoftMVC/View/Historial/edit.php</file>
+            <file>file:/var/www/html/BuenoSoftMVC/Public/manejo_menu.php</file>
         </group>
     </open-files>
 </project-private>
