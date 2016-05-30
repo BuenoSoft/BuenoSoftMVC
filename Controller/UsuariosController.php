@@ -12,17 +12,18 @@ class UsuariosController extends AppController
         if(isset($_POST['btnaceptar'])) {
             if(empty($_POST['txtuser']) or empty($_POST['txtpass'])){ 
                 Session::set("msg","Ingrese los datos obligatorios (*) para continuar.");
-            } 
-            else {
+            } else {
                 $usuario = (new Usuario())->login([$_POST['txtuser'], $_POST['txtpass']]);
-                if (isset($usuario)){
+                if (isset($usuario) and $usuario->getEstado() == "H"){
                     Session::login();
                     Session::set("log_in",$usuario);  
                     Session::set("msg","Acceso concedido... Usuario: ". $usuario->getNombre());
                     header("Location:index.php?c=access&a=index");
                     exit();
-                }
-                else {
+                } else if (isset($usuario) and $usuario->getEstado() == "D"){
+                    Session::set("msg","El usuario está desactivado");
+                    header("Location:index.php?c=todos&a=index");
+                } else {
                     Session::set("msg","Acceso denegado.");
                     header("Location:index.php?c=todos&a=index");
                 }

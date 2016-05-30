@@ -13,13 +13,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Matrícula del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtmat" class="form-control" autofocus required placeholder="Ej: T458-BDD" value="<?php echo $vehiculo->getMatricula(); ?>" />
+                        <input type="text" name="txtmat" class="form-control" autofocus required="required" placeholder="Ej: T458-BDD" value="<?php echo $vehiculo->getMatricula(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Padrón del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtpadron" class="form-control" required placeholder="Ej: 1109971" value="<?php echo $vehiculo->getPadron(); ?>" />
+                        <input type="text" name="txtpadron" class="form-control" required="required" placeholder="Ej: 1109971" value="<?php echo $vehiculo->getPadron(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -37,13 +37,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Motor del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtmotor" class="form-control" required placeholder="Ej: kawata78" value="<?php echo $vehiculo->getMotor(); ?>" />
+                        <input type="text" name="txtmotor" class="form-control" required="required" placeholder="Ej: kawata78" value="<?php echo $vehiculo->getMotor(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Chasis del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtchasis" class="form-control" autofocus required placeholder="Ej: 285514564" value="<?php echo $vehiculo->getChasis(); ?>" />
+                        <input type="text" name="txtchasis" class="form-control" autofocus required="required" placeholder="Ej: 285514564" value="<?php echo $vehiculo->getChasis(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -63,25 +63,25 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Capacidad de Carga&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcap" class="form-control" required placeholder="Ej: 25,8" value="<?php echo $vehiculo->getCapcarga(); ?>" />
+                        <input type="text" name="txtcap" class="form-control" required="required" placeholder="Ej: 25,8" value="<?php echo $vehiculo->getCapcarga(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Modelo del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtmodelo" class="form-control" required placeholder="Ej: Gol G5" value="<?php echo $vehiculo->getModelo(); ?>" />
+                        <input type="text" name="txtmodelo" class="form-control" required="required" placeholder="Ej: Gol G5" value="<?php echo $vehiculo->getModelo(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Marca del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtmarca" class="form-control" required placeholder="Ej: Wolkswagen" value="<?php echo $vehiculo->getMarca(); ?>" />
+                        <input type="text" name="txtmarca" class="form-control" required="required" placeholder="Ej: Wolkswagen" value="<?php echo $vehiculo->getMarca(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Año del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtanio" class="form-control" required placeholder="Ej: 2010" onkeypress="return validarNumero(event);" value="<?php echo $vehiculo->getAnio(); ?>" />
+                        <input type="text" name="txtanio" class="form-control" required="required" placeholder="Ej: 2010" onkeypress="return validarNumero(event);" value="<?php echo $vehiculo->getAnio(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">

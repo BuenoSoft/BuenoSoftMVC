@@ -28,13 +28,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Carga Inicial</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcargaini" class="form-control" required placeholder="Ej: -" onkeypress="return validarNumero(event);" />
+                        <input type="text" name="txtcargaini" class="form-control" required="required" placeholder="Ej: -" onkeypress="return validarNumero(event);" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Carga Final</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcargafin" class="form-control" required placeholder="Ej: -" onkeypress="return validarNumero(event);" />
+                        <input type="text" name="txtcargafin" class="form-control" required="required" placeholder="Ej: -" onkeypress="return validarNumero(event);" />
                     </div>
                 </div>
             </div>
