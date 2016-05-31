@@ -17,15 +17,15 @@
     </header>
     <aside>
         <div id="sidebar"  class="nav-collapse ">
-        <!-- sidebar menu start-->
-        <ul class="sidebar-menu" id="nav-accordion">
-            <br />        
-            <p class="centered">
-                <a href="index.php?c=usuarios&a=view&p=<?php echo \App\Session::get('log_in')->getId(); ?>"><img src="Public/img/manejo/ui-sam.jpg" class="img-circle" width="60"></a>
-            </p>
-            <h5 class="centered"><?php echo \App\Session::get('log_in')->getNombre(); ?></h5> 
-            <br />
-            <?php if(App\Session::get('log_in') != null and (App\Session::get('log_in')->getTipo() == "Administrador" or App\Session::get('log_in')->getTipo() == "Supervisor")) {?>            
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion">
+                <br />        
+                <p class="centered">
+                    <a href="index.php?c=usuarios&a=view&p=<?php echo \App\Session::get('log_in')->getId(); ?>"><img src="Public/img/manejo/ui-sam.jpg" class="img-circle" width="60"></a>
+                </p>
+                <h5 class="centered"><?php echo \App\Session::get('log_in')->getNombre(); ?></h5> 
+                <br />
+                <?php if(App\Session::get('log_in') != null and (App\Session::get('log_in')->getTipo() == "Administrador" or App\Session::get('log_in')->getTipo() == "Supervisor")) {?>            
                 <li class="sub-menu">
                     <a href="index.php?c=aplicaciones&a=index">
                         <i class="fa fa-plane"></i>&nbsp;Aplicaciones
@@ -52,12 +52,19 @@
                     </a>
                 </li>
                 <li class="sub-menu">
+                    <a href="index.php?c=consultas&a=periodo">
+                        <i class="fa fa-calendar"></i>&nbsp;Aplicaciones por Período
+                    </a>
+                </li>
+                
+                <li class="sub-menu">
                     <a href="index.php?c=notificaciones&a=index">
                         <i class="fa fa-warning"></i>&nbsp;Notificaciones
                     </a>
-                </li>                   
-            <?php } else if(App\Session::get('log_in') != null and (App\Session::get('log_in')->getTipo() == "Usuario" or App\Session::get('log_in')->getTipo() == "Supervisor")) {?>
-            <?php } ?>                	
-        </ul>
-    </div>
-</aside>
+                </li>
+                <?php } else if(App\Session::get('log_in') != null and (App\Session::get('log_in')->getTipo() == "Usuario" or App\Session::get('log_in')->getTipo() == "Supervisor")) {?>
+                <?php } ?>                	
+            </ul>
+        </div>
+    </aside>
+</section>
