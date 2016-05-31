@@ -13,25 +13,25 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Log de la Notificación&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <textarea name="txtlog" rows="5" cols="67" autofocus="autofocus" required="required" placeholder="Ej: Cambio de las ruedas traseras" class="form-control"><?php echo $notificacion->getLog(); ?></textarea>
+                        <textarea name="txtlog" rows="5" cols="67" required="required" placeholder="Ej: Cambio de las ruedas traseras" class="form-control" tabindex="1"><?php echo $notificacion->getLog(); ?></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de la Notificación&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="datetime-local" name="dtfechaini" class="form-control" required="required" value="<?php echo ($notificacion->getFechaini() == null) ? "" : $notificacion->mostrarDateTimeIni(); ?>" />
+                        <input type="datetime-local" name="dtfechaini" class="form-control" required="required" value="<?php echo ($notificacion->getFechaini() == null) ? "" : $notificacion->mostrarDateTimeIni(); ?>" tabindex="2" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Cierre</label>
                     <div class="col-sm-10">
-                       <input type="datetime-local" name="dtfechafin" class="form-control" value="<?php echo ($notificacion->getFechafin() == null) ? "" : $notificacion->mostrarDateTimeFin(); ?>" />
+                       <input type="datetime-local" name="dtfechafin" class="form-control" value="<?php echo ($notificacion->getFechafin() == null) ? "" : $notificacion->mostrarDateTimeFin(); ?>" tabindex="3" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="veh" class="form-control_datalist" placeholder="Seleccione Vehículo" required="required" name="cboxveh" value="<?php echo $notificacion->getVehiculo()->getId(); ?>" />
+                        <input list="veh" class="form-control_datalist" placeholder="Seleccione Vehículo" required="required" name="cboxveh" value="<?php echo $notificacion->getVehiculo()->getId(); ?>" tabindex="4" />
                         <datalist id="veh">
                             <?php 
                                 foreach ($vehiculos as $vehiculo) { 
@@ -41,7 +41,7 @@
                                 }
                             ?>                            
                         </datalist>
-                        <input type="button" onclick="frmedit.submit();" value="Buscar" class="btn btn-theme01"/>
+                        <input type="button" onclick="frmedit.submit();" value="Buscar" class="btn btn-theme01" tabindex="5" />
                     </div>
                 </div>
             </div>
@@ -49,8 +49,8 @@
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12">
         <div style="text-align: center;">
-            <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
-            <a href="index.php?c=notificaciones&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
+            <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="6"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
+            <a href="index.php?c=notificaciones&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04" tabindex="7"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
         </div>
     </div>
 </form>

@@ -27,8 +27,8 @@ class AplicacionModel extends AppModel
     }
     protected function getUpdateQuery() {
         return "update aplicaciones set aplCoordLat = ?,aplCoordLong = ?,aplAreaAplicada = ?,"
-            . "aplFaja = ?,aplFechaIni = ?,aplFechaFin = ?,,aplTratamiento = ?,"
-            . "aplViento = ?,aplTaquiIni = ?,aplTaquiFin = ?,aplTipo = ?,aplPadron = ?,aplCultivo = ?,"
+            . "aplFaja = ?,aplFechaIni = ?,aplFechaFin = ?,aplTratamiento = ?,aplViento = ?,"
+            . "aplTaquiIni = ?,aplTaquiFin = ?,aplTipo = ?,aplPadron = ?,aplCultivo = ?,"
             . "aplCaudal = ?,aplImporte = ?,aplDosis = ?,aplHectareas = ?,datId = ? where aplId = ?";
     }
     protected function getUpdateParameter($object) {

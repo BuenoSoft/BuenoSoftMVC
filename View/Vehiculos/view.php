@@ -84,7 +84,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div style="text-align: center;">
-                <a href="index.php?c=vehiculos&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
+                <a href="index.php?c=vehiculos&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04" tabindex="1"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
             </div>
         </div>
     </div>

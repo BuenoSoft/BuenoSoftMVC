@@ -6,7 +6,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Producto <font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="productos" class="form-control_datalist" placeholder="Seleccione Producto" required="required" name="pro" />
+                        <input list="productos" class="form-control_datalist" placeholder="Seleccione Producto" required="required" name="pro" tabindex="1" autofocus="autofocus"/>
                         <datalist id="productos">
                             <?php 
                                 foreach($productos as $producto) { 
