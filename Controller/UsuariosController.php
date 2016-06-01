@@ -48,7 +48,7 @@ class UsuariosController extends AppController
     }
     public function add(){
         if($this->checkUser()){
-            if(isset($_POST["btnaceptar"])){
+            if(isset($_POST["btnaceptar"])){               
                 $datousu = $this->createDatoUsu();
                 $datousu->save();
                 $usuario = $this->createUsuario();
@@ -71,11 +71,11 @@ class UsuariosController extends AppController
             Session::set("id",$_GET['p']); 
             if (Session::get('id')!=null && isset($_POST['btnaceptar'])){
                 $datousu = $this->createDatoUsu();
-                $datousu->save();
+                $idu = $datousu->save();
                 $usuario = $this->createUsuario();
                 $usuario->setDatoUsu($datousu);
                 $id = $usuario->save();
-                if(isset($id)){
+                if(isset($idu) or isset($id)){
                     Session::set("msg","Usuario Editado");
                     header("Location:index.php?c=usuarios&a=index");
                     exit();
@@ -121,7 +121,7 @@ class UsuariosController extends AppController
         $dato->setDireccion($_POST['txtdir']);
         $dato->setTelefono($_POST['txttelefono']);
         $dato->setCelular($_POST['txtcelular']);
-        $dato->setTipo($_POST['cboxtipo']);
+        $dato->setTipo($_POST['rbtntipo']);
         return $dato;
     }
     private function createUsuario(){

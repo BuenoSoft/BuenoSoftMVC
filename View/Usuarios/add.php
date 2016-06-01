@@ -3,22 +3,22 @@
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
-                <h4><i class="fa fa-angle-right"></i> Datos del Sujeto:</h4>
+                <h4><i class="fa fa-angle-right"></i> Datos Personales:</h4>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tipo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">                        
                         <p>
-                            <input type="radio" name="rbtntipo" value="Persona" id="rtipo" /><b>&nbsp;Persona</b>    <!-- Sin tabindex, ya que no llega al segundo option radio -->                        
+                            <input type="radio" name="rbtntipo" value="Persona" /><b>&nbsp;Persona</b>    <!-- Sin tabindex, ya que no llega al segundo option radio -->                        
                         </p>
                         <p>
-                            <input type="radio" name="rbtntipo" value="Empresa" id="rtipo" /><b>&nbsp;Empresa</b>  
+                            <input type="radio" name="rbtntipo" value="Empresa" /><b>&nbsp;Empresa</b>  
                         </p>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Documento&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label" id="doc">Documento&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" id="txtdoc" name="txtdoc" class="form-control"  required="required" onkeypress="return validarNumero(event)" tabindex="1" />
+                        <input type="text" id="txtdoc" name="txtdoc" class="form-control" required="required" onkeypress="return validarNumero(event)" tabindex="1" readonly placeholder="Seleccione tipo de documento" />
                     </div>
                 </div> 
                 <div class="form-group">
@@ -85,21 +85,20 @@
 </form>
 <script type="text/javascript">       
     $(function() {
-        $("#rtipo").click(function(){
-            $('#add input').on('change', function() {
-                if($('input[name="rbtntipo"]:checked', '#add').val() == "Persona"){                    
-                    //$("#txtdoc").val("");
-                    $("#txtdoc").attr('maxlength','8');
-                    $("#txtdoc").attr('placeholder','Ej: 47068683 - CI');
-                    $("#txtdoc").focus();
-                }
-                else if($('input[name="rbtntipo"]:checked', '#add').val() == "Empresa"){
-                   // $("#txtdoc").val("");
-                    $("#txtdoc").attr('maxlength','12');
-                    $("#txtdoc").attr('placeholder','Ej: 285514564788 - RUC');
-                    $("#txtdoc").focus();
-                }
-            });
-        })
+        $('input[name="rbtntipo"]').click(function() {
+            if($('input[name="rbtntipo"]:checked').val() == "Persona"){
+                $("#doc").text("Cédula");
+                $("#txtdoc").attr('maxlength','8');
+                $("#txtdoc").attr('placeholder','Ej: 47068683 - CI');
+            }
+            else if($('input[name="rbtntipo"]:checked').val() == "Empresa"){
+                $("#doc").text("RUC");
+                $("#txtdoc").attr('maxlength','12');
+                $("#txtdoc").attr('placeholder','Ej: 285514564788 - RUC');
+            }
+            $("#txtdoc").val("");
+            $("#txtdoc").prop('readonly',false);
+            $("#txtdoc").focus();                
+        });
     }); 
 </script>
