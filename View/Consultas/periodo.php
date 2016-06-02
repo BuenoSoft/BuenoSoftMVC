@@ -1,6 +1,6 @@
 <h3><i class="fa fa-angle-right"></i>Consultas Aplicaciones por período</h3>
 <p>
-    <a href="index.php?c=access&a=index"><button class="btn btn-theme05"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;
+    <a href="index.php?c=consultas&a=index"><button class="btn btn-theme05"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;
 </p>
 <p>
     <form method="post" action="index.php?c=consultas&a=periodo" name="frmperiodo">
@@ -23,7 +23,7 @@
                 <?php foreach ($aplicaciones as $aplicacion) { ?>
                     <tr>
                         <td><?php echo $aplicacion->getId(); ?></td>
-                        <td><a href="index.php?c=consultas&a=cli&v=<?php echo $aplicacion->getCliente()->getId(); ?>"><?php echo $aplicacion->getCliente()->getNombre(); ?></a></td>
+                        <td><a href="index.php?c=consultas&a=cli&v=<?php echo $aplicacion->getCliente()->getId(); ?>" target="_blank"><?php echo $aplicacion->getCliente()->getNombre(); ?></a></td>
                         <td>
                             <?php  
                                 if($aplicacion->getFechaFin() == null or $aplicacion->getFechaFin() == "0000-00-00 00:00:00"){
@@ -40,7 +40,7 @@
                             ?>                        
                         </td>
                         <td>
-                            <a href="index.php?c=consultas&a=app&p=<?php echo $aplicacion->getId(); ?>">Ver</a>&nbsp;
+                            <a href="index.php?c=consultas&a=app&ap=<?php echo $aplicacion->getId(); ?>" target="_blank">Ver</a>&nbsp;
                         </td>                                                
                     </tr>
                 <?php } ?>

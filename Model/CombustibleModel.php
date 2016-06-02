@@ -37,7 +37,12 @@ class CombustibleModel extends AppModel
         return ["%".$criterio."%"];
     }
     protected function getFindQuery($criterio = null) {
-        return "select * from combustibles where comNombre like ? order by comEstado, comNombre";
+        if($criterio == null) {
+            return "select * from combustibles order by comEstado, comId";
+        } else {
+            return "select * from combustibles where comNombre like ? order by comEstado, comId";
+        }
+        
     }
     protected function getFindXIdQuery() {
         return "select * from combustibles where comId = ?";

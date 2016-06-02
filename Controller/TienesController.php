@@ -13,9 +13,8 @@ class TienesController extends AppController
             Session::set("id",$_GET['p']);
             Session::set('pro',"");
             Session::set('s', isset($_GET['s']) ? $_GET['s'] : 1);
-            Session::set('bus',(isset($_POST['txtbuscador'])) ? $_POST['txtbuscador'] : Session::get('bus'));
             $apl = (new Aplicacion())->findById(Session::get("id"));
-            $productos = (Session::get('bus')!="") ? $this->getPaginator()->paginar($apl->getProductos(Session::get('bus')),  Session::get('s')) : array();
+            $productos = $this->getPaginator()->paginar($apl->getProductos(),  Session::get('s'));
             $this->redirect_administrador(['index.php'],[
                 "aplicacion" => $apl,
                 "productos" => $productos,

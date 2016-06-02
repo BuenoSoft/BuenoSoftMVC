@@ -13,7 +13,7 @@ class NotificacionesController extends AppController
             Session::set('veh',"");
             Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
             Session::set('b',(isset($_POST['txtbuscador'])) ? $_POST['txtbuscador'] : Session::get('b'));
-            $not =(Session::get('b')!="") ? $this->getPaginator()->paginar((new Notificacion())->find(Session::get('b')), Session::get('p')) : array();
+            $not = $this->getPaginator()->paginar((new Notificacion())->find(Session::get('b')), Session::get('p'));
             $this->redirect_administrador(["index.php"],[
                 "notificaciones" => $not,
                 "paginador" => $this->getPaginator()->getPages()

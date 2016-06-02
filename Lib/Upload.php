@@ -18,7 +18,7 @@ class Upload
         else {
             if($this->checkExtension($file,$extensiones)){
                 // Es mejor calcular el prefijo y ruta luego de la validacion siguiente por q si no cumple habrias hecho ese trabajo en vano   
-                $limite_kb = 100;
+                $limite_kb = 400;
                 if ($file['size'] <= $limite_kb * 1024){
                     // Es mejor su tu mismo agregas la extension al archivo en vez de confiar en lo que 
                     // manda el usuario, existe muchos bypass a validaciones de extension usando null 

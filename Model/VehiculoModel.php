@@ -41,7 +41,11 @@ class VehiculoModel extends AppModel
         return ["%".$criterio."%"];
     }
     protected function getFindQuery($criterio = null) {
-        return "select * from vehiculos where vehMatricula like ? order by vehEstado, vehMatricula";
+        if($criterio == null){
+            return "select * from vehiculos order by vehEstado, vehId";
+        } else {
+            return "select * from vehiculos where vehMatricula like ? order by vehEstado, vehId";         
+        }
     }
     protected function getFindXIdQuery() {
         return "select * from vehiculos where vehId = ?";

@@ -1,6 +1,5 @@
 <h3><i class="fa fa-angle-right"></i> Editar Usuario</h3>
 <form class="form-horizontal style-form" method="post" action="index.php?c=usuarios&a=edit&p=<?php echo \App\Session::get('id'); ?>" name="frmedit">
-<!-- <form class="form-horizontal style-form" action="http://www.google.com.uy"> -->
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
@@ -104,12 +103,12 @@
     $(function() {
         $('input[name="rbtntipo"]').click(function() {
             if($('input[name="rbtntipo"]:checked').val() == "Persona"){
-                $("#doc").text("Cédula");
+                $("#doc").text("Cédula *");
                 $("#txtdoc").attr('maxlength','8');
                 $("#txtdoc").attr('placeholder','Ej: 47068683 - CI');
             }
             else if($('input[name="rbtntipo"]:checked').val() == "Empresa"){
-                $("#doc").text("RUC");
+                $("#doc").text("RUC *");
                 $("#txtdoc").attr('maxlength','12');
                 $("#txtdoc").attr('placeholder','Ej: 285514564788 - RUC');
             }

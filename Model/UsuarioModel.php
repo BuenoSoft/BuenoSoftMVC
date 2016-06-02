@@ -46,7 +46,11 @@ class UsuarioModel extends AppModel
         return ["filtro" => "%".$criterio."%"];
     }
     protected function getFindQuery($criterio = null) {
-        return "select * from usuarios u inner join datosusu d on u.datId = d.datId where d.datNombre like :filtro or d.datDocumento like :filtro order by u.usuEstado,d.datDocumento";
+        if($criterio == null){
+            return "select * from usuarios u inner join datosusu d on u.datId = d.datId order by u.usuEstado,u.usuId";
+        } else {
+            return "select * from usuarios u inner join datosusu d on u.datId = d.datId where d.datNombre like :filtro or d.datDocumento like :filtro order by u.usuEstado,u.usuId";         
+        }
     }
     protected function getFindXIdQuery() {
         return "select * from usuarios where usuId = ?";

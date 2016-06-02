@@ -14,9 +14,8 @@ class UsadosController extends AppController
             Session::set("id",$_GET['p']);
             Session::set('veh',"");
             Session::set('s', isset($_GET['s']) ? $_GET['s'] : 1);
-            Session::set('bus',(isset($_POST['txtbuscador'])) ? $_POST['txtbuscador'] : Session::get('bus'));
             $apl = (new Aplicacion())->findById(Session::get("id"));
-            $usados = (Session::get('bus')!= "") ? $this->getPaginator()->paginar($apl->getUsados(Session::get('bus')), Session::get('s')) : array();
+            $usados = $this->getPaginator()->paginar($apl->getUsados(), Session::get('s'));
             $this->redirect_administrador(['index.php'],[
                 "aplicacion" => $apl,
                 "usados" => $usados,

@@ -45,7 +45,12 @@ class AplicacionModel extends AppModel
         return ["filtro" => "%".$criterio."%"];
     }
     protected function getFindQuery($criterio = null) {
-        return "select * from aplicaciones a inner join datosusu d on a.datId = d.datId where d.datDocumento like :filtro or d.datNombre like :filtro";
+        if($criterio == null){
+            return "select * from aplicaciones a inner join datosusu d on a.datId = d.datId";
+        } else {
+            return "select * from aplicaciones a inner join datosusu d on a.datId = d.datId where d.datDocumento like :filtro or d.datNombre like :filtro";
+        }
+        
     }
     protected function getFindXIdQuery() {
         return "select * from aplicaciones where aplId = ?";

@@ -11,7 +11,7 @@ class ProductosController extends AppController
         if($this->checkUser()){
             Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
             Session::set('b',(isset($_POST['txtbuscador'])) ? $_POST['txtbuscador'] : Session::get('b'));
-            $productos= (Session::get('b')!="") ? $this->getPaginator()->paginar((new Producto())->find(Session::get('b')), Session::get('p')) : array();            
+            $productos = $this->getPaginator()->paginar((new Producto())->find(Session::get('b')), Session::get('p'));
             $this->redirect_administrador(['index.php'],[
                 "productos" => $productos,
                 "paginador" => $this->getPaginator()->getPages()

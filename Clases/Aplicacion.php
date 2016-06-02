@@ -171,15 +171,15 @@ class Aplicacion implements IPersiste
     public function delPro($pro) {
         return (new AplicacionModel())->delPro([$this->id, $pro]);
     }
-    public function getProductos($criterio = null) {
-        return (new AplicacionModel())->getProductos([$this->id, $criterio]); 
+    public function getProductos() {
+        return (new AplicacionModel())->getProductos([$this->id]); 
     }
     /*-----------------------------------------*/
     public function addUsu($usado) {
         return (new AplicacionModel())->addUsu($usado);
     }
-    public function getUsados($criterio = null){
-        return (new AplicacionModel())->getUsados([$this->id, $criterio]);
+    public function getUsados(){
+        return (new AplicacionModel())->getUsados([$this->id]);
     }
     public function getUsado($veh){
         return (new AplicacionModel())->getUsado([$this->id, $veh]);

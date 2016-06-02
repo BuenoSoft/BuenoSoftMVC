@@ -39,7 +39,7 @@ class UsuariosController extends AppController
         if($this->checkUser()){
             Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
             Session::set('b',(isset($_POST['txtbuscador'])) ? $_POST['txtbuscador'] : Session::get('b'));
-            $usuarios= (Session::get('b')!="") ? $this->getPaginator()->paginar((new Usuario)->find(Session::get('b')), Session::get('p')) : array();
+            $usuarios= $this->getPaginator()->paginar((new Usuario)->find(Session::get('b')), Session::get('p'));
             $this->redirect_administrador(["index.php"],[
                 "usuarios" => $usuarios,
                 "paginador" => $this->getPaginator()->getPages()

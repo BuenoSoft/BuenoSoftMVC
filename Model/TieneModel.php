@@ -53,10 +53,10 @@ class TieneModel extends AppModel
         return $datos;
     }
     private function getFindTieneParameter($dates = []){
-        return [$dates[0], "%".$dates[1]."%"];
+        return [$dates[0]];        
     }
-    protected function getFindQuery($criterio = null){
-        return "select * from tiene t inner join productos p on t.proId = p.proId where t.aplId = ? and p.proNombre like ?";
+    protected function getFindQuery($criterio = null){        
+        return "select * from tiene t inner join productos p on t.proId = p.proId where t.aplId = ?";
     }
     public function createEntity($row){
         return (new ProductoModel())->findById($row['proId']);

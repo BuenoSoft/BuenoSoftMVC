@@ -11,7 +11,7 @@ class CombustiblesController extends AppController
         if($this->checkUser()){
             Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
             Session::set('b',(isset($_POST['txtbuscador'])) ? $_POST['txtbuscador'] : Session::get('b'));
-            $combustibles= (Session::get('b')!="") ? $this->getPaginator()->paginar((new Combustible())->find(Session::get('b')), Session::get('p')) : array();            
+            $combustibles = $this->getPaginator()->paginar((new Combustible())->find(Session::get('b')), Session::get('p'));
             $this->redirect_administrador(['index.php'],[
                 "combustibles" => $combustibles,
                 "paginador" => $this->getPaginator()->getPages()

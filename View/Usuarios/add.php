@@ -87,12 +87,12 @@
     $(function() {
         $('input[name="rbtntipo"]').click(function() {
             if($('input[name="rbtntipo"]:checked').val() == "Persona"){
-                $("#doc").text("Cédula");
+                $("#doc").text("Cédula *");
                 $("#txtdoc").attr('maxlength','8');
                 $("#txtdoc").attr('placeholder','Ej: 47068683 - CI');
             }
             else if($('input[name="rbtntipo"]:checked').val() == "Empresa"){
-                $("#doc").text("RUC");
+                $("#doc").text("RUC *");
                 $("#txtdoc").attr('maxlength','12');
                 $("#txtdoc").attr('placeholder','Ej: 285514564788 - RUC');
             }

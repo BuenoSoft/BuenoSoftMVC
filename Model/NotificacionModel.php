@@ -25,7 +25,12 @@ class NotificacionModel extends AppModel
         return ["filtro" => "%".$criterio."%"];
     }
     protected function getFindQuery($criterio = null) {
-        return "select * from notificaciones n inner join vehiculos v on n.vehId = v.vehId where n.notLog like :filtro or v.vehMatricula like :filtro";
+        if($criterio == null){
+            return "select * from notificaciones n inner join vehiculos v on n.vehId = v.vehId";
+        } else {
+            return "select * from notificaciones n inner join vehiculos v on n.vehId = v.vehId where n.notLog like :filtro or v.vehMatricula like :filtro";
+        }
+        
     }    
     protected function getUpdateParameter($object) {
         return [$object->getLog(),$object->getFechaini(),$object->getFechafin(),$object->getVehiculo()->getId(),$object->getId()];

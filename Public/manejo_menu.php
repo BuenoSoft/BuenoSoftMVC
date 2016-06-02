@@ -52,8 +52,8 @@
                     </a>
                 </li>
                 <li class="sub-menu">
-                    <a href="index.php?c=consultas&a=periodo">
-                        <i class="fa fa-calendar"></i>&nbsp;Aplicaciones por Período
+                    <a href="index.php?c=consultas&a=index">
+                        <i class="fa fa-search"></i>&nbsp;Consultas
                     </a>
                 </li>
                 

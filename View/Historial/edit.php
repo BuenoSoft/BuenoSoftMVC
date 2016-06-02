@@ -5,13 +5,13 @@
             <div class="showback">
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Combustible</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-10" style="text-align: center;">
                         <input type="hidden" name="comb" value="<?php echo $historial->getCombustible()->getId(); ?>" /><?php echo $historial->getCombustible()->getId(); ?>
                     </div>                                        
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-10" style="text-align: center;">
                         <input type="hidden" name="dtfecha" class="form-control" value="<?php echo $historial->getFecha(); ?>" /><?php echo $historial->getFecha(); ?>
                     </div>                                        
                 </div>

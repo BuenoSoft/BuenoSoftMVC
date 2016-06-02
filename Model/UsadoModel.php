@@ -41,10 +41,10 @@ class UsadoModel extends AppModel
         return $datos;
     }
     private function getFindUsadoParameter($dates = []){
-        return ["id" => $dates[0], "filtro" => "%".$dates[1]."%"];
+        return ["id" => $dates[0]];
     }
     protected function getFindQuery($criterio = null) {
-        return "select * from utiliza u inner join vehiculos v on u.vehId = v.vehId where u.aplId = :id and v.vehMatricula like :filtro or u.utiConductor like :filtro";
+        return "select * from utiliza u inner join vehiculos v on u.vehId = v.vehId where u.aplId = :id";
     }
     /*------------------------------------------------------------------------------------*/
     public function getUsado($dates = []){

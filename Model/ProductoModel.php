@@ -37,7 +37,11 @@ class ProductoModel extends AppModel
         return ["%".$criterio."%"];
     }
     protected function getFindQuery($criterio = null) {
-        return "select * from productos where proNombre like ? order by proEstado, proNombre";
+        if($criterio == null){
+            return "select * from productos order by proEstado, proId";
+        } else {
+            return "select * from productos where proNombre like ? order by proEstado, proId";
+        }        
     }
     protected function getFindXIdQuery() {
         return "select * from productos where proId = ?";
