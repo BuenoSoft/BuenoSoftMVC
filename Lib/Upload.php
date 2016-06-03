@@ -1,5 +1,6 @@
 <?php
 namespace Lib;
+use \App\Session;
 class Upload 
 {    
     private $folder;

@@ -8,6 +8,7 @@ class Usuario implements IPersiste
     private $nombre;
     private $pass;
     private $tipo;
+    private $avatar;
     private $estado;
     private $datousu;
     function getId() {
@@ -21,6 +22,9 @@ class Usuario implements IPersiste
     }
     function getTipo() {
         return $this->tipo;
+    }
+    function getAvatar() {
+        return $this->avatar;
     }
     function getEstado() {
         return $this->estado;
@@ -39,6 +43,9 @@ class Usuario implements IPersiste
     }
     function setTipo($tipo) {
         $this->tipo = $tipo;
+    }
+    function setAvatar($avatar) {
+        $this->avatar = $avatar;
     }
     function setEstado($estado) {
         $this->estado = $estado;
@@ -60,7 +67,9 @@ class Usuario implements IPersiste
     public function find($criterio = null) {
         return (new UsuarioModel())->find($criterio);
     }
-
+    public function avatar(){
+        return (new UsuarioModel())->getAvatar($this);
+    }
     public function findById($id) {
         return (new UsuarioModel())->findById($id);
     }

@@ -28,11 +28,21 @@ class UsuarioModel extends AppModel
         return "select * from usuarios where usuNombre = ?";
     }
     protected function getCreateParameter($object) {
-        return [$object->getNombre(), md5($object->getPass()), $object->getTipo(),'H',$object->getDatoUsu()->getId()];
+        return [$object->getNombre(), md5($object->getPass()), $object->getTipo(),$object->getAvatar(),'H',$object->getDatoUsu()->getId()];
     }
     protected function getCreateQuery() {
-        return "insert into usuarios(usuNombre,usuPass,usuTipo,usuEstado,datId) values(?,?,?,?,?)"; 
+        return "insert into usuarios(usuNombre,usuPass,usuTipo,usuAvatar,usuEstado,datId) values(?,?,?,?,?,?)"; 
     }
+    public function getAvatar($object){
+        return $this->executeQuery($this->getAvatarQuery(), $this->getAvatarParameter($object));
+    }
+    public function getAvatarQuery(){
+        return "update usuarios set usuAvatar = ? where usuId = ?";
+    }
+    public function getAvatarParameter($object){
+        return [$object->getAvatar(), $object->getId()];
+    }
+    
     protected function getDeleteParameter($object) {
         return ['D',$object->getId()];
     }
@@ -68,6 +78,7 @@ class UsuarioModel extends AppModel
         $usuario->setNombre($row['usuNombre']);
         $usuario->setPass($row['usuPass']);
         $usuario->setTipo($row['usuTipo']);
+        $usuario->setAvatar($row['usuAvatar']);
         $usuario->setEstado($row['usuEstado']);
         $usuario->setDatoUsu($datousu);
         return $usuario;

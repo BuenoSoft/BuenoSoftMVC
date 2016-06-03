@@ -21,10 +21,21 @@
             <ul class="sidebar-menu" id="nav-accordion">
                 <br />        
                 <p class="centered">
-                    <a href="index.php?c=usuarios&a=view&p=<?php echo \App\Session::get('log_in')->getId(); ?>"><img src="Public/img/manejo/ui-sam.jpg" class="img-circle" width="60"></a>
+                    <a href="index.php?c=usuarios&a=view&p=<?php echo \App\Session::get('log_in')->getId(); ?>">
+                        <?php if(\App\Session::get('log_in')->getAvatar() == null) { ?>
+                            <img src="Public/img/manejo/profile_img.png" class="img-circle" width="60">
+                        <?php } else { ?>
+                            <img src="<?php echo \App\Session::get('log_in')->getAvatar(); ?>" class="img-rounded" width="90">
+                        <?php } ?>                       
+                    </a>
                 </p>
                 <h5 class="centered"><?php echo \App\Session::get('log_in')->getNombre(); ?></h5> 
                 <br />
+                <li class="sub-menu">
+                    <a href="index.php?c=access&a=index">
+                        <i class="fa fa-home"></i>&nbsp;Inicio
+                    </a>
+                </li> 
                 <?php if(App\Session::get('log_in') != null and (App\Session::get('log_in')->getTipo() == "Administrador" or App\Session::get('log_in')->getTipo() == "Supervisor")) {?>            
                 <li class="sub-menu">
                     <a href="index.php?c=aplicaciones&a=index">

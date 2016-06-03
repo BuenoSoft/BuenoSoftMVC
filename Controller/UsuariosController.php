@@ -1,12 +1,14 @@
 <?php
 namespace Controller;
 use \App\Session;
+use \Lib\Upload;
 use \Clases\DatosUsu;
 use \Clases\Usuario;
 class UsuariosController extends AppController
 {
     public function __construct() {
         parent::__construct();
+        $this->upload = new Upload("usuarios");
     }
     public function login(){
         if(isset($_POST['btnaceptar'])) {
@@ -52,7 +54,6 @@ class UsuariosController extends AppController
                 $datousu = $this->createDatoUsu();
                 $datousu->save();
                 $usuario = $this->createUsuario();
-                $usuario->setDatoUsu((new DatosUsu())->findById((new DatosUsu())->maxID()));
                 $id = $usuario->save();
                 if(isset($id)){
                     Session::set("msg","Usuario Creado");
@@ -85,6 +86,26 @@ class UsuariosController extends AppController
                 }                
             }
             $this->redirect_administrador(["edit.php"],["usuario" => (new Usuario())->findById(Session::get('id'))]);  
+        }
+    }
+    public function avatar(){
+        if($this->checkUser()){
+            if (isset($_POST['btnaceptar'])) {
+                if(isset($_FILES['avatar'])){
+                    $ruta = $this->upload->uploadImage($_FILES['avatar']);
+                    if($ruta!= null){
+                        $usuario = (new Usuario())->findById(Session::get('id'));
+                        $usuario->setAvatar($ruta);
+                        $usuario->avatar();
+                       // header("Location:index.php?c=usuarios&a=edit&p=".$usuario->getId());
+                        header("Location:index.php?c=usuarios&a=avatar");
+                        exit();                    
+                    }
+                }                                             
+            }
+            $this->redirect_administrador(['avatar.php'],[
+                'usuario' => (new Usuario())->findById(Session::get('id'))
+            ]);
         }
     }
     public function view(){
@@ -124,15 +145,17 @@ class UsuariosController extends AppController
         $dato->setTipo($_POST['rbtntipo']);
         return $dato;
     }
-    private function createUsuario(){
-        $datousu = $this->createDatoUsu();
+    private function createUsuario(){   
+        $datousu = isset($_POST['hid']) ? $this->createDatoUsu() : (new DatosUsu())->findById((new DatosUsu())->maxID());
+        $ruta= (isset($_FILES['avatar']) ? $this->upload->uploadImage($_FILES['avatar']) : '');
         $usuario = new Usuario();
         $usuario->setId(isset($_POST['hid']) ? $_POST['hid'] : 0);
         $usuario->setNombre($_POST['txtuser']);
         $usuario->setPass($_POST['txtpass']);
         $usuario->setTipo($_POST['cboxtipo']);
+        $usuario->setAvatar($ruta);
         $usuario->setDatoUsu($datousu);
-        return $usuario;
+        return $usuario; 
     }
     protected function getRoles() {
         return ["Administrador","Supervisor"];

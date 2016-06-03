@@ -1,5 +1,5 @@
 <h3><i class="fa fa-angle-right"></i> Crear Usuario</h3>
-<form class="form-horizontal style-form" method="post" action="index.php?c=usuarios&a=add" name="frmadd" onsubmit="return (document.getElementById('rtipo').value == 'Persona') ? validarCedula(this.txtdoc.value) : null;" id="add">
+<form class="form-horizontal style-form" method="post" action="index.php?c=usuarios&a=add" name="frmadd" onsubmit="return (document.getElementById('rper').value === 'Persona') ? validarCedula(this.txtdoc.value) : null;" id="add" enctype="multipart/form-data">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
@@ -8,7 +8,7 @@
                     <label class="col-sm-2 col-sm-2 control-label">Tipo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">                        
                         <p>
-                            <input type="radio" name="rbtntipo" value="Persona" /><b>&nbsp;Persona</b>    <!-- Sin tabindex, ya que no llega al segundo option radio -->                        
+                            <input type="radio" name="rbtntipo" value="Persona" id="rper"/><b>&nbsp;Persona</b>    <!-- Sin tabindex, ya que no llega al segundo option radio -->                        
                         </p>
                         <p>
                             <input type="radio" name="rbtntipo" value="Empresa" /><b>&nbsp;Empresa</b>  
@@ -71,6 +71,12 @@
                             <option value="Supervisor">Supervisor de Seguridad del Sistema</option>
                             <option value="Usuario">Usuario logueado como cliente</option>
                         </datalist>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Avatar</label>
+                    <div class="col-sm-10">
+                        <input type="file" name="avatar" id="foto" />
                     </div>
                 </div>
             </div> 

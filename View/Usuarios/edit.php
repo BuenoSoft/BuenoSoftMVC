@@ -89,6 +89,17 @@
                         </datalist>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Avatar</label>
+                    <div class="col-sm-10">
+                        <?php if($usuario->getAvatar() == null) { ?>
+                            <img src="Public/img/manejo/profile_img.png" width='175' height='125' />&nbsp;&nbsp;
+                        <?php } else { ?>
+                            <img src="<?php echo $usuario->getAvatar(); ?>" width='175' height='125' />&nbsp;&nbsp;
+                        <?php } ?>
+                        <a href="index.php?c=usuarios&a=avatar" title="Cambiar"><button type="button" name="btnavatar" value="Avatar" class="btn btn-theme00" ><i class="fa fa-photo"></i>&nbsp;Cambiar</button></a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">

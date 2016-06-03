@@ -63,6 +63,16 @@
                         <?php echo $usuario->getTipo(); ?>
                     </div>
                 </div>
+                <div class="form-group" style="text-align: center;">
+                    <label class="col-sm-2 col-sm-2 control-label">Avatar</label>
+                    <div class="col-sm-10">
+                        <?php if($usuario->getAvatar() == null) { ?>
+                            <img src="Public/img/manejo/profile_img.png" width='175' height='125' />&nbsp;&nbsp;
+                        <?php } else { ?>
+                            <img src="<?php echo $usuario->getAvatar(); ?>" width='175' height='125' />&nbsp;&nbsp;
+                        <?php } ?>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
