@@ -6,7 +6,6 @@ class Usado
     private $aplicacion;
     private $vehiculo;
     private $conductor;
-    private $capacidad;
     function getAplicacion() {
         return $this->aplicacion;
     }
@@ -16,9 +15,6 @@ class Usado
     function getConductor() {
         return $this->conductor;
     }
-    function getCapacidad() {
-        return $this->capacidad;
-    }
     function setAplicacion($aplicacion) {
         $this->aplicacion = $aplicacion;
     }
@@ -27,9 +23,6 @@ class Usado
     }
     function setConductor($conductor) {
         $this->conductor = $conductor;
-    }
-    function setCapacidad($capacidad) {
-        $this->capacidad = $capacidad;
     }
     function __construct() { }
     public function equals(Usado $obj){

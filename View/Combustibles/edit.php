@@ -1,5 +1,5 @@
-<h3><i class="fa fa-angle-right"></i> Crear Combustible</h3>
-<form class="form-horizontal style-form" method="post" action="index.php?c=combustibles&a=edit&p=<?php echo \App\Session::get('id');?>" name="frmedit">
+<h3><i class="fa fa-angle-right"></i> Editar Combustible</h3>
+<form class="form-horizontal style-form" method="post" action="index.php?c=combustibles&a=edit&d=<?php echo \App\Session::get('com');?>" name="frmedit">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">

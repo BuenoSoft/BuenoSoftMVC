@@ -7,7 +7,7 @@ class TieneModel extends AppModel
         parent::__construct();
     }
     /*---------------------------------------------------------------------*/
-    private function checkPro($dates = []) {
+    public function checkPro($dates = []) {
         return $this->executeQuery($this->getCheckQuery(),$this->getCheckTieneParameter($dates));
     } 
     public function getCheckTieneParameter($dates = []) {

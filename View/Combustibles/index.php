@@ -29,14 +29,13 @@
                         <td><?php echo $combustible->getStock(); ?></td>
                         <td><?php echo $combustible->getFecha(); ?></td>
                         <td>
-                            <a href="index.php?c=combustibles&a=edit&p=<?php echo $combustible->getId(); ?>" title="editar">Editar</a>&nbsp;
+                            <a href="index.php?c=combustibles&a=edit&d=<?php echo $combustible->getId(); ?>" title="editar">Editar</a>&nbsp;
                             <?php if($combustible->getEstado() == 'H'){ ?>
-                            <a href="index.php?c=combustibles&a=delete&p=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea borrar el combustible seleccionado?');">Borrar</a>
+                            <a href="index.php?c=combustibles&a=delete&d=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea borrar el combustible seleccionado?');">Borrar</a>
                         <?php } else {?>
-                            <a href="index.php?c=combustibles&a=active&p=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea activar el combustible seleccionado?');">Activar</a>
+                            <a href="index.php?c=combustibles&a=active&d=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea activar el combustible seleccionado?');">Activar</a>
                         <?php }?>
-                        </td>
-                        
+                        </td>                        
                     </tr>
                 <?php } ?>
             </tbody>

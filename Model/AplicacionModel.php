@@ -3,22 +3,26 @@ namespace Model;
 use \Clases\Aplicacion;
 class AplicacionModel extends AppModel
 {
+    public function maxId(){
+        return $this->fetch("select max(aplId) as maximo from aplicaciones",[])[0]['maximo'];
+    }
     public function addApp($object){
         return $this->executeQuery($this->getCreateQuery(),  $this->getCreateParameter($object));
     }   
     protected function getCreateParameter($object) {
         return [
-            $object->getCoordlat(), $object->getCoordlong(), $object->getAreaapl(), $object->getFaja(), 
+            $object->getCultivoLat(), $object->getCultivoLong(),$object->getPistaLat(), 
+            $object->getPistaLong(), $object->getAreaapl(), $object->getFaja(), 
             $object->getFechaIni(), $object->getFechaFin(), $object->getTratamiento(), 
             $object->getViento(), $object->getTaquiIni(), $object->getTaquiFin(), $object->getTipo(), 
-            $object->getPadron(), $object->getCultivo(), $object->getCaudal(), $object->getImporte(),
-            $object->getDosis(), $object->getHectareas(), $object->getCliente()->getId()
+            $object->getPadron(), $object->getCultivo(), $object->getCaudal(),
+            $object->getDosis(), $object->getCliente()->getId()
         ];
     }
     protected function getCreateQuery() {
-        return "insert into aplicaciones(aplCoordLat,aplCoordLong, aplAreaAplicada,aplFaja,"
-            . "aplFechaIni,aplFechaFin,aplTratamiento,aplViento,aplTaquiIni,aplTaquiFin,"
-            . "aplTipo,aplPadron,aplCultivo,aplCaudal,aplImporte, aplDosis,aplHectareas,datId) "
+        return "insert into aplicaciones(aplCultivoLat,aplCultivoLong,aplPistaLat,aplPistaLong,"
+            . "aplAreaAplicada,aplFaja,aplFechaIni,aplFechaFin,aplTratamiento,aplViento,"
+            . "aplTaquiIni,aplTaquiFin,aplTipo,aplPadron,aplCultivo,aplCaudal,aplDosis,datId)"
             . "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     }
     /*------------------------------------------------------------------------------------*/
@@ -26,18 +30,18 @@ class AplicacionModel extends AppModel
         return $this->executeQuery($this->getUpdateQuery(), $this->getUpdateParameter($object));        
     }
     protected function getUpdateQuery() {
-        return "update aplicaciones set aplCoordLat = ?,aplCoordLong = ?,aplAreaAplicada = ?,"
-            . "aplFaja = ?,aplFechaIni = ?,aplFechaFin = ?,aplTratamiento = ?,aplViento = ?,"
-            . "aplTaquiIni = ?,aplTaquiFin = ?,aplTipo = ?,aplPadron = ?,aplCultivo = ?,"
-            . "aplCaudal = ?,aplImporte = ?,aplDosis = ?,aplHectareas = ?,datId = ? where aplId = ?";
+        return "update aplicaciones set aplCultivoLat = ?,aplCultivoLong = ?,aplPistaLat = ?,"
+            . "aplPistaLong = ?, aplAreaAplicada = ?, aplFaja = ?,aplFechaIni = ?,aplFechaFin = ?,"
+            . "aplTratamiento = ?,aplViento = ?,aplTaquiIni = ?,aplTaquiFin = ?,aplTipo = ?,"
+            . "aplPadron = ?,aplCultivo = ?, aplCaudal = ?,aplDosis = ?,datId = ? where aplId = ?";
     }
     protected function getUpdateParameter($object) {
         return [
-            $object->getCoordlat(), $object->getCoordlong(), $object->getAreaapl(), $object->getFaja(), 
+            $object->getCultivoLat(), $object->getCultivoLong(),$object->getPistaLat(), 
+            $object->getPistaLong(), $object->getAreaapl(), $object->getFaja(), 
             $object->getFechaIni(),$object->getFechaFin(), $object->getTratamiento(), $object->getViento(), 
             $object->getTaquiIni(), $object->getTaquiFin(), $object->getTipo(), $object->getPadron(), 
-            $object->getCultivo(), $object->getCaudal(), $object->getImporte(),$object->getDosis(), 
-            $object->getHectareas(), $object->getCliente()->getId(), $object->getId()
+            $object->getCultivo(), $object->getCaudal(),$object->getDosis(), $object->getCliente()->getId(), $object->getId()
         ];
     }    
     
@@ -60,8 +64,8 @@ class AplicacionModel extends AppModel
         $cliente = (new DatosUsuModel())->findById($row["datId"]);
         $aplicacion = new Aplicacion();
         $aplicacion->setId($row["aplId"]);
-        $aplicacion->setCoordlat($row["aplCoordLat"]);
-        $aplicacion->setCoordlong($row["aplCoordLong"]);
+        $aplicacion->setCultivoLat($row["aplCultivoLat"]);
+        $aplicacion->setCultivoLong($row["aplCultivoLong"]);
         $aplicacion->setAreaapl($row["aplAreaAplicada"]);
         $aplicacion->setFaja($row["aplFaja"]);
         $aplicacion->setFechaIni($row["aplFechaIni"]);
@@ -74,9 +78,7 @@ class AplicacionModel extends AppModel
         $aplicacion->setPadron($row["aplPadron"]);
         $aplicacion->setCultivo($row["aplCultivo"]);
         $aplicacion->setCaudal($row["aplCaudal"]);
-        $aplicacion->setImporte($row["aplImporte"]);
         $aplicacion->setDosis($row["aplDosis"]);
-        $aplicacion->setHectareas($row["aplHectareas"]);
         $aplicacion->setCliente($cliente);
         return $aplicacion;
     }
@@ -89,6 +91,9 @@ class AplicacionModel extends AppModel
     public function addPro($dates = []){
         return (new TieneModel())->addPro($dates);
     }
+    public function checkPro($dates = []){
+        return (new TieneModel())->checkPro($dates);
+    }
     public function getProductos($dates = []){
         return (new TieneModel())->getProductos($dates);
     }
@@ -97,7 +102,10 @@ class AplicacionModel extends AppModel
     }
     /*-------------------------------------------------------------------------------*/
     public function addUsu($usado) {
-        return (new UsadoModel())->create($usado);    
+        return (new UsadoModel())->addUsu($usado);    
+    }
+    public function checkUsu($dates = []) {
+        return (new UsadoModel())->checkUsu($dates);
     }
     public function getUsados($dates = []){
         return (new UsadoModel())->getUsados($dates);
@@ -107,5 +115,8 @@ class AplicacionModel extends AppModel
     }
     public function modUsu($usado) {
         return (new UsadoModel())->modUsu($usado);    
+    }
+    public function delUsu($usado){
+        return (new UsadoModel())->delUsu($usado);
     }
 }

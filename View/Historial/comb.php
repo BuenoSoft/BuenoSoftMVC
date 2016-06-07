@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div style="text-align: center;">
-                <a href="index.php?c=historial&a=index&p=<?php echo \App\Session::get('id'); ?>&v=<?php echo \App\Session::get('v'); ?>"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
+                <a href="index.php?c=historial&a=index&d=<?php echo \App\Session::get('app'); ?>&v=<?php echo \App\Session::get('v'); ?>"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
             </div>
         </div>
     </div>

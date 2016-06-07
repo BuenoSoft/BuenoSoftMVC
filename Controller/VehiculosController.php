@@ -42,10 +42,10 @@ class VehiculosController extends AppController
     }
     public function edit(){
         if($this->checkUser()){
-            Session::set("id",$_GET['p']);
+            Session::set("vh",$_GET['d']);
             Session::set('comb', isset($_POST['cboxcomb']) ? $_POST['cboxcomb'] : Session::get('comb'));
             $combustibles = (Session::get('comb')!= "") ? $this->getPaginator()->paginar((new Combustible())->find(Session::get('comb')),1) : array();
-            if (Session::get('id')!=null && isset($_POST['btnaceptar'])){
+            if (Session::get('vh')!=null && isset($_POST['btnaceptar'])){
                 $veh = $this->createEntity();
                 $id = $veh->save();
                 if(isset($id)){
@@ -57,7 +57,7 @@ class VehiculosController extends AppController
                 }
             }
             $this->redirect_administrador(["edit.php"],[
-                'vehiculo' => (new Vehiculo())->findById(Session::get('id')),
+                'vehiculo' => (new Vehiculo())->findById(Session::get('vh')),
                 'combustibles' => $combustibles
             ]);
         }
@@ -65,14 +65,14 @@ class VehiculosController extends AppController
     public function view(){
         if($this->checkUser()){
             $this->redirect_administrador(["view.php"],[
-                'vehiculo' => (new Vehiculo())->findById($_GET['p']),
+                'vehiculo' => (new Vehiculo())->findById($_GET['d']),
             ]);
         }
     }
     public function delete(){
         if($this->checkUser()){
-            if (isset($_GET['p'])){
-                $vehiculo = (new Vehiculo())->findById($_GET['p']);
+            if (isset($_GET['d'])){
+                $vehiculo = (new Vehiculo())->findById($_GET['d']);
                 $id = $vehiculo->del();                
                 Session::set("msg", (isset($id)) ? "Vehículo Borrado" : "No se pudo borrar el vehículo");
                 header("Location:index.php?&c=vehiculos&a=index");
@@ -81,8 +81,8 @@ class VehiculosController extends AppController
     }
     public function active(){
         if($this->checkUser()){
-            if (isset($_GET['p'])){
-                $vehiculo = (new Vehiculo())->findById($_GET['p']);
+            if (isset($_GET['d'])){
+                $vehiculo = (new Vehiculo())->findById($_GET['d']);
                 $id = $vehiculo->active();
                 Session::set("msg", (isset($id)) ? "Vehículo Activado" : "No se pudo activar el vehículo");
                 header("Location:index.php?c=vehiculos&a=index");

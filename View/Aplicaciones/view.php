@@ -41,13 +41,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Coordenadas de Latitud</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $aplicacion->getCoordlat(); ?>
+                        <?php echo $aplicacion->getCultivoLat(); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Coordenadas de Longitud</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $aplicacion->getCoordlong(); ?>
+                        <?php echo $aplicacion->getCultivoLong(); ?>
                     </div>
                 </div>
                 <div class="form-group">
@@ -72,12 +72,6 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">                
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Importe</label>
-                    <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $aplicacion->getImporte(); ?>
-                    </div>
-                </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Inicio</label>
                     <div class="col-sm-10" style="text-align: center;">
@@ -119,13 +113,7 @@
             </div> 
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-            <div class="showback">                                
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Hectáreas</label>
-                    <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $aplicacion->getHectareas(); ?>
-                    </div>
-                </div>
+            <div class="showback">                                                
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Faja</label>
                     <div class="col-sm-10" style="text-align: center;">

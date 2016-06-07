@@ -39,10 +39,9 @@
                             ?>                        
                         </td>
                         <td>
-                            <a href="index.php?c=aplicaciones&a=view&p=<?php echo $aplicacion->getId(); ?>">Ver</a>&nbsp;
-                            <a href="index.php?c=aplicaciones&a=edit&p=<?php echo $aplicacion->getId(); ?>">Editar</a>&nbsp;
-                            <a href="index.php?c=tienes&a=index&p=<?php echo $aplicacion->getId(); ?>">Productos</a>&nbsp;
-                            <a href="index.php?c=usados&a=index&p=<?php echo $aplicacion->getId(); ?>">Usados</a>&nbsp;
+                            <a href="index.php?c=aplicaciones&a=view&d=<?php echo $aplicacion->getId(); ?>">Ver</a>&nbsp;
+                            <a href="index.php?c=aplicaciones&a=edit&d=<?php echo $aplicacion->getId(); ?>">Editar</a>&nbsp;
+                            <a href="index.php?c=usados&a=index&d=<?php echo $aplicacion->getId(); ?>">Usados</a>&nbsp;
                         </td>
                         
                         

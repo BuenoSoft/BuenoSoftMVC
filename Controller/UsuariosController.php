@@ -59,8 +59,7 @@ class UsuariosController extends AppController
                     Session::set("msg","Usuario Creado");
                     header("Location:index.php?c=usuarios&a=index");
                     exit();
-                }
-                else {
+                } else {
                     Session::set("msg",Session::get('msg'));
                 }                
             }
@@ -69,8 +68,8 @@ class UsuariosController extends AppController
     }
     public function edit(){
         if($this->checkUser()){
-            Session::set("id",$_GET['p']); 
-            if (Session::get('id')!=null && isset($_POST['btnaceptar'])){
+            Session::set("usu",$_GET['d']); 
+            if (Session::get('usu')!=null && isset($_POST['btnaceptar'])){
                 $datousu = $this->createDatoUsu();
                 $idu = $datousu->save();
                 $usuario = $this->createUsuario();
@@ -80,12 +79,11 @@ class UsuariosController extends AppController
                     Session::set("msg","Usuario Editado");
                     header("Location:index.php?c=usuarios&a=index");
                     exit();
-                }
-                else {
+                } else {
                     Session::set("msg",Session::get('msg'));
                 }                
             }
-            $this->redirect_administrador(["edit.php"],["usuario" => (new Usuario())->findById(Session::get('id'))]);  
+            $this->redirect_administrador(["edit.php"],["usuario" => (new Usuario())->findById(Session::get('usu'))]);  
         }
     }
     public function avatar(){
@@ -110,14 +108,14 @@ class UsuariosController extends AppController
     }
     public function view(){
         if(Session::get("log_in") != null){
-            Session::set("id",$_GET['p']); 
+            Session::set("id",$_GET['d']); 
             $this->redirect_administrador(["view.php"],["usuario" => (new Usuario())->findById(Session::get('id'))]);
         }
     }
     public function delete(){
         if($this->checkUser()){
-            if (isset($_GET['p'])){
-                $usuario = (new Usuario())->findById($_GET['p']);
+            if (isset($_GET['d'])){
+                $usuario = (new Usuario())->findById($_GET['d']);
                 $id = $usuario->del();                
                 Session::set("msg", (isset($id)) ? "Usuario Borrado" : "No se pudo borrar el usuario");
                 header("Location:index.php?&c=usuarios&a=index");
@@ -126,8 +124,8 @@ class UsuariosController extends AppController
     }
     public function active(){
         if($this->checkUser()){
-            if (isset($_GET['p'])){
-                $usuario = (new Usuario())->findById($_GET['p']);
+            if (isset($_GET['d'])){
+                $usuario = (new Usuario())->findById($_GET['d']);
                 $id = $usuario->active();
                 Session::set("msg", (isset($id)) ? "Usuario Activado" : "No se pudo activar el usuario");
                 header("Location:index.php?c=usuarios&a=index");

@@ -1,5 +1,5 @@
 <h3><i class="fa fa-angle-right"></i>Editar Notificación</h3>
-<form class="form-horizontal style-form" method="post" action="index.php?c=notificaciones&a=edit&p=<?php echo \App\Session::get('id'); ?>" name="frmedit">
+<form class="form-horizontal style-form" method="post" action="index.php?c=notificaciones&a=edit&d=<?php echo \App\Session::get('not'); ?>" name="frmedit">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">

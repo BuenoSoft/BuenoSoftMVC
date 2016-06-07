@@ -31,8 +31,7 @@ class NotificacionesController extends AppController
                     Session::set("msg","Notificación Creada");
                     header("Location:index.php?c=notificaciones&a=index");
                     exit();
-                }
-                else {
+                } else {
                     Session::set("msg",Session::get('msg'));
                 }                
             }
@@ -43,23 +42,22 @@ class NotificacionesController extends AppController
     }
     public function edit(){
         if($this->checkUser()){
-            Session::set("id",$_GET['p']);
+            Session::set("not",$_GET['d']);
             Session::set('veh', isset($_POST['cboxveh']) ? $_POST['cboxveh'] : Session::get('veh'));
             $vehiculos = (Session::get('veh')!= "") ? $this->getPaginator()->paginar((new Vehiculo())->find(Session::get('veh')),1) : array();
-            if (Session::get('id')!=null && isset($_POST['btnaceptar'])){
+            if (Session::get('not')!=null && isset($_POST['btnaceptar'])){
                 $not = $this->createEntity();
                 $id = $not->save();
                 if(isset($id)){
                     Session::set("msg","Notificación Editada");
                     header("Location:index.php?c=notificaciones&a=index");
                     exit();
-                }
-                else {
+                } else {
                     Session::set("msg",Session::get('msg'));
                 }
             }
             $this->redirect_administrador(["edit.php"],[
-                "notificacion" => (new Notificacion())->findById(Session::get("id")),
+                "notificacion" => (new Notificacion())->findById(Session::get("not")),
                 "vehiculos" => $vehiculos
             ]);
         }

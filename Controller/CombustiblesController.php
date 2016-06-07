@@ -37,8 +37,8 @@ class CombustiblesController extends AppController
     }
     public function edit(){
         if($this->checkUser()){
-            Session::set("id",$_GET['p']);
-            if (Session::get('id')!=null && isset($_POST['btnaceptar'])){
+            Session::set("com",$_GET['d']);
+            if (Session::get('com')!=null && isset($_POST['btnaceptar'])){
                 $combustible = $this->createEntity();
                 $id = $combustible->save();
                 if(isset($id)){
@@ -50,13 +50,13 @@ class CombustiblesController extends AppController
                     Session::set("msg",Session::get('msg'));
                 }
             }
-            $this->redirect_administrador(['edit.php'],["combustible" => (new Combustible())->findById(Session::get('id'))]); 
+            $this->redirect_administrador(['edit.php'],["combustible" => (new Combustible())->findById(Session::get('com'))]); 
         }
     }
     public function delete(){
         if($this->checkUser()){
-            if (isset($_GET['p'])){
-                $combustible = (new Combustible())->findById($_GET['p']);
+            if (isset($_GET['d'])){
+                $combustible = (new Combustible())->findById($_GET['d']);
                 $id = $combustible->del();                
                 Session::set("msg", (isset($id)) ? "Combustible Borrado" : "No se pudo borrar el combustible");
                 header("Location:index.php?&c=combustibles&a=index");
@@ -65,8 +65,8 @@ class CombustiblesController extends AppController
     }
     public function active(){
         if($this->checkUser()){
-            if (isset($_GET['p'])){
-                $combustible = (new Combustible())->findById($_GET['p']);
+            if (isset($_GET['d'])){
+                $combustible = (new Combustible())->findById($_GET['d']);
                 $id = $combustible->active();
                 Session::set("msg", (isset($id)) ? "Combustible Activado" : "No se pudo activar el combustible");
                 header("Location:index.php?c=combustibles&a=index");

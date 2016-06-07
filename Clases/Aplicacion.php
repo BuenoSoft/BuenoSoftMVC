@@ -5,8 +5,10 @@ use \Model\AplicacionModel;
 class Aplicacion implements IPersiste
 {
     private $id;
-    private $coordlat;
-    private $coordlong;
+    private $cultivoLat;
+    private $cultivoLong;
+    private $pistaLat;
+    private $pistaLong;
     private $areaapl;
     private $faja;
     private $fechaIni;
@@ -19,18 +21,22 @@ class Aplicacion implements IPersiste
     private $padron;
     private $cultivo;
     private $caudal;
-    private $importe;
     private $dosis;
-    private $hectareas;
     private $cliente;
     function getId() {
         return $this->id;
     }
-    function getCoordlat() {
-        return $this->coordlat;
+    function getCultivoLat() {
+        return $this->cultivoLat;
     }
-    function getCoordlong() {
-        return $this->coordlong;
+    function getCultivoLong() {
+        return $this->cultivoLong;
+    }
+    function getPistaLat() {
+        return $this->pistaLat;
+    }
+    function getPistaLong() {
+        return $this->pistaLong;
     }
     function getAreaapl() {
         return $this->areaapl;
@@ -68,27 +74,26 @@ class Aplicacion implements IPersiste
     function getCaudal() {
         return $this->caudal;
     }
-    function getImporte() {
-        return $this->importe;
-    }
     function getDosis() {
         return $this->dosis;
     }
-    function getHectareas() {
-        return $this->hectareas;
-    }
     function getCliente() {
         return $this->cliente;
-    }
-    
+    }    
     function setId($id) {
         $this->id = $id;
     }
-    function setCoordlat($coordlat) {
-        $this->coordlat = $coordlat;
+    function setCultivoLat($cultivoLat) {
+        $this->cultivoLat = $cultivoLat;
     }
-    function setCoordlong($coordlong) {
-        $this->coordlong = $coordlong;
+    function setCultivoLong($cultivoLong) {
+        $this->cultivoLong = $cultivoLong;
+    }
+    function setPistaLat($pistaLat) {
+        $this->pistaLat = $pistaLat;
+    }
+    function setPistaLong($pistaLong) {
+        $this->pistaLong = $pistaLong;
     }
     function setAreaapl($areaapl) {
         $this->areaapl = $areaapl;
@@ -126,14 +131,8 @@ class Aplicacion implements IPersiste
     function setCaudal($caudal) {
         $this->caudal = $caudal;
     }
-    function setImporte($importe) {
-        $this->importe = $importe;
-    }
     function setDosis($dosis) {
         $this->dosis = $dosis;
-    }
-    function setHectareas($hectareas) {
-        $this->hectareas = $hectareas;
     }
     function setCliente($cliente) {
         $this->cliente = $cliente;
@@ -163,10 +162,16 @@ class Aplicacion implements IPersiste
     public function findById($id) {
         return (new AplicacionModel())->findById($id);
     }
+    public function maxID(){
+        return (new AplicacionModel())->maxId();
+    }
     public function del() { }
     /*-----------------------------------------*/
     public function addPro($pro) {
         return (new AplicacionModel())->addPro([$this->id, $pro]);
+    }
+    public function checkPro($pro) {
+        return (new AplicacionModel())->checkPro([$this->id, $pro]);
     }
     public function delPro($pro) {
         return (new AplicacionModel())->delPro([$this->id, $pro]);
@@ -178,6 +183,9 @@ class Aplicacion implements IPersiste
     public function addUsu($usado) {
         return (new AplicacionModel())->addUsu($usado);
     }
+    public function checkUsu($veh){
+        return (new AplicacionModel())->checkUsu([$this->id, $veh]);
+    }
     public function getUsados(){
         return (new AplicacionModel())->getUsados([$this->id]);
     }
@@ -186,5 +194,8 @@ class Aplicacion implements IPersiste
     }
     public function modUsu($usado) {
         return (new AplicacionModel())->modUsu($usado);    
+    }
+    public function delUsu($usado) {
+        return (new AplicacionModel())->delUsu($usado);
     }
 }

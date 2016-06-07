@@ -28,7 +28,7 @@
                         <td><?php echo $notificacion->getLog(); ?></td>
                         <td><?php echo $notificacion->getFechaini(); ?></td>
                         <td><?php echo $notificacion->getFechafin(); ?></td>
-                        <td><a href="index.php?c=notificaciones&a=edit&p=<?php echo $notificacion->getId(); ?>">Editar</a></td>
+                        <td><a href="index.php?c=notificaciones&a=edit&d=<?php echo $notificacion->getId(); ?>">Editar</a></td>
                         
                     </tr>
                 <?php } ?>

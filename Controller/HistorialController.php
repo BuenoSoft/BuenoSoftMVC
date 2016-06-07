@@ -12,10 +12,10 @@ class HistorialController extends AppController
     public function index(){
         if($this->checkUser()){
             Session::set("comb","");
-            Session::set("id",$_GET['p']);
+            Session::set("app",$_GET['d']);
             Session::set("v",$_GET['v']);
             Session::set('s', isset($_GET['s']) ? $_GET['s'] : 1);
-            $apl = (new Aplicacion())->findById(Session::get("id"));
+            $apl = (new Aplicacion())->findById(Session::get("app"));
             $usado = $apl->getUsado(Session::get("v"));
             $this->redirect_administrador(["index.php"], [
                 "usado" => $usado,
@@ -26,18 +26,18 @@ class HistorialController extends AppController
     }
     public function add(){
         if($this->checkUser()){
-            Session::set("id",$_GET['p']);
+            Session::set("app",$_GET['d']);
             Session::set("v",$_GET['v']);
             Session::set("comb", isset($_POST['comb']) ? $_POST['comb'] : Session::get('comb'));
             $combustibles = (Session::get('comb')!= "") ? $this->getPaginator()->paginar((new Combustible())->find(Session::get('comb')),1) : array();
-            $apl = (new Aplicacion())->findById(Session::get("id"));
+            $apl = (new Aplicacion())->findById(Session::get("app"));
             $usado = $apl->getUsado(Session::get("v"));
             if (isset($_POST['btnaceptar'])) {
                 $historial = $this->createEntity();
                 $id = $usado->addHis($historial);
                 if(isset($id)){
                     Session::set("msg","Historial de Vehículo Registrado");
-                    header("Location:index.php?c=historial&a=index&p=".Session::get("id")."&v=".Session::get("v"));
+                    header("Location:index.php?c=historial&a=index&d=".Session::get("app")."&v=".Session::get("v"));
                     exit();
                 } else {
                     Session::set("msg","Error al registrar historial");
@@ -51,19 +51,19 @@ class HistorialController extends AppController
     }
     public function edit(){
         if($this->checkUser()){
-            Session::set("id",$_GET['p']);
+            Session::set("app",$_GET['d']);
             Session::set("v",$_GET['v']);
             Session::set("m",$_GET['m']);
             Session::set("f",$_GET['f']);
             Session::set("comb", isset($_POST['comb']) ? $_POST['comb'] : Session::get('comb'));
             $combustibles = (Session::get('comb')!= "") ? $this->getPaginator()->paginar((new Combustible())->find(Session::get('comb')),1) : array();
-            $usado = (new Aplicacion())->findById(Session::get("id"))->getUsado(Session::get("v"));
-            if (Session::get('id')!=null && Session::get('v')!=null && Session::get('m')!=null && Session::get('f')!=null && isset($_POST['btnaceptar'])){
+            $usado = (new Aplicacion())->findById(Session::get("app"))->getUsado(Session::get("v"));
+            if (Session::get('app')!=null && Session::get('v')!=null && Session::get('m')!=null && Session::get('f')!=null && isset($_POST['btnaceptar'])){
                 $historial = $this->createEntity();
                 $id = $usado->modHis($historial);
                 if(isset($id)){
                     Session::set("msg","Historial de Vehículo Editado");
-                    header("Location:index.php?c=historial&a=index&p=".Session::get("id")."&v=".Session::get("v"));
+                    header("Location:index.php?c=historial&a=index&d=".Session::get("app")."&v=".Session::get("v"));
                     exit();
                 } else {
                     Session::set("msg","Error al editar historial");
@@ -77,7 +77,7 @@ class HistorialController extends AppController
     }
     public function delete(){
         if($this->checkUser()){
-            Session::set("id",$_GET['p']);
+            Session::set("app",$_GET['v']);
             Session::set("v",$_GET['v']);
             Session::set("m",$_GET['m']);
             Session::set("f",$_GET['f']);
@@ -85,7 +85,7 @@ class HistorialController extends AppController
             $historial = $usado->getHistorial([Session::get('m'),Session::get('f')]);
             $id = $usado->delHis($historial);
             Session::set("msg", (isset($id)) ? "Historial de Vehículo Borrado" : "No se pudo borrar el producto");
-            header("Location:index.php?c=historial&a=index&p=".Session::get("id")."&v=".Session::get("v"));
+            header("Location:index.php?c=historial&a=index&d=".Session::get("app")."&v=".Session::get("v"));
         }
     }
     public function comb(){
@@ -94,7 +94,7 @@ class HistorialController extends AppController
         ]);
     }
     private function createEntity(){
-        $apl = (new Aplicacion())->findById(Session::get("id"));
+        $apl = (new Aplicacion())->findById(Session::get("app"));
         $usado =$apl->getUsado(Session::get("v"));
         $combustible = (new Combustible())->findById($_POST['comb']);
         $historial = new Historial();

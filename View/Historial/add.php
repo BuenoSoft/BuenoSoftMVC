@@ -1,5 +1,5 @@
 <h3>Registrar Historial del Vehículo <?php echo $usado->getVehiculo()->getId(); ?>, de la Aplicación número&nbsp;<?php echo $usado->getAplicacion()->getId(); ?></h3>
-<form class="form-horizontal style-form" method="post" action="index.php?c=historial&a=add&p=<?php echo \App\Session::get('id'); ?>&v=<?php echo \App\Session::get('v'); ?>" name="frmadd">
+<form class="form-horizontal style-form" method="post" action="index.php?c=historial&a=add&d=<?php echo \App\Session::get('app'); ?>&v=<?php echo \App\Session::get('v'); ?>" name="frmadd">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
@@ -43,7 +43,7 @@
     <div class="col-lg-6 col-md-6 col-sm-12">
         <div style="text-align: center;">
             <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
-            <a href="index.php?c=historial&a=index&p=<?php echo $usado->getAplicacion()->getId(); ?>&v=<?php echo $usado->getVehiculo()->getId();?>"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
+            <a href="index.php?c=historial&a=index&d=<?php echo $usado->getAplicacion()->getId(); ?>&v=<?php echo $usado->getVehiculo()->getId();?>"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
         </div>
     </div>
 </form>

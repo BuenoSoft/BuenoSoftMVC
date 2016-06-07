@@ -11,10 +11,9 @@ class UsadosController extends AppController
     }
     public function index(){
         if($this->checkUser()){
-            Session::set("id",$_GET['p']);
-            Session::set('veh',"");
+            Session::set("app",$_GET['d']);
             Session::set('s', isset($_GET['s']) ? $_GET['s'] : 1);
-            $apl = (new Aplicacion())->findById(Session::get("id"));
+            $apl = (new Aplicacion())->findById(Session::get("app"));
             $usados = $this->getPaginator()->paginar($apl->getUsados(), Session::get('s'));
             $this->redirect_administrador(['index.php'],[
                 "aplicacion" => $apl,
@@ -23,40 +22,17 @@ class UsadosController extends AppController
             ]);
         }
     }
-    public function add(){
-        if($this->checkUser()){
-            Session::set("id",$_GET['p']);
-            Session::set('veh', isset($_POST['veh']) ? $_POST['veh'] : Session::get('veh'));
-            $vehiculos = (Session::get('veh')!= "") ? $this->getPaginator()->paginar((new Vehiculo())->find(Session::get('veh')),1) : array();
-            $apl = (new Aplicacion())->findById(Session::get("id"));
-            if (isset($_POST['btnaceptar'])) {
-                $usado = $this->createEntity();
-                $id = $apl->addUsu($usado);
-                if(isset($id)){
-                    Session::set("msg","Vehículo Registrado");
-                    header("Location:index.php?c=usados&a=index&p=".Session::get("id"));
-                    exit();
-                } else {
-                    Session::set("msg",Session::get('msg'));
-                }
-            }
-            $this->redirect_administrador(['add.php'],[
-                "aplicacion" => $apl,
-                "vehiculos" => $vehiculos
-            ]);
-        }
-    }
     public function edit(){
         if($this->checkUser()){
-            Session::set("id",$_GET['p']);
+            Session::set("app",$_GET['d']);
             Session::set("v",$_GET['v']);
-            $apl = (new Aplicacion())->findById(Session::get("id"));
-            if (Session::get('id')!=null && isset($_POST['btnaceptar'])){
+            $apl = (new Aplicacion())->findById(Session::get("app"));
+            if (Session::get('app')!=null && isset($_POST['btnaceptar'])){
                 $usado = $this->createEntity();
                 $id = $apl->modUsu($usado);
                 if(isset($id)){
                     Session::set("msg","Uso del Vehículo Editado");
-                    header("Location:index.php?c=usados&a=index&p=".Session::get("id"));
+                    header("Location:index.php?c=usados&a=index&d=".Session::get("app"));
                     exit();
                 } else {
                     Session::set("msg",Session::get('msg'));
@@ -75,13 +51,12 @@ class UsadosController extends AppController
         }
     }
     private function createEntity(){
-        $apl = (new Aplicacion())->findById(Session::get("id"));
-        $veh = (new Vehiculo())->findById($_POST["veh"]);
+        $apl = (new Aplicacion())->findById(Session::get("app"));
+        $veh = (new Vehiculo())->findById(Session::get("v"));
         $usado = new Usado();
         $usado->setAplicacion($apl);
         $usado->setVehiculo($veh);
         $usado->setConductor($_POST["txtcond"]);
-        $usado->setCapacidad($_POST["txtcap"]);
         return $usado;
     }
     protected function getRoles() {

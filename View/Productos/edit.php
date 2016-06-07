@@ -1,5 +1,5 @@
 <h3><i class="fa fa-angle-right"></i> Editar Producto</h3>
-<form class="form-horizontal style-form" method="post" action="index.php?c=productos&a=edit&p=<?php echo \App\Session::get('id');?>" name="frmadd">
+<form class="form-horizontal style-form" method="post" action="index.php?c=productos&a=edit&d=<?php echo \App\Session::get('prod');?>" name="frmedit">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">

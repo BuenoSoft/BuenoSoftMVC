@@ -38,13 +38,7 @@
                     <div class="col-sm-10">
                         <input type="text" name="txtarea_apl" class="form-control" required="required" placeholder="" tabindex="3" /> 
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label"><font color="red">Hectáreas</font>&nbsp;<font color="red">*</font></label>
-                    <div class="col-sm-10">
-                        <input type="text" name="txthectareas" onkeypress="return validarNumeroPunto(event)" class="form-control" required="required" placeholder="" tabindex="15"/>
-                    </div>
-                </div>
+                </div>                
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Caudal&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
@@ -90,8 +84,7 @@
                     <div class="col-sm-10">
                         <input type="text" name="txttaquiFin" onkeypress="return validarNumeroPunto(event)" class="form-control" placeholder="" tabindex="8"/>
                     </div>
-                </div>
-                
+                </div>                
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Dosis&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
@@ -102,13 +95,34 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
-                
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label"><font color="red">Importe</font></label>
-                    <div class="col-sm-10">
-                        <input type="text" name="txtimporte" onkeypress="return validarNumeroPunto(event)" class="form-control" placeholder="" tabindex="11" />
+                    <label class="col-sm-2 col-sm-2 control-label">Productos</label>
+                    <div class="col-sm-10">                        
+                        <?php 
+                            foreach ($productos as $producto) { 
+                                if($producto->getEstado() == "H") { ?>
+                                    <input type="checkbox" name="productos[]" value="<?php echo $producto->getId(); ?>" />&nbsp;<?php echo $producto->getNombre(); ?><br />
+                        <?php                           
+                                }                         
+                            } ?>                                                    
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Vehículos</label>
+                    <div class="col-sm-10">
+                        <?php 
+                            foreach($vehiculos as $vehiculo){
+                                if($vehiculo->getEstado() == "H"){ ?>
+                                    <input type="checkbox" name="vehiculos[]" value="<?php echo $vehiculo->getId() ?>" />&nbsp;<?php echo "Matrícula: ".$vehiculo->getMatricula()." Tipo: ".$vehiculo->getTipo(); ?><br />
+                        <?php     
+                               } 
+                            } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="showback">                
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Viento&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">

@@ -29,11 +29,11 @@
                     <td><?php echo $producto->getCodigo(); ?></td>
                     <td><?php echo $producto->getMarca(); ?></td>
                     <td>
-                        <a href="index.php?c=productos&a=edit&p=<?php echo $producto->getId(); ?>">Editar</a>&nbsp;
+                        <a href="index.php?c=productos&a=edit&d=<?php echo $producto->getId(); ?>">Editar</a>&nbsp;
                         <?php if($producto->getEstado() == 'H'){ ?>
-                            <a href="index.php?c=productos&a=delete&p=<?php echo $producto->getId(); ?>" onclick="return confirm('¿Desea borrar el producto seleccionado?');">Borrar</a>
+                            <a href="index.php?c=productos&a=delete&d=<?php echo $producto->getId(); ?>" onclick="return confirm('¿Desea borrar el producto seleccionado?');">Borrar</a>
                         <?php } else {?>
-                            <a href="index.php?c=productos&a=active&p=<?php echo $producto->getId(); ?>" onclick="return confirm('¿Desea activar el producto seleccionado?');">Activar</a>
+                            <a href="index.php?c=productos&a=active&d=<?php echo $producto->getId(); ?>" onclick="return confirm('¿Desea activar el producto seleccionado?');">Activar</a>
                         <?php }?>
                     </td>
                 </tr>

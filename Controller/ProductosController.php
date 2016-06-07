@@ -27,8 +27,7 @@ class ProductosController extends AppController
                     Session::set("msg","Producto Creado");
                     header("Location:index.php?c=productos&a=index");
                     exit();                
-                }
-                else {
+                } else {
                     Session::set("msg",Session::get('msg'));
                 }
             }
@@ -37,26 +36,25 @@ class ProductosController extends AppController
     }
     public function edit(){
         if($this->checkUser()){
-            Session::set("id",$_GET['p']);
-            if (Session::get('id')!=null && isset($_POST['btnaceptar'])){
+            Session::set("prod",$_GET['d']);
+            if (Session::get('prod')!=null && isset($_POST['btnaceptar'])){
                 $producto = $this->createEntity();
                 $id = $producto->save();
                 if(isset($id)){
                     Session::set("msg","Producto Editado");
                     header("Location:index.php?c=productos&a=index");
                     exit();                
-                }
-                else {
+                } else {
                     Session::set("msg",Session::get('msg'));
                 }
             }
-            $this->redirect_administrador(['edit.php'],["producto" => (new Producto())->findById(Session::get('id'))]); 
+            $this->redirect_administrador(['edit.php'],["producto" => (new Producto())->findById(Session::get('prod'))]); 
         }
     }
     public function delete(){
         if($this->checkUser()){
-            if (isset($_GET['p'])){
-                $producto = (new Producto())->findById($_GET['p']);
+            if (isset($_GET['d'])){
+                $producto = (new Producto())->findById($_GET['d']);
                 $id = $producto->del();                
                 Session::set("msg", (isset($id)) ? "Producto Borrado" : "No se pudo borrar el producto");
                 header("Location:index.php?&c=productos&a=index");
@@ -65,8 +63,8 @@ class ProductosController extends AppController
     }
     public function active(){
         if($this->checkUser()){
-            if (isset($_GET['p'])){
-                $producto = (new Producto())->findById($_GET['p']);
+            if (isset($_GET['d'])){
+                $producto = (new Producto())->findById($_GET['d']);
                 $id = $producto->active();
                 Session::set("msg", (isset($id)) ? "Producto Activado" : "No se pudo activar el producto");
                 header("Location:index.php?c=productos&a=index");

@@ -29,12 +29,12 @@
                         <td><?php echo $vehiculo->getTipo(); ?></td>
                         <td><?php echo $vehiculo->getCombustible()->getNombre(); ?></td> 
                         <td>
-                            <a href="index.php?c=vehiculos&a=view&p=<?php echo $vehiculo->getId(); ?>">Ver</a>&nbsp;
-                            <a href="index.php?c=vehiculos&a=edit&p=<?php echo $vehiculo->getId(); ?>">Editar</a>&nbsp;
+                            <a href="index.php?c=vehiculos&a=view&d=<?php echo $vehiculo->getId(); ?>">Ver</a>&nbsp;
+                            <a href="index.php?c=vehiculos&a=edit&d=<?php echo $vehiculo->getId(); ?>">Editar</a>&nbsp;
                             <?php if($vehiculo->getEstado() == "H") { ?>
-                                <a href="index.php?c=vehiculos&a=delete&p=<?php echo $vehiculo->getId(); ?>" onclick="return confirm('¿Desea borrar el Vehículo seleccionado?');">Borrar</a>
+                                <a href="index.php?c=vehiculos&a=delete&d=<?php echo $vehiculo->getId(); ?>" onclick="return confirm('¿Desea borrar el Vehículo seleccionado?');">Borrar</a>
                             <?php } else { ?>
-                                <a href="index.php?c=vehiculos&a=active&p=<?php echo $vehiculo->getId(); ?>" onclick="return confirm('¿Desea activar el Vehículo seleccionado?');">Activar</a>
+                                <a href="index.php?c=vehiculos&a=active&d=<?php echo $vehiculo->getId(); ?>" onclick="return confirm('¿Desea activar el Vehículo seleccionado?');">Activar</a>
                             <?php }?>
                         </td>
                     </tr>
