@@ -6,13 +6,22 @@
         <!--logo start-->
         <a href="index.php" class="logo"><b>Bueno Servicios Aereos</b></a>
         <!--logo end-->
-        <div class="top-menu">            
-            <a href="index.php?c=usuarios&a=logout" title="Cerrar Sesion">
-                <i class="fa fa-sign-out" style="font-size: 40px; margin-top: 8px; margin-left: 8px; float: right;"></i>
-            </a>                       
-            <a href="#" title="Notificaciones">
-                <i class="fa fa-envelope" style="font-size: 40px; margin-top: 8px; margin-left: 10px; float: right;"></i>
-            </a>
+        <div class="collapse navbar-collapse menubar">
+            <ul class="nav navbar-nav navbar-right">
+                <li class='dropdown'>
+                    <a href="#" class='dropdown-toggle' data-toggle='dropdown' style="font-size: 15px;">
+                        <i class="fa fa-envelope"></i>&nbsp;Notificaciones
+                    </a>
+                    <ul class='dropdown-menu'>
+                        <li><a href="#">Megamenu</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="index.php?c=usuarios&a=logout" style="font-size: 15px;">
+                        <i class="medium-icon fa fa-sign-out"></i>&nbsp;Salir</a>
+                    </a>
+                </li>
+            </ul>          
         </div>
     </header>
     <aside>

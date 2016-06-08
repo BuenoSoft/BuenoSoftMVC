@@ -1,6 +1,8 @@
 <?php
 namespace Model;
+use \App\Session;
 use \Clases\Usado;
+
 class UsadoModel extends AppModel
 {
     public function __construct() {
@@ -17,12 +19,27 @@ class UsadoModel extends AppModel
         return [$dates[0],$dates[1]];
     }
     protected function getCheckQuery() {
-        return "select * from utiliza where aplId = ? and vehId = ?";
+        return "select * from utiliza u inner join aplicaciones a on u.aplId = a.aplId where u.aplId = ? and u.vehId = ?";
+    }
+    /*------------------------------------------------------------------------------------*/
+    private function checkAplFin($dates = []) {
+        return $this->executeQuery($this->getCheckFinQuery(),$this->getCheckFinParameter($dates));
+    }
+    protected function getCheckFinQuery() {
+        return "select * from utiliza u inner join aplicaciones a on u.aplId = a.aplId "
+        . "where u.vehId = ? and (a.aplFechaFin = '0000-00-00 00:00:00' or a.aplFechaFin is NULL)";
+    }
+    protected function getCheckFinParameter($dates = []) {
+        return [$dates[0]];
     }
     /*------------------------------------------------------------------------------------*/
     public function addUsu($object){
         if($this->checkUsu([$object->getAplicacion()->getId(),$object->getVehiculo()->getId()])){ 
             Session::set('msg', $this->getCheckMessage());
+            return null;
+        }
+        else if($this->checkAplFin([$object->getVehiculo()->getId()])){
+           // Session::set('msg', $this->getCheckMessage());
             return null;
         }
         return $this->executeQuery($this->getCreateQuery(), $this->getCreateParameter($object));
@@ -78,7 +95,8 @@ class UsadoModel extends AppModel
         return "delete from utiliza where aplId = ? and vehId = ?";
     }
     protected function getDeleteParameter($object) { 
-        return [$object->getAplicacion()->getId(),$object->getVehiculo()->getId()];
+        return [$object->getAplicacion()->getId(),
+            $object->getVehiculo()->getId()];
     }
     /*------------------------------------------------------------------------------------*/ 
     public function createEntity($row) {

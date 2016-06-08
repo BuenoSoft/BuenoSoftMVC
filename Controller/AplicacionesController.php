@@ -107,12 +107,13 @@ class AplicacionesController extends AppController
             $apl->delUsu($usado);
         }        
         if(isset($_POST["vehiculos"])){
+            $mensaje;
             foreach ($_POST["vehiculos"] as $veh){
                 $usado = new Usado();
                 $usado->setAplicacion($apl);
                 $usado->setVehiculo((new Vehiculo())->findById($veh));
                 $usado->setConductor(null);
-                $apl->addUsu($usado);
+                $apl->addUsu($usado);                                
             }
         }
     }
@@ -136,7 +137,7 @@ class AplicacionesController extends AppController
     private function createEntity() {
         $cliente = (new Usuario())->findById($_POST['cliente']);
         $aplicacion = new Aplicacion();
-        $aplicacion->setId((Session::get("id")!= 0) ? Session::get("id") : 0);
+        $aplicacion->setId((Session::get("app")!= 0) ? Session::get("app") : 0);
         $aplicacion->setCultivoLat($_POST['txtcoordlat']);
         $aplicacion->setCultivoLong($_POST['txtcoordlong']);
         $aplicacion->setPistaLat($_POST['txtcoordlat']);

@@ -112,6 +112,12 @@
 </form>
 <script type="text/javascript">       
     $(function() {
+        if($('input[name="rbtntipo"]:checked').val() == "Persona"){
+            $("#txtdoc").attr('maxlength','8');
+        }
+        else {
+            $("#txtdoc").attr('maxlength','12');
+        }
         $('input[name="rbtntipo"]').click(function() {
             if($('input[name="rbtntipo"]:checked').val() == "Persona"){
                 $("#doc").text("Cédula *");
