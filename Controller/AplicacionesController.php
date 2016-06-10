@@ -135,7 +135,6 @@ class AplicacionesController extends AppController
         }
     }
     private function createEntity() {
-        $cliente = (new Usuario())->findById($_POST['cliente']);
         $aplicacion = new Aplicacion();
         $aplicacion->setId((Session::get("app")!= 0) ? Session::get("app") : 0);
         $aplicacion->setCoordCul($_POST['txtcoordlat']);
@@ -152,7 +151,7 @@ class AplicacionesController extends AppController
         $aplicacion->setCultivo($_POST['txtcultivo']);
         $aplicacion->setCaudal($_POST['txtcaudal']);
         $aplicacion->setDosis($_POST['txtdosis']);
-        $aplicacion->setCliente($cliente);
+        $aplicacion->setCliente((new Usuario())->findById($_POST['cliente']));
         return $aplicacion;
     }
     protected function getRoles() {

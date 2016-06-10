@@ -35,13 +35,13 @@ class PistaModel extends AppModel
         return [$object->getNombre(), $object->getCoordenadas(), $object->getId()];
     }
     protected function getUpdateQuery() {
-        return "update pistas set pisNombre = ?, pisCoordenadas = ? where pisId = ?";
+        return "update pistas set pisNombre = ?, pisCoord = ? where pisId = ?";
     }
     public function createEntity($row) {
         $pista = new Pista();
         $pista->setId($row["pisId"]);
         $pista->setNombre($row["pisNombre"]);
-        $pista->setCoordenadas($row["pisCoordenadas"]);
+        $pista->setCoordenadas($row["pisCoord"]);
         return $pista;
     }
     protected function getDeleteParameter($object) { }
