@@ -20,13 +20,14 @@ class VehiculoModel extends AppModel
     }
     protected function getCreateParameter($object) {
         return [
-            $object->getMatricula(),$object->getPadron(),$object->getTipo(),$object->getMotor(),$object->getChasis(),
-            $object->getUnimedida(),$object->getCapcarga(),$object->getModelo(),$object->getMarca(),$object->getAnio(),
-            'H',$object->getCombustible()->getId()
+            $object->getMatricula(),$object->getPadron(),$object->getTipo()->getId(),$object->getMotor(),
+            $object->getChasis(),$object->getUnimedida(),$object->getCapcarga(),$object->getModelo(),
+            $object->getMarca(),$object->getAnio(),'H',$object->getCombustible()->getId()
         ];
     }
     protected function getCreateQuery() {
-        return "insert into vehiculos(vehMatricula,vehPadron,vehTipo,vehMotor,vehChasis,vehUniMedida,vehCapCarga,vehModelo,vehMarca,vehAnio,vehEstado,comId) values(?,?,?,?,?,?,?,?,?,?,?,?)";
+        return "insert into vehiculos(vehMatricula,vehPadron,tvId,vehMotor,vehChasis,vehCapCarga,"
+            . "vehModelo,vehMarca,vehAnio,vehEstado,comId) values(?,?,?,?,?,?,?,?,?,?,?)";
     }
     protected function getDeleteParameter($object) {
         return ['D',$object->getId()];
@@ -52,30 +53,29 @@ class VehiculoModel extends AppModel
     }
     protected function getUpdateParameter($object) {
         return [
-            $object->getMatricula(),$object->getPadron(),$object->getTipo(),$object->getMotor(),$object->getChasis(),
-            $object->getUnimedida(),$object->getCapcarga(),$object->getModelo(),$object->getMarca(),$object->getAnio(),
-            $object->getCombustible()->getId(), $object->getId()
+            $object->getMatricula(),$object->getPadron(),$object->getTipo()->getId(),$object->getMotor(),
+            $object->getChasis(),$object->getCapcarga(),$object->getModelo(),$object->getMarca(),
+            $object->getAnio(),$object->getCombustible()->getId(), $object->getId()
         ];
     }
     protected function getUpdateQuery() {
-        return "update vehiculos set vehMatricula = ?,vehPadron = ?,vehTipo = ?,vehMotor = ?,vehChasis = ?,vehUniMedida = ?,vehCapCarga = ?,vehModelo = ?,vehMarca = ?,vehAnio = ?,comId = ? where vehId = ?";
+        return "update vehiculos set vehMatricula = ?,vehPadron = ?,tvId = ?,vehMotor = ?,vehChasis = ?,"
+            . "vehCapCarga = ?,vehModelo = ?,vehMarca = ?,vehAnio = ?,comId = ? where vehId = ?";
     }
     public function createEntity($row) {
-        $combustible =(new CombustibleModel())->findById($row["comId"]);
         $vehiculo = new Vehiculo();
         $vehiculo->setId($row["vehId"]);
         $vehiculo->setMatricula($row["vehMatricula"]);
         $vehiculo->setPadron($row["vehPadron"]);
-        $vehiculo->setTipo($row["vehTipo"]);
+        $vehiculo->setTipo((new TipoVehiculoModel())->findById($row["tvId"]));
         $vehiculo->setMotor($row["vehMotor"]);
         $vehiculo->setChasis($row["vehChasis"]);
-        $vehiculo->setUnimedida($row["vehUniMedida"]);
         $vehiculo->setCapcarga($row["vehCapCarga"]);
         $vehiculo->setModelo($row["vehModelo"]);
         $vehiculo->setMarca($row["vehMarca"]);
         $vehiculo->setAnio($row["vehAnio"]);
         $vehiculo->setEstado($row["vehEstado"]);
-        $vehiculo->setCombustible($combustible);
+        $vehiculo->setCombustible((new CombustibleModel())->findById($row["comId"]));
         return $vehiculo;
     }
 }

@@ -17,6 +17,7 @@
                 <th>Nombre</th>                
                 <th>Código</th>
                 <th>Marca</th>
+                <th>Tipo</th>
                 <th>Opciones</th>
             </thead>
             <tbody>
@@ -28,6 +29,7 @@
                     <td><?php echo $producto->getNombre(); ?></td>
                     <td><?php echo $producto->getCodigo(); ?></td>
                     <td><?php echo $producto->getMarca(); ?></td>
+                    <td><?php echo ($producto->getTipo() == "S") ? "Sólido" : "Líquido"; ?></td>
                     <td>
                         <a href="index.php?c=productos&a=edit&d=<?php echo $producto->getId(); ?>">Editar</a>&nbsp;
                         <?php if($producto->getEstado() == 'H'){ ?>

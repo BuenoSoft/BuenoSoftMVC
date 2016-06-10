@@ -7,7 +7,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Código del Producto&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcodigo" class="form-control" autofocus="autofocus" required="required" placeholder="Ej: 835-514564" tabindex="1" />
+                        <input type="text" name="txtcodigo" class="form-control" autofocus="autofocus" required="required" placeholder="Ej: 83514564" tabindex="1" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -20,6 +20,16 @@
                     <label class="col-sm-2 col-sm-2 control-label">Marca del Producto&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input type="text" name="txtmarca" class="form-control" required="required" placeholder="Ej: Castrol" tabindex="3" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Tipo de Aplicación&nbsp;<font color="red">*</font></label>
+                    <div class="col-sm-10">
+                        <input list="tipo" class="form-control" placeholder="Seleccione Tipo" required="required" name="tipos" tabindex="13"/>
+                        <datalist id="tipo">
+                            <option value="S">Sólido</option>
+                            <option value="L">Líquido</option>
+                        </datalist>
                     </div>
                 </div>
             </div>

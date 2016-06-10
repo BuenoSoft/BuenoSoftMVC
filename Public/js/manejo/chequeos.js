@@ -50,3 +50,20 @@ function validarNumeroPunto(e){
         return false;
     }
 }
+
+//Chequeo solo para número, punto y coma.
+function validarNumeroPC(e){
+    tecla = event.keyCode || event.which;
+    teclado = String.fromCharCode(tecla);
+    numeros = '0123456789';
+    especiales = [08, 09, 44, 45, 46]; // Array
+    teclado_especial = false;
+    for (var i in especiales ) {
+        if ( tecla == especiales[i] ) {
+            teclado_especial = true;
+        }
+    }
+    if ( numeros.indexOf(teclado) == -1 && !teclado_especial ) {
+        return false;
+    }
+}

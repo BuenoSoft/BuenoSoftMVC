@@ -10,7 +10,6 @@ class Vehiculo implements IPersiste
     private $tipo;
     private $motor;
     private $chasis;
-    private $unimedida;
     private $capcarga;
     private $modelo;
     private $marca;
@@ -34,9 +33,6 @@ class Vehiculo implements IPersiste
     }
     function getChasis() {
         return $this->chasis;
-    }
-    function getUnimedida() {
-        return $this->unimedida;
     }
     function getCapcarga() {
         return $this->capcarga;
@@ -73,9 +69,6 @@ class Vehiculo implements IPersiste
     }
     function setChasis($chasis) {
         $this->chasis = $chasis;
-    }
-    function setUnimedida($unimedida) {
-        $this->unimedida = $unimedida;
     }
     function setCapcarga($capcarga) {
         $this->capcarga = $capcarga;

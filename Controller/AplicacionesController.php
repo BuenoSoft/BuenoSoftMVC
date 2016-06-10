@@ -138,10 +138,8 @@ class AplicacionesController extends AppController
         $cliente = (new Usuario())->findById($_POST['cliente']);
         $aplicacion = new Aplicacion();
         $aplicacion->setId((Session::get("app")!= 0) ? Session::get("app") : 0);
-        $aplicacion->setCultivoLat($_POST['txtcoordlat']);
-        $aplicacion->setCultivoLong($_POST['txtcoordlong']);
-        $aplicacion->setPistaLat($_POST['txtcoordlat']);
-        $aplicacion->setPistaLong($_POST['txtcoordlong']);
+        $aplicacion->setCoordCul($_POST['txtcoordlat']);
+        $aplicacion->setCoordPis($_POST['txtcoordlong']);
         $aplicacion->setAreaapl($_POST['txtarea_apl']);
         $aplicacion->setFaja($_POST['txtfaja']);
         $aplicacion->setFechaIni($_POST['dtfechaini']);
@@ -150,7 +148,6 @@ class AplicacionesController extends AppController
         $aplicacion->setViento($_POST['txtviento']);
         $aplicacion->setTaquiIni($_POST['txttaquiIni']);
         $aplicacion->setTaquiFin($_POST['txttaquiFin']);
-        $aplicacion->setTipo($_POST['tipos']);
         $aplicacion->setPadron($_POST['txtpadron']);
         $aplicacion->setCultivo($_POST['txtcultivo']);
         $aplicacion->setCaudal($_POST['txtcaudal']);

@@ -8,6 +8,7 @@ class Combustible implements IPersiste
     private $nombre;
     private $stock;
     private $fecha;
+    private $tipo;
     private $estado;
     function getId() {
         return $this->id;
@@ -20,6 +21,9 @@ class Combustible implements IPersiste
     }
     function getFecha() {
         return $this->fecha;
+    }
+    function getTipo() {
+        return $this->tipo;
     }
     function getEstado() {
         return $this->estado;
@@ -35,6 +39,9 @@ class Combustible implements IPersiste
     }
     function setFecha($fecha) {
         $this->fecha = $fecha;
+    }
+    function setTipo($tipo) {
+        $this->tipo = $tipo;
     }
     function setEstado($estado) {
         $this->estado = $estado;

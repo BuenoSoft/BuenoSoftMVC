@@ -4,13 +4,13 @@
     spl_autoload_register(function($clase){
         try {
             //var_dump((APPLICATION_PATH . DS . str_replace("\\", DS, $clase) . ".php")."<br />");
-            require_once realpath(APPLICATION_PATH . DS . str_replace("\\", DS, $clase) . ".php");        
+            require_once realpath(APPLICATION_PATH . DS . str_replace("\\", DS, $clase) . ".php");              
         }  
         catch (Exception $ex){
             echo $ex->getMessage();
         }
-    });
-    $controlador = (!empty($_GET['c'])) ? ucwords($_GET['c']) . 'Controller' : "TodosController";
+    });  
+    $controlador = (!empty($_GET['c'])) ? ucwords($_GET['c']) . 'Controller' : "TodosController";    
     $accion = (!empty($_GET['a'])) ? $_GET['a'] : "index";
     try{
         $controlador = "Controller\\" . $controlador;        

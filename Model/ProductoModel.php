@@ -19,10 +19,10 @@ class ProductoModel extends AppModel
         return "select * from productos where proCodigo = ?";
     }
     protected function getCreateParameter($object) {
-        return [$object->getCodigo(), $object->getNombre(), $object->getMarca(),'H'];
+        return [$object->getCodigo(), $object->getNombre(), $object->getMarca(),$object->getTipo()->getId(),'H'];
     }
     protected function getCreateQuery() {
-        return "insert into productos(proCodigo,proNombre,proMarca,proEstado) values(?,?,?,?)";
+        return "insert into productos(proCodigo,proNombre,proMarca,tpId,proEstado) values(?,?,?,?,?)";
     }
     protected function getDeleteParameter($object) {
         return ['D',$object->getId()];
@@ -47,10 +47,10 @@ class ProductoModel extends AppModel
         return "select * from productos where proId = ?";
     }
     protected function getUpdateParameter($object) {
-        return [$object->getCodigo(),$object->getNombre(),$object->getMarca(),$object->getId()];
+        return [$object->getCodigo(),$object->getNombre(),$object->getMarca(),$object->getTipo()->getId(),$object->getId()];
     }
     protected function getUpdateQuery() {
-        return "update productos set proCodigo = ?, proNombre = ?, proMarca = ? where proId = ?";
+        return "update productos set proCodigo = ?, proNombre = ?, proMarca = ?, tpId = ? where proId = ?";
     }
     public function createEntity($row) {
         $producto = new Producto();
@@ -58,6 +58,7 @@ class ProductoModel extends AppModel
         $producto->setCodigo($row['proCodigo']);
         $producto->setNombre($row['proNombre']);
         $producto->setMarca($row['proMarca']);
+        $producto->setTipo((new TipoProductoModel())->findById($row["tpId"]));
         $producto->setEstado($row['proEstado']);
         return $producto;
     }

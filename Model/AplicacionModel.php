@@ -11,37 +11,35 @@ class AplicacionModel extends AppModel
     }   
     protected function getCreateParameter($object) {
         return [
-            $object->getCultivoLat(), $object->getCultivoLong(),$object->getPistaLat(), 
-            $object->getPistaLong(), $object->getAreaapl(), $object->getFaja(), 
-            $object->getFechaIni(), $object->getFechaFin(), $object->getTratamiento(), 
-            $object->getViento(), $object->getTaquiIni(), $object->getTaquiFin(), $object->getTipo(), 
-            $object->getPadron(), $object->getCultivo(), $object->getCaudal(),
-            $object->getDosis(), $object->getCliente()->getId()
+            $object->getCoordCul(), $object->getPista()->getId(), $object->getAreaapl(), $object->getFaja(),
+            $object->getFechaIni(), $object->getFechaFin(), $object->getTratamiento(), $object->getViento(), 
+            $object->getTipo()->getId(),$object->getTaquiIni(), $object->getTaquiFin(), $object->getPadron(), 
+            $object->getCultivo(), $object->getCaudal(), $object->getDosis(), $object->getCliente()->getId()
         ];
     }
     protected function getCreateQuery() {
-        return "insert into aplicaciones(aplCultivoLat,aplCultivoLong,aplPistaLat,aplPistaLong,"
-            . "aplAreaAplicada,aplFaja,aplFechaIni,aplFechaFin,aplTratamiento,aplViento,"
-            . "aplTaquiIni,aplTaquiFin,aplTipo,aplPadron,aplCultivo,aplCaudal,aplDosis,datId)"
-            . "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        return "insert into aplicaciones(aplCoordCul,pisId,aplAreaAplicada,aplFaja,"
+            . "aplFechaIni,aplFechaFin,aplTratamiento,aplViento,tpId,aplTaquiIni,"
+            . "aplTaquiFin,aplPadron,aplCultivo,aplCaudal,aplDosis,datId)"
+            . "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     }
     /*------------------------------------------------------------------------------------*/
     public function modApp($object){
         return $this->executeQuery($this->getUpdateQuery(), $this->getUpdateParameter($object));        
     }
     protected function getUpdateQuery() {
-        return "update aplicaciones set aplCultivoLat = ?,aplCultivoLong = ?,aplPistaLat = ?,"
-            . "aplPistaLong = ?, aplAreaAplicada = ?, aplFaja = ?,aplFechaIni = ?,aplFechaFin = ?,"
-            . "aplTratamiento = ?,aplViento = ?,aplTaquiIni = ?,aplTaquiFin = ?,aplTipo = ?,"
-            . "aplPadron = ?,aplCultivo = ?, aplCaudal = ?,aplDosis = ?,datId = ? where aplId = ?";
+        return "update aplicaciones set aplCoordCul = ?,pisId = ?, aplAreaAplicada = ?, "
+            . "aplFaja = ?,aplFechaIni = ?,aplFechaFin = ?,aplTratamiento = ?,aplViento = ?,"
+            . "tpId = ?,aplTaquiIni = ?,aplTaquiFin = ?,aplPadron = ?,aplCultivo = ?, "
+            . "aplCaudal = ?, aplDosis = ?,datId = ? where aplId = ?";
     }
     protected function getUpdateParameter($object) {
         return [
-            $object->getCultivoLat(), $object->getCultivoLong(),$object->getPistaLat(), 
-            $object->getPistaLong(), $object->getAreaapl(), $object->getFaja(), 
+            $object->getCoordCul(), $object->getPista()->getId(), $object->getAreaapl(), $object->getFaja(), 
             $object->getFechaIni(),$object->getFechaFin(), $object->getTratamiento(), $object->getViento(), 
-            $object->getTaquiIni(), $object->getTaquiFin(), $object->getTipo(), $object->getPadron(), 
-            $object->getCultivo(), $object->getCaudal(),$object->getDosis(), $object->getCliente()->getId(), $object->getId()
+            $object->getTipo()->getId(),$object->getTaquiIni(), $object->getTaquiFin(), $object->getPadron(), 
+            $object->getCultivo(), $object->getCaudal(),$object->getDosis(), $object->getCliente()->getId(), 
+            $object->getId()
         ];
     }    
     
@@ -61,25 +59,24 @@ class AplicacionModel extends AppModel
     }
     
     public function createEntity($row) {
-        $cliente = (new DatosUsuModel())->findById($row["datId"]);
         $aplicacion = new Aplicacion();
         $aplicacion->setId($row["aplId"]);
-        $aplicacion->setCultivoLat($row["aplCultivoLat"]);
-        $aplicacion->setCultivoLong($row["aplCultivoLong"]);
+        $aplicacion->setCoordCul($row["aplCoordCul"]);
+        $aplicacion->setPista((new PistaModel())->findById($row["pisId"]));
         $aplicacion->setAreaapl($row["aplAreaAplicada"]);
         $aplicacion->setFaja($row["aplFaja"]);
         $aplicacion->setFechaIni($row["aplFechaIni"]);
         $aplicacion->setFechaFin($row["aplFechaFin"]);
         $aplicacion->setTratamiento($row["aplTratamiento"]);
         $aplicacion->setViento($row["aplViento"]);
+        $aplicacion->setTipo((new TipoProductoModel())->findById($row["tpId"]));
         $aplicacion->setTaquiIni($row["aplTaquiIni"]);
         $aplicacion->setTaquiFin($row["aplTaquiFin"]);
-        $aplicacion->setTipo($row["aplTipo"]);
         $aplicacion->setPadron($row["aplPadron"]);
         $aplicacion->setCultivo($row["aplCultivo"]);
         $aplicacion->setCaudal($row["aplCaudal"]);
         $aplicacion->setDosis($row["aplDosis"]);
-        $aplicacion->setCliente($cliente);
+        $aplicacion->setCliente((new DatosUsuModel())->findById($row["datId"]));
         return $aplicacion;
     }
     protected function getCheckMessage() { }

@@ -8,6 +8,7 @@ class Producto implements IPersiste
     private $codigo;
     private $nombre;
     private $marca;
+    private $tipo;
     private $estado;
     function getId() {
         return $this->id;
@@ -20,6 +21,9 @@ class Producto implements IPersiste
     }
     function getMarca() {
         return $this->marca;
+    }
+    function getTipo() {
+        return $this->tipo;
     }
     function getEstado() {
         return $this->estado;
@@ -35,6 +39,9 @@ class Producto implements IPersiste
     }
     function setMarca($marca) {
         $this->marca = $marca;
+    }
+    function setTipo($tipo) {
+        $this->tipo = $tipo;
     }
     function setEstado($estado) {
         $this->estado = $estado;

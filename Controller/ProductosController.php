@@ -77,6 +77,7 @@ class ProductosController extends AppController
         $producto->setCodigo($_POST['txtcodigo']);
         $producto->setNombre($_POST['txtnombre']);
         $producto->setMarca($_POST['txtmarca']);
+        $producto->setTipo($_POST['tipos']);
         return $producto;
     }
     protected function getRoles() {

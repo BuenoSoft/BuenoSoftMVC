@@ -5,19 +5,17 @@ use \Model\AplicacionModel;
 class Aplicacion implements IPersiste
 {
     private $id;
-    private $cultivoLat;
-    private $cultivoLong;
-    private $pistaLat;
-    private $pistaLong;
+    private $coordCul;
+    private $pista;
     private $areaapl;
     private $faja;
     private $fechaIni;
     private $fechaFin;
     private $tratamiento;
     private $viento;
+    private $tipo;
     private $taquiIni;
     private $taquiFin;
-    private $tipo;
     private $padron;
     private $cultivo;
     private $caudal;
@@ -26,17 +24,11 @@ class Aplicacion implements IPersiste
     function getId() {
         return $this->id;
     }
-    function getCultivoLat() {
-        return $this->cultivoLat;
+    function getCoordCul() {
+        return $this->coordCul;
     }
-    function getCultivoLong() {
-        return $this->cultivoLong;
-    }
-    function getPistaLat() {
-        return $this->pistaLat;
-    }
-    function getPistaLong() {
-        return $this->pistaLong;
+    function getPista() {
+        return $this->pista;
     }
     function getAreaapl() {
         return $this->areaapl;
@@ -56,14 +48,14 @@ class Aplicacion implements IPersiste
     function getViento() {
         return $this->viento;
     }
+    function getTipo() {
+        return $this->tipo;
+    }
     function getTaquiIni() {
         return $this->taquiIni;
     }
     function getTaquiFin() {
         return $this->taquiFin;
-    }
-    function getTipo() {
-        return $this->tipo;
     }
     function getPadron() {
         return $this->padron;
@@ -83,17 +75,11 @@ class Aplicacion implements IPersiste
     function setId($id) {
         $this->id = $id;
     }
-    function setCultivoLat($cultivoLat) {
-        $this->cultivoLat = $cultivoLat;
+    function setCoordCul($coordCul) {
+        $this->coordCul = $coordCul;
     }
-    function setCultivoLong($cultivoLong) {
-        $this->cultivoLong = $cultivoLong;
-    }
-    function setPistaLat($pistaLat) {
-        $this->pistaLat = $pistaLat;
-    }
-    function setPistaLong($pistaLong) {
-        $this->pistaLong = $pistaLong;
+    function setPista($pista) {
+        $this->pista = $pista;
     }
     function setAreaapl($areaapl) {
         $this->areaapl = $areaapl;
@@ -113,14 +99,14 @@ class Aplicacion implements IPersiste
     function setViento($viento) {
         $this->viento = $viento;
     }
+    function setTipo($tipo) {
+        $this->tipo = $tipo;
+    }
     function setTaquiIni($taquiIni) {
         $this->taquiIni = $taquiIni;
     }
     function setTaquiFin($taquiFin) {
         $this->taquiFin = $taquiFin;
-    }
-    function setTipo($tipo) {
-        $this->tipo = $tipo;
     }
     function setPadron($padron) {
         $this->padron = $padron;

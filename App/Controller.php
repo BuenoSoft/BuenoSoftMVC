@@ -22,7 +22,7 @@ abstract class Controller
             echo $ex->getMessage();
         }
     }
-    public function redirect_todos($file = array(), $dates = array()) {
+    public function redirect_todos($file = array(), $dates = array()) {        
         try {
             $ns = explode('\\', get_called_class());
             $path = $this->createFile(APPLICATION_PATH . DS . "View" . DS . str_replace("Controller", "", $ns[1]) . DS . $file[0], $dates);
@@ -48,8 +48,7 @@ abstract class Controller
     }
     protected function getPdf() {
         return $this->pdf;
-    }
-    
+    }    
     protected function checkUser() {                
         if (Session::get("log_in") != null and Session::get("log_in")->getTipo() == $this->getTypeRole()) {
             return true;
