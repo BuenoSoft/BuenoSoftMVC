@@ -25,7 +25,7 @@ class TipoProductoModel extends AppModel
         return "select * from tipo_producto";
     }
     protected function getFindXIdQuery() {
-        return "select * from tipo_producto where tpNombre = ?";
+        return "select * from tipo_producto where tpId = ?";
     }
     protected function getUpdateParameter($object) {
         return [$object->getNombre(), $object->getId()];

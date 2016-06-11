@@ -99,6 +99,12 @@ class Vehiculo implements IPersiste
     public function active(){
         return (new VehiculoModel())->active($this);
     }
+    public function checkUsu($ap){
+        return (new VehiculoModel())->checkUsu([$ap,$this->id]);
+    }
+    public function checkFin(){
+        return (new VehiculoModel())->checkAplFin($this);
+    }
     public function find($criterio = null) {
         return (new VehiculoModel())->find($criterio);
     }

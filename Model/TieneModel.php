@@ -1,44 +1,24 @@
 <?php
 namespace Model;
-use \App\Session;
 class TieneModel extends AppModel 
 {
     public function __construct() {
         parent::__construct();
     }
     /*---------------------------------------------------------------------*/
-    public function checkPro($dates = []) {
-        return $this->executeQuery($this->getCheckQuery(),$this->getCheckTieneParameter($dates));
-    } 
-    public function getCheckTieneParameter($dates = []) {
+    private function getCheckTieneParameter($dates = []) {
         return [$dates[0],$dates[1]];
-    }
-    public function getCheckQuery() {
-        return "select * from tiene where aplId = ? and proId = ?";
-    } 
-    protected function getCheckMessage() { 
-        return "Este producto ya fue Registrado";
     }
     /*---------------------------------------------------------------------*/
     public function addPro($dates = []){
-        if($this->checkPro($dates)){ 
-            Session::set('msg', $this->getCheckMessage());
-            return null;
-        }
-        return $this->executeQuery($this->getCreateQuery(), $this->getAddTieneParameter($dates));
-    }
-    protected function getAddTieneParameter($dates = []) {
-        return [$dates[0],$dates[1]];
+        return $this->executeQuery($this->getCreateQuery(), $this->getCheckTieneParameter($dates));
     }
     protected function getCreateQuery() {
         return "insert into tiene(aplId,proId) values (?,?)";
     }
     /*---------------------------------------------------------------------*/
     public function delPro($dates = []){
-        return $this->executeQuery($this->getDeleteQuery(false), $this->getDelTieneParameter($dates));
-    }
-    protected function getDelTieneParameter($dates = []) {
-        return [$dates[0],$dates[1]];
+        return $this->executeQuery($this->getDeleteQuery(false), $this->getCheckTieneParameter($dates));
     }
     protected function getDeleteQuery($notUsed = true) {
         return "delete from tiene where aplId = ? and proId = ?";
@@ -62,6 +42,8 @@ class TieneModel extends AppModel
         return (new ProductoModel())->findById($row['proId']);
     }
     protected function getCheckParameter($unique) { }
+    protected function getCheckMessage() { }
+    protected function getCheckQuery() { }
     protected function getCreateParameter($object) { }
     protected function getDeleteParameter($object) { }
     protected function getFindParameter($criterio = null) { }

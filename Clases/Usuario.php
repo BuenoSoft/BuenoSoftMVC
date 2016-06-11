@@ -64,6 +64,15 @@ class Usuario implements IPersiste
     public function active(){
         return (new UsuarioModel())->active($this);
     }
+    public function checkTra($ap){
+        return (new UsuarioModel())->checkTra([$ap, $this->id]);
+    }
+    public function checkFin(){
+        return (new UsuarioModel())->checkAplFin($this);
+    }
+    public function funcionarios(){
+        return (new UsuarioModel())->funcionarios();
+    }
     public function find($criterio = null) {
         return (new UsuarioModel())->find($criterio);
     }

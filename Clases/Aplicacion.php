@@ -166,22 +166,29 @@ class Aplicacion implements IPersiste
         return (new AplicacionModel())->getProductos([$this->id]); 
     }
     /*-----------------------------------------*/
-    public function addUsu($usado) {
-        return (new AplicacionModel())->addUsu($usado);
+    public function addUsu($veh) {
+        return (new AplicacionModel())->addUsu([$this->id, $veh]);
     }
     public function checkUsu($veh){
         return (new AplicacionModel())->checkUsu([$this->id, $veh]);
     }
+    public function delUsu($veh) {
+        return (new AplicacionModel())->delUsu([$this->id, $veh]);
+    }
     public function getUsados(){
         return (new AplicacionModel())->getUsados([$this->id]);
     }
-    public function getUsado($veh){
-        return (new AplicacionModel())->getUsado([$this->id, $veh]);
+    /*-----------------------------------------*/
+    public function addTra($veh) {
+        return (new AplicacionModel())->addTra([$this->id, $veh]);
     }
-    public function modUsu($usado) {
-        return (new AplicacionModel())->modUsu($usado);    
+    public function checkTra($veh){
+        return (new AplicacionModel())->checkTra([$this->id, $veh]);
     }
-    public function delUsu($usado) {
-        return (new AplicacionModel())->delUsu($usado);
+    public function delTra($veh) {
+        return (new AplicacionModel())->delTra([$this->id, $veh]);
+    }
+    public function getTrabajadores(){
+        return (new AplicacionModel())->getTrabajadores([$this->id]);
     }
 }

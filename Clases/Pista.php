@@ -1,6 +1,7 @@
 <?php
 namespace Clases;
-use App\IPersiste;
+use \App\IPersiste;
+use \Model\PistaModel;
 class Pista implements IPersiste
 {
     private $id;
@@ -32,10 +33,10 @@ class Pista implements IPersiste
         
     }
     public function find($criterio = null) {
-        
+        return (new PistaModel())->find($criterio);
     }
     public function findById($id) {
-        
+        return (new PistaModel())->findById($id);
     }
     public function save() {
         

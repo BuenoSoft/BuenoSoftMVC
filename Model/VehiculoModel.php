@@ -6,9 +6,32 @@ class VehiculoModel extends AppModel
     public function __construct() {
         parent::__construct();
     }
+    /*------------------------------------------------------------------------------------*/
+    public function checkUsu($dates = []) {
+        return $this->executeQuery($this->getCheckUsuQuery(),$this->getCheckUsuParameter($dates));
+    }
+    private function getCheckUsuQuery() {
+        return "select * from utiliza where aplId = ? and vehId = ?";
+    }
+    public function getCheckUsuParameter($dates = []) {
+        return [$dates[0],$dates[1]];
+    }
+    /*------------------------------------------------------------------------------------*/
+    public function checkAplFin($object) {
+        return $this->executeQuery($this->getCheckFinQuery(),$this->getCheckFinParameter($object));
+    }
+    protected function getCheckFinQuery() {
+        return "select * from utiliza u inner join aplicaciones a on u.aplId = a.aplId "
+        . "where u.vehId = ? and (a.aplFechaFin = '0000-00-00 00:00:00' or a.aplFechaFin is NULL)";
+    }
+    protected function getCheckFinParameter($object) {
+        return [$object->getId()];
+    }
+    /*------------------------------------------------------------------------------------*/
     public function active($object){
         return $this->executeQuery($this->getDeleteQuery(false), $this->getActiveParameter($object));
     }
+    /*------------------------------------------------------------------------------------*/
     protected function getCheckMessage() {
         return "El Vehículo ya existe";
     }
@@ -18,6 +41,7 @@ class VehiculoModel extends AppModel
     protected function getCheckQuery() {
         return "select * from vehiculos where vehMatricula = ?";
     }
+    /*------------------------------------------------------------------------------------*/
     protected function getCreateParameter($object) {
         return [
             $object->getMatricula(),$object->getPadron(),$object->getTipo()->getId(),$object->getMotor(),
@@ -29,6 +53,7 @@ class VehiculoModel extends AppModel
         return "insert into vehiculos(vehMatricula,vehPadron,tvId,vehMotor,vehChasis,vehCapCarga,"
             . "vehModelo,vehMarca,vehAnio,vehEstado,comId) values(?,?,?,?,?,?,?,?,?,?,?)";
     }
+    /*------------------------------------------------------------------------------------*/
     protected function getDeleteParameter($object) {
         return ['D',$object->getId()];
     }
@@ -38,6 +63,7 @@ class VehiculoModel extends AppModel
     protected function getDeleteQuery($notUsed = true) {
         return "update vehiculos set vehEstado = ? where vehId = ?";
     }
+    /*------------------------------------------------------------------------------------*/
     protected function getFindParameter($criterio = null) {
         return ["%".$criterio."%"];
     }
@@ -48,9 +74,11 @@ class VehiculoModel extends AppModel
             return "select * from vehiculos where vehMatricula like ? order by vehEstado, vehId";         
         }
     }
+    /*------------------------------------------------------------------------------------*/
     protected function getFindXIdQuery() {
         return "select * from vehiculos where vehId = ?";
     }
+    /*------------------------------------------------------------------------------------*/
     protected function getUpdateParameter($object) {
         return [
             $object->getMatricula(),$object->getPadron(),$object->getTipo()->getId(),$object->getMotor(),
@@ -62,6 +90,7 @@ class VehiculoModel extends AppModel
         return "update vehiculos set vehMatricula = ?,vehPadron = ?,tvId = ?,vehMotor = ?,vehChasis = ?,"
             . "vehCapCarga = ?,vehModelo = ?,vehMarca = ?,vehAnio = ?,comId = ? where vehId = ?";
     }
+    /*------------------------------------------------------------------------------------*/
     public function createEntity($row) {
         $vehiculo = new Vehiculo();
         $vehiculo->setId($row["vehId"]);

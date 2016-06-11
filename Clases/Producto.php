@@ -57,11 +57,17 @@ class Producto implements IPersiste
     public function active(){
         return (new ProductoModel())->active($this);
     }
+    public function checkPro($ap){
+        return (new ProductoModel())->checkPro([$ap, $this->id]);
+    }
     public function find($criterio = null) {
         return (new ProductoModel())->find($criterio);
     }
     public function findById($id) {
         return (new ProductoModel())->findById($id);
+    }
+    public function findByTipo($tipo) {
+        return (new ProductoModel())->findByTipo($tipo);
     }
     public function save() {
         return ($this->id == 0) ? (new ProductoModel())->create($this) : (new ProductoModel())->update($this); 

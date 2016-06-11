@@ -5,24 +5,17 @@ class Usado
 {
     private $aplicacion;
     private $vehiculo;
-    private $conductor;
     function getAplicacion() {
         return $this->aplicacion;
     }
     function getVehiculo() {
         return $this->vehiculo;
     }
-    function getConductor() {
-        return $this->conductor;
-    }
     function setAplicacion($aplicacion) {
         $this->aplicacion = $aplicacion;
     }
     function setVehiculo($vehiculo) {
         $this->vehiculo = $vehiculo;
-    }
-    function setConductor($conductor) {
-        $this->conductor = $conductor;
     }
     function __construct() { }
     public function equals(Usado $obj){

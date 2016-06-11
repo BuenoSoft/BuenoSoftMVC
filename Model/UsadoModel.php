@@ -1,66 +1,21 @@
 <?php
 namespace Model;
-use \App\Session;
 use \Clases\Usado;
-
 class UsadoModel extends AppModel
 {
     public function __construct() {
         parent::__construct();
     }
     /*------------------------------------------------------------------------------------*/
-    public function checkUsu($dates = []) {
-        return $this->executeQuery($this->getCheckQuery(),$this->getCheckParameter($dates));
-    }
-    protected function getCheckMessage() {
-        return "Este vehículo ya está siendo usado";
-    }
-    protected function getCheckParameter($dates = []) {
+    public function getCheckUsuParameter($dates = []) {
         return [$dates[0],$dates[1]];
     }
-    protected function getCheckQuery() {
-        return "select * from utiliza u inner join aplicaciones a on u.aplId = a.aplId where u.aplId = ? and u.vehId = ?";
-    }
     /*------------------------------------------------------------------------------------*/
-    private function checkAplFin($dates = []) {
-        return $this->executeQuery($this->getCheckFinQuery(),$this->getCheckFinParameter($dates));
-    }
-    protected function getCheckFinQuery() {
-        return "select * from utiliza u inner join aplicaciones a on u.aplId = a.aplId "
-        . "where u.vehId = ? and (a.aplFechaFin = '0000-00-00 00:00:00' or a.aplFechaFin is NULL)";
-    }
-    protected function getCheckFinParameter($dates = []) {
-        return [$dates[0]];
-    }
-    /*------------------------------------------------------------------------------------*/
-    public function addUsu($object){
-        if($this->checkUsu([$object->getAplicacion()->getId(),$object->getVehiculo()->getId()])){ 
-            Session::set('msg', $this->getCheckMessage());
-            return null;
-        }
-        else if($this->checkAplFin([$object->getVehiculo()->getId()])){
-           // Session::set('msg', $this->getCheckMessage());
-            return null;
-        }
-        return $this->executeQuery($this->getCreateQuery(), $this->getCreateParameter($object));
-    }
-    protected function getCreateParameter($object) {
-        return [$object->getAplicacion()->getId(),$object->getVehiculo()->getId(),$object->getConductor()];
+    public function addUsu($dates = []){
+        return $this->executeQuery($this->getCreateQuery(), $this->getCheckUsuParameter($dates));
     }
     protected function getCreateQuery() {
-        return "insert into utiliza(aplId,vehId,utiConductor) values(?,?,?)";
-    }
-    /*------------------------------------------------------------------------------------*/
-    protected function getUpdateParameter($object) {
-        return [$object->getConductor(),
-            $object->getAplicacion()->getId(),
-            $object->getVehiculo()->getId()];
-    }
-    protected function getUpdateQuery() {
-        return "update utiliza set utiConductor = ? where aplId = ? and vehId = ?";
-    }
-    public function modUsu($object){
-        return $this->executeQuery($this->getUpdateQuery(), $this->getUpdateParameter($object));
+        return "insert into utiliza(aplId,vehId) values(?,?)";
     }
     /*------------------------------------------------------------------------------------*/
     public function getUsados($dates = []){
@@ -75,28 +30,14 @@ class UsadoModel extends AppModel
         return ["id" => $dates[0]];
     }
     protected function getFindQuery($criterio = null) {
-        return "select * from utiliza u inner join vehiculos v on u.vehId = v.vehId where u.aplId = :id";
-    }
-    /*------------------------------------------------------------------------------------*/
-    public function getUsado($dates = []){
-        return $this->findByCondition($this->getFindXIdQuery(), $this->getFindXIdParameter($dates));
-    }
-    private function getFindXIdParameter($dates = []) { 
-        return [$dates[0], $dates[1]];
-    }
-    protected function getFindXIdQuery() { 
-        return "select * from utiliza where aplId = ? and vehId = ?";
+        return "select * from utiliza where aplId = :id";
     }
     /*------------------------------------------------------------------------------------*/ 
-    public function delUsu($object){
-        return $this->executeQuery($this->getDeleteQuery(false), $this->getDeleteParameter($object));
+    public function delUsu($dates = []){
+        return $this->executeQuery($this->getDeleteQuery(false), $this->getCheckUsuParameter($dates));
     }
     protected function getDeleteQuery($notUsed = true) { 
         return "delete from utiliza where aplId = ? and vehId = ?";
-    }
-    protected function getDeleteParameter($object) { 
-        return [$object->getAplicacion()->getId(),
-            $object->getVehiculo()->getId()];
     }
     /*------------------------------------------------------------------------------------*/ 
     public function createEntity($row) {
@@ -104,8 +45,7 @@ class UsadoModel extends AppModel
         $veh = (new VehiculoModel())->findById($row["vehId"]);
         $usado = new Usado();
         $usado->setAplicacion($apl);
-        $usado->setVehiculo($veh);
-        $usado->setConductor($row["utiConductor"]);        
+        $usado->setVehiculo($veh);       
         return $usado;
     }    
     /*-------------------------------------------------------------------------------*/
@@ -125,6 +65,13 @@ class UsadoModel extends AppModel
         return (new HistorialModel())->delete($his);
     }
     /*------------------------------------------------------------------------------------*/
+    protected function getUpdateParameter($object) { }
+    protected function getUpdateQuery() { }
     protected function getFindParameter($criterio = null) { }   
-    
+    protected function getFindXIdQuery() { }
+    protected function getCreateParameter($dates = []) { }    
+    protected function getDeleteParameter($object) { }
+    protected function getCheckParameter($unique) { }
+    protected function getCheckMessage() { }
+    protected function getCheckQuery() { }    
 }

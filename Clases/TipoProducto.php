@@ -1,6 +1,7 @@
 <?php
 namespace Clases;
 use App\IPersiste;
+use Model\TipoProductoModel;
 class TipoProducto implements IPersiste
 {
     private $id;
@@ -24,15 +25,12 @@ class TipoProducto implements IPersiste
     public function del() {
         
     }
-
     public function find($criterio = null) {
-        
+        return (new TipoProductoModel())->find($criterio);
     }
-
     public function findById($id) {
-        
+        return (new TipoProductoModel())->findById($id);
     }
-
     public function save() {
         
     }

@@ -15,6 +15,7 @@
             <thead>                
                 <th>Aplicación</th>                
                 <th>Cliente</th>
+                <th>Pista</th>
                 <th>Estado</th>
                 <th>Opciones</th>
             </thead>
@@ -23,6 +24,7 @@
                     <tr>
                         <td><?php echo $aplicacion->getId(); ?></td>
                         <td><a href="index.php?c=aplicaciones&a=cliente&v=<?php echo $aplicacion->getCliente()->getId(); ?>"><?php echo $aplicacion->getCliente()->getNombre(); ?></a></td>
+                        <td><?php echo $aplicacion->getPista()->getNombre(); ?></td>
                         <td>
                             <?php  
                                 if($aplicacion->getFechaFin() == null or $aplicacion->getFechaFin() == "0000-00-00 00:00:00"){

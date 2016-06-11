@@ -13,7 +13,7 @@ class AplicacionModel extends AppModel
         return [
             $object->getCoordCul(), $object->getPista()->getId(), $object->getAreaapl(), $object->getFaja(),
             $object->getFechaIni(), $object->getFechaFin(), $object->getTratamiento(), $object->getViento(), 
-            $object->getTipo()->getId(),$object->getTaquiIni(), $object->getTaquiFin(), $object->getPadron(), 
+            $object->getTipo()->getId(), $object->getTaquiIni(), $object->getTaquiFin(), $object->getPadron(), 
             $object->getCultivo(), $object->getCaudal(), $object->getDosis(), $object->getCliente()->getId()
         ];
     }
@@ -56,8 +56,7 @@ class AplicacionModel extends AppModel
     }
     protected function getFindXIdQuery() {
         return "select * from aplicaciones where aplId = ?";
-    }
-    
+    }    
     public function createEntity($row) {
         $aplicacion = new Aplicacion();
         $aplicacion->setId($row["aplId"]);
@@ -79,11 +78,6 @@ class AplicacionModel extends AppModel
         $aplicacion->setCliente((new DatosUsuModel())->findById($row["datId"]));
         return $aplicacion;
     }
-    protected function getCheckMessage() { }
-    protected function getCheckParameter($unique) { }
-    protected function getCheckQuery() { }
-    protected function getDeleteParameter($object) { }
-    protected function getDeleteQuery($notUsed = true) { }
     /*-------------------------------------------------------------------------------*/
     public function addPro($dates = []){
         return (new TieneModel())->addPro($dates);
@@ -98,6 +92,19 @@ class AplicacionModel extends AppModel
         return (new TieneModel())->delPro($dates);
     }
     /*-------------------------------------------------------------------------------*/
+    public function addTra($dates = []){
+        return (new TrabajaModel())->addTra($dates);
+    }
+    public function checkTra($dates = []){
+        return (new TrabajaModel())->checkTra($dates);
+    }
+    public function getTrabajadores($dates = []){
+        return (new TrabajaModel())->getTrabajadores($dates);
+    }
+    public function delTra($dates = []){
+        return (new TrabajaModel())->delTra($dates);
+    }
+    /*-------------------------------------------------------------------------------*/
     public function addUsu($usado) {
         return (new UsadoModel())->addUsu($usado);    
     }
@@ -107,13 +114,13 @@ class AplicacionModel extends AppModel
     public function getUsados($dates = []){
         return (new UsadoModel())->getUsados($dates);
     }
-    public function getUsado($dates = []){
-        return (new UsadoModel())->getUsado($dates);
-    }
-    public function modUsu($usado) {
-        return (new UsadoModel())->modUsu($usado);    
-    }
     public function delUsu($usado){
         return (new UsadoModel())->delUsu($usado);
     }
+    /*-------------------------------------------------------------------------------*/
+    protected function getCheckMessage() { }
+    protected function getCheckParameter($unique) { }
+    protected function getCheckQuery() { }
+    protected function getDeleteParameter($object) { }
+    protected function getDeleteQuery($notUsed = true) { }    
 }

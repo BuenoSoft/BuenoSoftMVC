@@ -1,9 +1,4 @@
 <?php
-/**
- * Description of Model
- *
- * @author detectivejd
- */
 namespace App;
 use \PDO;
 use \App\Session;
@@ -64,7 +59,6 @@ abstract class Model implements IModel
     public function delete($object, $notUsed = true) {
         return $this->executeQuery($this->getDeleteQuery($notUsed), $this->getDeleteParameter($object)); 
     }
-
     /*--------------------------------------------------------------------*/
     public function find($criterio = null) {
         $datos= array();
