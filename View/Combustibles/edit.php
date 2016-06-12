@@ -23,6 +23,20 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Tipo de Vehículo&nbsp;<font color="red">*</font></label>
+                    <div class="col-sm-10">
+                        <input name="tipo" list="tipov" class="form-control" placeholder="Seleccione Tipo de Vehículo" required="required" value="<?php echo $combustible->getTipo()->getId(); ?>" tabindex="3" />
+                        <datalist id="tipov">
+                            <?php foreach($tipos as $tipo) { 
+                                    if($tipo->getEstado() == "H"){ ?>
+                                        <option value="<?php echo $tipo->getId(); ?>"><?php echo $tipo->getNombre(); ?></option>
+                            <?php   }                             
+                                }                            
+                            ?> 
+                        </datalist>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Carga</label>
                     <div class="col-sm-10">
                         <input type="date" name="dtfecha" class="form-control" value="<?php echo $combustible->getFecha(); ?>" tabindex="3" />

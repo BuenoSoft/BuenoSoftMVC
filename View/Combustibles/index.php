@@ -16,6 +16,7 @@
                 <th>Combustible</th>
                 <th>Nombre</th>
                 <th>Stock</th>
+                <th>Tipo</th>
                 <th>Fecha de Carga</th>
                 <th>Opciones</th>
             </thead>
@@ -27,6 +28,7 @@
                         <td><?php echo $combustible->getId(); ?></td>
                         <td><?php echo $combustible->getNombre(); ?></td>
                         <td><?php echo $combustible->getStock(); ?></td>
+                        <td><?php echo $combustible->getTipo()->getNombre(); ?></td>
                         <td><?php echo $combustible->getFecha(); ?></td>
                         <td>
                             <a href="index.php?c=combustibles&a=edit&d=<?php echo $combustible->getId(); ?>" title="editar">Editar</a>&nbsp;

@@ -52,10 +52,7 @@ class Producto implements IPersiste
     }
     /*---------------------------------------------*/
     public function del() {
-        return (new ProductoModel())->delete($this);
-    }
-    public function active(){
-        return (new ProductoModel())->active($this);
+        return ($this->estado == "H") ? (new ProductoModel())->delete($this) : (new ProductoModel())->active($this);
     }
     public function checkPro($ap){
         return (new ProductoModel())->checkPro([$ap, $this->id]);

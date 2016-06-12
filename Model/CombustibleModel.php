@@ -9,6 +9,9 @@ class CombustibleModel extends AppModel
     public function active($object){
         return $this->executeQuery($this->getDeleteQuery(false), $this->getActiveParameter($object));
     }
+    public function findByTipo($tipo){
+        return $this->findByCondition("select * from combustibles where tvId = ?", [$tipo]);
+    }
     protected function getCheckMessage() {
         return "El Combustible ya existe";
     }

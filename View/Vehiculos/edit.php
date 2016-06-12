@@ -25,12 +25,14 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tipo de Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="tipov" class="form-control" placeholder="Seleccione Tipo" required="required" name="cboxtipo" value="<?php echo $vehiculo->getTipo(); ?>" tabindex="3" />
+                        <input name="tipo" list="tipov" class="form-control" placeholder="Seleccione Tipo de Vehículo" required="required" value="<?php echo $vehiculo->getTipo()->getId(); ?>" tabindex="3" />
                         <datalist id="tipov">
-                            <option value="Camión">Camión</option>
-                            <option value="Camioneta">Camioneta</option>
-                            <option value="Auto">Auto</option>
-                            <option value="Avión">Avión</option>
+                            <?php foreach($tipos as $tipo) { 
+                                    if($tipo->getEstado() == "H"){ ?>
+                                        <option value="<?php echo $tipo->getId(); ?>"><?php echo $tipo->getNombre(); ?></option>
+                            <?php   }                             
+                                }                            
+                            ?> 
                         </datalist>
                     </div>
                 </div>
@@ -45,17 +47,7 @@
                     <div class="col-sm-10">
                         <input type="text" name="txtchasis" class="form-control" required="required" placeholder="Ej: 285514564" value="<?php echo $vehiculo->getChasis(); ?>" tabindex="5" />
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Unidad de Medida&nbsp;<font color="red">*</font></label>
-                    <div class="col-sm-10">
-                        <input list="unim" class="form-control" placeholder="Seleccione Unidad" required="required" name="cboxuni" value="<?php echo $vehiculo->getUnimedida(); ?>" tabindex="6" />
-                        <datalist id="unim">
-                            <option value="Kilometro">Km</option>
-                            <option value="Hora de Vuelo">Hs Vuelo</option>                            
-                        </datalist>
-                    </div>
-                </div>
+                </div>                
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -83,23 +75,7 @@
                     <div class="col-sm-10">
                         <input type="text" name="txtanio" class="form-control" required="required" placeholder="Ej: 2010" onkeypress="return validarNumero(event);" value="<?php echo $vehiculo->getAnio(); ?>" tabindex="10" />
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Combustible&nbsp;<font color="red">*</font></label>
-                    <div class="col-sm-10">
-                        <input list="combustibles" class="form-control_datalist" placeholder="Seleccione Combustible" required="required" name="cboxcomb" value="<?php echo $vehiculo->getCombustible()->getId(); ?>" tabindex="11" />
-                        <datalist id="combustibles">
-                            <?php 
-                                foreach ($combustibles as $combustible) {
-                                    if($combustible->getEstado() == "H"){ ?>
-                                        <option value="<?php echo $combustible->getId(); ?>"><?php echo $combustible->getNombre(); ?></option>
-                            <?php   }
-                                }
-                            ?>                            
-                        </datalist>
-                        <input type="button" onclick="frmedit.submit();" value="Buscar" class="btn btn-theme01" tabindex="12" />
-                    </div>
-                </div>
+                </div>                
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">

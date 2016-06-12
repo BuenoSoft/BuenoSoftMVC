@@ -46,42 +46,56 @@
                     </a>
                 </li> 
                 <?php if(App\Session::get('log_in') != null and (App\Session::get('log_in')->getTipo() == "Administrador" or App\Session::get('log_in')->getTipo() == "Supervisor")) {?>            
-                <li class="sub-menu">
-                    <a href="index.php?c=aplicaciones&a=index">
-                        <i class="fa fa-plane"></i>&nbsp;Aplicaciones
-                    </a>
-                </li>        
-                <li class="sub-menu">
-                    <a href="index.php?c=usuarios&a=index">
-                        <i class="fa fa-users"></i>&nbsp;Usuarios
-                    </a>
-                </li>
-                <li class="sub-menu">
-                    <a href="index.php?c=productos&a=index">
-                        <i class="fa fa-flask"></i>&nbsp;Productos
-                    </a>
-                </li>
-                <li class="sub-menu">
-                    <a href="index.php?c=combustibles&a=index">
-                        <i class="fa fa-fire"></i>&nbsp;Combustibles
-                    </a>
-                </li>
-                <li class="sub-menu">
-                    <a href="index.php?c=vehiculos&a=index">
-                        <i class="fa fa-car"></i>&nbsp;Vehículos
-                    </a>
-                </li>
-                <li class="sub-menu">
-                    <a href="index.php?c=consultas&a=index">
-                        <i class="fa fa-search"></i>&nbsp;Consultas
-                    </a>
-                </li>
-                
-                <li class="sub-menu">
-                    <a href="index.php?c=notificaciones&a=index">
-                        <i class="fa fa-warning"></i>&nbsp;Notificaciones
-                    </a>
-                </li>
+                    <li class="sub-menu">
+                        <a href="index.php?c=aplicaciones&a=index">
+                            <i class="fa fa-plane"></i>&nbsp;Aplicaciones
+                        </a>
+                    </li>        
+                    <li class="sub-menu">
+                        <a href="index.php?c=usuarios&a=index">
+                            <i class="fa fa-users"></i>&nbsp;Usuarios
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="index.php?c=productos&a=index">
+                            <i class="fa fa-flask"></i>&nbsp;Productos
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="index.php?c=combustibles&a=index">
+                            <i class="fa fa-fire"></i>&nbsp;Combustibles
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="index.php?c=vehiculos&a=index">
+                            <i class="fa fa-car"></i>&nbsp;Vehículos
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="index.php?c=consultas&a=index">
+                            <i class="fa fa-search"></i>&nbsp;Consultas
+                        </a>
+                    </li>               
+                    <li class="sub-menu">
+                        <a href="index.php?c=notificaciones&a=index">
+                            <i class="fa fa-warning"></i>&nbsp;Notificaciones
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="index.php?c=pistas&a=index">
+                            <i class="fa fa-road"></i>&nbsp;Pistas
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="index.php?c=tipop&a=index">
+                            <i class="fa fa-flask"></i>&nbsp;Tipo de Producto
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="index.php?c=tipov&a=index">
+                            <i class="fa fa-car"></i>&nbsp;Tipo de Vehículo
+                        </a>
+                    </li>
                 <?php } else if(App\Session::get('log_in') != null and (App\Session::get('log_in')->getTipo() == "Usuario" or App\Session::get('log_in')->getTipo() == "Supervisor")) {?>
                 <?php } ?>                	
             </ul>

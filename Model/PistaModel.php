@@ -3,6 +3,12 @@ namespace Model;
 use \Clases\Pista;
 class PistaModel extends AppModel
 {
+    public function __construct() {
+        parent::__construct();
+    }
+    public function active($object){
+        return $this->executeQuery($this->getDeleteQuery(false), $this->getActiveParameter($object));
+    }
     protected function getCheckMessage() {
         return "Esta pista ya existe";
     }
@@ -13,19 +19,19 @@ class PistaModel extends AppModel
         return "select * from pistas where pisNombre = ?";
     }
     protected function getCreateParameter($object) {
-        return [$object->getNombre(), $object->getCoordenadas()];
+        return [$object->getNombre(), $object->getCoordenadas(),'H'];
     }
     protected function getCreateQuery() {
-        return "insert into pistas(pisNombre,pisCoord) values(?,?)";
+        return "insert into pistas(pisNombre,pisCoord,pisEstado) values(?,?,?)";
     }    
     protected function getFindParameter($criterio = null) {
         return ["%".$criterio."%"];
     }
     protected function getFindQuery($criterio = null) {
         if($criterio == null){
-            return "select * from pistas";
+            return "select * from pistas order by pisEstado, pisId";
         } else {
-            return "select * from pistas where pisNombre like ?";         
+            return "select * from pistas where pisNombre like ? order by pisEstado, pisId";         
         }
     }
     protected function getFindXIdQuery() {
@@ -42,9 +48,16 @@ class PistaModel extends AppModel
         $pista->setId($row["pisId"]);
         $pista->setNombre($row["pisNombre"]);
         $pista->setCoordenadas($row["pisCoord"]);
+        $pista->setEstado($row["pisEstado"]);
         return $pista;
     }
-    protected function getDeleteParameter($object) { }
-    protected function getDeleteQuery($notUsed = true) { }
-
+    protected function getDeleteParameter($object) {
+        return ['D',$object->getId()];
+    }
+    protected function getActiveParameter($object) {
+        return ['H',$object->getId()];
+    }
+    protected function getDeleteQuery($notUsed = true) { 
+        return "update pistas set pisEstado = ? where pisId = ?";
+    }
 }

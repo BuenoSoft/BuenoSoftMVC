@@ -59,10 +59,7 @@ class Usuario implements IPersiste
     }
 /*---------------------------------------------*/
     public function del() {
-        return (new UsuarioModel())->delete($this);
-    }
-    public function active(){
-        return (new UsuarioModel())->active($this);
+        return ($this->estado == "H") ? (new UsuarioModel())->delete($this) : (new UsuarioModel())->active($this);
     }
     public function checkTra($ap){
         return (new UsuarioModel())->checkTra([$ap, $this->id]);

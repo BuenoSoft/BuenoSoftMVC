@@ -3,6 +3,12 @@ namespace Model;
 use \Clases\TipoProducto;
 class TipoProductoModel extends AppModel
 {
+    public function __construct() {
+        parent::__construct();
+    }
+    public function active($object){
+        return $this->executeQuery($this->getDeleteQuery(false), $this->getActiveParameter($object));
+    }
     protected function getCheckMessage() {
         return "Este tipo de producto ya existe";
     }
@@ -13,16 +19,16 @@ class TipoProductoModel extends AppModel
         return "select * from tipo_producto where tpNombre = ?";
     }
     protected function getCreateParameter($object) {
-        return [$object->getNombre()];
+        return [$object->getNombre(),"H"];
     }
     protected function getCreateQuery() {
-        return "insert into tipo_producto(tpNombre) values(?)";
+        return "insert into tipo_producto(tpNombre,tpEstado) values(?,?)";
     }
     protected function getFindParameter($criterio = null) {
         return [$criterio];
     }
     protected function getFindQuery($criterio = null) {
-        return "select * from tipo_producto";
+        return "select * from tipo_producto order by tpEstado, tpId";
     }
     protected function getFindXIdQuery() {
         return "select * from tipo_producto where tpId = ?";
@@ -37,8 +43,16 @@ class TipoProductoModel extends AppModel
         $tp = new TipoProducto();
         $tp->setId($row["tpId"]);
         $tp->setNombre($row["tpNombre"]);
+        $tp->setEstado($row["tpEstado"]);
         return $tp;
     }
-    protected function getDeleteParameter($object) { }
-    protected function getDeleteQuery($notUsed = true) { }
+    protected function getDeleteParameter($object) {
+        return ['D',$object->getId()];
+    }
+    protected function getActiveParameter($object) {
+        return ['H',$object->getId()];
+    }
+    protected function getDeleteQuery($notUsed = true) { 
+        return "update tipo_producto set tpEstado = ? where tpId = ?";
+    }
 }

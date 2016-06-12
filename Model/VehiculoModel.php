@@ -45,8 +45,8 @@ class VehiculoModel extends AppModel
     protected function getCreateParameter($object) {
         return [
             $object->getMatricula(),$object->getPadron(),$object->getTipo()->getId(),$object->getMotor(),
-            $object->getChasis(),$object->getUnimedida(),$object->getCapcarga(),$object->getModelo(),
-            $object->getMarca(),$object->getAnio(),'H',$object->getCombustible()->getId()
+            $object->getChasis(),$object->getCapcarga(),$object->getModelo(),$object->getMarca(),
+            $object->getAnio(),'H',$object->getCombustible()->getId()
         ];
     }
     protected function getCreateQuery() {

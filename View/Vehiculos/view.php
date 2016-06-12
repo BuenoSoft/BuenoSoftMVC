@@ -1,4 +1,11 @@
 <h3><i class="fa fa-angle-right"></i>Ver Vehículo</h3>
+<p>
+    <a href="index.php?c=vehiculos&a=index">
+        <button class="btn btn-theme05">
+            <i class="fa fa-arrow-left"></i>&nbsp;Volver
+        </button>
+    </a>
+</p>
 <div class="form-horizontal style-form">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -25,7 +32,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tipo de Vehículo</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $vehiculo->getTipo(); ?>
+                        <?php echo $vehiculo->getTipo()->getNombre(); ?>
                     </div>
                 </div>
                 <div class="form-group">
@@ -33,23 +40,17 @@
                     <div class="col-sm-10" style="text-align: center;">
                         <?php echo $vehiculo->getMotor(); ?>
                     </div>
-                </div>
+                </div>                
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="showback">
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Chasis del Vehículo</label>
                     <div class="col-sm-10" style="text-align: center;">
                         <?php echo $vehiculo->getChasis(); ?>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Unidad de Medida</label>
-                    <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $vehiculo->getUnimedida(); ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
-            <div class="showback">
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Capacidad de Carga</label>
                     <div class="col-sm-10" style="text-align: center;">
@@ -80,11 +81,6 @@
                         <?php echo $vehiculo->getCombustible()->getNombre(); ?>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
-            <div style="text-align: center;">
-                <a href="index.php?c=vehiculos&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04" tabindex="1"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
             </div>
         </div>
     </div>

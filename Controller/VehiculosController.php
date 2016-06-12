@@ -1,6 +1,7 @@
 <?php
 namespace Controller;
 use \App\Session;
+use \Clases\TipoVehiculo;
 use \Clases\Combustible;
 use \Clases\Vehiculo;
 class VehiculosController extends AppController
@@ -22,8 +23,6 @@ class VehiculosController extends AppController
     }
     public function add(){
         if($this->checkUser()){
-            Session::set('comb', isset($_POST['cboxcomb']) ? $_POST['cboxcomb'] : Session::get('comb'));
-            $combustibles = (Session::get('comb')!= "") ? $this->getPaginator()->paginar((new Combustible())->find(Session::get('comb')),1) : array();
             if (isset($_POST['btnaceptar'])) {
                 $veh = $this->createEntity();
                 $id = $veh->save();
@@ -36,15 +35,13 @@ class VehiculosController extends AppController
                 }
             }
             $this->redirect_administrador(["add.php"],[
-                'combustibles' => $combustibles
+                "tipos" => (new TipoVehiculo())->find()    
             ]);
         }
     }
     public function edit(){
         if($this->checkUser()){
             Session::set("vh",$_GET['d']);
-            Session::set('comb', isset($_POST['cboxcomb']) ? $_POST['cboxcomb'] : Session::get('comb'));
-            $combustibles = (Session::get('comb')!= "") ? $this->getPaginator()->paginar((new Combustible())->find(Session::get('comb')),1) : array();
             if (Session::get('vh')!=null && isset($_POST['btnaceptar'])){
                 $veh = $this->createEntity();
                 $id = $veh->save();
@@ -58,7 +55,7 @@ class VehiculosController extends AppController
             }
             $this->redirect_administrador(["edit.php"],[
                 'vehiculo' => (new Vehiculo())->findById(Session::get('vh')),
-                'combustibles' => $combustibles
+                "tipos" => (new TipoVehiculo())->find() 
             ]);
         }
     }
@@ -83,28 +80,30 @@ class VehiculosController extends AppController
         if($this->checkUser()){
             if (isset($_GET['d'])){
                 $vehiculo = (new Vehiculo())->findById($_GET['d']);
-                $id = $vehiculo->active();
+                $id = $vehiculo->del();
                 Session::set("msg", (isset($id)) ? "Vehículo Activado" : "No se pudo activar el vehículo");
                 header("Location:index.php?c=vehiculos&a=index");
             }        
         }
     }
     private function createEntity(){
-        $combustible =(new Combustible())->findById($_POST['cboxcomb']);
         $vehiculo = new Vehiculo();
         $vehiculo->setId((isset($_POST['hid'])) ? $_POST['hid'] : 0);
         $vehiculo->setMatricula($_POST['txtmat']);
         $vehiculo->setPadron($_POST['txtpadron']);
-        $vehiculo->setTipo($_POST['cboxtipo']);
+        $vehiculo->setTipo((new TipoVehiculo())->findById($_POST['tipo']));
         $vehiculo->setMotor($_POST['txtmotor']);
         $vehiculo->setChasis($_POST['txtchasis']);
-        $vehiculo->setUnimedida($_POST['cboxuni']);
         $vehiculo->setCapcarga($_POST['txtcap']);
         $vehiculo->setModelo($_POST['txtmodelo']);
         $vehiculo->setMarca($_POST['txtmarca']);
         $vehiculo->setAnio($_POST['txtanio']);
-        $vehiculo->setCombustible($combustible);
+        $vehiculo->setCombustible($this->getCombustible($_POST['tipo']));
         return $vehiculo;
+    }
+    private function getCombustible($tipo) {
+        $combustible = (new Combustible())->findByTipo($tipo);
+        return ($combustible != null) ? $combustible : null;
     }
     protected function getRoles() {
         return ["Administrador","Supervisor"];

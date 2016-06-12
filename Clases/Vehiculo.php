@@ -94,10 +94,7 @@ class Vehiculo implements IPersiste
     }
     /*------------------------------------------*/
     public function del() {
-        return (new VehiculoModel())->delete($this);
-    }
-    public function active(){
-        return (new VehiculoModel())->active($this);
+        return ($this->estado == "H") ? (new VehiculoModel())->delete($this) : (new VehiculoModel())->active($this);
     }
     public function checkUsu($ap){
         return (new VehiculoModel())->checkUsu([$ap,$this->id]);

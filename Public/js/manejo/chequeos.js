@@ -67,3 +67,11 @@ function validarNumeroPC(e){
         return false;
     }
 }
+//Chequeo solo para texto y numero.
+function validarTextoyNum(e) {
+    tecla = (document.all) ? e.keyCode : e.which; 
+    if (tecla==8 || tecla==0) return true;
+    patron =/[A-Za-z\s\d]/;  //permite texto de la A a la Z
+    te = String.fromCharCode(tecla); 
+    return patron.test(te);
+}

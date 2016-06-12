@@ -3,6 +3,12 @@ namespace Model;
 use Clases\TipoVehiculo;
 class TipoVehiculoModel extends AppModel
 {
+    public function __construct() {
+        parent::__construct();
+    }
+    public function active($object){
+        return $this->executeQuery($this->getDeleteQuery(false), $this->getActiveParameter($object));
+    }
     protected function getCheckMessage() {
         return "Este tipo de vehículo ya existe";
     }
@@ -22,7 +28,7 @@ class TipoVehiculoModel extends AppModel
         return [$criterio];
     }
     protected function getFindQuery($criterio = null) {
-        return "select * from tipo_vehiculo";
+        return "select * from tipo_vehiculo order by tvEstado, tvId";
     }
     protected function getFindXIdQuery() {
         return "select * from tipo_vehiculo where tvId = ?";
@@ -38,8 +44,16 @@ class TipoVehiculoModel extends AppModel
         $tv->setId($row["tvId"]);
         $tv->setNombre($row["tvNombre"]);
         $tv->setMedida($row["tvMedida"]);
+        $tv->setEstado($row["tvEstado"]);
         return $tv;
     }
-    protected function getDeleteParameter($object) { }
-    protected function getDeleteQuery($notUsed = true) { }
+    protected function getDeleteParameter($object) {
+        return ['D',$object->getId()];
+    }
+    protected function getActiveParameter($object) {
+        return ['H',$object->getId()];
+    }
+    protected function getDeleteQuery($notUsed = true) { 
+        return "update tipo_vehiculo set tvEstado = ? where tvId = ?";
+    }
 }

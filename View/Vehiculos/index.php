@@ -26,7 +26,7 @@
                     <tr style="<?php echo $style; ?>">                                                    
                         <td><?php echo $vehiculo->getId(); ?></td>
                         <td><?php echo $vehiculo->getMatricula(); ?></td>
-                        <td><?php echo $vehiculo->getTipo(); ?></td>
+                        <td><?php echo $vehiculo->getTipo()->getNombre(); ?></td>
                         <td><?php echo $vehiculo->getCombustible()->getNombre(); ?></td> 
                         <td>
                             <a href="index.php?c=vehiculos&a=view&d=<?php echo $vehiculo->getId(); ?>">Ver</a>&nbsp;

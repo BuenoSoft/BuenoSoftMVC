@@ -1,6 +1,10 @@
 <h3><i class="fa fa-angle-right"></i>Ver Aplicación número&nbsp;<?php echo \App\Session::get('app'); ?></h3>
 <p>
-    <a href="index.php?c=aplicaciones&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04" tabindex="16"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
+    <a href="index.php?c=aplicaciones&a=index">
+        <button class="btn btn-theme05">
+            <i class="fa fa-arrow-left"></i>&nbsp;Volver
+        </button>
+    </a>
 </p>
 <div class="form-horizontal style-form">
     <div class="row mt">
@@ -82,7 +86,7 @@
                     <div class="col-sm-10" style="text-align: center;">
                         <?php
                             foreach ($aplicacion->getTrabajadores() as $funcionario){
-                                echo $funcionario->getDatoUsu()->getNombre();
+                                echo $funcionario->getDatoUsu()->getNombre()." Tipo: ".$funcionario->getTipo();
                             }
                         ?>
                     </div>

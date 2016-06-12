@@ -7,6 +7,7 @@ class Pista implements IPersiste
     private $id;
     private $nombre;
     private $coordenadas;
+    private $estado;
     function getId() {
         return $this->id;
     }
@@ -15,6 +16,9 @@ class Pista implements IPersiste
     }
     function getCoordenadas() {
         return $this->coordenadas;
+    }
+    function getEstado() {
+        return $this->estado;
     }
     function setId($id) {
         $this->id = $id;
@@ -25,12 +29,18 @@ class Pista implements IPersiste
     function setCoordenadas($coordenadas) {
         $this->coordenadas = $coordenadas;
     }
+    function setEstado($estado) {
+        $this->estado = $estado;
+    }
     function __construct() { }
     public function equals(Pista $obj){
         return $this->nombre == $obj->nombre;                
     }
     public function del() {
-        
+        return (new PistaModel())->delete($this);
+    }
+    public function active() {
+        return (new PistaModel())->active($this);
     }
     public function find($criterio = null) {
         return (new PistaModel())->find($criterio);
@@ -39,6 +49,6 @@ class Pista implements IPersiste
         return (new PistaModel())->findById($id);
     }
     public function save() {
-        
+        return ($this->id == 0) ? (new PistaModel())->create($this) : (new PistaModel())->update($this);  
     }
 }

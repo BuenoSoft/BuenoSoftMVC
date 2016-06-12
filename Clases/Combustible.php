@@ -52,16 +52,16 @@ class Combustible implements IPersiste
     }
     /*---------------------------------------*/
     public function del() {
-        return (new CombustibleModel())->delete($this);
-    }
-    public function active(){
-        return (new CombustibleModel())->active($this);
+        return ($this->estado == "H") ? (new CombustibleModel())->delete($this) : (new CombustibleModel())->active($this);
     }
     public function find($criterio = null) {
         return (new CombustibleModel())->find($criterio);
     }
     public function findById($id) {
         return (new CombustibleModel())->findById($id);
+    }
+    public function findByTipo($tipo) {
+        return (new CombustibleModel())->findByTipo($tipo);
     }
     public function save() {
         return ($this->id == 0) ? (new CombustibleModel())->create($this) : (new CombustibleModel())->update($this);

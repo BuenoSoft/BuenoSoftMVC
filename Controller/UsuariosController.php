@@ -126,7 +126,7 @@ class UsuariosController extends AppController
         if($this->checkUser()){
             if (isset($_GET['d'])){
                 $usuario = (new Usuario())->findById($_GET['d']);
-                $id = $usuario->active();
+                $id = $usuario->del();
                 Session::set("msg", (isset($id)) ? "Usuario Activado" : "No se pudo activar el usuario");
                 header("Location:index.php?c=usuarios&a=index");
             }        

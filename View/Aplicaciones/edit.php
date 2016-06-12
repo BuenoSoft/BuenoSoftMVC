@@ -69,9 +69,12 @@
                     <div class="col-sm-10">
                         <input list="tipos" class="form-control_datalist" placeholder="Seleccione Tipo" required="required" name="tipo" tabindex="1" value="<?php echo \App\Session::get("pass")[9]; ?>"/>
                         <datalist id="tipos">
-                            <?php foreach ($tipos as $tipo){ ?>
-                                <option value="<?php echo $tipo->getId() ?>"><?php echo $tipo->getNombre();?></option>
-                            <?php } ?>
+                            <?php foreach ($tipos as $tipo){
+                                    if($tipo->getEstado() == "H"){ ?>
+                                        <option value="<?php echo $tipo->getId() ?>"><?php echo $tipo->getNombre();?></option>
+                            <?php   } 
+                                }
+                            ?>
                         </datalist>
                         <input type="button" onclick="frmadd.submit();" value="Buscar" class="btn btn-theme01" />
                     </div>
@@ -116,10 +119,10 @@
                             foreach ($funcionarios as $funcionario){
                                 if($funcionario->getEstado() == "H") {
                                     if($funcionario->checkTra(\App\Session::get('app'))){ ?>
-                                        <input type="checkbox" name="funcionarios[]" value="<?php echo $funcionario->getId(); ?>" checked="checked" />&nbsp;<?php echo $funcionario->getDatoUsu()->getNombre(); ?><br />
+                                        <input type="checkbox" name="funcionarios[]" value="<?php echo $funcionario->getId(); ?>" checked="checked" />&nbsp;<?php echo $funcionario->getDatoUsu()->getNombre()." Tipo: ".$funcionario->getTipo(); ?><br />
                         <?php
                                     } else if(!$funcionario->checkFin()) { ?>
-                                        <input type="checkbox" name="funcionarios[]" value="<?php echo $funcionario->getId(); ?>" />&nbsp;<?php echo $funcionario->getDatoUsu()->getNombre(); ?><br />
+                                        <input type="checkbox" name="funcionarios[]" value="<?php echo $funcionario->getId(); ?>" />&nbsp;<?php echo $funcionario->getDatoUsu()->getNombre()." Tipo: ".$funcionario->getTipo(); ?><br />
                         <?php                                        
                                     }
                                 }
@@ -136,7 +139,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Coordenadas de Cultivo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcoordcul" onkeypress="return validarNumeroPC(event)" class="form-control" required="required" placeholder="-30.434,-57.439" tabindex="7" value="<?php echo \App\Session::get("pass")[1]; ?>" />
+                        <input type="text" name="txtcoordcul" pattern="[+-]?[\d]{1,3}.[+-]?[\d]{1,3},[+-]?[\d]{1,3}.[+-]?[\d]{1,3}" onkeypress="return validarNumeroPC(event)" class="form-control" required="required" placeholder="-30.434,-57.439" tabindex="7" value="<?php echo \App\Session::get("pass")[1]; ?>" />
                     </div>
                 </div>
                 <div class="form-group">

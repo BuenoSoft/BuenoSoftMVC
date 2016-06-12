@@ -29,12 +29,16 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Tipo de Aplicación&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Tipo de Producto&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="tipo" class="form-control" placeholder="Seleccione Tipo" required="required" name="tipos" value="<?php echo $producto->getTipo(); ?>" tabindex="13" />
-                        <datalist id="tipo">
-                            <option value="S">Sólido</option>
-                            <option value="L">Líquido</option>
+                        <input list="tipop" class="form-control" placeholder="Seleccione Tipo de Producto" required="required" name="tipo" tabindex="13" value="<?php echo $producto->getTipo()->getId(); ?>"/>
+                        <datalist id="tipop">
+                            <?php foreach ($tipos as $tipo){
+                                    if($tipo->getEstado() == "H"){ ?>
+                                        <option value="<?php echo $tipo->getId() ?>"><?php echo $tipo->getNombre();?></option>
+                            <?php   } 
+                                }
+                            ?>
                         </datalist>
                     </div>
                 </div>

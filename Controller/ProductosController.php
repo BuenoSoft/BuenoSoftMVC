@@ -1,6 +1,7 @@
 <?php
 namespace Controller;
 use \App\Session;
+use \Clases\TipoProducto;
 use \Clases\Producto;
 class ProductosController extends AppController
 {
@@ -31,7 +32,9 @@ class ProductosController extends AppController
                     Session::set("msg",Session::get('msg'));
                 }
             }
-            $this->redirect_administrador(['add.php']);
+            $this->redirect_administrador(['add.php'],[
+                "tipos" => (new TipoProducto())->find()
+            ]);
         }
     }
     public function edit(){
@@ -48,7 +51,10 @@ class ProductosController extends AppController
                     Session::set("msg",Session::get('msg'));
                 }
             }
-            $this->redirect_administrador(['edit.php'],["producto" => (new Producto())->findById(Session::get('prod'))]); 
+            $this->redirect_administrador(['edit.php'],[
+                "producto" => (new Producto())->findById(Session::get('prod')),
+                "tipos" => (new TipoProducto())->find()
+            ]); 
         }
     }
     public function delete(){
@@ -65,7 +71,7 @@ class ProductosController extends AppController
         if($this->checkUser()){
             if (isset($_GET['d'])){
                 $producto = (new Producto())->findById($_GET['d']);
-                $id = $producto->active();
+                $id = $producto->del();
                 Session::set("msg", (isset($id)) ? "Producto Activado" : "No se pudo activar el producto");
                 header("Location:index.php?c=productos&a=index");
             }        
@@ -77,7 +83,7 @@ class ProductosController extends AppController
         $producto->setCodigo($_POST['txtcodigo']);
         $producto->setNombre($_POST['txtnombre']);
         $producto->setMarca($_POST['txtmarca']);
-        $producto->setTipo($_POST['tipos']);
+        $producto->setTipo((new TipoProducto())->findById($_POST['tipo']));
         return $producto;
     }
     protected function getRoles() {

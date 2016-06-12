@@ -1,6 +1,7 @@
 <?php
 namespace Controller;
 use \App\Session;
+use \Clases\TipoVehiculo;
 use \Clases\Combustible;
 class CombustiblesController extends AppController
 {
@@ -32,7 +33,9 @@ class CombustiblesController extends AppController
                     Session::set("msg",Session::get('msg'));
                 }
             }
-            $this->redirect_administrador(['add.php']);
+            $this->redirect_administrador(['add.php'],[
+                "tipos" => (new TipoVehiculo())->find()
+            ]);
         }
     }
     public function edit(){
@@ -50,7 +53,10 @@ class CombustiblesController extends AppController
                     Session::set("msg",Session::get('msg'));
                 }
             }
-            $this->redirect_administrador(['edit.php'],["combustible" => (new Combustible())->findById(Session::get('com'))]); 
+            $this->redirect_administrador(['edit.php'],[
+                "combustible" => (new Combustible())->findById(Session::get('com')),
+                "tipos" => (new TipoVehiculo())->find()
+            ]); 
         }
     }
     public function delete(){
@@ -67,7 +73,7 @@ class CombustiblesController extends AppController
         if($this->checkUser()){
             if (isset($_GET['d'])){
                 $combustible = (new Combustible())->findById($_GET['d']);
-                $id = $combustible->active();
+                $id = $combustible->del();
                 Session::set("msg", (isset($id)) ? "Combustible Activado" : "No se pudo activar el combustible");
                 header("Location:index.php?c=combustibles&a=index");
             }        
@@ -78,6 +84,7 @@ class CombustiblesController extends AppController
         $combustibles->setId((isset($_POST['hid']) ? $_POST['hid'] : 0));
         $combustibles->setNombre($_POST['txtnombre']);
         $combustibles->setStock($_POST['txtstock']);
+        $combustibles->setTipo((new TipoVehiculo())->findById($_POST['tipo']));
         $combustibles->setFecha($_POST['dtfecha']);
         return $combustibles;
     }
