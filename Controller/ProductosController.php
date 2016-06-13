@@ -77,6 +77,13 @@ class ProductosController extends AppController
             }        
         }
     }
+    public function view(){
+        if($this->checkUser()){
+            $this->redirect_administrador(['view.php'],[
+                "producto" => (new Producto())->findById($_GET['d'])
+            ]);
+        }
+    }
     private function createEntity(){
         $producto = new Producto();
         $producto->setId((isset($_POST['hid'])) ? $_POST['hid'] : 0);

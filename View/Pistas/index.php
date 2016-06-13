@@ -1,7 +1,7 @@
 <h3><i class="fa fa-angle-right"></i> Mantenimiento de Pistas</h3>
 <p>
-    <a href="index.php?c=access&a=index"><button class="btn btn-theme05"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp; 
-    <a href="index.php?c=pistas&a=add"><button class="btn btn-theme05"><i class="fa fa-plus"></i>&nbsp;Crear</button></a>       
+    <a href="index.php?c=access&a=index"><button class="btn btn-theme05" tabindex="3"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp; 
+    <a href="index.php?c=pistas&a=add"><button class="btn btn-theme05" tabindex="4"><i class="fa fa-plus"></i>&nbsp;Crear</button></a>       
 </p>
 <div class="content-panel">
     <section id="unseen" style="padding-left: 5px; padding-right: 5px;">
@@ -27,6 +27,7 @@
                         <td><?php echo $pista->getNombre(); ?></td>
                         <td><?php echo $pista->getCoordenadas(); ?></td>
                         <td>
+                            <a href="index.php?c=pistas&a=view&d=<?php echo $pista->getId(); ?>" target="_blank">Ver</a>&nbsp;
                             <a href="index.php?c=pistas&a=edit&d=<?php echo $pista->getId(); ?>">Editar</a>&nbsp;
                             <?php if($pista->getEstado() == "H") { ?>
                                 <a href="index.php?c=pistas&a=delete&d=<?php echo $pista->getId(); ?>" onclick="return confirm('¿Desea borrar la Pista seleccionada?');">Borrar</a>

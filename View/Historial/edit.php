@@ -4,10 +4,7 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Combustible</label>
-                    <div class="col-sm-10" style="text-align: center;">
-                        <input type="hidden" name="comb" value="<?php echo $historial->getCombustible()->getId(); ?>" /><?php echo $historial->getCombustible()->getId(); ?>
-                    </div>                                        
+                    <?php echo $historial->getUsado()->getVehiculo()->getCombustible()->getNombre(); ?>                                       
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha</label>

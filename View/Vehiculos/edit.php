@@ -55,33 +55,33 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Capacidad de Carga&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcap" class="form-control" required="required" placeholder="Ej: 25,8" value="<?php echo $vehiculo->getCapcarga(); ?>" tabindex="7" />
+                        <input type="text" name="txtcap" class="form-control" required="required" placeholder="Ej: 25,8" value="<?php echo $vehiculo->getCapcarga(); ?>" tabindex="6" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Modelo del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtmodelo" class="form-control" required="required" placeholder="Ej: Gol G5" value="<?php echo $vehiculo->getModelo(); ?>" tabindex="8" />
+                        <input type="text" name="txtmodelo" class="form-control" required="required" placeholder="Ej: Gol G5" value="<?php echo $vehiculo->getModelo(); ?>" tabindex="7" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Marca del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtmarca" class="form-control" required="required" placeholder="Ej: Wolkswagen" value="<?php echo $vehiculo->getMarca(); ?>" tabindex="9" />
+                        <input type="text" name="txtmarca" class="form-control" required="required" placeholder="Ej: Wolkswagen" value="<?php echo $vehiculo->getMarca(); ?>" tabindex="8" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Año del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtanio" class="form-control" required="required" placeholder="Ej: 2010" onkeypress="return validarNumero(event);" value="<?php echo $vehiculo->getAnio(); ?>" tabindex="10" />
+                        <input type="text" name="txtanio" class="form-control" required="required" placeholder="Ej: 2010" onkeypress="return validarNumero(event);" value="<?php echo $vehiculo->getAnio(); ?>" tabindex="9" />
                     </div>
                 </div>                
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div style="text-align: center;">
-                <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="13"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
-                <a href="index.php?c=vehiculos&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04" tabindex="14"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
+                <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="10"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
+                <a href="index.php?c=vehiculos&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04" tabindex="11"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
             </div>
         </div>
     </div>

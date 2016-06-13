@@ -73,6 +73,13 @@ class PistasController extends AppController
             }        
         }
     }
+    public function view(){
+        if($this->checkUser()){
+            $this->redirect_administrador(['view.php'],[
+                "pista" => (new Pista())->findById($_GET['d'])
+            ]);
+        }
+    }
     private function createEntity(){
         $pista = new Pista();
         $pista->setId(isset($_POST["hid"]) ? $_POST["hid"] : 0);

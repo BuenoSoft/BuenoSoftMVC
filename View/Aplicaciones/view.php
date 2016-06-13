@@ -1,24 +1,17 @@
-<h3><i class="fa fa-angle-right"></i>Ver Aplicación número&nbsp;<?php echo \App\Session::get('app'); ?></h3>
-<p>
-    <a href="index.php?c=aplicaciones&a=index">
-        <button class="btn btn-theme05">
-            <i class="fa fa-arrow-left"></i>&nbsp;Volver
-        </button>
-    </a>
-</p>
+<h3><i class="fa fa-angle-right"></i>Ver Aplicación número&nbsp;<?php echo $aplicacion->getId(); ?></h3>
 <div class="form-horizontal style-form">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
-                <h4><i class="fa fa-angle-right"></i> Datos de la Aplicación:</h4>
+                <h4><i class="fa fa-angle-right"></i>&nbsp;Datos de la Aplicación:</h4>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Vehículos</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php 
-                            foreach ($aplicacion->getUsados() as $usado) {
-                                echo "Matrícula: ". $usado->getVehiculo()->getMatricula()." Tipo: ".$usado->getVehiculo()->getTipo()->getNombre();
-                            }
-                        ?>
+                        <?php foreach ($aplicacion->getUsados() as $usado) { ?>
+                            <a href="index.php?c=vehiculos&a=view&d=<?php echo $usado->getVehiculo()->getId();?>" target="_blank">
+                                <?php echo "Matrícula: ". $usado->getVehiculo()->getMatricula()." Tipo: ".$usado->getVehiculo()->getTipo()->getNombre(); ?>
+                            </a>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="form-group">
@@ -62,11 +55,11 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Productos</label>
                     <div class="col-sm-10" style="text-align: center;">                        
-                        <?php 
-                            foreach ($aplicacion->getProductos() as $producto) { 
-                                echo $producto->getNombre();
-                            }
-                        ?>                                                    
+                        <?php foreach ($aplicacion->getProductos() as $producto) { ?>
+                                <a href="index.php?c=productos&a=view&d=<?php echo $producto->getId(); ?>" target="_blank">
+                                    <?php echo $producto->getNombre(); ?>
+                                </a>
+                        <?php } ?>                                                    
                     </div>
                 </div>                
             </div>
@@ -84,11 +77,11 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Funcionarios</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php
-                            foreach ($aplicacion->getTrabajadores() as $funcionario){
-                                echo $funcionario->getDatoUsu()->getNombre()." Tipo: ".$funcionario->getTipo();
-                            }
-                        ?>
+                        <?php foreach ($aplicacion->getTrabajadores() as $funcionario) { ?>
+                            <a href="index.php?c=usuarios&a=view&d=<?php echo $funcionario->getId(); ?>" target="_blank">
+                                <?php echo $funcionario->getDatoUsu()->getNombre()." Tipo: ".$funcionario->getTipo(); ?>
+                            </a>                            
+                        <?php } ?>
                     </div>
                 </div>                    
                 <div class="form-group">

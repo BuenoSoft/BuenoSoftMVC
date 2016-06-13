@@ -2,7 +2,6 @@
 namespace Controller;
 use \App\Session;
 use \Clases\Aplicacion;
-use \Clases\Vehiculo;
 class UsadosController extends AppController 
 {
     public function __construct() {
@@ -18,13 +17,6 @@ class UsadosController extends AppController
                 "aplicacion" => $apl,
                 "usados" => $usados,
                 "paginador" => $this->getPaginator()->getPages()
-            ]);
-        }
-    }
-    public function veh(){
-        if($this->checkUser()){
-            $this->redirect_administrador(["veh.php"],[
-                'vehiculo' => (new Vehiculo())->findById($_GET['v']),
             ]);
         }
     }

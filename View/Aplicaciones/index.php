@@ -1,7 +1,7 @@
 <h3>Mantenimiento de Aplicaciones</h3>
 <p>
-    <a href="index.php?c=access&a=index"><button class="btn btn-theme05"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;
-    <a href="index.php?c=aplicaciones&a=add"><button class="btn btn-theme05"><i class="fa fa-plus"></i>&nbsp;Crear</button></a>    
+    <a href="index.php?c=access&a=index"><button class="btn btn-theme05" tabindex="3"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;
+    <a href="index.php?c=aplicaciones&a=add"><button class="btn btn-theme05" tabindex="4"><i class="fa fa-plus"></i>&nbsp;Crear</button></a>    
 </p>
 <div class="content-panel">
     <section id="unseen" style="padding-left: 5px; padding-right: 5px;">
@@ -23,8 +23,8 @@
                 <?php foreach ($aplicaciones as $aplicacion) { ?>
                     <tr>
                         <td><?php echo $aplicacion->getId(); ?></td>
-                        <td><a href="index.php?c=aplicaciones&a=cliente&v=<?php echo $aplicacion->getCliente()->getId(); ?>"><?php echo $aplicacion->getCliente()->getNombre(); ?></a></td>
-                        <td><?php echo $aplicacion->getPista()->getNombre(); ?></td>
+                        <td><a href="index.php?c=usuarios&a=view&d=<?php echo $aplicacion->getCliente()->getId(); ?>" target="_blank"><?php echo $aplicacion->getCliente()->getNombre(); ?></a></td>
+                        <td><a href="index.php?c=pistas&a=view&d=<?php echo $aplicacion->getPista()->getId(); ?>" target="_blank"><?php echo $aplicacion->getPista()->getNombre(); ?></a></td>
                         <td>
                             <?php  
                                 if($aplicacion->getFechaFin() == null or $aplicacion->getFechaFin() == "0000-00-00 00:00:00"){
@@ -41,7 +41,7 @@
                             ?>                        
                         </td>
                         <td>
-                            <a href="index.php?c=aplicaciones&a=view&d=<?php echo $aplicacion->getId(); ?>">Ver</a>&nbsp;
+                            <a href="index.php?c=aplicaciones&a=view&d=<?php echo $aplicacion->getId(); ?>" target="_blank">Ver</a>&nbsp;
                             <a href="index.php?c=aplicaciones&a=edit&d=<?php echo $aplicacion->getId(); ?>">Editar</a>&nbsp;
                             <a href="index.php?c=usados&a=index&d=<?php echo $aplicacion->getId(); ?>">Usados</a>&nbsp;
                         </td>

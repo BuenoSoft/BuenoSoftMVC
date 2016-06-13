@@ -13,7 +13,7 @@
             <tbody>
                 <?php foreach($usados as $usado) {?>
                     <tr>                        
-                        <td><a href="index.php?c=usados&a=veh&v=<?php echo $usado->getVehiculo()->getId();?>"><?php echo $usado->getVehiculo()->getMatricula();?></a></td>
+                        <td><a href="index.php?c=vehiculos&a=view&d=<?php echo $usado->getVehiculo()->getId();?>"><?php echo $usado->getVehiculo()->getMatricula();?></a></td>
                         <td><?php echo $usado->getConductor(); ?></td>
                         <td>
                             <a href="index.php?c=usados&a=edit&d=<?php echo $usado->getAplicacion()->getId(); ?>&v=<?php echo $usado->getVehiculo()->getId();?>">Editar</a>&nbsp;

@@ -1,9 +1,9 @@
-<h3><i class="fa fa-angle-right"></i> Editar Usuario</h3>
+<h3><i class="fa fa-angle-right"></i>&nbsp;Editar Usuario</h3>
 <form class="form-horizontal style-form" method="post" action="index.php?c=usuarios&a=edit&d=<?php echo \App\Session::get('usu'); ?>" name="frmedit">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
-                <h4><i class="fa fa-angle-right"></i> Datos Personales:</h4>
+                <h4><i class="fa fa-angle-right"></i>&nbsp;Datos Personales:</h4>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Número</label>
                     <div class="col-sm-10" style="text-align: center;">
@@ -33,7 +33,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label" id="doc">Documento&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" id="txtdoc" name="txtdoc" class="form-control" required="required" onkeypress="return validarNumero(event)" value="<?php echo $usuario->getDatoUsu()->getDocumento(); ?>" tabindex="1"/>
+                        <input type="text" id="txtdoc" name="txtdoc" class="form-control"  required="required" onkeypress="return validarNumero(event)" value="<?php echo $usuario->getDatoUsu()->getDocumento(); ?>" tabindex="1"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -65,7 +65,7 @@
         </div>        
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
-                <h4><i class="fa fa-angle-right"></i> Datos del Usuario: </h4>
+                <h4><i class="fa fa-angle-right"></i>&nbsp;Datos del Usuario:</h4>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre del Usuario&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
@@ -97,15 +97,15 @@
                         <?php } else { ?>
                             <img src="<?php echo $usuario->getAvatar(); ?>" width='175' height='125' />&nbsp;&nbsp;
                         <?php } ?>
-                        <a href="index.php?c=usuarios&a=avatar" title="Cambiar"><button type="button" name="btnavatar" value="Avatar" class="btn btn-theme00" ><i class="fa fa-photo"></i>&nbsp;Cambiar</button></a>
+                            <a href="index.php?c=usuarios&a=avatar" title="Cambiar"><button type="button" name="btnavatar" value="Avatar" class="btn btn-theme00" tabindex="10" ><i class="fa fa-photo"></i>&nbsp;Cambiar</button></a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div style="text-align: center;">
-                <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="10"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
-                <a href="index.php?c=usuarios&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04" tabindex="11"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
+                <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="11"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
+                <a href="index.php?c=usuarios&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04" tabindex="12"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
             </div>
         </div>
     </div>

@@ -79,6 +79,13 @@ class CombustiblesController extends AppController
             }        
         }
     }
+    public function view(){
+        if($this->checkUser()){
+            $this->redirect_administrador(["view.php"], [
+                "combustible" => (new Combustible())->findById($_GET['d'])
+            ]);        
+        }
+    }
     private function createEntity(){
         $combustibles = new Combustible();
         $combustibles->setId((isset($_POST['hid']) ? $_POST['hid'] : 0));

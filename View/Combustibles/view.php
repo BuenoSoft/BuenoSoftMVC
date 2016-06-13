@@ -1,11 +1,4 @@
 <h3><i class="fa fa-angle-right"></i>Ver Combustible</h3>
-<p>
-    <a href="index.php?c=historial&a=index&d=<?php echo \App\Session::get('app'); ?>&v=<?php echo \App\Session::get('v'); ?>">
-        <button class="btn btn-theme05">
-            <i class="fa fa-arrow-left"></i>&nbsp;Volver
-        </button>
-    </a>
-</p>
 <div class="form-horizontal style-form">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">

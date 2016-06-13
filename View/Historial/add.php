@@ -6,17 +6,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Combustible</label>
                     <div class="col-sm-10">
-                        <input list="combustibles" class="form-control_datalist" placeholder="Seleccione Combustible" required="required" name="comb" />
-                        <datalist id="combustibles">
-                            <?php 
-                                foreach ($combustibles as $combustible) {
-                                    if($combustible->getEstado() == "H"){ ?>
-                                        <option value="<?php echo $combustible->getId(); ?>"><?php echo $combustible->getNombre(); ?></option>
-                            <?php   }
-                                }
-                            ?>                            
-                        </datalist>
-                        <input type="button" onclick="frmadd.submit();" value="Buscar" class="btn btn-theme01" />
+                        <?php echo $usado->getVehiculo()->getCombustible()->getNombre(); ?>
                     </div>                                        
                 </div>
                 <div class="form-group">

@@ -5,7 +5,7 @@
             <div class="showback">
                 <h4><i class="fa fa-angle-right"></i> Datos de la Pista:</h4>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Número del Producto</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Número de la Pista</label>
                     <div class="col-sm-10" style="text-align: center;">
                         <input type="hidden" name="hid" value="<?php echo $pista->getId(); ?>" /><?php echo $pista->getId(); ?>
                     </div>
@@ -26,7 +26,6 @@
             <div style="text-align: center;">
                 <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="4"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
                 <a href="index.php?c=pistas&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04" tabindex="5"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
-            </div>
             </div>
         </div>
     </div>

@@ -1,9 +1,9 @@
-<h3><i class="fa fa-angle-right"></i> Crear Usuario</h3>
+<h3><i class="fa fa-angle-right"></i>&nbsp;Crear Usuario</h3>
 <form class="form-horizontal style-form" method="post" action="index.php?c=usuarios&a=add" name="frmadd" onsubmit="return (document.getElementById('rper').value === 'Persona') ? validarCedula(this.txtdoc.value) : null;" id="add" enctype="multipart/form-data">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
-                <h4><i class="fa fa-angle-right"></i> Datos Personales:</h4>
+                <h4><i class="fa fa-angle-right"></i>&nbsp;Datos Personales:</h4>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tipo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">                        
@@ -49,7 +49,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
-                <h4><i class="fa fa-angle-right"></i> Datos del Usuario: </h4>
+                <h4><i class="fa fa-angle-right"></i>&nbsp;Datos del Usuario:</h4>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre del Usuario&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">

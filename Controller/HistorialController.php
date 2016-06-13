@@ -1,7 +1,6 @@
 <?php
 namespace Controller;
 use \App\Session;
-use \Clases\Combustible;
 use \Clases\Aplicacion;
 use \Clases\Historial;
 class HistorialController extends AppController
@@ -28,8 +27,6 @@ class HistorialController extends AppController
         if($this->checkUser()){
             Session::set("app",$_GET['d']);
             Session::set("v",$_GET['v']);
-            Session::set("comb", isset($_POST['comb']) ? $_POST['comb'] : Session::get('comb'));
-            $combustibles = (Session::get('comb')!= "") ? $this->getPaginator()->paginar((new Combustible())->find(Session::get('comb')),1) : array();
             $apl = (new Aplicacion())->findById(Session::get("app"));
             $usado = $apl->getUsado(Session::get("v"));
             if (isset($_POST['btnaceptar'])) {
@@ -45,7 +42,6 @@ class HistorialController extends AppController
             }
             $this->redirect_administrador(["add.php"], [
                 "usado" => $usado,
-                "combustibles" => $combustibles
             ]);
         }
     }
@@ -55,8 +51,6 @@ class HistorialController extends AppController
             Session::set("v",$_GET['v']);
             Session::set("m",$_GET['m']);
             Session::set("f",$_GET['f']);
-            Session::set("comb", isset($_POST['comb']) ? $_POST['comb'] : Session::get('comb'));
-            $combustibles = (Session::get('comb')!= "") ? $this->getPaginator()->paginar((new Combustible())->find(Session::get('comb')),1) : array();
             $usado = (new Aplicacion())->findById(Session::get("app"))->getUsado(Session::get("v"));
             if (Session::get('app')!=null && Session::get('v')!=null && Session::get('m')!=null && Session::get('f')!=null && isset($_POST['btnaceptar'])){
                 $historial = $this->createEntity();
@@ -71,7 +65,6 @@ class HistorialController extends AppController
             }
             $this->redirect_administrador(["edit.php"], [
                 "historial" => $usado->getHistorial([Session::get('m'),Session::get('f')]),
-                "combustibles" => $combustibles
             ]);
         }
     }
@@ -88,18 +81,12 @@ class HistorialController extends AppController
             header("Location:index.php?c=historial&a=index&d=".Session::get("app")."&v=".Session::get("v"));
         }
     }
-    public function comb(){
-        $this->redirect_administrador(["comb.php"], [
-            "combustible" => (new Combustible())->findById($_GET['m'])
-        ]);
-    }
     private function createEntity(){
         $apl = (new Aplicacion())->findById(Session::get("app"));
         $usado =$apl->getUsado(Session::get("v"));
-        $combustible = (new Combustible())->findById($_POST['comb']);
         $historial = new Historial();
         $historial->setUsado($usado);
-        $historial->setCombustible($combustible);
+        $historial->setCombustible($usado->getVehiculo()->getCombustible());
         $historial->setFecha($_POST['dtfecha']);
         $historial->setCargaIni($_POST['txtcargaini']);
         $historial->setCargaFin($_POST['txtcargafin']);

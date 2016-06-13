@@ -16,7 +16,7 @@
             <tbody>
                 <?php foreach($historiales as $historial) { ?>
                     <tr>                       
-                        <td><a href="index.php?c=historial&a=comb&m=<?php echo $historial->getCombustible()->getId();?>"><?php echo $historial->getCombustible()->getNombre();?></a></td>
+                        <td><a href="index.php?c=combustibles&a=view&d=<?php echo $historial->getCombustible()->getId();?>" target="_blank"><?php echo $historial->getCombustible()->getNombre();?></a></td>
                         <td><?php echo $historial->getCargaIni();?></td>
                         <td><?php echo $historial->getCargaFin();?></td>
                         <td><?php echo $historial->getFecha();?></td>

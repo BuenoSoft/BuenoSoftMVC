@@ -29,7 +29,7 @@
                                 }
                             ?>                            
                         </datalist>
-                        <input type="button" onclick="frmadd.submit();" value="Buscar" class="btn btn-theme01" tabindex="4"/>
+                        <input type="button" onclick="frmadd.submit();" value="Buscar" class="btn btn-theme01" />
                     </div>
                 </div>
             </div>
@@ -37,8 +37,8 @@
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12">
         <div style="text-align: center;">
-            <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="5"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
-            <a href="index.php?c=notificaciones&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04" tabindex="6"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
+            <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="4"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
+            <a href="index.php?c=notificaciones&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04" tabindex="5"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
         </div>
     </div>
 </form>

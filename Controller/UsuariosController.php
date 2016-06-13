@@ -108,8 +108,7 @@ class UsuariosController extends AppController
     }
     public function view(){
         if(Session::get("log_in") != null){
-            Session::set("id",$_GET['d']); 
-            $this->redirect_administrador(["view.php"],["usuario" => (new Usuario())->findById(Session::get('id'))]);
+            $this->redirect_administrador(["view.php"],["usuario" => (new Usuario())->findById($_GET['d'])]);
         }
     }
     public function delete(){

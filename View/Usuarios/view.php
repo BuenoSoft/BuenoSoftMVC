@@ -1,9 +1,9 @@
-<h3><i class="fa fa-angle-right"></i> Ver Usuario</h3>
+<h3><i class="fa fa-angle-right"></i>&nbsp;Ver Usuario</h3>
 <div class="form-horizontal style-form">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
-                <h4><i class="fa fa-angle-right"></i> Datos Personales:</h4>
+                <h4><i class="fa fa-angle-right"></i>&nbsp;Datos Personales:</h4>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Número del Usuario</label>
                     <div class="col-sm-10" style="text-align: center;">
@@ -50,7 +50,7 @@
         </div>        
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
-                <h4><i class="fa fa-angle-right"></i> Datos del Usuario: </h4>
+                <h4><i class="fa fa-angle-right"></i>&nbsp;Datos del Usuario:</h4>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre del Usuario</label>
                     <div class="col-sm-10" style="text-align: center;">
@@ -73,15 +73,6 @@
                         <?php } ?>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
-            <div style="text-align: center;">
-                <?php if(\App\Session::get('log_in')->getTipo() != "Usuario") {?>
-                    <a href="index.php?c=usuarios&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
-                <?php } else { ?>
-                    <a href="index.php?c=access&a=index" class=""><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
-                <?php } ?>
             </div>
         </div>
     </div>

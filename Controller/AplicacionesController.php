@@ -138,17 +138,8 @@ class AplicacionesController extends AppController
     /*-------------------------------------------------------------------------------*/
     public function view(){
         if($this->checkUser()){
-            Session::set("app",$_GET['d']);
             $this->redirect_administrador(['view.php'],[
-                "aplicacion" => (new Aplicacion())->findById(Session::get("app"))
-            ]);
-        }
-    }
-    public function cliente(){
-        if($this->checkUser()){
-            Session::set("v",$_GET['v']);
-            $this->redirect_administrador(['cliente.php'],[
-                "usuario" => (new Usuario())->findById(Session::get("v"))
+                "aplicacion" => (new Aplicacion())->findById($_GET['d'])
             ]);
         }
     }

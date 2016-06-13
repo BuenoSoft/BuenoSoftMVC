@@ -62,13 +62,6 @@ class NotificacionesController extends AppController
             ]);
         }
     }
-    public function veh(){
-        if($this->checkUser()){
-            $this->redirect_administrador(["veh.php"],[
-                'vehiculo' => (new Vehiculo())->findById($_GET['v']),
-            ]);
-        }
-    }
     private function createEntity(){
         $veh = (new Vehiculo())->findById($_POST["cboxveh"]);
         $not = new Notificacion();
