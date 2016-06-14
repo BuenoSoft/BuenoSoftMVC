@@ -28,7 +28,7 @@
                         <datalist id="clientes">
                             <?php
                                 foreach ($usuarios as $usuario){
-                                    if($usuario->getEstado() == "H" and $usuario->getTipo() == "Usuario") { ?>
+                                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Usuario") { ?>
                                         <option value="<?php echo $usuario->getDatoUsu()->getId() ?>"><?php echo "Documento: ".$usuario->getDatoUsu()->getDocumento()." Nombre: ".$usuario->getDatoUsu()->getNombre();?></option>
                                 <?php                                         
                                     }
@@ -119,10 +119,10 @@
                             foreach ($funcionarios as $funcionario){
                                 if($funcionario->getEstado() == "H") {
                                     if($funcionario->checkTra(\App\Session::get('app'))){ ?>
-                                        <input type="checkbox" name="funcionarios[]" value="<?php echo $funcionario->getId(); ?>" checked="checked" />&nbsp;<?php echo $funcionario->getDatoUsu()->getNombre()." Tipo: ".$funcionario->getTipo(); ?><br />
+                                        <input type="checkbox" name="funcionarios[]" value="<?php echo $funcionario->getId(); ?>" checked="checked" />&nbsp;<?php echo $funcionario->getDatoUsu()->getNombre()." Tipo: ".$funcionario->getRol()->getNombre(); ?><br />
                         <?php
                                     } else if(!$funcionario->checkFin()) { ?>
-                                        <input type="checkbox" name="funcionarios[]" value="<?php echo $funcionario->getId(); ?>" />&nbsp;<?php echo $funcionario->getDatoUsu()->getNombre()." Tipo: ".$funcionario->getTipo(); ?><br />
+                                        <input type="checkbox" name="funcionarios[]" value="<?php echo $funcionario->getId(); ?>" />&nbsp;<?php echo $funcionario->getDatoUsu()->getNombre()." Tipo: ".$funcionario->getRol()->getNombre(); ?><br />
                         <?php                                        
                                     }
                                 }

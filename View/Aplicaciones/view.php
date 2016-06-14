@@ -9,7 +9,7 @@
                     <div class="col-sm-10" style="text-align: center;">
                         <?php foreach ($aplicacion->getUsados() as $usado) { ?>
                             <a href="index.php?c=vehiculos&a=view&d=<?php echo $usado->getVehiculo()->getId();?>" target="_blank">
-                                <?php echo "Matrícula: ". $usado->getVehiculo()->getMatricula()." Tipo: ".$usado->getVehiculo()->getTipo()->getNombre(); ?>
+                                <?php echo "Matrícula: ". $usado->getVehiculo()->getMatricula()." Tipo: ".$usado->getVehiculo()->getTipo()->getNombre()."<br />"; ?>
                             </a>
                         <?php } ?>
                     </div>
@@ -57,7 +57,7 @@
                     <div class="col-sm-10" style="text-align: center;">                        
                         <?php foreach ($aplicacion->getProductos() as $producto) { ?>
                                 <a href="index.php?c=productos&a=view&d=<?php echo $producto->getId(); ?>" target="_blank">
-                                    <?php echo $producto->getNombre(); ?>
+                                    <?php echo $producto->getNombre()."<br />"; ?>
                                 </a>
                         <?php } ?>                                                    
                     </div>
@@ -79,7 +79,7 @@
                     <div class="col-sm-10" style="text-align: center;">
                         <?php foreach ($aplicacion->getTrabajadores() as $funcionario) { ?>
                             <a href="index.php?c=usuarios&a=view&d=<?php echo $funcionario->getId(); ?>" target="_blank">
-                                <?php echo $funcionario->getDatoUsu()->getNombre()." Tipo: ".$funcionario->getTipo(); ?>
+                                <?php echo $funcionario->getDatoUsu()->getNombre()." Tipo: ".$funcionario->getRol()->getNombre()."<br />"; ?>
                             </a>                            
                         <?php } ?>
                     </div>

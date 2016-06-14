@@ -22,8 +22,10 @@ class UsuarioModel extends AppModel
     }
     protected function getCheckFinQuery() {
         return "select * from trabajan t inner join aplicaciones a on t.aplId = a.aplId "
-        . "inner join usuarios u on t.usuId = u.usuId where t.usuId = ? and "
-        . "(u.usuTipo = ? or u.usuTipo = ?) and (a.aplFechaFin = '0000-00-00 00:00:00' or a.aplFechaFin is NULL)";
+        . "inner join usuarios u on t.usuId = u.usuId "
+        . "inner join roles r on u.rolId = r.rolId "
+        . "where t.usuId = ? and (r.rolNombre = ? or r.rolNombre = ?) "
+        . "and (a.aplFechaFin = '0000-00-00 00:00:00' or a.aplFechaFin is NULL)";
     }
     protected function getCheckFinParameter($object) {
         return [$object->getId(),"Chofer","Piloto"];
@@ -31,7 +33,9 @@ class UsuarioModel extends AppModel
     /*------------------------------------------------------------------------------------*/
     public function funcionarios(){
         $datos= array();
-        foreach($this->fetch("select * from usuarios where usuTipo = ? or usuTipo = ?", ["Chofer","Piloto"]) as $row){
+        $sql = "select * from usuarios u inner join roles r on u.rolId = r.rolId "
+        . "where r.rolNombre = ? or r.rolNombre = ?";
+        foreach($this->fetch($sql, ["Chofer","Piloto"]) as $row){
             $obj = $this->createEntity($row); 
             array_push($datos, $obj);
         }
