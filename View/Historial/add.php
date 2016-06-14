@@ -10,19 +10,19 @@
                     </div>                                        
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Fecha</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Fecha<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input type="datetime-local" name="dtfecha" class="form-control" autofocus required="required" value="<?php echo date("Y-m-d\TH:i:s"); ?>" />
                     </div>                                        
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Carga Inicial</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Carga Inicial&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input type="text" name="txtcargaini" class="form-control" required="required" placeholder="Ej: -" onkeypress="return validarNumero(event);" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Carga Final</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Carga Final&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input type="text" name="txtcargafin" class="form-control" required="required" placeholder="Ej: -" onkeypress="return validarNumero(event);" />
                     </div>

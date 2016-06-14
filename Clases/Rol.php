@@ -1,8 +1,8 @@
 <?php
 namespace Clases;
-use App\IPersiste;
-use Model\TipoProductoModel;
-class TipoProducto implements IPersiste
+use \App\IPersiste;
+use \Model\RolModel;
+class Rol implements IPersiste
 {
     private $id;
     private $nombre;
@@ -26,19 +26,19 @@ class TipoProducto implements IPersiste
         $this->estado = $estado;
     }
     function __construct() { }
-    public function equals(TipoProducto $obj){
+    public function equals(Rol $obj){
         return $this->nombre == $obj->nombre;                
     }
     public function del() {
-        return (new TipoProductoModel())->delete($this);
+        return (new RolModel())->delete($this);
     }
     public function find($criterio = null) {
-        return (new TipoProductoModel())->find($criterio);
+        return (new RolModel())->find($criterio);
     }
     public function findById($id) {
-        return (new TipoProductoModel())->findById($id);
+        return (new RolModel())->findById($id);
     }
     public function save() {
-        return ($this->id == 0 ) ? (new TipoProductoModel())->create($this) : (new TipoProductoModel())->update($this);
+        return ($this->id == 0) ? (new RolModel())->create($this) : (new RolModel())->update($this);
     }
 }

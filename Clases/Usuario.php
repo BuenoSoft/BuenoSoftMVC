@@ -7,7 +7,7 @@ class Usuario implements IPersiste
     private $id;
     private $nombre;
     private $pass;
-    private $tipo;
+    private $rol;
     private $avatar;
     private $estado;
     private $datousu;
@@ -20,8 +20,8 @@ class Usuario implements IPersiste
     function getPass() {
         return $this->pass;
     }
-    function getTipo() {
-        return $this->tipo;
+    function getRol() {
+        return $this->rol;
     }
     function getAvatar() {
         return $this->avatar;
@@ -41,8 +41,8 @@ class Usuario implements IPersiste
     function setPass($pass) {
         $this->pass = $pass;
     }
-    function setTipo($tipo) {
-        $this->tipo = $tipo;
+    function setRol($rol) {
+        $this->rol = $rol;
     }
     function setAvatar($avatar) {
         $this->avatar = $avatar;
@@ -59,7 +59,7 @@ class Usuario implements IPersiste
     }
 /*---------------------------------------------*/
     public function del() {
-        return ($this->estado == "H") ? (new UsuarioModel())->delete($this) : (new UsuarioModel())->active($this);
+        return (new UsuarioModel())->delete($this);
     }
     public function checkTra($ap){
         return (new UsuarioModel())->checkTra([$ap, $this->id]);

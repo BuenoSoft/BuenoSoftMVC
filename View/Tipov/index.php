@@ -21,11 +21,17 @@
                         <td><?php echo $tipo->getNombre(); ?></td>
                         <td><?php echo $tipo->getMedida(); ?></td>
                         <td>
-                            <a href="index.php?c=tipov&a=edit&d=<?php echo $tipo->getId(); ?>">Editar</a>&nbsp;
+                            <a href="index.php?c=tipov&a=edit&d=<?php echo $tipo->getId(); ?>" title="Editar">
+                                <i class="fa fa-edit" style="font-size: 22px;"></i>
+                            </a>&nbsp;
                             <?php if($tipo->getEstado() == "H") { ?>
-                                <a href="index.php?c=tipov&a=delete&d=<?php echo $tipo->getId(); ?>" onclick="return confirm('¿Desea borrar el Tipo seleccionado?');">Borrar</a>
+                                <a href="index.php?c=tipov&a=delete&d=<?php echo $tipo->getId(); ?>" onclick="return confirm('¿Desea borrar el Tipo seleccionado?');" title="Borrar">
+                                    <i class="fa fa-minus-circle" style="font-size: 22px;"></i>
+                                </a>
                             <?php } else { ?>
-                                <a href="index.php?c=tipov&a=active&d=<?php echo $tipo->getId(); ?>" onclick="return confirm('¿Desea activar el Tipo seleccionado?');">Activar</a>
+                                <a href="index.php?c=tipov&a=active&d=<?php echo $tipo->getId(); ?>" onclick="return confirm('¿Desea activar el Tipo seleccionado?');" title="Activar">
+                                    <i class="fa fa-unlock-alt" style="font-size: 22px;"></i>
+                                </a>
                             <?php }?>
                         </td>
                     </tr>

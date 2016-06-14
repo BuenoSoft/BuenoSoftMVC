@@ -4,7 +4,7 @@ use Clases\Historial;
 class HistorialModel extends AppModel
 {
     public function addHis($his){
-        return $this->executeQuery($this->getCreateQuery(), $this->getCreateParameter($his)); 
+        return $this->execute($this->getCreateQuery(), $this->getCreateParameter($his)); 
     }
     protected function getCreateParameter($object) {
         return [
@@ -52,7 +52,7 @@ class HistorialModel extends AppModel
         return "update historial set hisCargaIni = ?, hisCargaFin = ? where aplId = ? and vehId = ? and comId = ? and hisFecha = ?";
     }
     public function modHis($his){
-        return $this->executeQuery($this->getUpdateQuery(), $this->getUpdateParameter($his));
+        return $this->execute($this->getUpdateQuery(), $this->getUpdateParameter($his));
     }
     /*------------------------------------------------------------------------------------*/
     protected function getDeleteParameter($object) {
@@ -66,7 +66,7 @@ class HistorialModel extends AppModel
     }            
     public function createEntity($row) {
         $combustible = (new CombustibleModel())->findById($row["comId"]);
-        $usado = (new UsadoModel())->getUsado([$row["aplId"],$row["vehId"]]);
+        $usado = $this->getUsado($row);
         $historial = new Historial();
         $historial->setUsado($usado);
         $historial->setCombustible($combustible);
@@ -74,6 +74,16 @@ class HistorialModel extends AppModel
         $historial->setCargaIni($row["hisCargaIni"]);
         $historial->setCargaFin($row["hisCargaFin"]);
         return $historial;
+    }
+    private function getUsado($row){
+        $apl = (new AplicacionModel())->findById($row["aplId"]);
+        $veh = (new VehiculoModel())->findById($row["vehId"]);
+        foreach($apl->getUsados() as $usado){
+            if($usado->getVehiculo() == $veh){
+                return $usado;
+            }
+        }
+        return null;
     }
     protected function getFindParameter($criterio = null) {}        
     protected function getCheckMessage() { }

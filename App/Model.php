@@ -11,7 +11,7 @@ abstract class Model implements IModel
     protected function getBD(){
         return $this->db->getConnect();
     }    
-    protected function executeQuery($query, $parameter = array()){
+    protected function execute($query, $parameter = array()){
         $consulta = $this->getBD()->prepare($query);
         $consulta->execute($parameter);  
         return ($consulta->rowCount() > 0) ? "Ok"  : null;
@@ -34,7 +34,7 @@ abstract class Model implements IModel
     }
     /*------------------------------------------------------------------------*/
     private function check($unique) { 
-        return $this->executeQuery($this->getCheckQuery(), $this->getCheckParameter($unique));
+        return $this->execute($this->getCheckQuery(), $this->getCheckParameter($unique));
     }
     /*------------------------------------------------------------------------*/
     public function create($object) {
@@ -42,22 +42,22 @@ abstract class Model implements IModel
             Session::set('msg', $this->getCheckMessage());
             return null;
         }
-        return $this->executeQuery($this->getCreateQuery(), $this->getCreateParameter($object));
+        return $this->execute($this->getCreateQuery(), $this->getCreateParameter($object));
     }
     /*------------------------------------------------------------------------*/    
     public function update($object) {
-       $aux = $this->findById($object->getId()); 
+        $aux = $this->findById($object->getId()); 
         if(!$object->equals($aux)){
             if($this->check($object)){
                 Session::set('msg', $this->getCheckMessage());
                 return null;
             }        
         }
-        return $this->executeQuery($this->getUpdateQuery(), $this->getUpdateParameter($object)); 
+        return $this->execute($this->getUpdateQuery(), $this->getUpdateParameter($object)); 
     }
     /*------------------------------------------------------------------------*/
     public function delete($object, $notUsed = true) {
-        return $this->executeQuery($this->getDeleteQuery($notUsed), $this->getDeleteParameter($object)); 
+        return $this->execute($this->getDeleteQuery($notUsed), $this->getDeleteParameter($object)); 
     }
     /*--------------------------------------------------------------------*/
     public function find($criterio = null) {

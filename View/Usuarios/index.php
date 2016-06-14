@@ -16,7 +16,7 @@
                 <th>Usuario</th>
                 <th>Nombre de Usuario</th>
                 <th>Nombre Real</th>
-                <th>Tipo</th>
+                <th>Rol</th>
                 <th>Opciones</th>                
             </thead>
             <tbody>
@@ -27,14 +27,22 @@
                         <td><?php echo $usuario->getId(); ?></td>
                         <td><?php echo $usuario->getNombre(); ?></td>
                         <td><?php echo $usuario->getDatoUsu()->getNombre(); ?></td>
-                        <td><?php echo $usuario->getTipo(); ?></td>                        
+                        <td><?php echo $usuario->getRol()->getNombre(); ?></td>                        
                         <td>
-                            <a href="index.php?c=usuarios&a=view&d=<?php echo $usuario->getId(); ?>" target="_blank">Ver</a>&nbsp;
-                            <a href="index.php?c=usuarios&a=edit&d=<?php echo $usuario->getId(); ?>">Editar</a>&nbsp;
+                            <a href="index.php?c=usuarios&a=view&d=<?php echo $usuario->getId(); ?>" target="_blank" title="Ver">
+                                <i class="fa fa-eye" style="font-size: 22px;"></i>
+                            </a>&nbsp;
+                            <a href="index.php?c=usuarios&a=edit&d=<?php echo $usuario->getId(); ?>" title="Editar">
+                                <i class="fa fa-edit" style="font-size: 22px;"></i>
+                            </a>&nbsp;
                             <?php if($usuario->getEstado() == 'H') {?>
-                                <a href="index.php?c=usuarios&a=delete&d=<?php echo $usuario->getId(); ?>" onclick="return confirm('¿Desea borrar el usuario seleccionado?');">Borrar</a>
+                                <a href="index.php?c=usuarios&a=delete&d=<?php echo $usuario->getId(); ?>" onclick="return confirm('¿Desea borrar el usuario seleccionado?');" title="Borrar">
+                                    <i class="fa fa-minus-circle" style="font-size: 22px;"></i>
+                                </a>
                             <?php } else { ?>
-                                <a href="index.php?c=usuarios&a=active&d=<?php echo $usuario->getId(); ?>" onclick="return confirm('¿Desea activar el usuario seleccionado?');">Activar</a>
+                                <a href="index.php?c=usuarios&a=active&d=<?php echo $usuario->getId(); ?>" onclick="return confirm('¿Desea activar el usuario seleccionado?');" title="Activar">
+                                    <i class="fa fa-unlock-alt" style="font-size: 22px;"></i>
+                                </a>
                             <?php } ?>
                         </td>
                     </tr>

@@ -29,12 +29,20 @@
                         <td><?php echo $vehiculo->getTipo()->getNombre(); ?></td>
                         <td><?php echo $vehiculo->getCombustible()->getNombre(); ?></td> 
                         <td>
-                            <a href="index.php?c=vehiculos&a=view&d=<?php echo $vehiculo->getId(); ?>" target="_blank">Ver</a>&nbsp;
-                            <a href="index.php?c=vehiculos&a=edit&d=<?php echo $vehiculo->getId(); ?>">Editar</a>&nbsp;
+                            <a href="index.php?c=vehiculos&a=view&d=<?php echo $vehiculo->getId(); ?>" target="_blank" title="Ver">
+                                <i class="fa fa-eye" style="font-size: 22px;"></i>
+                            </a>&nbsp;
+                            <a href="index.php?c=vehiculos&a=edit&d=<?php echo $vehiculo->getId(); ?>" title="Editar">
+                                <i class="fa fa-edit" style="font-size: 22px;"></i>
+                            </a>&nbsp;
                             <?php if($vehiculo->getEstado() == "H") { ?>
-                                <a href="index.php?c=vehiculos&a=delete&d=<?php echo $vehiculo->getId(); ?>" onclick="return confirm('¿Desea borrar el Vehículo seleccionado?');">Borrar</a>
+                                <a href="index.php?c=vehiculos&a=delete&d=<?php echo $vehiculo->getId(); ?>" onclick="return confirm('¿Desea borrar el Vehículo seleccionado?');" title="Borrar">
+                                    <i class="fa fa-minus-circle" style="font-size: 22px;"></i>
+                                </a>
                             <?php } else { ?>
-                                <a href="index.php?c=vehiculos&a=active&d=<?php echo $vehiculo->getId(); ?>" onclick="return confirm('¿Desea activar el Vehículo seleccionado?');">Activar</a>
+                                <a href="index.php?c=vehiculos&a=active&d=<?php echo $vehiculo->getId(); ?>" onclick="return confirm('¿Desea activar el Vehículo seleccionado?');" title="Activar">
+                                    <i class="fa fa-unlock-alt" style="font-size: 22px;"></i>
+                                </a>
                             <?php }?>
                         </td>
                     </tr>

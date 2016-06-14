@@ -58,9 +58,9 @@
                     </div>
                 </div>       
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Tipo de Usuario</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Rol</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $usuario->getTipo(); ?>
+                        <?php echo $usuario->getRol()->getNombre(); ?>
                     </div>
                 </div>
                 <div class="form-group" style="text-align: center;">

@@ -17,7 +17,6 @@
                 <th>Nombre</th>
                 <th>Stock</th>
                 <th>Tipo</th>
-                <th>Fecha de Carga</th>
                 <th>Opciones</th>
             </thead>
             <tbody>
@@ -29,14 +28,21 @@
                         <td><?php echo $combustible->getNombre(); ?></td>
                         <td><?php echo $combustible->getStock(); ?></td>
                         <td><?php echo $combustible->getTipo()->getNombre(); ?></td>
-                        <td><?php echo $combustible->getFecha(); ?></td>
                         <td>
-                            <a href="index.php?c=combustibles&a=view&d=<?php echo $combustible->getId(); ?>" target="_blank" title="ver">Ver</a>&nbsp;
-                            <a href="index.php?c=combustibles&a=edit&d=<?php echo $combustible->getId(); ?>" title="editar">Editar</a>&nbsp;
+                            <a href="index.php?c=combustibles&a=view&d=<?php echo $combustible->getId(); ?>" target="_blank" title="Ver">
+                                <i class="fa fa-eye" style="font-size: 22px;"></i>
+                            </a>&nbsp;
+                            <a href="index.php?c=combustibles&a=edit&d=<?php echo $combustible->getId(); ?>" title="Editar">
+                                <i class="fa fa-edit" style="font-size: 22px;"></i>
+                            </a>&nbsp;
                             <?php if($combustible->getEstado() == 'H'){ ?>
-                            <a href="index.php?c=combustibles&a=delete&d=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea borrar el combustible seleccionado?');">Borrar</a>
+                            <a href="index.php?c=combustibles&a=delete&d=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea borrar el combustible seleccionado?');" title="Borrar">
+                                <i class="fa fa-minus-circle" style="font-size: 22px;"></i>
+                            </a>
                         <?php } else {?>
-                            <a href="index.php?c=combustibles&a=active&d=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea activar el combustible seleccionado?');">Activar</a>
+                            <a href="index.php?c=combustibles&a=active&d=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea activar el combustible seleccionado?');" title="Activar">
+                                <i class="fa fa-unlock-alt" style="font-size: 22px;"></i>
+                            </a>
                         <?php }?>
                         </td>                        
                     </tr>

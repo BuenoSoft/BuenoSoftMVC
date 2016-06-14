@@ -1,6 +1,6 @@
 <?php
 namespace App;
-use Lib\Paginador;
+use \Lib\Paginador;
 include('./Lib/fpdf/FPDF.php');
 abstract class Controller 
 {
@@ -50,7 +50,7 @@ abstract class Controller
         return $this->pdf;
     }    
     protected function checkUser() {                
-        if (Session::get("log_in") != null and Session::get("log_in")->getTipo() == $this->getTypeRole()) {
+        if (Session::get("log_in") != null and Session::get("log_in")->getRol()->getNombre() == $this->getTypeRole()) {
             return true;
         } else {
             Session::set("msg", "Debe loguearse como " . $this->getMessageRole() . " para acceder.");
@@ -60,7 +60,7 @@ abstract class Controller
     protected function getTypeRole() { 
         $opciones = $this->getRoles();
         foreach($opciones as $opcion){
-            if(Session::get("log_in")->getTipo() == $opcion){
+            if(Session::get("log_in")->getRol()->getNombre() == $opcion){
                 return $opcion;
             }
         }

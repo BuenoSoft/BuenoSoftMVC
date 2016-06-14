@@ -6,9 +6,6 @@ class PistaModel extends AppModel
     public function __construct() {
         parent::__construct();
     }
-    public function active($object){
-        return $this->executeQuery($this->getDeleteQuery(false), $this->getActiveParameter($object));
-    }
     protected function getCheckMessage() {
         return "Esta pista ya existe";
     }
@@ -52,10 +49,11 @@ class PistaModel extends AppModel
         return $pista;
     }
     protected function getDeleteParameter($object) {
-        return ['D',$object->getId()];
-    }
-    protected function getActiveParameter($object) {
-        return ['H',$object->getId()];
+        if($object->getEstado() == "H"){
+            return ['D',$object->getId()];
+        } else {
+            return ['H',$object->getId()];
+        }
     }
     protected function getDeleteQuery($notUsed = true) { 
         return "update pistas set pisEstado = ? where pisId = ?";

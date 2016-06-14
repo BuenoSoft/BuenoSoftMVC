@@ -39,9 +39,6 @@ class Pista implements IPersiste
     public function del() {
         return (new PistaModel())->delete($this);
     }
-    public function active() {
-        return (new PistaModel())->active($this);
-    }
     public function find($criterio = null) {
         return (new PistaModel())->find($criterio);
     }

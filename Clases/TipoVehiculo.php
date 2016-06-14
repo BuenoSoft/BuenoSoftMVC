@@ -37,7 +37,7 @@ class TipoVehiculo implements IPersiste
         return $this->nombre == $obj->nombre;                
     }
     public function del() {
-        return ($this->estado == "H") ? (new TipoVehiculoModel())->delete($this) : (new TipoVehiculoModel())->active($this);
+        return (new TipoVehiculoModel())->delete($this);
     }
     public function find($criterio = null) {
         return (new TipoVehiculoModel())->find();

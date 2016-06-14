@@ -63,7 +63,7 @@ class TipopController extends AppController
         if($this->checkUser()){
             if (isset($_GET['d'])){
                 $tp = (new TipoProducto())->findById($_GET['d']);
-                $id = $tp->active();
+                $id = $tp->del();
                 Session::set("msg", (isset($id)) ? "Tipo de Producto Activado" : "No se pudo activar el tipo");
                 header("Location:index.php?c=tipop&a=index");
             }        

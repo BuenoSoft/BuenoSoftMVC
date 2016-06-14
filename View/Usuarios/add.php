@@ -63,13 +63,17 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Tipo de Usuario&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Rol&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="tipos" class="form-control" placeholder="Seleccione un Tipo de Usuario" required="required" name="cboxtipo" tabindex="8" />
+                        <input list="tipos" class="form-control" placeholder="Seleccione un Rol" required="required" name="cboxtipo" tabindex="8" />
                         <datalist id="tipos">
-                            <option value="Administrador">Administrador del Sistema</option>
-                            <option value="Supervisor">Supervisor de Seguridad del Sistema</option>
-                            <option value="Usuario">Usuario logueado como cliente</option>
+                            <?php 
+                                foreach($roles as $rol){ 
+                                    if($rol->getEstado() == "H"){?>
+                                        <option value="<?php echo $rol->getId(); ?>"><?php echo $rol->getNombre(); ?></option>                            
+                            <?php   }                            
+                                } 
+                            ?>
                         </datalist>
                     </div>
                 </div>

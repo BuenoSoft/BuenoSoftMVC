@@ -3,11 +3,11 @@
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
-                <h4><i class="fa fa-angle-right"></i> Datos del Tipo:</h4>
+                <h4><i class="fa fa-angle-right"></i>&nbsp;Datos del Tipo:</h4>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre del Tipo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtnombre" class="form-control" required="required" placeholder="Ej: Avión" autofocus="autofocus"onkeypress="return validarTextoyNum(event)" tabindex="1"  />
+                        <input type="text" name="txtnombre" class="form-control" required="required" placeholder="Ej: Avión" autofocus="autofocus"onkeypress="return validarTexto(event)" tabindex="1"  />
                     </div>
                 </div>
                 <div class="form-group">

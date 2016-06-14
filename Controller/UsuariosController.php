@@ -2,6 +2,7 @@
 namespace Controller;
 use \App\Session;
 use \Lib\Upload;
+use \Clases\Rol;
 use \Clases\DatosUsu;
 use \Clases\Usuario;
 class UsuariosController extends AppController
@@ -63,7 +64,9 @@ class UsuariosController extends AppController
                     Session::set("msg",Session::get('msg'));
                 }                
             }
-            $this->redirect_administrador(["add.php"]);        
+            $this->redirect_administrador(["add.php"],[
+                "roles" => (new Rol())->find()
+            ]);        
         }
     }
     public function edit(){
@@ -83,7 +86,10 @@ class UsuariosController extends AppController
                     Session::set("msg",Session::get('msg'));
                 }                
             }
-            $this->redirect_administrador(["edit.php"],["usuario" => (new Usuario())->findById(Session::get('usu'))]);  
+            $this->redirect_administrador(["edit.php"],[
+                "usuario" => (new Usuario())->findById(Session::get('usu')),
+                "roles" => (new Rol())->find()
+            ]);  
         }
     }
     public function avatar(){

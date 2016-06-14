@@ -41,12 +41,16 @@
                             ?>                        
                         </td>
                         <td>
-                            <a href="index.php?c=aplicaciones&a=view&d=<?php echo $aplicacion->getId(); ?>" target="_blank">Ver</a>&nbsp;
-                            <a href="index.php?c=aplicaciones&a=edit&d=<?php echo $aplicacion->getId(); ?>">Editar</a>&nbsp;
-                            <a href="index.php?c=usados&a=index&d=<?php echo $aplicacion->getId(); ?>">Usados</a>&nbsp;
-                        </td>
-                        
-                        
+                            <a href="index.php?c=aplicaciones&a=view&d=<?php echo $aplicacion->getId(); ?>" target="_blank" title="Ver">
+                                <i class="fa fa-eye" style="font-size: 22px;"></i>
+                            </a>&nbsp;
+                            <a href="index.php?c=aplicaciones&a=edit&d=<?php echo $aplicacion->getId(); ?>" title="Editar">
+                                <i class="fa fa-edit" style="font-size: 22px;"></i>
+                            </a>&nbsp;
+                            <a href="index.php?c=usados&a=index&d=<?php echo $aplicacion->getId(); ?>" title="Usados">
+                                <i class="fa fa-car" style="font-size: 22px;"></i>
+                            </a>&nbsp;
+                        </td>                                    
                     </tr>
                 <?php } ?>
             </tbody>

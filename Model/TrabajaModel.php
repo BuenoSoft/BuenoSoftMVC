@@ -11,14 +11,14 @@ class TrabajaModel extends AppModel
     }
     /*---------------------------------------------------------------------*/
     public function addTra($dates = []){
-        return $this->executeQuery($this->getCreateQuery(), $this->getCheckTraParameter($dates));
+        return $this->execute($this->getCreateQuery(), $this->getCheckTraParameter($dates));
     }
     protected function getCreateQuery() {
         return "insert into trabajan(aplId,usuId) values(?,?)";
     }
     /*---------------------------------------------------------------------*/
     public function delTra($dates = []){
-        return $this->executeQuery($this->getDeleteQuery(false), $this->getCheckTraParameter($dates));
+        return $this->execute($this->getDeleteQuery(false), $this->getCheckTraParameter($dates));
     }
     protected function getDeleteQuery($notUsed = true) {
         return "delete from trabajan where aplId = ? and usuId = ?";

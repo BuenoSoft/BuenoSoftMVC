@@ -7,17 +7,23 @@
         <table class="table table-bordered table-striped table-condensed">
             <thead>                
                 <th>Vehículo</th>
-                <th>Conductor</th>
                 <th>Opciones</th>
             </thead>
             <tbody>
                 <?php foreach($usados as $usado) {?>
                     <tr>                        
-                        <td><a href="index.php?c=vehiculos&a=view&d=<?php echo $usado->getVehiculo()->getId();?>"><?php echo $usado->getVehiculo()->getMatricula();?></a></td>
-                        <td><?php echo $usado->getConductor(); ?></td>
                         <td>
-                            <a href="index.php?c=usados&a=edit&d=<?php echo $usado->getAplicacion()->getId(); ?>&v=<?php echo $usado->getVehiculo()->getId();?>">Editar</a>&nbsp;
-                            <a href="index.php?c=historial&a=index&d=<?php echo $usado->getAplicacion()->getId(); ?>&v=<?php echo $usado->getVehiculo()->getId();?>">Historial</a>
+                            <a href="index.php?c=vehiculos&a=view&d=<?php echo $usado->getVehiculo()->getId();?>" target="_blank">
+                                <?php echo $usado->getVehiculo()->getMatricula();?>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="index.php?c=usados&a=edit&d=<?php echo $usado->getAplicacion()->getId(); ?>&v=<?php echo $usado->getVehiculo()->getId();?>" title="Editar">
+                                <i class="fa fa-edit" style="font-size: 22px;"></i>
+                            </a>&nbsp;
+                            <a href="index.php?c=historial&a=index&d=<?php echo $usado->getAplicacion()->getId(); ?>&v=<?php echo $usado->getVehiculo()->getId();?>" title="Historial">
+                                <i class="fa fa-info-circle" style="font-size: 22px;"></i>
+                            </a>
                         </td>
                     </tr>
                 <?php } ?>

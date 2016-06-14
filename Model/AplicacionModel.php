@@ -7,7 +7,7 @@ class AplicacionModel extends AppModel
         return $this->fetch("select max(aplId) as maximo from aplicaciones",[])[0]['maximo'];
     }
     public function addApp($object){
-        return $this->executeQuery($this->getCreateQuery(),  $this->getCreateParameter($object));
+        return $this->execute($this->getCreateQuery(),  $this->getCreateParameter($object));
     }   
     protected function getCreateParameter($object) {
         return [
@@ -20,18 +20,18 @@ class AplicacionModel extends AppModel
     protected function getCreateQuery() {
         return "insert into aplicaciones(aplCoordCul,pisId,aplAreaAplicada,aplFaja,"
             . "aplFechaIni,aplFechaFin,aplTratamiento,aplViento,tpId,aplTaquiIni,"
-            . "aplTaquiFin,aplPadron,aplCultivo,aplCaudal,aplDosis,datId)"
+            . "aplTaquiFin,aplPadron,aplCultivo,aplCaudal,aplDosis,usuId)"
             . "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     }
     /*------------------------------------------------------------------------------------*/
     public function modApp($object){
-        return $this->executeQuery($this->getUpdateQuery(), $this->getUpdateParameter($object));        
+        return $this->execute($this->getUpdateQuery(), $this->getUpdateParameter($object));        
     }
     protected function getUpdateQuery() {
         return "update aplicaciones set aplCoordCul = ?,pisId = ?, aplAreaAplicada = ?, "
             . "aplFaja = ?,aplFechaIni = ?,aplFechaFin = ?,aplTratamiento = ?,aplViento = ?,"
             . "tpId = ?,aplTaquiIni = ?,aplTaquiFin = ?,aplPadron = ?,aplCultivo = ?, "
-            . "aplCaudal = ?, aplDosis = ?,datId = ? where aplId = ?";
+            . "aplCaudal = ?, aplDosis = ?,usuId = ? where aplId = ?";
     }
     protected function getUpdateParameter($object) {
         return [
@@ -48,9 +48,12 @@ class AplicacionModel extends AppModel
     }
     protected function getFindQuery($criterio = null) {
         if($criterio == null){
-            return "select * from aplicaciones a inner join datosusu d on a.datId = d.datId";
+            return "select * from aplicaciones a inner join usuarios u on a.usuId = u.usuId "
+            . "inner join datosusu d on u.datId = d.datId";
         } else {
-            return "select * from aplicaciones a inner join datosusu d on a.datId = d.datId where d.datDocumento like :filtro or d.datNombre like :filtro";
+            return "select * from aplicaciones a inner join usuarios u on a.usuId = u.usuId "
+            . "inner join datosusu d on u.datId = d.datId where d.datDocumento "
+            . "like :filtro or d.datNombre like :filtro";
         }
         
     }
@@ -75,7 +78,7 @@ class AplicacionModel extends AppModel
         $aplicacion->setCultivo($row["aplCultivo"]);
         $aplicacion->setCaudal($row["aplCaudal"]);
         $aplicacion->setDosis($row["aplDosis"]);
-        $aplicacion->setCliente((new DatosUsuModel())->findById($row["datId"]));
+        $aplicacion->setCliente((new UsuarioModel())->findById($row["usuId"]));
         return $aplicacion;
     }
     /*-------------------------------------------------------------------------------*/

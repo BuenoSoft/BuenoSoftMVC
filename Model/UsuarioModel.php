@@ -8,7 +8,7 @@ class UsuarioModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     public function checkTra($dates = []) {
-        return $this->executeQuery($this->getCheckTraQuery(),$this->getCheckTraParameter($dates));
+        return $this->execute($this->getCheckTraQuery(),$this->getCheckTraParameter($dates));
     } 
     public function getCheckTraParameter($dates = []) {
         return [$dates[0],$dates[1]];
@@ -18,7 +18,7 @@ class UsuarioModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     public function checkAplFin($object) {
-        return $this->executeQuery($this->getCheckFinQuery(),$this->getCheckFinParameter($object));
+        return $this->execute($this->getCheckFinQuery(),$this->getCheckFinParameter($object));
     }
     protected function getCheckFinQuery() {
         return "select * from trabajan t inner join aplicaciones a on t.aplId = a.aplId "
@@ -48,10 +48,6 @@ class UsuarioModel extends AppModel
         return [$datos[0], md5($datos[1])];
     }
     /*------------------------------------------------------------------------------------*/
-    public function active($object){
-        return $this->executeQuery($this->getDeleteQuery(false), $this->getActiveParameter($object));
-    }
-    /*------------------------------------------------------------------------------------*/
     protected function getCheckMessage() {
         return "El Usuario ya existe.";
     }
@@ -63,14 +59,14 @@ class UsuarioModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     protected function getCreateParameter($object) {
-        return [$object->getNombre(), md5($object->getPass()), $object->getTipo(),$object->getAvatar(),'H',$object->getDatoUsu()->getId()];
+        return [$object->getNombre(), md5($object->getPass()), $object->getRol()->getId(),$object->getAvatar(),'H',$object->getDatoUsu()->getId()];
     }
     protected function getCreateQuery() {
-        return "insert into usuarios(usuNombre,usuPass,usuTipo,usuAvatar,usuEstado,datId) values(?,?,?,?,?,?)"; 
+        return "insert into usuarios(usuNombre,usuPass,rolId,usuAvatar,usuEstado,datId) values(?,?,?,?,?,?)"; 
     }
     /*------------------------------------------------------------------------------------*/
     public function getAvatar($object){
-        return $this->executeQuery($this->getAvatarQuery(), $this->getAvatarParameter($object));
+        return $this->execute($this->getAvatarQuery(), $this->getAvatarParameter($object));
     }
     public function getAvatarQuery(){
         return "update usuarios set usuAvatar = ? where usuId = ?";
@@ -80,10 +76,11 @@ class UsuarioModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     protected function getDeleteParameter($object) {
-        return ['D',$object->getId()];
-    }
-    protected function getActiveParameter($object) {
-        return ['H',$object->getId()];
+        if($object->getEstado() == "H"){
+            return ['D',$object->getId()];
+        } else {
+            return ['H',$object->getId()];
+        }
     }
     protected function getDeleteQuery($notUsed = true) {
         return "update usuarios set usuEstado = ? where usuId = ?";
@@ -105,10 +102,10 @@ class UsuarioModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     protected function getUpdateParameter($object) {
-        return [$object->getNombre(), $object->getPass(), $object->getTipo(),$object->getDatoUsu()->getId(), $object->getId()];
+        return [$object->getNombre(), $object->getPass(), $object->getRol()->getId(),$object->getDatoUsu()->getId(), $object->getId()];
     }
     protected function getUpdateQuery() {
-        return "update usuarios set usuNombre = ?,usuPass = ?,usuTipo = ?,datId = ? where usuId = ?";
+        return "update usuarios set usuNombre = ?,usuPass = ?,rolId = ?,datId = ? where usuId = ?";
     }
     /*------------------------------------------------------------------------------------*/
     public function createEntity($row) {
@@ -116,7 +113,7 @@ class UsuarioModel extends AppModel
         $usuario->setId($row['usuId']);
         $usuario->setNombre($row['usuNombre']);
         $usuario->setPass($row['usuPass']);
-        $usuario->setTipo($row['usuTipo']);
+        $usuario->setRol((new RolModel())->findById($row['rolId']));
         $usuario->setAvatar($row['usuAvatar']);
         $usuario->setEstado($row['usuEstado']);
         $usuario->setDatoUsu((new DatosUsuModel())->findById($row['datId']));

@@ -12,7 +12,7 @@ class UsadoModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     public function addUsu($dates = []){
-        return $this->executeQuery($this->getCreateQuery(), $this->getCheckUsuParameter($dates));
+        return $this->execute($this->getCreateQuery(), $this->getCheckUsuParameter($dates));
     }
     protected function getCreateQuery() {
         return "insert into utiliza(aplId,vehId) values(?,?)";
@@ -34,7 +34,7 @@ class UsadoModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/ 
     public function delUsu($dates = []){
-        return $this->executeQuery($this->getDeleteQuery(false), $this->getCheckUsuParameter($dates));
+        return $this->execute($this->getDeleteQuery(false), $this->getCheckUsuParameter($dates));
     }
     protected function getDeleteQuery($notUsed = true) { 
         return "delete from utiliza where aplId = ? and vehId = ?";

@@ -7,7 +7,6 @@ class Combustible implements IPersiste
     private $id;
     private $nombre;
     private $stock;
-    private $fecha;
     private $tipo;
     private $estado;
     function getId() {
@@ -18,9 +17,6 @@ class Combustible implements IPersiste
     }
     function getStock() {
         return $this->stock;
-    }
-    function getFecha() {
-        return $this->fecha;
     }
     function getTipo() {
         return $this->tipo;
@@ -37,9 +33,6 @@ class Combustible implements IPersiste
     function setStock($stock) {
         $this->stock = $stock;
     }
-    function setFecha($fecha) {
-        $this->fecha = $fecha;
-    }
     function setTipo($tipo) {
         $this->tipo = $tipo;
     }
@@ -52,7 +45,7 @@ class Combustible implements IPersiste
     }
     /*---------------------------------------*/
     public function del() {
-        return ($this->estado == "H") ? (new CombustibleModel())->delete($this) : (new CombustibleModel())->active($this);
+        return (new CombustibleModel())->delete($this);
     }
     public function find($criterio = null) {
         return (new CombustibleModel())->find($criterio);

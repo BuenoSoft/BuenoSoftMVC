@@ -67,7 +67,7 @@ class PistasController extends AppController
         if($this->checkUser()){
             if (isset($_GET['d'])){
                 $pis = (new Pista())->findById($_GET['d']);
-                $id = $pis->active();
+                $id = $pis->del();
                 Session::set("msg", (isset($id)) ? "Pista Activada" : "No se pudo activar la pista");
                 header("Location:index.php?c=pistas&a=index");
             }        

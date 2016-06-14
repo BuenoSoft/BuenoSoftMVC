@@ -19,7 +19,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Coordenadas de la Pista&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcoord" onkeypress="return validarNumeroPC(event)" pattern="[+-]?[\d]{1,3}.[+-]?[\d]{1,3},[+-]?[\d]{1,3}.[+-]?[\d]{1,3}" class="form-control" required="required" placeholder="-30.434,-57.439" tabindex="2" value="<?php echo $pista->getCoordenadas(); ?>" />
+                        <input type="text" name="txtcoord" onkeypress="return validarNumeroPC(event)" class="form-control" pattern="[+-]?[\d]{1,3}.{1}?[\d]{1,3},[+-]?[\d]{1,3}.{1}?[\d]{1,3}" required="required" placeholder="Ej: -30.434,-57.439" tabindex="2" value="<?php echo $pista->getCoordenadas(); ?>" />
                     </div>
                 </div>
             </div>

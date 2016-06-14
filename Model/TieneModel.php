@@ -11,14 +11,14 @@ class TieneModel extends AppModel
     }
     /*---------------------------------------------------------------------*/
     public function addPro($dates = []){
-        return $this->executeQuery($this->getCreateQuery(), $this->getCheckTieneParameter($dates));
+        return $this->execute($this->getCreateQuery(), $this->getCheckTieneParameter($dates));
     }
     protected function getCreateQuery() {
         return "insert into tiene(aplId,proId) values (?,?)";
     }
     /*---------------------------------------------------------------------*/
     public function delPro($dates = []){
-        return $this->executeQuery($this->getDeleteQuery(false), $this->getCheckTieneParameter($dates));
+        return $this->execute($this->getDeleteQuery(false), $this->getCheckTieneParameter($dates));
     }
     protected function getDeleteQuery($notUsed = true) {
         return "delete from tiene where aplId = ? and proId = ?";

@@ -139,7 +139,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Coordenadas de Cultivo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcoordcul" pattern="[+-]?[\d]{1,3}.[+-]?[\d]{1,3},[+-]?[\d]{1,3}.[+-]?[\d]{1,3}" onkeypress="return validarNumeroPC(event)" class="form-control" required="required" placeholder="-30.434,-57.439" tabindex="8" value="<?php echo \App\Session::get("pass")[1]; ?>" />
+                        <input type="text" name="txtcoordcul" pattern="[+-]?[\d]{1,3}.{1}?[\d]{1,3},[+-]?[\d]{1,3}.{1}?[\d]{1,3}" onkeypress="return validarNumeroPC(event)" class="form-control" required="required" placeholder="-30.434,-57.439" tabindex="8" value="<?php echo \App\Session::get("pass")[1]; ?>" />
                     </div>
                 </div>
                 <div class="form-group">

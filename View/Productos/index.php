@@ -31,12 +31,20 @@
                     <td><?php echo $producto->getMarca(); ?></td>
                     <td><?php echo $producto->getTipo()->getNombre(); ?></td>
                     <td>
-                        <a href="index.php?c=productos&a=view&d=<?php echo $producto->getId(); ?>" target="_blank">Ver</a>&nbsp;
-                        <a href="index.php?c=productos&a=edit&d=<?php echo $producto->getId(); ?>">Editar</a>&nbsp;
+                        <a href="index.php?c=productos&a=view&d=<?php echo $producto->getId(); ?>" target="_blank" title="Ver">
+                            <i class="fa fa-eye" style="font-size: 22px;"></i>
+                        </a>&nbsp;
+                        <a href="index.php?c=productos&a=edit&d=<?php echo $producto->getId(); ?>" title="Editar">
+                            <i class="fa fa-edit" style="font-size: 22px;"></i>
+                        </a>&nbsp;
                         <?php if($producto->getEstado() == 'H'){ ?>
-                            <a href="index.php?c=productos&a=delete&d=<?php echo $producto->getId(); ?>" onclick="return confirm('¿Desea borrar el producto seleccionado?');">Borrar</a>
+                            <a href="index.php?c=productos&a=delete&d=<?php echo $producto->getId(); ?>" onclick="return confirm('¿Desea borrar el producto seleccionado?');" title="Borrar">
+                                <i class="fa fa-minus-circle" style="font-size: 22px;"></i>
+                            </a>
                         <?php } else {?>
-                            <a href="index.php?c=productos&a=active&d=<?php echo $producto->getId(); ?>" onclick="return confirm('¿Desea activar el producto seleccionado?');">Activar</a>
+                            <a href="index.php?c=productos&a=active&d=<?php echo $producto->getId(); ?>" onclick="return confirm('¿Desea activar el producto seleccionado?');" title="Activar">
+                                <i class="fa fa-unlock-alt" style="font-size: 22px;"></i>
+                            </a>
                         <?php }?>
                     </td>
                 </tr>

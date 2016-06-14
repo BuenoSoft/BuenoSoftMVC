@@ -4,7 +4,10 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
                 <div class="form-group">
-                    <?php echo $historial->getUsado()->getVehiculo()->getCombustible()->getNombre(); ?>                                       
+                    <label class="col-sm-2 col-sm-2 control-label">Fecha</label>
+                    <div class="col-sm-10" style="text-align: center;">
+                        <?php echo $historial->getUsado()->getVehiculo()->getCombustible()->getNombre(); ?> 
+                    </div>                                                          
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha</label>
@@ -13,13 +16,13 @@
                     </div>                                        
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Carga Inicial</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Carga Inicial&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input type="text" name="txtcargaini" class="form-control" required="required" placeholder="Ej: -" onkeypress="return validarNumero(event);" value="<?php echo $historial->getCargaIni(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Carga Final</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Carga Final&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input type="text" name="txtcargafin" class="form-control" required="required" placeholder="Ej: -" onkeypress="return validarNumero(event);" value="<?php echo $historial->getCargaFin(); ?>" />
                     </div>

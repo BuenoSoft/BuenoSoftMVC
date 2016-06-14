@@ -8,7 +8,7 @@ class VehiculoModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     public function checkUsu($dates = []) {
-        return $this->executeQuery($this->getCheckUsuQuery(),$this->getCheckUsuParameter($dates));
+        return $this->execute($this->getCheckUsuQuery(),$this->getCheckUsuParameter($dates));
     }
     private function getCheckUsuQuery() {
         return "select * from utiliza where aplId = ? and vehId = ?";
@@ -18,7 +18,7 @@ class VehiculoModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     public function checkAplFin($object) {
-        return $this->executeQuery($this->getCheckFinQuery(),$this->getCheckFinParameter($object));
+        return $this->execute($this->getCheckFinQuery(),$this->getCheckFinParameter($object));
     }
     protected function getCheckFinQuery() {
         return "select * from utiliza u inner join aplicaciones a on u.aplId = a.aplId "
@@ -26,10 +26,6 @@ class VehiculoModel extends AppModel
     }
     protected function getCheckFinParameter($object) {
         return [$object->getId()];
-    }
-    /*------------------------------------------------------------------------------------*/
-    public function active($object){
-        return $this->executeQuery($this->getDeleteQuery(false), $this->getActiveParameter($object));
     }
     /*------------------------------------------------------------------------------------*/
     protected function getCheckMessage() {
@@ -55,10 +51,11 @@ class VehiculoModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     protected function getDeleteParameter($object) {
-        return ['D',$object->getId()];
-    }
-    protected function getActiveParameter($object) {
-        return ['H',$object->getId()];
+        if($object->getEstado() == "H"){
+            return ['D',$object->getId()];
+        } else {
+            return ['H',$object->getId()];
+        }
     }
     protected function getDeleteQuery($notUsed = true) {
         return "update vehiculos set vehEstado = ? where vehId = ?";

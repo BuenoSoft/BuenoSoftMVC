@@ -8,7 +8,7 @@ class ProductoModel extends AppModel
     }
     /*---------------------------------------------------------------------*/
     public function checkPro($dates = []) {
-        return $this->executeQuery($this->getCheckProQuery(),$this->getCheckTieneParameter($dates));
+        return $this->execute($this->getCheckProQuery(),$this->getCheckTieneParameter($dates));
     } 
     private function getCheckTieneParameter($dates = []) {
         return [$dates[0],$dates[1]];
@@ -16,10 +16,6 @@ class ProductoModel extends AppModel
     private function getCheckProQuery() {
         return "select * from tiene where aplId = ? and proId = ?";
     } 
-    /*---------------------------------------------------------------------*/
-    public function active($object){
-        return $this->executeQuery($this->getDeleteQuery(false), $this->getActiveParameter($object));
-    }
     /*---------------------------------------------------------------------*/
     public function findByTipo($tipo){
         $datos= array();
@@ -48,10 +44,11 @@ class ProductoModel extends AppModel
     }
     /*---------------------------------------------------------------------*/
     protected function getDeleteParameter($object) {
-        return ['D',$object->getId()];
-    }
-    protected function getActiveParameter($object) {
-        return ['H',$object->getId()];
+        if($object->getEstado() == "H"){
+            return ['D',$object->getId()];
+        } else {
+            return ['H',$object->getId()];
+        }
     }
     protected function getDeleteQuery($notUsed = true) {
         return "update productos set proEstado = ? where proId = ?";
