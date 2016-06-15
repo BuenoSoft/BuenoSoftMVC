@@ -153,9 +153,9 @@ class UsuariosController extends AppController
         $ruta= (isset($_FILES['avatar']) ? $this->upload->uploadImage($_FILES['avatar']) : '');
         $usuario = new Usuario();
         $usuario->setId(isset($_POST['hid']) ? $_POST['hid'] : 0);
-        $usuario->setNombre($_POST['txtuser']);
+        $usuario->setNombre($this->clean($_POST['txtuser']));
         $usuario->setPass($_POST['txtpass']);
-        $usuario->setTipo($_POST['cboxtipo']);
+        $usuario->setRol((new Rol())->findById($_POST['cboxtipo']));
         $usuario->setAvatar($ruta);
         $usuario->setDatoUsu($datousu);
         return $usuario; 

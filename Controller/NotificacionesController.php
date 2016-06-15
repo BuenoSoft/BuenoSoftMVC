@@ -63,13 +63,12 @@ class NotificacionesController extends AppController
         }
     }
     private function createEntity(){
-        $veh = (new Vehiculo())->findById($_POST["cboxveh"]);
         $not = new Notificacion();
         $not->setId(isset($_POST["hid"]) ? $_POST["hid"] : 0);
-        $not->setLog($_POST["txtlog"]); 
+        $not->setLog($this->clean($_POST["txtlog"])); 
         $not->setFechaini($_POST["dtfechaini"]);
         $not->setFechafin(isset($_POST["dtfechafin"]) ? $_POST["dtfechafin"] : null);
-        $not->setVehiculo($veh);
+        $not->setVehiculo((new Vehiculo())->findById($_POST["cboxveh"]));
         return $not;
     }
     protected function getRoles() {

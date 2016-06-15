@@ -89,7 +89,7 @@ class CombustiblesController extends AppController
     private function createEntity(){
         $combustibles = new Combustible();
         $combustibles->setId((isset($_POST['hid']) ? $_POST['hid'] : 0));
-        $combustibles->setNombre($_POST['txtnombre']);
+        $combustibles->setNombre($this->clean($_POST['txtnombre']));
         $combustibles->setStock($_POST['txtstock']);
         $combustibles->setTipo((new TipoVehiculo())->findById($_POST['tipo']));
         $combustibles->setFecha($_POST['dtfecha']);

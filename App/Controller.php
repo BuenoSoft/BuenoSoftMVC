@@ -66,6 +66,9 @@ abstract class Controller
         }
         return null;
     }
+    protected function clean($cadena){
+        return htmlentities($cadena);
+    }
     protected function getMessageRole() { }
     protected function getRoles(){}
 }

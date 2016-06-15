@@ -72,7 +72,7 @@ class TipopController extends AppController
     private function createEntity(){
         $tp = new TipoProducto();
         $tp->setId(isset($_POST["hid"]) ? $_POST["hid"] : 0);
-        $tp->setNombre($_POST["txtnombre"]);
+        $tp->setNombre($this->clean($_POST["txtnombre"]));
         return $tp;
     }
     protected function getRoles() {

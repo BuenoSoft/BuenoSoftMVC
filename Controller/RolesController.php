@@ -72,7 +72,7 @@ class RolesController extends AppController
     private function createEntity(){
         $rol = new Rol();
         $rol->setId(isset($_POST["hid"]) ? $_POST["hid"] : 0);
-        $rol->setNombre($_POST["txtnombre"]);
+        $rol->setNombre($this->clean($_POST["txtnombre"]));
         return $rol;
     }
     protected function getRoles() {

@@ -83,7 +83,7 @@ class PistasController extends AppController
     private function createEntity(){
         $pista = new Pista();
         $pista->setId(isset($_POST["hid"]) ? $_POST["hid"] : 0);
-        $pista->setNombre($_POST["txtnombre"]);
+        $pista->setNombre($this->clean($_POST["txtnombre"]));
         $pista->setCoordenadas($_POST["txtcoord"]);
         return $pista;
     }

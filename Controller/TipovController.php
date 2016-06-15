@@ -72,8 +72,8 @@ class TipovController extends AppController
     private function createEntity(){
         $tv = new TipoVehiculo();
         $tv->setId(isset($_POST["hid"]) ? $_POST["hid"] : 0);
-        $tv->setNombre($_POST["txtnombre"]);
-        $tv->setMedida($_POST["medida"]);
+        $tv->setNombre($this->clean($_POST["txtnombre"]));
+        $tv->setMedida($this->clean($_POST["medida"]));
         return $tv;
     }
     protected function getRoles() {

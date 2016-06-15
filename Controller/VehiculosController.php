@@ -89,15 +89,15 @@ class VehiculosController extends AppController
     private function createEntity(){
         $vehiculo = new Vehiculo();
         $vehiculo->setId((isset($_POST['hid'])) ? $_POST['hid'] : 0);
-        $vehiculo->setMatricula($_POST['txtmat']);
-        $vehiculo->setPadron($_POST['txtpadron']);
+        $vehiculo->setMatricula($this->clean($_POST['txtmat']));
+        $vehiculo->setPadron($this->clean($_POST['txtpadron']));
         $vehiculo->setTipo((new TipoVehiculo())->findById($_POST['tipo']));
-        $vehiculo->setMotor($_POST['txtmotor']);
-        $vehiculo->setChasis($_POST['txtchasis']);
-        $vehiculo->setCapcarga($_POST['txtcap']);
-        $vehiculo->setModelo($_POST['txtmodelo']);
-        $vehiculo->setMarca($_POST['txtmarca']);
-        $vehiculo->setAnio($_POST['txtanio']);
+        $vehiculo->setMotor($this->clean($_POST['txtmotor']));
+        $vehiculo->setChasis($this->clean($_POST['txtchasis']));
+        $vehiculo->setCapcarga($this->clean($_POST['txtcap']));
+        $vehiculo->setModelo($this->clean($_POST['txtmodelo']));
+        $vehiculo->setMarca($this->clean($_POST['txtmarca']));
+        $vehiculo->setAnio($this->clean($_POST['txtanio']));
         $vehiculo->setCombustible($this->getCombustible($_POST['tipo']));
         return $vehiculo;
     }

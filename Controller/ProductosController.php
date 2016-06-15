@@ -88,7 +88,7 @@ class ProductosController extends AppController
         $producto = new Producto();
         $producto->setId((isset($_POST['hid'])) ? $_POST['hid'] : 0);
         $producto->setCodigo($_POST['txtcodigo']);
-        $producto->setNombre($_POST['txtnombre']);
+        $producto->setNombre($this->clean($_POST['txtnombre']));
         $producto->setMarca($_POST['txtmarca']);
         $producto->setTipo((new TipoProducto())->findById($_POST['tipo']));
         return $producto;

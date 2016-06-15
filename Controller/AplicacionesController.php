@@ -63,6 +63,7 @@ class AplicacionesController extends AppController
         $apl = (new Aplicacion())->findById((new Aplicacion())->maxID());
         if(isset($_POST["vehiculos"])){
             foreach ($_POST["vehiculos"] as $veh){
+                
                 $apl->addUsu($veh);
             }
         }
@@ -146,22 +147,22 @@ class AplicacionesController extends AppController
     private function passDates(){
         $datos = array();
         array_push($datos, (Session::get("app")!= 0) ? Session::get("app") : 0);
-        array_push($datos, isset($_POST['txtcoordcul']) ? $_POST['txtcoordcul'] : null);
-        array_push($datos, isset($_POST["pista"]) ? $_POST["pista"] : null);
-        array_push($datos, isset($_POST['txtarea_apl']) ? $_POST['txtarea_apl'] : null);
-        array_push($datos, isset($_POST['txtfaja']) ? $_POST['txtfaja'] : null);
-        array_push($datos, isset($_POST['dtfechaini']) ? $_POST['dtfechaini'] : null);
-        array_push($datos, isset($_POST['dtfechafin']) ? $_POST['dtfechafin'] : null);
-        array_push($datos, isset($_POST['txttrat']) ? $_POST['txttrat'] : null);
-        array_push($datos, isset($_POST['txtviento']) ? $_POST['txtviento'] : null);
-        array_push($datos, isset($_POST["tipo"]) ? $_POST["tipo"] : null);
-        array_push($datos, isset($_POST['txttaquiIni']) ? $_POST['txttaquiIni'] : null);
-        array_push($datos, isset($_POST['txttaquiFin']) ? $_POST['txttaquiFin'] : null);
-        array_push($datos, isset($_POST['txtpadron']) ? $_POST['txtpadron'] : null);
-        array_push($datos, isset($_POST['txtcultivo']) ? $_POST['txtcultivo'] : null);
-        array_push($datos, isset($_POST['txtcaudal']) ? $_POST['txtcaudal'] : null);
-        array_push($datos, isset($_POST['txtdosis']) ? $_POST['txtdosis'] : null);
-        array_push($datos, isset($_POST['cliente']) ? $_POST['cliente'] : null);
+        array_push($datos, isset($_POST['txtcoordcul']) ? $this->clean($_POST['txtcoordcul']) : null);
+        array_push($datos, isset($_POST["pista"]) ? $this->clean($_POST["pista"]) : null);
+        array_push($datos, isset($_POST['txtarea_apl']) ? $this->clean($_POST['txtarea_apl']) : null);
+        array_push($datos, isset($_POST['txtfaja']) ? $this->clean($_POST['txtfaja']) : null);
+        array_push($datos, isset($_POST['dtfechaini']) ? $this->clean($_POST['dtfechaini']) : null);
+        array_push($datos, isset($_POST['dtfechafin']) ? $this->clean($_POST['dtfechafin']) : null);
+        array_push($datos, isset($_POST['txttrat']) ? $this->clean($_POST['txttrat']) : null);
+        array_push($datos, isset($_POST['txtviento']) ? $this->clean($_POST['txtviento']) : null);
+        array_push($datos, isset($_POST["tipo"]) ? $this->clean($_POST["tipo"]) : null);
+        array_push($datos, isset($_POST['txttaquiIni']) ? $this->clean($_POST['txttaquiIni']) : null);
+        array_push($datos, isset($_POST['txttaquiFin']) ? $this->clean($_POST['txttaquiFin']) : null);
+        array_push($datos, isset($_POST['txtpadron']) ? $this->clean($_POST['txtpadron']) : null);
+        array_push($datos, isset($_POST['txtcultivo']) ? $this->clean($_POST['txtcultivo']) : null);
+        array_push($datos, isset($_POST['txtcaudal']) ? $this->clean($_POST['txtcaudal']) : null);
+        array_push($datos, isset($_POST['txtdosis']) ? $this->clean($_POST['txtdosis']) : null);
+        array_push($datos, isset($_POST['cliente']) ? $this->clean($_POST['cliente']) : null);
         Session::set("pass", $datos);        
     }
     private function passEdit(){
