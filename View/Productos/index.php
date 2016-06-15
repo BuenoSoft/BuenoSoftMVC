@@ -39,7 +39,7 @@
                         </a>&nbsp;
                         <?php if($producto->getEstado() == 'H'){ ?>
                             <a href="index.php?c=productos&a=delete&d=<?php echo $producto->getId(); ?>" onclick="return confirm('¿Desea borrar el producto seleccionado?');" title="Borrar">
-                                <i class="fa fa-minus-circle" style="font-size: 22px;"></i>
+                                <i class="fa fa-times-circle" style="font-size: 22px;"></i>
                             </a>
                         <?php } else {?>
                             <a href="index.php?c=productos&a=active&d=<?php echo $producto->getId(); ?>" onclick="return confirm('¿Desea activar el producto seleccionado?');" title="Activar">

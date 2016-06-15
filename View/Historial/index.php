@@ -25,7 +25,7 @@
                                 <i class="fa fa-edit" style="font-size: 22px;"></i>
                             </a>&nbsp;
                             <a href="index.php?c=historial&a=delete&d=<?php echo $usado->getAplicacion()->getId()?>&v=<?php echo $usado->getVehiculo()->getId()?>&m=<?php echo $historial->getCombustible()->getId();?>&f=<?php echo $historial->getFecha(); ?>" onclick="return confirm('¿Desea borrar este registro del historial?');" title="Borrar">
-                                <i class="fa fa-minus-circle" style="font-size: 22px;"></i>
+                                <i class="fa fa-times-circle" style="font-size: 22px;"></i>
                             </a>
                         </td>
                     </tr>

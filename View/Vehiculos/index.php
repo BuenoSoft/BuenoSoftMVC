@@ -37,7 +37,7 @@
                             </a>&nbsp;
                             <?php if($vehiculo->getEstado() == "H") { ?>
                                 <a href="index.php?c=vehiculos&a=delete&d=<?php echo $vehiculo->getId(); ?>" onclick="return confirm('¿Desea borrar el Vehículo seleccionado?');" title="Borrar">
-                                    <i class="fa fa-minus-circle" style="font-size: 22px;"></i>
+                                    <i class="fa fa-times-circle" style="font-size: 22px;"></i>
                                 </a>
                             <?php } else { ?>
                                 <a href="index.php?c=vehiculos&a=active&d=<?php echo $vehiculo->getId(); ?>" onclick="return confirm('¿Desea activar el Vehículo seleccionado?');" title="Activar">

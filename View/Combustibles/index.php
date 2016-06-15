@@ -37,7 +37,7 @@
                             </a>&nbsp;
                             <?php if($combustible->getEstado() == 'H'){ ?>
                             <a href="index.php?c=combustibles&a=delete&d=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea borrar el combustible seleccionado?');" title="Borrar">
-                                <i class="fa fa-minus-circle" style="font-size: 22px;"></i>
+                                <i class="fa fa-times-circle" style="font-size: 22px;"></i>
                             </a>
                         <?php } else {?>
                             <a href="index.php?c=combustibles&a=active&d=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea activar el combustible seleccionado?');" title="Activar">

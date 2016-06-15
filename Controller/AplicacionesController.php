@@ -29,7 +29,11 @@ class AplicacionesController extends AppController
         if($this->checkUser()){
             $this->passDates();
             $productos = (Session::get("pass")[9] != "") ? (new Producto())->findByTipo(Session::get("pass")[9]) : array();
-            $usuarios = (Session::get('pass')[16] != "") ? $this->getPaginator()->paginar((new Usuario())->find(Session::get('pass')[16]),1) : array();
+            $clientes = (Session::get('pass')[16] != "") ? $this->getPaginator()->paginar((new Usuario())->find(Session::get('pass')[16]),1) : array();
+            $pilotos = (Session::get('pass')[17] != "") ? $this->getPaginator()->paginar((new Usuario())->find(Session::get('pass')[17]),1) : array();
+            $choferes = (Session::get('pass')[18] != "") ? $this->getPaginator()->paginar((new Usuario())->find(Session::get('pass')[18]),1) : array();
+            $aeronaves = (Session::get('pass')[19] != "") ? $this->getPaginator()->paginar((new Vehiculo())->find(Session::get('pass')[19]),1) : array();
+            $terrestres = (Session::get('pass')[20] != "") ? $this->getPaginator()->paginar((new Vehiculo())->find(Session::get('pass')[20]),1) : array();
             $pistas = (Session::get('pass')[2] != "") ? $this->getPaginator()->paginar((new Pista())->find(Session::get('pass')[2]),1) : array();            
             if (isset($_POST['btnaceptar'])) {
                 $apl = $this->createEntity();
@@ -42,12 +46,15 @@ class AplicacionesController extends AppController
                 exit();                
             }
             $this->redirect_administrador(['add.php'],[
-                "usuarios" => $usuarios,
+                "clientes" => $clientes,
+                "pilotos" => $pilotos,
+                "choferes" => $choferes,
+                "aeronaves" => $aeronaves,
+                "terrestres" => $terrestres,
                 "pistas" => $pistas,
                 "funcionarios" => (new Usuario())->funcionarios(),
                 "tipos" => (new TipoProducto())->find(),
-                "productos" => $productos,
-                "vehiculos" => (new Vehiculo())->find()
+                "productos" => $productos,                
             ]);
         }
     }
@@ -61,20 +68,17 @@ class AplicacionesController extends AppController
     }
     private function addVehiculos(){
         $apl = (new Aplicacion())->findById((new Aplicacion())->maxID());
-        if(isset($_POST["vehiculos"])){
-            foreach ($_POST["vehiculos"] as $veh){
-                
-                $apl->addUsu($veh);
-            }
-        }
+        $aeronave = (new Vehiculo())->findById(Session::get('pass')[19]);
+        $terrestre = (new Vehiculo())->findById(Session::get('pass')[20]);
+        $apl->addUsu($aeronave->getId());
+        $apl->addUsu($terrestre->getId());
     }
     private function addFuncionarios(){
         $apl = (new Aplicacion())->findById((new Aplicacion())->maxID());
-        if(isset($_POST["funcionarios"])){
-            foreach ($_POST["funcionarios"] as $func){
-                $apl->addTra($func);
-            }
-        }    
+        $piloto = (new Usuario())->findById(Session::get('pass')[17]);
+        $chofer = (new Usuario())->findById(Session::get('pass')[18]);
+        $apl->addTra($piloto->getId());
+        $apl->addTra($chofer->getId());
     }
     /*-------------------------------------------------------------------------------*/
     public function edit(){
@@ -163,6 +167,10 @@ class AplicacionesController extends AppController
         array_push($datos, isset($_POST['txtcaudal']) ? $this->clean($_POST['txtcaudal']) : null);
         array_push($datos, isset($_POST['txtdosis']) ? $this->clean($_POST['txtdosis']) : null);
         array_push($datos, isset($_POST['cliente']) ? $this->clean($_POST['cliente']) : null);
+        array_push($datos, isset($_POST['piloto']) ? $this->clean($_POST['piloto']) : null);
+        array_push($datos, isset($_POST['chofer']) ? $this->clean($_POST['chofer']) : null);
+        array_push($datos, isset($_POST['aeronave']) ? $this->clean($_POST['aeronave']) : null);
+        array_push($datos, isset($_POST['terrestre']) ? $this->clean($_POST['terrestre']) : null);
         Session::set("pass", $datos);        
     }
     private function passEdit(){

@@ -37,7 +37,7 @@
                             </a>&nbsp;
                             <?php if($usuario->getEstado() == 'H') {?>
                                 <a href="index.php?c=usuarios&a=delete&d=<?php echo $usuario->getId(); ?>" onclick="return confirm('¿Desea borrar el usuario seleccionado?');" title="Borrar">
-                                    <i class="fa fa-minus-circle" style="font-size: 22px;"></i>
+                                    <i class="fa fa-times-circle" style="font-size: 22px;"></i>
                                 </a>
                             <?php } else { ?>
                                 <a href="index.php?c=usuarios&a=active&d=<?php echo $usuario->getId(); ?>" onclick="return confirm('¿Desea activar el usuario seleccionado?');" title="Activar">

@@ -5,15 +5,19 @@
             <div class="showback">
                 <h4><i class="fa fa-angle-right"></i> Datos de la Aplicación:</h4>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Vehículos</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Aeronave&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <?php 
-                            foreach($vehiculos as $vehiculo){
-                                if($vehiculo->getEstado() == "H" and !$vehiculo->checkFin()){ ?>
-                                    <input type="checkbox" name="vehiculos[]" value="<?php echo $vehiculo->getId() ?>" />&nbsp;<?php echo "Matrícula: ".$vehiculo->getMatricula()." Tipo: ".$vehiculo->getTipo()->getNombre(); ?><br />
-                        <?php     
-                               } 
-                            } ?>
+                        <input list="aeronaves" class="form-control_datalist" placeholder="Seleccione Aeronave" required="required" name="aeronave" tabindex="3" value="<?php echo \App\Session::get("pass")[19]; ?>" />
+                        <datalist id="aeronaves">
+                            <?php 
+                                foreach ($aeronaves as $aeronave) { 
+                                    if($aeronave->getEstado() == "H" and ($aeronave->getTipo()->getNombre() == "Avion" or $aeronave->getTipo()->getNombre() == "Aeronave") and !$aeronave->checkFin()){ ?>
+                                        <option value="<?php echo $aeronave->getId(); ?>"><?php echo $aeronave->getMatricula(); ?></option>
+                            <?php   }                            
+                                }
+                            ?>                            
+                        </datalist>
+                        <input type="button" onclick="frmadd.submit();" value="Buscar" class="btn btn-theme01" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -22,9 +26,9 @@
                         <input list="clientes" class="form-control_datalist" placeholder="Seleccione Usuario" required="required" name="cliente" tabindex="1" autofocus="autofocus" value="<?php echo \App\Session::get("pass")[16]; ?>"/>
                         <datalist id="clientes">
                             <?php
-                                foreach ($usuarios as $usuario){
-                                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Usuario") { ?>
-                                        <option value="<?php echo $usuario->getDatoUsu()->getId() ?>"><?php echo "Documento: ".$usuario->getDatoUsu()->getDocumento()." Nombre: ".$usuario->getDatoUsu()->getNombre();?></option>
+                                foreach ($clientes as $cliente){
+                                    if($cliente->getEstado() == "H" and $cliente->getRol()->getNombre() == "Cliente") { ?>
+                                        <option value="<?php echo $cliente->getId() ?>"><?php echo $cliente->getDatoUsu()->getNombre(); ?></option>
                                 <?php                                         
                                     }
                                 }
@@ -95,24 +99,61 @@
                     </div>
                 </div>
             </div>
-            <div style="text-align: center;">
-                <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="17"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
-                <a href="index.php?c=aplicaciones&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04" tabindex="18"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
+            <div class="showback">
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Chofer&nbsp;<font color="red">*</font></label>
+                    <div class="col-sm-10">
+                        <input list="choferes" class="form-control_datalist" placeholder="Seleccione Chofer" required="required" name="chofer" tabindex="1" autofocus="autofocus" value="<?php echo \App\Session::get("pass")[18]; ?>"/>
+                        <datalist id="choferes">
+                            <?php
+                                foreach ($choferes as $chofer){
+                                    if($chofer->getEstado() == "H" and $chofer->getRol()->getNombre() == "Chofer" and !$chofer->checkFin()) { ?>
+                                        <option value="<?php echo $chofer->getId() ?>"><?php echo $chofer->getDatoUsu()->getNombre();?></option>
+                                <?php                                         
+                                    }
+                                }
+                            ?>
+                        </datalist>
+                        <input type="button" onclick="frmadd.submit();" value="Buscar" class="btn btn-theme01" />
+                    </div>
+                </div>
+            </div>
+            <div class="showback">
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Terrestre&nbsp;<font color="red">*</font></label>
+                    <div class="col-sm-10">
+                        <input list="terrestres" class="form-control_datalist" placeholder="Seleccione Aeronave" required="required" name="terrestre" tabindex="3" value="<?php echo \App\Session::get("pass")[20]; ?>" />
+                        <datalist id="terrestres">
+                            <?php 
+                                foreach ($terrestres as $terrestre) { 
+                                    if($terrestre->getEstado() == "H" and ($terrestre->getTipo()->getNombre() == "Auto" or $terrestre->getTipo()->getNombre() == "Camión" or $terrestre->getTipo()->getNombre() == "Camioneta") and !$terrestre->checkFin()){ ?>
+                                        <option value="<?php echo $terrestre->getId(); ?>"><?php echo $terrestre->getMatricula(); ?></option>
+                            <?php   }                            
+                                }
+                            ?>
+                        </datalist>
+                        <input type="button" onclick="frmadd.submit();" value="Buscar" class="btn btn-theme01" />    
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Funcionarios</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Piloto&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <?php
-                            foreach ($funcionarios as $funcionario){
-                                if($funcionario->getEstado() == "H" and !$funcionario->checkFin()) { ?>
-                                    <input type="checkbox" name="funcionarios[]" value="<?php echo $funcionario->getId(); ?>" />&nbsp;<?php echo $funcionario->getDatoUsu()->getNombre()." Tipo: ".$funcionario->getRol()->getNombre(); ?><br />
-                        <?php                                         
+                        <input list="pilotos" class="form-control_datalist" placeholder="Seleccione Piloto" required="required" name="piloto" tabindex="1" autofocus="autofocus" value="<?php echo \App\Session::get("pass")[17]; ?>"/>
+                        <datalist id="pilotos">
+                            <?php
+                                foreach ($pilotos as $piloto){
+                                    if($piloto->getEstado() == "H" and $piloto->getRol()->getNombre() == "Piloto" and !$piloto->checkFin()) { ?>
+                                        <option value="<?php echo $piloto->getId() ?>"><?php echo $piloto->getDatoUsu()->getNombre();?></option>
+                                <?php                                         
+                                    }
                                 }
-                            }
-                        ?>
+                            ?>
+                        </datalist>
+                        <input type="button" onclick="frmadd.submit();" value="Buscar" class="btn btn-theme01" />
                     </div>
                 </div>                    
                 <div class="form-group">
@@ -183,7 +224,11 @@
                         <input type="text" name="txttaquiFin" onkeypress="return validarNumeroPunto(event)" class="form-control" placeholder="" tabindex="16" value="<?php echo \App\Session::get("pass")[11]; ?>"/>
                     </div>
                 </div> 
-            </div> 
+            </div>            
+            <div style="text-align: center;">
+                <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="17"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
+                <a href="index.php?c=aplicaciones&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04" tabindex="18"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
+            </div>
         </div>             
     </div>
 </form>

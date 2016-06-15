@@ -35,7 +35,7 @@
                             </a>&nbsp;
                             <?php if($pista->getEstado() == "H") { ?>
                                 <a href="index.php?c=pistas&a=delete&d=<?php echo $pista->getId(); ?>" onclick="return confirm('¿Desea borrar la Pista seleccionada?');" title="Borrar">
-                                    <i class="fa fa-minus-circle" style="font-size: 22px;"></i>
+                                    <i class="fa fa-times-circle" style="font-size: 22px;"></i>
                                 </a>
                             <?php } else { ?>
                                 <a href="index.php?c=pistas&a=active&d=<?php echo $pista->getId(); ?>" onclick="return confirm('¿Desea activar la Pista seleccionada?');">

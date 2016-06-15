@@ -8,6 +8,7 @@
         <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
         <title>Buenos Servicios</title>
         <!-- Bootstrap core CSS -->
+        <link rel="shortcut icon" href="Public/img/manejo/favicom.png" type="image/png" />
         <link href="Public/css/manejo/bootstrap.css" rel="stylesheet">
         <!--external css-->
         <link href="Public/css/manejo/font-awesome.css" rel="stylesheet" />

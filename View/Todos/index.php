@@ -1,8 +1,9 @@
 <div id="cont_795f61a61e38fcaef451a251c5076bcc"><span id="h_795f61a61e38fcaef451a251c5076bcc">
+     <!--   
     <a id="a_795f61a61e38fcaef451a251c5076bcc" href="http://www.tiempo.com/tomas-gomensoro.htm" target="_blank"
-           style="color: #00ABEB; font-family: Roboto; font-size: 13px; text-decoration: none;">Mas información del tiempo
-         </a></span><script type="text/javascript" src="http://www.tiempo.com/wid_loader/795f61a61e38fcaef451a251c5076bcc">
-         </script></div>
+           style="color: #00ABEB; font-family: Roboto; font-size: 13px; width: 100%; text-decoration: none;">Mas información del tiempo
+         </a> --></span><!--<script type="text/javascript" src="http://www.tiempo.com/wid_loader/795f61a61e38fcaef451a251c5076bcc">
+         </script> --></div>
         <section class="intro text-center section-padding" id="intro">
           <div class="container">
             <div class="row">

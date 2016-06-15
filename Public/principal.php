@@ -6,8 +6,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- para el popup -->
-        <link href="..//BuenoSoftMVC/Public/css/principal/popup.css" rel="stylesheet" type='text/css'>
+        <link href="Public/css/principal/popup.css" rel="stylesheet" type='text/css'>
        <!-- para el sitio-->
+        <link rel="shortcut icon" href="Public/img/principal/favicom.png" type="image/png" />
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
         <link href="Public/css/principal/bootstrap.min.css" rel="stylesheet" type='text/css'>
