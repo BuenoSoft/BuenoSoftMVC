@@ -142,15 +142,16 @@ class Aplicacion implements IPersiste
     public function save() {
         return ($this->id == 0) ? (new AplicacionModel())->addApp($this) : (new AplicacionModel())->modApp($this);
     }
-    public function find($criterio = null) {
-        return (new AplicacionModel())->find($criterio);
-    }
+    public function findAdvance($datos = []){
+        return (new AplicacionModel())->findAdvance($datos);
+    }    
     public function findById($id) {
         return (new AplicacionModel())->findById($id);
     }
     public function maxID(){
         return (new AplicacionModel())->maxId();
     }
+    public function find($criterio = null) { }
     public function del() { }
     /*-----------------------------------------*/
     public function addPro($pro) {
@@ -166,29 +167,16 @@ class Aplicacion implements IPersiste
         return (new AplicacionModel())->getProductos([$this->id]); 
     }
     /*-----------------------------------------*/
-    public function addUsu($veh) {
-        return (new AplicacionModel())->addUsu([$this->id, $veh]);
+    public function addUsu($veh,$usu) {
+        return (new AplicacionModel())->addUsu([$this->id, $veh, $usu]);
     }
     public function checkUsu($veh){
         return (new AplicacionModel())->checkUsu([$this->id, $veh]);
     }
-    public function delUsu($veh) {
-        return (new AplicacionModel())->delUsu([$this->id, $veh]);
+    public function delUsu($veh,$usu) {
+        return (new AplicacionModel())->delUsu([$this->id, $veh, $usu]);
     }
     public function getUsados(){
         return (new AplicacionModel())->getUsados([$this->id]);
-    }
-    /*-----------------------------------------*/
-    public function addTra($veh) {
-        return (new AplicacionModel())->addTra([$this->id, $veh]);
-    }
-    public function checkTra($veh){
-        return (new AplicacionModel())->checkTra([$this->id, $veh]);
-    }
-    public function delTra($veh) {
-        return (new AplicacionModel())->delTra([$this->id, $veh]);
-    }
-    public function getTrabajadores(){
-        return (new AplicacionModel())->getTrabajadores([$this->id]);
     }
 }

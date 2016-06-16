@@ -41,21 +41,61 @@ class AplicacionModel extends AppModel
             $object->getCultivo(), $object->getCaudal(),$object->getDosis(), $object->getCliente()->getId(), 
             $object->getId()
         ];
-    }    
-    
-    protected function getFindParameter($criterio = null) {
-        return ["filtro" => "%".$criterio."%"];
     }
-    protected function getFindQuery($criterio = null) {
-        if($criterio == null){
-            return "select * from aplicaciones a inner join usuarios u on a.usuId = u.usuId "
-            . "inner join datosusu d on u.datId = d.datId";
-        } else {
-            return "select * from aplicaciones a inner join usuarios u on a.usuId = u.usuId "
-            . "inner join datosusu d on u.datId = d.datId where d.datDocumento "
-            . "like :filtro or d.datNombre like :filtro";
+    public function findAdvance($datos = []){
+        $rows= array();
+        foreach($this->fetch($this->getFindQueryAdvance($datos), $this->getFindParameterAdvance($datos)) as $row){
+            $obj = $this->createEntity($row); 
+            array_push($rows, $obj);
         }
-        
+        return $rows;
+    }
+    protected function getFindParameterAdvance($datos = []) {
+        return $datos;
+    }
+    
+    protected function getFindQueryAdvance($datos = []){
+        $where = false;
+        $sql= "select *,a.usuId as cliente,uv.usuId as piloto from aplicaciones a "
+            . "inner join utiliza uv on a.aplId = uv.aplId "
+            . "inner join usuarios u on uv.usuId = u.usuId and u.rolId = 4";
+        if($datos["aeronave"] != null){
+            $sql .= " where uv.vehId = ?";
+            $where = true;
+        }
+        if($datos["piloto"] != null){
+            if($where){
+                $sql .= " and uv.usuId = ?";
+            } else {
+                $sql .= " where uv.usuId = ?";
+                $where = true;
+            }
+        }
+        if($datos["tipo"] != null){
+            if($where){
+                $sql .= " and a.tpId = ?";
+            } else {
+                $sql .= " where a.tpId = ?";
+                $where = true;
+            }
+        }
+        if($datos["cliente"] != null){
+            if($where){
+                $sql .= " and a.usuId = ?";
+            } else {
+                $sql .= " where a.usuId = ?";
+                $where = true;
+            }
+        }
+        if($datos["fec1"] != null and $datos["fec2"] != null){
+            if($where){
+                $sql .= " and date(a.aplFechaIni) between date(?) and date(?)";
+            } else {
+                $sql .= " where date(a.aplFechaIni) between date(?) and date(?)";
+                $where = true;
+            }
+        }
+        return $sql;
     }
     protected function getFindXIdQuery() {
         return "select * from aplicaciones where aplId = ?";
@@ -78,7 +118,7 @@ class AplicacionModel extends AppModel
         $aplicacion->setCultivo($row["aplCultivo"]);
         $aplicacion->setCaudal($row["aplCaudal"]);
         $aplicacion->setDosis($row["aplDosis"]);
-        $aplicacion->setCliente((new UsuarioModel())->findById($row["usuId"]));
+        $aplicacion->setCliente((new UsuarioModel())->findById($row["cliente"]));
         return $aplicacion;
     }
     /*-------------------------------------------------------------------------------*/
@@ -95,24 +135,8 @@ class AplicacionModel extends AppModel
         return (new TieneModel())->delPro($dates);
     }
     /*-------------------------------------------------------------------------------*/
-    public function addTra($dates = []){
-        return (new TrabajaModel())->addTra($dates);
-    }
-    public function checkTra($dates = []){
-        return (new TrabajaModel())->checkTra($dates);
-    }
-    public function getTrabajadores($dates = []){
-        return (new TrabajaModel())->getTrabajadores($dates);
-    }
-    public function delTra($dates = []){
-        return (new TrabajaModel())->delTra($dates);
-    }
-    /*-------------------------------------------------------------------------------*/
     public function addUsu($usado) {
         return (new UsadoModel())->addUsu($usado);    
-    }
-    public function checkUsu($dates = []) {
-        return (new UsadoModel())->checkUsu($dates);
     }
     public function getUsados($dates = []){
         return (new UsadoModel())->getUsados($dates);
@@ -125,5 +149,7 @@ class AplicacionModel extends AppModel
     protected function getCheckParameter($unique) { }
     protected function getCheckQuery() { }
     protected function getDeleteParameter($object) { }
-    protected function getDeleteQuery($notUsed = true) { }    
+    protected function getDeleteQuery($notUsed = true) { }
+    protected function getFindQuery($criterio = null) { }
+    protected function getFindParameter($criterio = null) { }
 }

@@ -12,11 +12,10 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/html/BuenoSoftMVC/View/Access/index.php</file>
-            <file>file:/var/www/html/BuenoSoftMVC/Public/manejo.php</file>
-            <file>file:/var/www/html/BuenoSoftMVC/Public/principal.php</file>
-            <file>file:/var/www/html/BuenoSoftMVC/View/Aplicaciones/add.php</file>
-            <file>file:/var/www/html/BuenoSoftMVC/Public/manejo_menu.php</file>
+            <file>file:/var/www/html/BuenoSoftMVC/Model/AplicacionModel.php</file>
+            <file>file:/var/www/html/BuenoSoftMVC/Clases/Aplicacion.php</file>
+            <file>file:/var/www/html/BuenoSoftMVC/Controller/AplicacionesController.php</file>
+            <file>file:/var/www/html/BuenoSoftMVC/View/Aplicaciones/index.php</file>
         </group>
     </open-files>
 </project-private>

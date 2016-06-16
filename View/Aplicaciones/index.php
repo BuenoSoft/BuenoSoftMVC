@@ -7,9 +7,59 @@
     <section id="unseen" style="padding-left: 5px; padding-right: 5px;">
         <p>
             <form name="frmsearch" method="post" action="index.php?c=aplicaciones&a=index"> 
-                <input type="search" name="txtbuscador" placeholder="Buscar por su documento único" width="50" class="form-control_index" tabindex="1" autofocus="autofocus" />&nbsp;
-                <input type="button" onclick="frmsearch.submit();" name="btnsearch" value="Buscar" class="btn btn-theme01" tabindex="2" />
-            </form>        
+              <p>
+                    <input list="aeronaves" name="aeronave" placeholder="Seleccione Aeronave" class="form-control_index" /> 
+                    <datalist id="aeronaves">
+                        <?php 
+                            foreach ($vehiculos as $vehiculo) {
+                                if($vehiculo->getEstado() == "H" and ($vehiculo->getTipo()->getNombre() == "Avion" or $vehiculo->getTipo()->getNombre() == "Aeronave")) {
+                        ?>
+                                    <option value="<?php echo $vehiculo->getId(); ?>"><?php echo $vehiculo->getMatricula(); ?></option>
+                        <?php   } 
+                            }
+                        ?>
+                    </datalist>&nbsp;
+                    <input list="pilotos" name="piloto" placeholder="Seleccione Piloto" class="form-control_index" /> 
+                    <datalist id="pilotos">
+                        <?php 
+                            foreach ($usuarios as $usuario) {
+                                if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Piloto") {
+                        ?>
+                                    <option value="<?php echo $usuario->getId(); ?>"><?php echo $usuario->getDatoUsu()->getNombre(); ?></option>
+                        <?php   } 
+                            }
+                        ?>
+                    </datalist>&nbsp;
+                    <input list="tipos" name="tipo" placeholder="Seleccione Tipo" class="form-control_index" /> 
+                    <datalist id="tipos">
+                        <?php 
+                            foreach ($tipos as $tipo) {
+                                if($tipo->getEstado() == "H") {
+                        ?>
+                                    <option value="<?php echo $tipo->getId(); ?>"><?php echo $tipo->getNombre(); ?></option>
+                        <?php                         
+                                }
+                            }
+                        ?>
+                    </datalist>&nbsp;
+                    <input list="clientes" name="usuario" placeholder="Seleccione Usuario" class="form-control_index" /> 
+                    <datalist id="clientes">
+                        <?php 
+                            foreach ($usuarios as $usuario) {
+                                if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Cliente") {
+                        ?>
+                                    <option value="<?php echo $usuario->getId(); ?>"><?php echo $usuario->getDatoUsu()->getNombre(); ?></option>
+                        <?php   } 
+                            }
+                        ?>
+                    </datalist>
+                </p>
+                <p>
+                    <input type="date" name="fec1" placeholder="Seleccione Fecha" />&nbsp;
+                    <input type="date" name="fec2" placeholder="Seleccione Fecha" />&nbsp;
+                    <input type="button" onclick="frmsearch.submit();" name="btnsearch" value="Buscar" class="btn btn-theme01" tabindex="2" />
+                </p>
+            </form>       
         </p>
         <table class="table table-bordered table-striped table-condensed">
             <thead>                

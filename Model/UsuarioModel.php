@@ -14,32 +14,20 @@ class UsuarioModel extends AppModel
         return [$dates[0],$dates[1]];
     }
     protected function getCheckTraQuery() {
-        return "select * from trabajan where aplId = ? and usuId = ?";
+        return "select * from utiliza where aplId = ? and usuId = ?";
     }
     /*------------------------------------------------------------------------------------*/
     public function checkAplFin($object) {
         return $this->execute($this->getCheckFinQuery(),$this->getCheckFinParameter($object));
     }
     protected function getCheckFinQuery() {
-        return "select * from trabajan t inner join aplicaciones a on t.aplId = a.aplId "
-        . "inner join usuarios u on t.usuId = u.usuId "
-        . "inner join roles r on u.rolId = r.rolId "
-        . "where t.usuId = ? and (r.rolNombre = ? or r.rolNombre = ?) "
+        return "select * from utiliza ut inner join aplicaciones a on ut.aplId = a.aplId "
+        . "inner join usuarios u on ut.usuId = u.usuId inner join roles r on u.rolId = r.rolId "
+        . "where ut.usuId = ? and (r.rolNombre = ? or r.rolNombre = ?) "
         . "and (a.aplFechaFin = '0000-00-00 00:00:00' or a.aplFechaFin is NULL)";
     }
     protected function getCheckFinParameter($object) {
         return [$object->getId(),"Chofer","Piloto"];
-    }
-    /*------------------------------------------------------------------------------------*/
-    public function funcionarios(){
-        $datos= array();
-        $sql = "select * from usuarios u inner join roles r on u.rolId = r.rolId "
-        . "where r.rolNombre = ? or r.rolNombre = ?";
-        foreach($this->fetch($sql, ["Chofer","Piloto"]) as $row){
-            $obj = $this->createEntity($row); 
-            array_push($datos, $obj);
-        }
-        return $datos;
     }
     /*------------------------------------------------------------------------------------*/
     public function login($datos = []){

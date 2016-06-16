@@ -8,14 +8,14 @@ class UsadoModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     public function getCheckUsuParameter($dates = []) {
-        return [$dates[0],$dates[1]];
+        return [$dates[0],$dates[1],$dates[2]];
     }
     /*------------------------------------------------------------------------------------*/
     public function addUsu($dates = []){
         return $this->execute($this->getCreateQuery(), $this->getCheckUsuParameter($dates));
     }
     protected function getCreateQuery() {
-        return "insert into utiliza(aplId,vehId) values(?,?)";
+        return "insert into utiliza(aplId,vehId,usuId) values(?,?,?)";
     }
     /*------------------------------------------------------------------------------------*/
     public function getUsados($dates = []){
@@ -37,15 +37,17 @@ class UsadoModel extends AppModel
         return $this->execute($this->getDeleteQuery(false), $this->getCheckUsuParameter($dates));
     }
     protected function getDeleteQuery($notUsed = true) { 
-        return "delete from utiliza where aplId = ? and vehId = ?";
+        return "delete from utiliza where aplId = ? and vehId = ? and usuId = ?";
     }
     /*------------------------------------------------------------------------------------*/ 
     public function createEntity($row) {
         $apl = (new AplicacionModel())->findById($row["aplId"]);
         $veh = (new VehiculoModel())->findById($row["vehId"]);
+        $usu = (new UsuarioModel())->findById($row["usuId"]);
         $usado = new Usado();
         $usado->setAplicacion($apl);
-        $usado->setVehiculo($veh);       
+        $usado->setVehiculo($veh); 
+        $usado->setUsuario($usu);
         return $usado;
     }    
     /*-------------------------------------------------------------------------------*/

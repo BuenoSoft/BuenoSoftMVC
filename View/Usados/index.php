@@ -7,6 +7,7 @@
         <table class="table table-bordered table-striped table-condensed">
             <thead>                
                 <th>Vehículo</th>
+                <th>Usuario</th>
                 <th>Opciones</th>
             </thead>
             <tbody>
@@ -16,6 +17,11 @@
                             <a href="index.php?c=vehiculos&a=view&d=<?php echo $usado->getVehiculo()->getId();?>" target="_blank">
                                 <?php echo $usado->getVehiculo()->getMatricula();?>
                             </a>
+                        </td>
+                        <td>
+                            <a href="index.php?c=usuarios&a=view&d=<?php echo $usado->getUsuario()->getId(); ?>" target="_blank">
+                                <?php echo $usado->getUsuario()->getDatoUsu()->getNombre();?>
+                            </a>                            
                         </td>
                         <td>
                             <a href="index.php?c=historial&a=index&d=<?php echo $usado->getAplicacion()->getId(); ?>&v=<?php echo $usado->getVehiculo()->getId();?>" title="Historial">
