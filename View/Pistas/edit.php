@@ -13,13 +13,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre de la Pista&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtnombre" class="form-control" required="required" placeholder="Ej: Ruta 3" onkeypress="return validarTextoyNum(event)" tabindex="1" value="<?php echo $pista->getNombre(); ?>" />
+                        <input type="text" name="txtnombre" class="form-control" required="required" placeholder="Ej: Ruta 3" onkeypress="return validarTextoyNumPC(event)" tabindex="1" value="<?php echo $pista->getNombre(); ?>" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Coordenadas de la Pista&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Coordenadas de la Pista</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcoord" onkeypress="return validarNumeroPC(event)" class="form-control" pattern="[+-]?[\d]{1,3}.{1}?[\d]{1,3},[+-]?[\d]{1,3}.{1}?[\d]{1,3}" required="required" placeholder="Ej: -30.434,-57.439" tabindex="2" value="<?php echo $pista->getCoordenadas(); ?>" />
+                        <input type="text" name="txtcoord" onkeypress="return validarNumeroPC(event)" class="form-control" pattern="[+-]?[\d]{1,3}.{1}?[\d]{1,6},[+-]?[\d]{1,3}.{1}?[\d]{1,6}" placeholder="Ej: -30.434,-57.439" tabindex="2" value="<?php echo $pista->getCoordenadas(); ?>" />
                     </div>
                 </div>
             </div>

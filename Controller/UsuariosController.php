@@ -98,7 +98,7 @@ class UsuariosController extends AppController
                 if(isset($_FILES['avatar'])){
                     $ruta = $this->upload->uploadImage($_FILES['avatar']);
                     if($ruta!= null){
-                        $usuario = (new Usuario())->findById(Session::get('id'));
+                        $usuario = (new Usuario())->findById(Session::get('usu'));
                         $usuario->setAvatar($ruta);
                         $usuario->avatar();
                        // header("Location:index.php?c=usuarios&a=edit&p=".$usuario->getId());
@@ -108,7 +108,7 @@ class UsuariosController extends AppController
                 }                                             
             }
             $this->redirect_administrador(['avatar.php'],[
-                'usuario' => (new Usuario())->findById(Session::get('id'))
+                'usuario' => (new Usuario())->findById(Session::get('usu'))
             ]);
         }
     }

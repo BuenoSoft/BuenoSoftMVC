@@ -98,7 +98,7 @@ class AplicacionModel extends AppModel
         return $sql;
     }
     protected function getFindXIdQuery() {
-        return "select * from aplicaciones where aplId = ?";
+        return "select *,usuId as cliente from aplicaciones where aplId = ?";
     }    
     public function createEntity($row) {
         $aplicacion = new Aplicacion();

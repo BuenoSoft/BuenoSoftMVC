@@ -46,19 +46,19 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tratamiento&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <textarea rows="5" cols="67" name="txttrat" required="required" class="form-control" placeholder="Ej: Fungicida" tabindex="3"><?php echo \App\Session::get("pass")[7]; ?></textarea>
+                        <textarea rows="5" cols="67" name="txttrat" onkeypress="return validarTextoyNumPC(event);" required="required" class="form-control" placeholder="Ej: Fungicida" tabindex="3"><?php echo \App\Session::get("pass")[7]; ?></textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Área Aplicada&nbsp;<font color="red">*</font></label>                                           
                     <div class="col-sm-10">
-                        <input type="text" name="txtarea_apl" class="form-control" required="required" placeholder="" tabindex="4" value="<?php echo \App\Session::get("pass")[3]; ?>" /> 
+                        <input type="text" name="txtarea_apl" onkeypress="return validarTextoyNumPC(event);" class="form-control" required="required" placeholder="" tabindex="4" value="<?php echo \App\Session::get("pass")[3]; ?>" /> 
                     </div>
                 </div>                
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Caudal&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcaudal" class="form-control" required="required" placeholder="" tabindex="5" value="<?php echo \App\Session::get("pass")[14]; ?>"/>
+                        <input type="text" name="txtcaudal" onkeypress="return validarTextoyNumPC(event);" class="form-control" required="required" placeholder="" tabindex="5" value="<?php echo \App\Session::get("pass")[14]; ?>"/>
                     </div>
                 </div>
             </div> 
@@ -95,7 +95,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Viento&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtviento" onkeypress="return validarNumeroPunto(event)" class="form-control" required="required" placeholder="" tabindex="7" value="<?php echo \App\Session::get("pass")[8]; ?>"/>
+                        <input type="text" name="txtviento" onkeypress="return validarTextoyNumPC(event);" class="form-control" required="required" placeholder="" tabindex="7" value="<?php echo \App\Session::get("pass")[8]; ?>"/>
                     </div>
                 </div>
             </div>
@@ -159,13 +159,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Padrón&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtpadron" class="form-control" required="required" placeholder="" tabindex="8" value="<?php echo \App\Session::get("pass")[12]; ?>" />
+                        <input type="text" name="txtpadron" onkeypress="return validarTextoyNum(event);" class="form-control" required="required" placeholder="" tabindex="8" value="<?php echo \App\Session::get("pass")[12]; ?>" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Coordenadas de Cultivo&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Coordenadas de Cultivo</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcoordcul" pattern="[+-]?[\d]{1,3}.{1}?[\d]{1,3},[+-]?[\d]{1,3}.{1}?[\d]{1,3}" onkeypress="return validarNumeroPC(event)" class="form-control" required="required" placeholder="-30.434,-57.439" tabindex="9" value="<?php echo \App\Session::get("pass")[1]; ?>" />
+                        <input type="text" name="txtcoordcul" pattern="[+-]?[\d]{1,3}.{1}?[\d]{1,6},[+-]?[\d]{1,3}.{1}?[\d]{1,6}" onkeypress="return validarNumeroPC(event)" class="form-control" placeholder="-30.434,-57.439" tabindex="9" value="<?php echo \App\Session::get("pass")[1]; ?>" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -185,13 +185,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Faja&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtfaja" onkeypress="return validarNumeroPunto(event)" class="form-control" required="required" placeholder="" tabindex="11" value="<?php echo \App\Session::get("pass")[4]; ?>"/>
+                        <input type="text" name="txtfaja" onkeypress="return validarTextoyNum(event);" class="form-control" required="required" placeholder="" tabindex="11" value="<?php echo \App\Session::get("pass")[4]; ?>"/>
                     </div>
                 </div>                               
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Dosis&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtdosis" class="form-control" required="required" placeholder="" tabindex="12" value="<?php echo \App\Session::get("pass")[15]; ?>"/>
+                        <input type="text" name="txtdosis" onkeypress="return validarTextoyNum(event);" class="form-control" required="required" placeholder="" tabindex="12" value="<?php echo \App\Session::get("pass")[15]; ?>"/>
                     </div>
                 </div>
             </div>
@@ -215,13 +215,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Taquímetro Inicial</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txttaquiIni" onkeypress="return validarNumeroPunto(event)" class="form-control" placeholder="" tabindex="15" value="<?php echo \App\Session::get("pass")[10]; ?>"/>
+                        <input type="text" name="txttaquiIni" onkeypress="return validarNumeroComa(event)" class="form-control" placeholder="" tabindex="15" value="<?php echo \App\Session::get("pass")[10]; ?>"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Taquímetro Final</label>                        
                     <div class="col-sm-10">
-                        <input type="text" name="txttaquiFin" onkeypress="return validarNumeroPunto(event)" class="form-control" placeholder="" tabindex="16" value="<?php echo \App\Session::get("pass")[11]; ?>"/>
+                        <input type="text" name="txttaquiFin" onkeypress="return validarNumeroComa(event)" class="form-control" placeholder="" tabindex="16" value="<?php echo \App\Session::get("pass")[11]; ?>"/>
                     </div>
                 </div> 
             </div>            

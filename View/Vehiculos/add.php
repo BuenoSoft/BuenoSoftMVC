@@ -49,7 +49,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Capacidad de Carga&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcap" onkeypress="return validarNumeroPunto(event)" class="form-control" required="required" placeholder="Ej: 25.8" tabindex="7"/>
+                        <input type="text" name="txtcap" onkeypress="return validarNumeroPC(event); " class="form-control" required="required" placeholder="Ej: 25.8" tabindex="7"/>
                     </div>
                 </div>
                 <div class="form-group">

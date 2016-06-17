@@ -1,20 +1,3 @@
-//Chequeo solo para numero
-function  validarNumero(e) {
-    tecla = (document.all) ? e.keyCode : e.which;
-    if (tecla == 8) return true; 
-    patron = /\d/; 
-    te = String.fromCharCode(tecla); 
-    return patron.test(te); 
-}
-//Chequeo solo para texto
-function validarTexto(e) {
-    tecla = (document.all) ? e.keyCode : e.which; 
-    if (tecla==8 || tecla==0) return true;
-    patron =/[A-Za-z\s]/;  //permite texto de la A a la Z
-    te = String.fromCharCode(tecla); 
-    return patron.test(te);
-}
-
 //Chequeo de la cédula
 function validarCedula(ci){ 
     var arrCoefs = [2,9,8,7,6,3,4,1];
@@ -32,46 +15,34 @@ function validarCedula(ci){
         alert ("Cedula inválida.");
 	return false;
     }
-
 }
-//Chequeo solo para número y punto.
-function validarNumeroPunto(e){
-    tecla = event.keyCode || event.which;
-    teclado = String.fromCharCode(tecla);
-    numeros = '0123456789';
-    especiales = [08, 09, 46]; // Array
-    teclado_especial = false;
-    for (var i in especiales ) {
-        if ( tecla == especiales[i] ) {
-            teclado_especial = true;
-        }
-    }
-    if ( numeros.indexOf(teclado) == -1 && !teclado_especial ) {
-        return false;
-    }
-}
-
-//Chequeo solo para número, punto y coma.
-function validarNumeroPC(e){
-    tecla = event.keyCode || event.which;
-    teclado = String.fromCharCode(tecla);
-    numeros = '0123456789';
-    especiales = [08, 09, 44, 45, 46]; // Array
-    teclado_especial = false;
-    for (var i in especiales ) {
-        if ( tecla == especiales[i] ) {
-            teclado_especial = true;
-        }
-    }
-    if ( numeros.indexOf(teclado) == -1 && !teclado_especial ) {
-        return false;
-    }
-}
-//Chequeo solo para texto y numero.
-function validarTextoyNum(e) {
+function validarPattern(e,tipo){
     tecla = (document.all) ? e.keyCode : e.which; 
     if (tecla==8 || tecla==0) return true;
-    patron =/[A-Za-z\s\d]/;  //permite texto de la A a la Z
+    patron = tipo;  //permite texto de la A a la Z
     te = String.fromCharCode(tecla); 
     return patron.test(te);
+}
+//Chequeo solo para numero
+function validarNumero(e){
+    return validarPattern(e,/\d/);
+}
+//Chequeo solo para texto
+function validarTexto(e) {
+    return validarPattern(e,/[A-Za-z\s]/);
+}
+//Chequeo solo para número, punto y coma.
+function validarNumeroPC(e){
+    return validarPattern(e,/[\d\.\,\-]/);
+}
+//Chequeo solo para texto, numero, comas y puntos.
+function validarTextoyNumPC(e) {
+    return validarPattern(e,/[A-Za-z\s\d\.\,\/]/);
+}
+function validarTextoyNum(e) {
+    return validarPattern(e,/[A-Za-z\s\d]/);
+}
+//Chequeo solo para número, punto y coma.
+function validarNumeroComa(e){
+    return validarPattern(e,/[\d\,]/);
 }

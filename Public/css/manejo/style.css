@@ -1643,8 +1643,6 @@ PANELS CONFIGURATIONS
 	box-shadow: 0px 3px 2px #aab2bd;
 }
 
-
-
 /* Calendar Events - Calendar.html*/
 .external-event {
 	cursor: move;
@@ -2240,4 +2238,6 @@ label {
     min-height: 900px;
 }
 
-
+.centrarmapa{
+     margin: 0 auto;
+}
