@@ -140,7 +140,7 @@ class AplicacionesController extends AppController
     private function getAeronave(){
         $apl = (new Aplicacion())->findById(Session::get("app"));
         foreach($apl->getUsados() as $aereo){
-            if($aereo->getVehiculo()->getTipo()->getNombre() == "Avion" or  $aereo->getVehiculo()->getTipo()->getNombre() == "Aeronave"){
+            if($aereo->getVehiculo()->getTipo()->getNombre() == "Aeronave"){
                 return $aereo->getVehiculo();
             }
         }
@@ -191,55 +191,55 @@ class AplicacionesController extends AppController
         }
     }
     private function passDates(){
-        $datos = array();
-        array_push($datos, (Session::get("app")!= 0) ? Session::get("app") : 0);
-        array_push($datos, isset($_POST['txtcoordcul']) ? $this->clean($_POST['txtcoordcul']) : null);
-        array_push($datos, isset($_POST["pista"]) ? $this->clean($_POST["pista"]) : null);
-        array_push($datos, isset($_POST['txtarea_apl']) ? $this->clean($_POST['txtarea_apl']) : null);
-        array_push($datos, isset($_POST['txtfaja']) ? $this->clean($_POST['txtfaja']) : null);
-        array_push($datos, isset($_POST['dtfechaini']) ? $this->clean($_POST['dtfechaini']) : null);
-        array_push($datos, isset($_POST['dtfechafin']) ? $this->clean($_POST['dtfechafin']) : null);
-        array_push($datos, isset($_POST['txttrat']) ? $this->clean($_POST['txttrat']) : null);
-        array_push($datos, isset($_POST['txtviento']) ? $this->clean($_POST['txtviento']) : null);
-        array_push($datos, isset($_POST["tipo"]) ? $this->clean($_POST["tipo"]) : null);
-        array_push($datos, isset($_POST['txttaquiIni']) ? $this->clean($_POST['txttaquiIni']) : null);
-        array_push($datos, isset($_POST['txttaquiFin']) ? $this->clean($_POST['txttaquiFin']) : null);
-        array_push($datos, isset($_POST['txtpadron']) ? $this->clean($_POST['txtpadron']) : null);
-        array_push($datos, isset($_POST['txtcultivo']) ? $this->clean($_POST['txtcultivo']) : null);
-        array_push($datos, isset($_POST['txtcaudal']) ? $this->clean($_POST['txtcaudal']) : null);
-        array_push($datos, isset($_POST['txtdosis']) ? $this->clean($_POST['txtdosis']) : null);
-        array_push($datos, isset($_POST['cliente']) ? $this->clean($_POST['cliente']) : null);
-        array_push($datos, isset($_POST['piloto']) ? $this->clean($_POST['piloto']) : null);
-        array_push($datos, isset($_POST['chofer']) ? $this->clean($_POST['chofer']) : null);
-        array_push($datos, isset($_POST['aeronave']) ? $this->clean($_POST['aeronave']) : null);
-        array_push($datos, isset($_POST['terrestre']) ? $this->clean($_POST['terrestre']) : null);
-        Session::set("pass", $datos);        
+        Session::set("pass",[
+            (Session::get("app")!= 0) ? Session::get("app") : 0, 
+            isset($_POST['txtcoordcul']) ? $this->clean($_POST['txtcoordcul']) : null,
+            isset($_POST["pista"]) ? $this->clean($_POST["pista"]) : null, 
+            isset($_POST['txtarea_apl']) ? $this->clean($_POST['txtarea_apl']) : null,
+            isset($_POST['txtfaja']) ? $this->clean($_POST['txtfaja']) : null, 
+            isset($_POST['dtfechaini']) ? $this->clean($_POST['dtfechaini']) : null,
+            isset($_POST['dtfechafin']) ? $this->clean($_POST['dtfechafin']) : null, 
+            isset($_POST['txttrat']) ? $this->clean($_POST['txttrat']) : null,
+            isset($_POST['txtviento']) ? $this->clean($_POST['txtviento']) : null, 
+            isset($_POST["tipo"]) ? $this->clean($_POST["tipo"]) : null,
+            isset($_POST['txttaquiIni']) ? $this->clean($_POST['txttaquiIni']) : null, 
+            isset($_POST['txttaquiFin']) ? $this->clean($_POST['txttaquiFin']) : null, 
+            isset($_POST['txtpadron']) ? $this->clean($_POST['txtpadron']) : null,
+            isset($_POST['txtcultivo']) ? $this->clean($_POST['txtcultivo']) : null, 
+            isset($_POST['txtcaudal']) ? $this->clean($_POST['txtcaudal']) : null,
+            isset($_POST['txtdosis']) ? $this->clean($_POST['txtdosis']) : null, 
+            isset($_POST['cliente']) ? $this->clean($_POST['cliente']) : null, 
+            isset($_POST['piloto']) ? $this->clean($_POST['piloto']) : null,
+            isset($_POST['chofer']) ? $this->clean($_POST['chofer']) : null, 
+            isset($_POST['aeronave']) ? $this->clean($_POST['aeronave']) : null,
+            isset($_POST['terrestre']) ? $this->clean($_POST['terrestre']) : null
+        ]);       
     }
     private function passEdit(){
         $apl = (new Aplicacion())->findById(Session::get("app"));
-        $datos = array();
-        array_push($datos, $apl->getId());
-        array_push($datos, $apl->getCoordCul());
-        array_push($datos, $apl->getPista()->getId());
-        array_push($datos, $apl->getAreaapl());
-        array_push($datos, $apl->getFaja());
-        array_push($datos, $apl->getFechaIni());
-        array_push($datos, $apl->getFechaFin());
-        array_push($datos, $apl->getTratamiento());
-        array_push($datos, $apl->getViento());
-        array_push($datos, $apl->getTipo()->getId());
-        array_push($datos, $apl->getTaquiIni());
-        array_push($datos, $apl->getTaquiFin());
-        array_push($datos, $apl->getPadron());
-        array_push($datos, $apl->getCultivo());
-        array_push($datos, $apl->getCaudal());
-        array_push($datos, $apl->getDosis());
-        array_push($datos, $apl->getCliente()->getId());
-        array_push($datos, $this->getPiloto()->getId());
-        array_push($datos, $this->getChofer()->getId());
-        array_push($datos, $this->getAeronave()->getId());
-        array_push($datos, $this->getTerrestre()->getId());
-        Session::set("pass", $datos);
+        Session::set("pass", [
+            $apl->getId(),
+            $apl->getCoordCul(),
+            $apl->getPista()->getId(),
+            $apl->getAreaapl(),
+            $apl->getFaja(),
+            $apl->getFechaIni(),
+            $apl->getFechaFin(),
+            $apl->getTratamiento(),
+            $apl->getViento(),
+            $apl->getTipo()->getId(),
+            $apl->getTaquiIni(),
+            $apl->getTaquiFin(),
+            $apl->getPadron(),
+            $apl->getCultivo(),
+            $apl->getCaudal(),
+            $apl->getDosis(),
+            $apl->getCliente()->getId(),
+            $this->getPiloto()->getId(),
+            $this->getChofer()->getId(),
+            $this->getAeronave()->getId(),
+            $this->getTerrestre()->getId()            
+        ]);
     }
     private function createEntity() {        
         $aplicacion = new Aplicacion();

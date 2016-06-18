@@ -35,6 +35,25 @@
         <section id="main-content">
             <section class="wrapper">
                 <br />
+                <?php 
+                    end($enlaces);
+                    $last = key($enlaces );
+                    foreach ($enlaces as $key => $value) { 
+                        if($key != $last){ ?>
+                            <a href="<?php echo $enlaces[$key]; ?>">
+                                <?php echo $key; ?>
+                            </a>
+                            &nbsp;<b>></b>&nbsp;
+                    <?php                        
+                        } else { ?>
+                            <a href="<?php echo $enlaces[$key]; ?>">
+                                <?php echo $key; ?>
+                            </a>
+                    <?php        
+                        } 
+                    ?>
+                <?php } ?>
+                <br />
                 <?php
                     if (\App\Session::get('msg')!=null) {  
                         echo \App\Session::get('msg')."<br /><br />"; 

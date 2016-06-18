@@ -55,17 +55,20 @@
                     </datalist>
                 </p>
                 <p>
-                    <input type="date" name="fec1" placeholder="Seleccione Fecha" />&nbsp;
-                    <input type="date" name="fec2" placeholder="Seleccione Fecha" />&nbsp;
+                    <input type="date" name="fec1" class="form-control_index" placeholder="Seleccione Fecha" />&nbsp;
+                    <input type="date" name="fec2" class="form-control_index" placeholder="Seleccione Fecha" />&nbsp;
                     <input type="button" onclick="frmsearch.submit();" name="btnsearch" value="Buscar" class="btn btn-theme01" tabindex="2" />
                 </p>
             </form>       
         </p>
         <table class="table table-bordered table-striped table-condensed">
             <thead>                
-                <th>Aplicación</th>                
+                <th>Aplicación</th>
+                <th>Piloto</th>
+                <th>Aeronave</th>                
                 <th>Cliente</th>
                 <th>Pista</th>
+                <th>Tipo</th>
                 <th>Estado</th>
                 <th>Opciones</th>
             </thead>
@@ -73,8 +76,27 @@
                 <?php foreach ($aplicaciones as $aplicacion) { ?>
                     <tr>
                         <td><?php echo $aplicacion->getId(); ?></td>
+                        <td>
+                            <?php 
+                                foreach($aplicacion->getUsados() as $usado) {
+                                    if($usado->getUsuario()->getRol()->getNombre() == "Piloto"){
+                                        echo $usado->getUsuario()->getDatoUsu()->getNombre();
+                                    }
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php 
+                                foreach($aplicacion->getUsados() as $usado) {
+                                    if($usado->getVehiculo()->getTipo()->getNombre() == "Aeronave"){
+                                        echo $usado->getVehiculo()->getMatricula();
+                                    }
+                                }
+                            ?>
+                        </td>
                         <td><a href="index.php?c=usuarios&a=view&d=<?php echo $aplicacion->getCliente()->getId(); ?>" target="_blank"><?php echo $aplicacion->getCliente()->getNombre(); ?></a></td>
                         <td><a href="index.php?c=pistas&a=view&d=<?php echo $aplicacion->getPista()->getId(); ?>" target="_blank"><?php echo $aplicacion->getPista()->getNombre(); ?></a></td>
+                        <td><?php echo $aplicacion->getTipo()->getNombre(); ?></td>
                         <td>
                             <?php  
                                 if($aplicacion->getFechaFin() == null or $aplicacion->getFechaFin() == "0000-00-00 00:00:00"){
@@ -91,7 +113,7 @@
                             ?>                        
                         </td>
                         <td>
-                            <a href="index.php?c=aplicaciones&a=view&d=<?php echo $aplicacion->getId(); ?>" target="_blank" title="Ver">
+                            <a href="index.php?c=aplicaciones&a=view&d=<?php echo $aplicacion->getId(); ?>" title="Ver">
                                 <i class="fa fa-eye" style="font-size: 22px;"></i>
                             </a>&nbsp;
                             <a href="index.php?c=aplicaciones&a=edit&d=<?php echo $aplicacion->getId(); ?>" title="Editar">

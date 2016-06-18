@@ -42,7 +42,7 @@ class AplicacionModel extends AppModel
             $object->getId()
         ];
     }
-    public function findAdvance($datos = []){
+    public function findAdvance($datos = []){                
         $rows= array();
         foreach($this->fetch($this->getFindQueryAdvance($datos), $this->getFindParameterAdvance($datos)) as $row){
             $obj = $this->createEntity($row); 
@@ -51,10 +51,27 @@ class AplicacionModel extends AppModel
         return $rows;
     }
     protected function getFindParameterAdvance($datos = []) {
-        return $datos;
+        $rows = array();
+        if($datos["aeronave"] != null){
+            array_push($rows, $datos["aeronave"]);
+        }                
+        if($datos["piloto"] != null){
+            array_push($rows, $datos["piloto"]);
+        }
+        if($datos["tipo"] != null){
+            array_push($rows, $datos["tipo"]);
+        }
+        if($datos["cliente"] != null){
+            array_push($rows, $datos["cliente"]);
+        }
+        if($datos["fec1"] != null and $datos["fec2"] != null){
+            array_push($rows, $datos["fec1"]);
+            array_push($rows, $datos["fec2"]);
+        }
+        return $rows;
     }
     
-    protected function getFindQueryAdvance($datos = []){
+    protected function getFindQueryAdvance($datos = []){                
         $where = false;
         $sql= "select *,a.usuId as cliente,uv.usuId as piloto from aplicaciones a "
             . "inner join utiliza uv on a.aplId = uv.aplId "
