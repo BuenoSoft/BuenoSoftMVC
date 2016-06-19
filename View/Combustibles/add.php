@@ -7,13 +7,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre del Combustible&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtnombre" class="form-control" required="required" placeholder="Ej: Gasoil" onkeypress="return validarTexto(event)" tabindex="1" autofocus />
+                        <input type="text" name="txtnombre" class="form-control" required="required" placeholder="Ej: Gasoil" onkeypress="return validarTexto(event);" pattern="[A-Za-z\s]*" tabindex="1" autofocus />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Stock del Combustible&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtstock" class="form-control" required="required" placeholder="Ej: 15" onkeypress="return validarNumero(event)" tabindex="2" />
+                        <input type="text" name="txtstock" class="form-control" required="required" placeholder="Ej: 15" onkeypress="return validarNumero(event);" pattern="[\d]*" tabindex="2" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -28,12 +28,6 @@
                                 }
                             ?>                            
                         </datalist>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Fecha de Carga</label>
-                    <div class="col-sm-10">
-                        <input type="date" name="dtfecha" class="form-control" tabindex="4"/>
                     </div>
                 </div>
             </div>

@@ -92,7 +92,6 @@ class CombustiblesController extends AppController
         $combustibles->setNombre($this->clean($_POST['txtnombre']));
         $combustibles->setStock($_POST['txtstock']);
         $combustibles->setTipo((new TipoVehiculo())->findById($_POST['tipo']));
-        $combustibles->setFecha($_POST['dtfecha']);
         return $combustibles;
     }
     protected function getRoles() {

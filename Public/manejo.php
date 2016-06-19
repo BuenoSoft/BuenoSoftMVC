@@ -37,7 +37,7 @@
                 <br />
                 <?php 
                     end($enlaces);
-                    $last = key($enlaces );
+                    $last = key($enlaces);
                     foreach ($enlaces as $key => $value) { 
                         if($key != $last){ ?>
                             <a href="<?php echo $enlaces[$key]; ?>">

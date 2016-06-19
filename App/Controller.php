@@ -76,26 +76,60 @@ abstract class Controller
         return $this->enlaces;
     }
     private function generateTitleAction(){
-        $entidad = str_replace("localhost/BuenoSoftMVC/index.php?c=", "", $_SERVER['REQUEST_URI']);
-        $d = explode("&", $entidad);
-        $d1 = str_replace("a=", "", $d[1]);
-        return $d1;
+        $d = explode("=", $_SERVER['REQUEST_URI']);
+        $d1 = explode("&", $d[2]);
+        return $d1[0];
     }
     private function generateTitleEntity(){
-        $entidad = str_replace("localhost/BuenoSoftMVC/index.php?c=", "", $_SERVER['REQUEST_URI']);
-        $d = explode("&", $entidad);
-        $d1 = explode("?", $d[0]);
-        $d2 = explode("=", $d1[1]);
-        return $d2[1];
+        $d = explode("=", $_SERVER['REQUEST_URI']);        
+        $d1 = explode("&", $d[1]);
+        return $d1[0];
     }
     private function generateTitle(){
         $array = [$this->generateTitleAction(), $this->generateTitleEntity()];
         if($array[0] == "index"){
-            return $array[1];
+            return $this->removeRare($array[1]);
+        } else if($array[0] == "add"){
+            return "Crear ".$this->removePlural($array[1]);
+        } else if($array[0] == "edit"){
+            return "Editar ".$this->removePlural($array[1]);
+        } else if($array[0] == "view"){
+            return "Ver ".$this->removePlural($array[1]);    
         } else {
             return $array[0]." ".$array[1];
+        }        
+    }
+    private function removePlural($palabra){
+        if($this->endsWith($palabra, "bles")){
+            return rtrim($palabra, "s");
+        } else if($this->endsWith($palabra, "es")){
+            return rtrim($palabra, "es");
+        } else if($this->endsWith($palabra, "s")){
+            return rtrim($palabra, "s");
+        } else if($this->endsWith($palabra, "p")){
+            return rtrim($palabra, "p");
+        } else if($this->endsWith($palabra, "v")){
+             return rtrim($palabra, "v");
+        } else {
+            return $palabra;
         }
-        
+    }
+    private function removeRare($palabra){
+        if($this->endsWith($palabra, "p")){
+            return rtrim($palabra, "p")."s";
+        } else if($this->endsWith($palabra, "v")){
+            return rtrim($palabra, "v")."s";
+        } else {
+            return $palabra;
+        } 
+    }
+    function startsWith($haystack, $needle) {
+        // search backwards starting from haystack length characters from the end
+        return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== false;
+    }
+    function endsWith($haystack, $needle) {
+        // search forward starting from end minus needle length characters
+        return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== false);
     }
     protected function getMessageRole() { }
     protected function getRoles(){}

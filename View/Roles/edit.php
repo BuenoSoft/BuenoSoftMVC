@@ -13,7 +13,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre del Rol&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtnombre" class="form-control" required="required" placeholder="Ej: Siembra" onkeypress="return validarTexto(event)" tabindex="1" value="<?php echo $rol->getNombre(); ?>" />
+                        <input type="text" name="txtnombre" class="form-control" required="required" placeholder="Ej: Siembra" onkeypress="return validarTexto(event);" pattern="[A-Za-z\s]*" tabindex="1" value="<?php echo $rol->getNombre(); ?>" />
                     </div>
                 </div>
             </div>

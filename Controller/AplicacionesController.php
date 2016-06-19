@@ -42,10 +42,6 @@ class AplicacionesController extends AppController
             $this->passDates();
             $productos = (Session::get("pass")[9] != "") ? $this->getPaginator()->paginar((new Producto())->findByTipo(Session::get("pass")[9])) : array();
             $clientes = (Session::get('pass')[16] != "") ? $this->getPaginator()->paginar((new Usuario())->find(Session::get('pass')[16]),1) : array();
-            $pilotos = (Session::get('pass')[17] != "") ? $this->getPaginator()->paginar((new Usuario())->find(Session::get('pass')[17]),1) : array();
-            $choferes = (Session::get('pass')[18] != "") ? $this->getPaginator()->paginar((new Usuario())->find(Session::get('pass')[18]),1) : array();
-            $aeronaves = (Session::get('pass')[19] != "") ? $this->getPaginator()->paginar((new Vehiculo())->find(Session::get('pass')[19]),1) : array();
-            $terrestres = (Session::get('pass')[20] != "") ? $this->getPaginator()->paginar((new Vehiculo())->find(Session::get('pass')[20]),1) : array();
             $pistas = (Session::get('pass')[2] != "") ? $this->getPaginator()->paginar((new Pista())->find(Session::get('pass')[2]),1) : array();            
             if (isset($_POST['btnaceptar'])) {
                 $apl = $this->createEntity();
@@ -58,10 +54,8 @@ class AplicacionesController extends AppController
             }
             $this->redirect_administrador(['add.php'],[
                 "clientes" => $clientes,
-                "pilotos" => $pilotos,
-                "choferes" => $choferes,
-                "aeronaves" => $aeronaves,
-                "terrestres" => $terrestres,
+                "usuarios" => (new Usuario())->find(),
+                "vehiculos" => (new Vehiculo())->find(),
                 "pistas" => $pistas,
                 "tipos" => (new TipoProducto())->find(),
                 "productos" => $productos                
@@ -92,10 +86,6 @@ class AplicacionesController extends AppController
             $this->passEdit();
             $productos = (Session::get("pass")[9] != "") ? $this->getPaginator()->paginar((new Producto())->findByTipo(Session::get("pass")[9])) : array();
             $clientes = (Session::get('pass')[16] != "") ? $this->getPaginator()->paginar((new Usuario())->find(Session::get('pass')[16]),1) : array();
-            $pilotos = (Session::get('pass')[17] != "") ? $this->getPaginator()->paginar((new Usuario())->find(Session::get('pass')[17]),1) : array();
-            $choferes = (Session::get('pass')[18] != "") ? $this->getPaginator()->paginar((new Usuario())->find(Session::get('pass')[18]),1) : array();
-            $aeronaves = (Session::get('pass')[19] != "") ? $this->getPaginator()->paginar((new Vehiculo())->find(Session::get('pass')[19]),1) : array();
-            $terrestres = (Session::get('pass')[20] != "") ? $this->getPaginator()->paginar((new Vehiculo())->find(Session::get('pass')[20]),1) : array();
             $pistas = (Session::get('pass')[2] != "") ? $this->getPaginator()->paginar((new Pista())->find(Session::get('pass')[2]),1) : array();
             if (Session::get('app')!=null && isset($_POST['btnaceptar'])){
                 $this->passDates();
@@ -109,10 +99,8 @@ class AplicacionesController extends AppController
             }
             $this->redirect_administrador(['edit.php'],[
                 "clientes" => $clientes,
-                "pilotos" => $pilotos,
-                "choferes" => $choferes,
-                "aeronaves" => $aeronaves,
-                "terrestres" => $terrestres,
+                "usuarios" => (new Usuario())->find(),
+                "vehiculos" => (new Vehiculo())->find(),
                 "pistas" => $pistas,
                 "tipos" => (new TipoProducto())->find(),
                 "productos" => $productos

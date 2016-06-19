@@ -7,7 +7,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre del Tipo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtnombre" class="form-control" required="required" placeholder="Ej: Avión" autofocus="autofocus"onkeypress="return validarTexto(event)" tabindex="1"  />
+                        <input type="text" name="txtnombre" class="form-control" required="required" placeholder="Ej: Avión" autofocus="autofocus" onkeypress="return validarTexto(event);" pattern="[A-Za-z\s]*" tabindex="1"  />
                     </div>
                 </div>
                 <div class="form-group">

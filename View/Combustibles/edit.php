@@ -13,13 +13,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre del Combustible&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtnombre" class="form-control" required="required" placeholder="Ej: Gasoil" onkeypress="return validarTexto(event)" value="<?php echo $combustible->getNombre(); ?>" tabindex="1"/>
+                        <input type="text" name="txtnombre" class="form-control" required="required" placeholder="Ej: Gasoil" onkeypress="return validarTexto(event);" pattern="[A-Za-z\s]*" value="<?php echo $combustible->getNombre(); ?>" tabindex="1"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Stock del Combustible&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtstock" class="form-control" required="required" placeholder="Ej: 15" onkeypress="return validarNumero(event)" value="<?php echo $combustible->getStock(); ?>" tabindex="2" />
+                        <input type="text" name="txtstock" class="form-control" required="required" placeholder="Ej: 15" onkeypress="return validarNumero(event);" pattern="[\d]*" value="<?php echo $combustible->getStock(); ?>" tabindex="2" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -35,13 +35,7 @@
                             ?> 
                         </datalist>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Fecha de Carga</label>
-                    <div class="col-sm-10">
-                        <input type="date" name="dtfecha" class="form-control" value="<?php echo $combustible->getFecha(); ?>" tabindex="4" />
-                    </div>
-                </div>
+                </div>                
             </div>
             <div style="text-align: center;">
                 <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="5"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;

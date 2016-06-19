@@ -28,12 +28,6 @@
                         <?php echo $combustible->getTipo()->getNombre(); ?>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Fecha de Carga</label>
-                    <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $combustible->getFecha(); ?>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
