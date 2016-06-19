@@ -15,6 +15,7 @@ abstract class Controller
     }
     public function redirect_administrador($file = array(), $dates = array()) {
         try {
+            $this->checkEnlace();
             $ns = explode('\\', get_called_class());
             $path = $this->createFile(APPLICATION_PATH . DS . "View" . DS . str_replace("Controller", "", $ns[1]) . DS . $file[0], $dates);
             $menu = $this->createFile(APPLICATION_PATH . DS . 'Public' . DS . 'manejo_menu.php');
@@ -71,8 +72,11 @@ abstract class Controller
     protected function clean($cadena){
         return htmlentities($cadena);
     }
+    /*----------para el tema de los enlaces----------*/
+    protected function checkEnlace(){
+        $this->enlaces[$this->generateTitle()] = $_SERVER['REQUEST_URI'];        
+    }
     protected function getEnlaces(){
-        $this->enlaces[$this->generateTitle()] = $_SERVER['REQUEST_URI'];
         return $this->enlaces;
     }
     private function generateTitleAction(){
@@ -100,28 +104,32 @@ abstract class Controller
         }        
     }
     private function removePlural($palabra){
+        $cambio = "";
         if($this->endsWith($palabra, "bles")){
-            return rtrim($palabra, "s");
+            $cambio = rtrim($palabra, "s");
         } else if($this->endsWith($palabra, "es")){
-            return rtrim($palabra, "es");
+            $cambio = rtrim($palabra, "es");
         } else if($this->endsWith($palabra, "s")){
-            return rtrim($palabra, "s");
+            $cambio = rtrim($palabra, "s");
         } else if($this->endsWith($palabra, "p")){
-            return rtrim($palabra, "p");
+            $cambio = rtrim($palabra, "p");
         } else if($this->endsWith($palabra, "v")){
-             return rtrim($palabra, "v");
+            $cambio = rtrim($palabra, "v");
         } else {
-            return $palabra;
+            $cambio = $palabra;
         }
+        return ucwords($cambio);
     }
     private function removeRare($palabra){
+        $cambio = "";
         if($this->endsWith($palabra, "p")){
-            return rtrim($palabra, "p")."s";
+            $cambio = rtrim($palabra, "p")."s";
         } else if($this->endsWith($palabra, "v")){
-            return rtrim($palabra, "v")."s";
+            $cambio = rtrim($palabra, "v")."s";
         } else {
-            return $palabra;
+            $cambio = $palabra;
         } 
+        return ucwords($cambio);
     }
     function startsWith($haystack, $needle) {
         // search backwards starting from haystack length characters from the end
