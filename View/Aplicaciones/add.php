@@ -120,7 +120,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Terrestre&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="terrestres" class="form-control" placeholder="Seleccione Aeronave"  name="terrestre" required="required" tabindex="12" value="<?php echo \App\Session::get("pass")[20]; ?>" />
+                        <input list="terrestres" class="form-control" placeholder="Seleccione Terrestre"  name="terrestre" required="required" tabindex="12" value="<?php echo \App\Session::get("pass")[20]; ?>" />
                         <datalist id="terrestres">
                             <?php 
                                 foreach ($vehiculos as $vehiculo) { 

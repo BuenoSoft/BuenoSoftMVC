@@ -14,8 +14,6 @@
         <group>
             <file>file:/var/www/html/BuenoSoftMVC/App/Controller.php</file>
             <file>file:/var/www/html/BuenoSoftMVC/Public/manejo.php</file>
-            <file>file:/var/www/html/BuenoSoftMVC/Public/manejo_menu.php</file>
-            <file>file:/var/www/html/BuenoSoftMVC/View/Aplicaciones/index.php</file>
         </group>
     </open-files>
 </project-private>

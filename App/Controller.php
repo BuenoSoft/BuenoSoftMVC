@@ -15,11 +15,10 @@ abstract class Controller
     }
     public function redirect_administrador($file = array(), $dates = array()) {
         try {
-            $this->checkEnlace();
             $ns = explode('\\', get_called_class());
             $path = $this->createFile(APPLICATION_PATH . DS . "View" . DS . str_replace("Controller", "", $ns[1]) . DS . $file[0], $dates);
             $menu = $this->createFile(APPLICATION_PATH . DS . 'Public' . DS . 'manejo_menu.php');
-            echo $this->createFile(APPLICATION_PATH . DS . 'Public' . DS . 'manejo.php', array('content' => $path, 'menu' => $menu, 'enlaces' => $this->getEnlaces()));
+            echo $this->createFile(APPLICATION_PATH . DS . 'Public' . DS . 'manejo.php', array('content' => $path, 'menu' => $menu, 'enlaces' => $this->breadcrumbs()));
         } 
         catch (Exception $ex) {
             echo $ex->getMessage();
@@ -73,6 +72,49 @@ abstract class Controller
         return htmlentities($cadena);
     }
     /*----------para el tema de los enlaces----------*/
+    function breadcrumbs($separator = ' &raquo; ', $home = 'Inicio') {
+        // This gets the REQUEST_URI (/path/to/file.php), splits the string (using '/') into an array, and then filters out any empty values
+        $path = array_filter(explode('=', $_SERVER['REQUEST_URI']));
+        $c= explode("&", $path[1])[0];
+        $a =$path[2];
+        // This will build our "base URL" ... Also accounts for HTTPS :)
+        $base = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://localhost/BuenoSoftMVC/index.php?c=access&a=index';
+        // Initialize a temporary array with our breadcrumbs. (starting with our home page, which I'm assuming will be the base URL)
+        $breadcrumbs = [];
+        array_push($breadcrumbs, "<a href=".$base.">".$home."</a>");
+        // Find out the index for the lasrt value in our path array
+        $last = end(array_keys($path));
+        // Build the rest of the breadcrumbs
+        foreach ($path AS $x => $crumb) {
+            // Our "title" is the text that will be displayed (strip out .php and turn '_' into a space)
+            $title = ucwords(str_replace(Array('.php', '_'), Array('', ' '), $crumb));
+            // If we are not on the last index, then display an <a> tag
+            if ($x != $last) {
+                $href="?c=".$c."&a=".$a;
+                array_push($breadcrumbs, "<a href=".$href.">".$c."</a>");
+                // Otherwise, just display the title (minus)
+            } else {
+                array_push($breadcrumbs, $title);
+            }            
+        }            
+        // Build our temporary array (pieces of bread) into one big string :)
+        return implode($separator, array_unique($breadcrumbs));
+    }
+    private function generateTitleAction(){
+        $d = explode("=", $_SERVER['REQUEST_URI']);
+        $d1 = explode("&", $d[2]);
+        return $d1[0];
+    }
+    private function generateTitleEntity(){
+        $d = explode("=", $_SERVER['REQUEST_URI']);        
+        $d1 = explode("&", $d[1]);
+        return $d1[0];
+    }
+    
+    private function generateTitle(){
+        return [$this->generateTitleAction(), $this->generateTitleEntity()];
+    }
+    /*
     protected function checkEnlace(){
         $this->enlaces[$this->generateTitle()] = $_SERVER['REQUEST_URI'];        
     }
@@ -138,7 +180,7 @@ abstract class Controller
     function endsWith($haystack, $needle) {
         // search forward starting from end minus needle length characters
         return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== false);
-    }
+    }*/
     protected function getMessageRole() { }
     protected function getRoles(){}
 }
