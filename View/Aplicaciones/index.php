@@ -60,6 +60,7 @@
                     <input type="button" onclick="frmsearch.submit();" name="btnsearch" value="Buscar" class="btn btn-theme01" tabindex="2" />&nbsp;
                     <a href="index.php?c=pdf&a=todos" target="_blank">
                         <input type="button" value="Imprimir" class="btn btn-theme01" tabindex="3" />
+                        <!--<button class="btn btn-theme05" tabindex="3"><i class="fa fa-print"></i>&nbsp;Imprimir</button>-->
                     </a>
                 </p>
             </form>       

@@ -34,7 +34,7 @@
         <?php echo $menu; ?>
         <section id="main-content">
             <section class="wrapper">
-                <br />
+                <br /><br />
                 <?php 
                     echo $enlaces;
                 ?>

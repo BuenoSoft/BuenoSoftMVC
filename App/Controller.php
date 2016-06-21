@@ -72,7 +72,7 @@ abstract class Controller
         return htmlentities($cadena);
     }
     /*----------para el tema de los enlaces----------*/
-    function breadcrumbs($separator = ' &raquo; ', $home = 'Inicio') {
+    function breadcrumbs($separator = ' &raquo; ', $home = 'Inicio') {        
         // This gets the REQUEST_URI (/path/to/file.php), splits the string (using '/') into an array, and then filters out any empty values
         $path = array_filter(explode('=', $_SERVER['REQUEST_URI']));
         $c= explode("&", $path[1])[0];
@@ -98,7 +98,7 @@ abstract class Controller
             }            
         }            
         // Build our temporary array (pieces of bread) into one big string :)
-        return implode($separator, array_unique($breadcrumbs));
+        return implode($separator, array_unique($breadcrumbs));        
     }
     private function generateTitleAction(){
         $d = explode("=", $_SERVER['REQUEST_URI']);

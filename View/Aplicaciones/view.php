@@ -1,4 +1,11 @@
 <h3><i class="fa fa-angle-right"></i>Ver Aplicación número&nbsp;<?php echo $aplicacion->getId(); ?></h3>
+<p>
+    <a href="index.php?c=pdf&a=myapp&d=<?php echo $aplicacion->getId(); ?>" target="_blank">
+        <button class="btn btn-theme05" tabindex="3">
+            <i class="fa fa-print"></i>&nbsp;Imprimir
+        </button>
+    </a>
+</p>
 <div class="form-horizontal style-form">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
