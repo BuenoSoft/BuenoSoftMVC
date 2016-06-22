@@ -72,7 +72,7 @@ class PdfController extends AppController
         $this->getPdf()->Cell(27, 8, $aplicacion->getCaudal(), 0);
         $this->getPdf()->Cell(85, 8, 'Coord/Cultivo:', 0,0,"R");
         $this->getPdf()->Ln(8);        
-        $this->getPdf()->Cell(114, 8, $aplicacion->getCultivo(), 0,0,"R");
+        $this->getPdf()->Cell(147, 8, $aplicacion->getCoordCul(), 0,0,"R");
         $this->getPdf()->Ln(20);
         $this->getPdf()->Cell(27, 8, 'Productos:', 0,0,"L");
         $this->getPdf()->Cell(85, 8, 'Faja:', 0,0,"R");

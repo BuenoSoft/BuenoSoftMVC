@@ -87,12 +87,14 @@ class CombustiblesController extends AppController
         }
     }
     private function createEntity(){
-        $combustibles = new Combustible();
-        $combustibles->setId((isset($_POST['hid']) ? $_POST['hid'] : 0));
-        $combustibles->setNombre($this->clean($_POST['txtnombre']));
-        $combustibles->setStock($_POST['txtstock']);
-        $combustibles->setTipo((new TipoVehiculo())->findById($_POST['tipo']));
-        return $combustibles;
+        $combustible = new Combustible();
+        $combustible->setId((isset($_POST['hid']) ? $_POST['hid'] : 0));
+        $combustible->setNombre($this->clean($_POST['txtnombre']));
+        $combustible->setStock($_POST['txtstock']);
+        $combustible->setStockMin($_POST['txtstockmin']);
+        $combustible->setFecUC($_POST['dtfecuc']);
+        $combustible->setTipo((new TipoVehiculo())->findById($_POST['tipo']));
+        return $combustible;
     }
     protected function getRoles() {
         return ["Administrador","Supervisor"];

@@ -24,7 +24,7 @@
                             </a>                            
                         </td>
                         <td>
-                            <a href="index.php?c=historial&a=index&d=<?php echo $usado->getAplicacion()->getId(); ?>&v=<?php echo $usado->getVehiculo()->getId();?>" title="Historial">
+                            <a href="index.php?c=usados&a=historial&d=<?php echo $usado->getAplicacion()->getId(); ?>&v=<?php echo $usado->getVehiculo()->getId();?>" title="Historial">
                                 <i class="fa fa-info-circle" style="font-size: 22px;"></i>
                             </a>
                         </td>
@@ -35,19 +35,19 @@
         <?php if ($paginador != null) { ?> 
             <br />
             <?php if($paginador['primero']) { ?>	
-                <a href="<?php echo 'index.php?c=usados&a=index&d='.$aplicacion->getId().'&s=' . $paginador['primero']; ?>" title="Primero">Primero</a>        
+                <a href="<?php echo 'index.php?c=usados&a=index&d='.$aplicacion->getId().'&p=' . $paginador['primero']; ?>" title="Primero">Primero</a>        
             <?php } ?>
             &nbsp;
             <?php if($paginador['anterior']) { ?>	
-                <a href="<?php echo 'index.php?c=usados&a=index&d='.$aplicacion->getId().'&s=' . $paginador['anterior']; ?>" title="Anterior">Anterior</a>	
+                <a href="<?php echo 'index.php?c=usados&a=index&d='.$aplicacion->getId().'&p=' . $paginador['anterior']; ?>" title="Anterior">Anterior</a>	
             <?php } ?>
             &nbsp;
             <?php if($paginador['siguiente']) { ?>	
-                <a href="<?php echo 'index.php?c=usados&a=index&d='.$aplicacion->getId().'&s=' . $paginador['siguiente']; ?>" title="Siguiente">Siguiente</a>
+                <a href="<?php echo 'index.php?c=usados&a=index&d='.$aplicacion->getId().'&p=' . $paginador['siguiente']; ?>" title="Siguiente">Siguiente</a>
             <?php } ?>
             &nbsp;
             <?php if($paginador['ultimo']) { ?>	
-                <a href="<?php echo 'index.php?c=usados&a=index&d='.$aplicacion->getId().'&s=' . $paginador['ultimo']; ?>" title="Último">Último</a>	
+                <a href="<?php echo 'index.php?c=usados&a=index&d='.$aplicacion->getId().'&p=' . $paginador['ultimo']; ?>" title="Último">Último</a>	
             <?php }     
         } ?>
     </section>

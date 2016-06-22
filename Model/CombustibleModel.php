@@ -19,10 +19,11 @@ class CombustibleModel extends AppModel
         return "select * from combustibles where comNombre = ?";
     }
     protected function getCreateParameter($object) {
-        return [$object->getNombre(),$object->getStock(),$object->getTipo()->getId(),'H'];
+        return [$object->getNombre(),$object->getStock(),$object->getStockMin(),
+            $object->getFecUC(),$object->getTipo()->getId(),'H'];
     }
     protected function getCreateQuery() {
-        return "insert into combustibles(comNombre,comStock,tvId,comEstado) values(?,?,?,?,?)";
+        return "insert into combustibles(comNombre,comStock,comStockMin,comFecUC,tvId,comEstado) values(?,?,?,?,?,?)";
     }
     protected function getDeleteParameter($object) {
         if($object->getEstado() == "H"){
@@ -49,16 +50,19 @@ class CombustibleModel extends AppModel
         return "select * from combustibles where comId = ?";
     }
     protected function getUpdateParameter($object) {
-        return [$object->getNombre(),$object->getStock(),$object->getTipo()->getId(),$object->getId()];
+        return [$object->getNombre(),$object->getStock(),$object->getStockMin(),
+            $object->getFecUC(),$object->getTipo()->getId(),$object->getId()];
     }
     protected function getUpdateQuery() {
-        return "update combustibles set comNombre = ?, comStock = ?, tvId = ? where comId = ?";
+        return "update combustibles set comNombre = ?, comStock = ?, comStockMin = ?, comFecUC = ?, tvId = ? where comId = ?";
     }
     public function createEntity($row) {
         $combustible = new Combustible();
         $combustible->setId($row["comId"]);
         $combustible->setNombre($row["comNombre"]);
         $combustible->setStock($row["comStock"]);
+        $combustible->setStockMin($row["comStockMin"]);
+        $combustible->setFecUC($row["comFecUC"]);
         $combustible->setTipo((new TipoVehiculoModel())->findById($row["tvId"]));
         $combustible->setEstado($row["comEstado"]);
         return $combustible;

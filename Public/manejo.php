@@ -35,9 +35,7 @@
         <section id="main-content">
             <section class="wrapper">
                 <br /><br />
-                <?php 
-                    echo $enlaces;
-                ?>
+                <?php echo $enlaces; ?>
                 <br />
                 <?php
                     if (\App\Session::get('msg')!=null) {  
@@ -52,7 +50,7 @@
         <script src="Public/js/manejo/jquery.js"></script>
         <script src="Public/js/manejo/bootstrap.min.js"></script>
         <script class="include" type="text/javascript" src="Public/js/manejo/jquery.dcjqaccordion.2.7.js"></script>
-        <script src="Public/js/manejo/jquery.scrollTo.min.js"></script>
+        <!--script src="Public/js/manejo/jquery.scrollTo.min.js"></script-->
         <script src="Public/js/manejo/jquery.nicescroll.js" type="text/javascript"></script>
         <!--common script for all pages-->
         <script src="Public/js/manejo/common-scripts.js"></script>

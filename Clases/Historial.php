@@ -5,8 +5,7 @@ class Historial
     private $usado;
     private $combustible;
     private $fecha;
-    private $cargaIni;
-    private $cargaFin;
+    private $recarga;
     function getUsado() {
         return $this->usado;
     }
@@ -16,11 +15,8 @@ class Historial
     function getFecha() {
         return $this->fecha;
     }
-    function getCargaIni() {
-        return $this->cargaIni;
-    }
-    function getCargaFin() {
-        return $this->cargaFin;
+    function getRecarga() {
+        return $this->recarga;
     }
     function setUsado($usado) {
         $this->usado = $usado;
@@ -31,11 +27,8 @@ class Historial
     function setFecha($fecha) {
         $this->fecha = $fecha;
     }
-    function setCargaIni($cargaIni) {
-        $this->cargaIni = $cargaIni;
-    }
-    function setCargaFin($cargaFin) {
-        $this->cargaFin = $cargaFin;
+    function setRecarga($recarga) {
+        $this->recarga = $recarga;
     }
     function __construct() { }
 }

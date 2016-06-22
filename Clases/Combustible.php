@@ -7,6 +7,8 @@ class Combustible implements IPersiste
     private $id;
     private $nombre;
     private $stock;
+    private $stockMin;
+    private $fecUC;
     private $tipo;
     private $estado;
     function getId() {
@@ -18,6 +20,12 @@ class Combustible implements IPersiste
     function getStock() {
         return $this->stock;
     }
+    function getStockMin() {
+        return $this->stockMin;
+    }
+    function getFecUC() {
+        return $this->fecUC;
+    }    
     function getTipo() {
         return $this->tipo;
     }
@@ -33,6 +41,12 @@ class Combustible implements IPersiste
     function setStock($stock) {
         $this->stock = $stock;
     }
+    function setStockMin($stockMin) {
+        $this->stockMin = $stockMin;
+    }
+    function setFecUC($fecUC) {
+        $this->fecUC = $fecUC;
+    }
     function setTipo($tipo) {
         $this->tipo = $tipo;
     }
@@ -42,6 +56,10 @@ class Combustible implements IPersiste
     function __construct() { }
     public function equals(Combustible $obj){
         return $this->nombre == $obj->nombre;                
+    }
+    public function mostrarDateTime(){
+        $date = date_create($this->fecUC);
+        return date_format($date, "Y-m-d\TH:i:s");
     }
     /*---------------------------------------*/
     public function del() {

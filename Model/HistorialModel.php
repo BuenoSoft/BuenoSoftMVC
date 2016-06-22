@@ -8,12 +8,15 @@ class HistorialModel extends AppModel
     }
     protected function getCreateParameter($object) {
         return [
-            $object->getUsado()->getAplicacion()->getId(),$object->getUsado()->getVehiculo()->getId(),
-            $object->getCombustible()->getId(),$object->getFecha(),$object->getCargaIni(),$object->getCargaFin()
+            $object->getUsado()->getAplicacion()->getId(),
+            $object->getUsado()->getVehiculo()->getId(),
+            $object->getCombustible()->getId(),
+            $object->getFecha(),
+            $object->getRecarga()
         ];
     }
     protected function getCreateQuery() {
-        return "insert into historial(aplId,vehId,comId,hisFecha,hisCargaIni,hisCargaFin) values (?,?,?,?,?,?)";
+        return "insert into historial(aplId,vehId,comId,hisFecha,hisRecarga) values (?,?,?,?,?)";
     }
     /*------------------------------------------------------------------------------------*/
     public function getHistoriales($dates = []){
@@ -41,20 +44,6 @@ class HistorialModel extends AppModel
         return "select * from historial where aplId = ? and vehId = ? and comId = ? and hisFecha = ?";
     }
     /*------------------------------------------------------------------------------------*/
-    protected function getUpdateParameter($object) {
-        return [
-            $object->getCargaIni(),$object->getCargaFin(),
-            $object->getUsado()->getAplicacion()->getId(),$object->getUsado()->getVehiculo()->getId(),
-            $object->getCombustible()->getId(),$object->getFecha()
-        ];
-    }
-    protected function getUpdateQuery() {
-        return "update historial set hisCargaIni = ?, hisCargaFin = ? where aplId = ? and vehId = ? and comId = ? and hisFecha = ?";
-    }
-    public function modHis($his){
-        return $this->execute($this->getUpdateQuery(), $this->getUpdateParameter($his));
-    }
-    /*------------------------------------------------------------------------------------*/
     protected function getDeleteParameter($object) {
         return [
             $object->getUsado()->getAplicacion()->getId(),$object->getUsado()->getVehiculo()->getId(),
@@ -71,8 +60,7 @@ class HistorialModel extends AppModel
         $historial->setUsado($usado);
         $historial->setCombustible($combustible);
         $historial->setFecha($row["hisFecha"]);
-        $historial->setCargaIni($row["hisCargaIni"]);
-        $historial->setCargaFin($row["hisCargaFin"]);
+        $historial->setRecarga($row["hisRecarga"]);
         return $historial;
     }
     private function getUsado($row){
@@ -89,4 +77,6 @@ class HistorialModel extends AppModel
     protected function getCheckMessage() { }
     protected function getCheckParameter($unique) { }
     protected function getCheckQuery() { }
+    protected function getUpdateParameter($object) { }
+    protected function getUpdateQuery() { }    
 }

@@ -4,12 +4,10 @@ use \Lib\Paginador;
 include('./Lib/fpdf/FPDF.php');
 abstract class Controller 
 {
-    private $enlaces;
     private $paginador;
     private $pdf;
     function __construct() {
         session_start();
-        $this->enlaces = [];
         $this->paginador = new Paginador();
         $this->pdf = new \FPDF();
     }
@@ -72,26 +70,30 @@ abstract class Controller
         return htmlentities($cadena);
     }
     /*----------para el tema de los enlaces----------*/
-    function breadcrumbs($separator = ' &raquo; ', $home = 'Inicio') {        
-        // This gets the REQUEST_URI (/path/to/file.php), splits the string (using '/') into an array, and then filters out any empty values
-        $path = array_filter(explode('=', $_SERVER['REQUEST_URI']));
-        $c= explode("&", $path[1])[0];
-        $a =$path[2];
-        // This will build our "base URL" ... Also accounts for HTTPS :)
-        $base = (isset($_SERVER['HTTPS']) ? 'https' : 'http') . '://localhost/BuenoSoftMVC/index.php?c=access&a=index';
-        // Initialize a temporary array with our breadcrumbs. (starting with our home page, which I'm assuming will be the base URL)
+    
+    function breadcrumbs($separator = ' &rsaquo; ', $home = 'Inicio') {        
+        $actual = $this->createPath($_SERVER['REQUEST_URI']);
+        $c= explode("&", $actual[1])[0];
+        $a = $actual[2];
+        $base = $this->createPath("localhost/BuenoSoftMVC/index.php?c=access&a=index");
+        $c1= explode("&", $base[1])[0];
+        $a1 =$base[2];
         $breadcrumbs = [];
-        array_push($breadcrumbs, "<a href=".$base.">".$home."</a>");
-        // Find out the index for the lasrt value in our path array
-        $last = end(array_keys($path));
+        array_push($breadcrumbs, "<a href=index.php?c=$c1&a=$a1>".$home."</a>");
+        // Find out the index for the last value in our path array
+        $last = end(array_keys($actual));
         // Build the rest of the breadcrumbs
-        foreach ($path AS $x => $crumb) {
+        foreach ($actual AS $x => $crumb) {
             // Our "title" is the text that will be displayed (strip out .php and turn '_' into a space)
             $title = ucwords(str_replace(Array('.php', '_'), Array('', ' '), $crumb));
             // If we are not on the last index, then display an <a> tag
             if ($x != $last) {
-                $href="?c=".$c."&a=".$a;
-                array_push($breadcrumbs, "<a href=".$href.">".$c."</a>");
+                if($c == $c1 and $a == $a1){
+                    
+                } else {
+                    $href="?c=".$c."&a=".$a;
+                    array_push($breadcrumbs, "<a href=".$href.">".$c."</a>");                
+                }
                 // Otherwise, just display the title (minus)
             } else {
                 array_push($breadcrumbs, $title);
@@ -99,6 +101,10 @@ abstract class Controller
         }            
         // Build our temporary array (pieces of bread) into one big string :)
         return implode($separator, array_unique($breadcrumbs));        
+    }
+    
+    private function createPath($path){
+        return array_filter(explode('=', $path));        
     }
     private function generateTitleAction(){
         $d = explode("=", $_SERVER['REQUEST_URI']);
