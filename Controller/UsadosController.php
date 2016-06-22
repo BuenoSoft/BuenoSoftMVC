@@ -30,13 +30,17 @@ class UsadosController extends AppController
             $usado = $this->getUsado();
             if (isset($_POST['btnaceptar'])) {
                 $historial = $this->createEntity();
-                $id = $usado->addHis($historial);
-                if(isset($id)){
-                    Session::set("msg","Historial de Vehículo Registrado");
-                    header("Location:index.php?c=usados&a=historial&d=".Session::get("app")."&v=".Session::get("v"));
-                    exit();
+                if($historial->getCombustible()->delStock($historial->getRecarga())){
+                    $id = $usado->addHis($historial);
+                    if(isset($id)){
+                        Session::set("msg","Historial de Vehículo Registrado");
+                        header("Location:index.php?c=usados&a=historial&d=".Session::get("app")."&v=".Session::get("v"));
+                        exit();
+                    } else {
+                        Session::set("msg","Error al registrar historial");
+                    }                
                 } else {
-                    Session::set("msg","Error al registrar historial");
+                    Session::set("msg","No tiene suficiente stock para recargar");
                 }
             }
             $this->redirect_administrador(['historial.php'],[
@@ -53,10 +57,11 @@ class UsadosController extends AppController
             Session::set("m",$_GET['m']);
             Session::set("f",$_GET['f']);
             $usado = $this->getUsado();
-            $historial = $usado->getHistorial([Session::get('m'),Session::get('f')]);
+            $historial = $this->getHistorial($usado);
+            $historial->getCombustible()->addStock($historial->getRecarga());
             $id = $usado->delHis($historial);
             Session::set("msg", (isset($id)) ? "Historial de Vehículo Borrado" : "No se pudo borrar el producto");
-            header("Location:index.php?c=historial&a=index&d=".Session::get("app")."&v=".Session::get("v"));
+            header("Location:index.php?c=usados&a=historial&d=".Session::get("app")."&v=".Session::get("v"));
         }
     }
     private function getUsado(){
@@ -65,6 +70,14 @@ class UsadosController extends AppController
         foreach($apl->getUsados() as $usado){
             if($usado->getVehiculo() == $veh){
                 return $usado;
+            }
+        }
+        return null;
+    }
+    private function getHistorial($usado){
+        foreach($usado->getHistoriales() as $historial){
+            if($historial->getCombustible()->getId() == Session::get("m") and $historial->getFecha() == Session::get("f")){
+                return $historial;            
             }
         }
         return null;

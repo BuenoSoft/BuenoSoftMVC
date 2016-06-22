@@ -13,9 +13,10 @@
         </p>
         <table class="table table-bordered table-striped table-condensed">
             <thead>                
-                <th>Combustible</th>
+                <th>Nº</th>
                 <th>Nombre</th>
-                <th>Stock</th>
+                <th>Stock Disp.</th>
+                <th>Stock Mínimo</th>
                 <th>Tipo</th>
                 <th>Opciones</th>
             </thead>
@@ -27,6 +28,7 @@
                         <td><?php echo $combustible->getId(); ?></td>
                         <td><?php echo $combustible->getNombre(); ?></td>
                         <td><?php echo $combustible->getStock(); ?></td>
+                        <td><?php echo $combustible->getStockMin(); ?></td>
                         <td><?php echo $combustible->getTipo()->getNombre(); ?></td>
                         <td>
                             <a href="index.php?c=combustibles&a=view&d=<?php echo $combustible->getId(); ?>" target="_blank" title="Ver">

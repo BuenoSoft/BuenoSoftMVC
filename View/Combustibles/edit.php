@@ -47,12 +47,6 @@
                         <input type="text" name="txtstockmin" class="form-control" required="required" placeholder="Ej: 15" onkeypress="return validarNumero(event);" pattern="[\d]*" tabindex="4" value="<?php echo $combustible->getStockMin(); ?>" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Última Carga&nbsp;<font color="red">*</font></label>
-                    <div class="col-sm-10">
-                        <input type="datetime-local" name="dtfecuc" class="form-control" required="required" value="<?php echo ($combustible->getFecUC() == null) ? "" : $combustible->mostrarDateTime(); ?>" tabindex="2"/>
-                    </div>
-                </div>
             </div>
             <div style="text-align: center;">
                 <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="5"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;

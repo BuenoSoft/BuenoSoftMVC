@@ -12,11 +12,13 @@
                         <p>
                             <?php echo "Stock Disponible: ".$usado->getVehiculo()->getCombustible()->getStock(); ?>
                         </p>
-                        
+                        <p>
+                            <?php echo "Stock Mínimo: ".$usado->getVehiculo()->getCombustible()->getStockMin(); ?>
+                        </p>
                     </div>                                        
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Fecha<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Fecha y Hora&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input type="datetime-local" name="dtfecha" class="form-control" autofocus required="required" value="<?php echo date("Y-m-d\TH:i:s"); ?>" />
                     </div>                                        
@@ -40,19 +42,18 @@
                     <thead>
                         <th>Recarga</th>
                         <th>Fecha</th>
-                      <!--  <th>Opciones</th> -->                
+                        <th>Opciones</th>                
                     </thead>
                     <tbody>
                         <?php foreach($historiales as $historial) { ?>
                             <tr>                       
                                 <td><?php echo $historial->getRecarga();?></td>
-                                <td><?php echo $historial->getFecha();?></td>
-                                <!--
+                                <td><?php echo $historial->getFecha();?></td>                                
                                 <td>
-                                    <a href="index.php?c=historial&a=delete&d=<?php //echo $usado->getAplicacion()->getId()?>&v=<?php echo $usado->getVehiculo()->getId()?>&m=<?php echo $historial->getCombustible()->getId();?>&f=<?php echo $historial->getFecha(); ?>" onclick="return confirm('¿Desea borrar este registro del historial?');" title="Borrar">
+                                    <a href="index.php?c=usados&a=delete&d=<?php echo $usado->getAplicacion()->getId()?>&v=<?php echo $usado->getVehiculo()->getId()?>&m=<?php echo $historial->getCombustible()->getId();?>&f=<?php echo $historial->getFecha(); ?>" onclick="return confirm('¿Desea borrar este registro del historial?');" title="Borrar">
                                         <i class="fa fa-times-circle" style="font-size: 22px;"></i>
                                     </a>
-                                </td> -->
+                                </td> 
                             </tr>
                         <?php } ?>
                     </tbody>                            

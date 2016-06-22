@@ -37,9 +37,6 @@ class Usado
     public function getHistorial($dates = []){        
         return (new UsadoModel())->getHistorial([$this->aplicacion->getId(), $this->vehiculo->getId(), $dates[0],$dates[1]]);
     }
-    public function modHis($his){
-        return (new UsadoModel())->modHis($his);
-    }
     public function delHis($his){
         return (new UsadoModel())->delHis($his);
     }
