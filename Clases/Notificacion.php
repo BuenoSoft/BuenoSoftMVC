@@ -58,6 +58,9 @@ class Notificacion implements IPersiste
     public function findById($id) {
         return (new NotificacionModel())->findById($id);
     }
+    public function notify() {
+        return (new NotificacionModel())->getNotificaciones();
+    }
     public function save() {
         return ($this->id == 0) ? (new NotificacionModel())->create($this) : (new NotificacionModel())->update($this); 
     }

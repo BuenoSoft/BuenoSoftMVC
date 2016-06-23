@@ -11,7 +11,7 @@ abstract class Controller
         $this->paginador = new Paginador();
         $this->pdf = new \FPDF();
     }
-    public function redirect_administrador($file = array(), $dates = array()) {
+    public function redirect_administrador($file = [], $dates = []) {
         try {
             $ns = explode('\\', get_called_class());
             $path = $this->createFile(APPLICATION_PATH . DS . "View" . DS . str_replace("Controller", "", $ns[1]) . DS . $file[0], $dates);
@@ -22,7 +22,7 @@ abstract class Controller
             echo $ex->getMessage();
         }
     }
-    public function redirect_todos($file = array(), $dates = array()) {        
+    public function redirect_todos($file = [], $dates = []) {        
         try {
             $ns = explode('\\', get_called_class());
             $path = $this->createFile(APPLICATION_PATH . DS . "View" . DS . str_replace("Controller", "", $ns[1]) . DS . $file[0], $dates);
@@ -32,7 +32,7 @@ abstract class Controller
             echo $ex->getMessage();
         }
     }
-    private function createFile($file, $dates = array()) {
+    protected function createFile($file, $dates = []) {
         try {
             extract($dates);
             ob_start();
@@ -72,35 +72,12 @@ abstract class Controller
     /*----------para el tema de los enlaces----------*/
     
     function breadcrumbs($separator = ' &rsaquo; ', $home = 'Inicio') {        
-        $actual = $this->createPath($_SERVER['REQUEST_URI']);
-        $c= explode("&", $actual[1])[0];
-        $a = $actual[2];
-        $base = $this->createPath("localhost/BuenoSoftMVC/index.php?c=access&a=index");
-        $c1= explode("&", $base[1])[0];
-        $a1 =$base[2];
+        $actual = $_SERVER['REQUEST_URI'];
+        $base = "index.php?c=access&a=index";
         $breadcrumbs = [];
-        array_push($breadcrumbs, "<a href=index.php?c=$c1&a=$a1>".$home."</a>");
-        // Find out the index for the last value in our path array
-        $last = end(array_keys($actual));
-        // Build the rest of the breadcrumbs
-        foreach ($actual AS $x => $crumb) {
-            // Our "title" is the text that will be displayed (strip out .php and turn '_' into a space)
-            $title = ucwords(str_replace(Array('.php', '_'), Array('', ' '), $crumb));
-            // If we are not on the last index, then display an <a> tag
-            if ($x != $last) {
-                if($c == $c1 and $a == $a1){
-                    
-                } else {
-                    $href="?c=".$c."&a=".$a;
-                    array_push($breadcrumbs, "<a href=".$href.">".$c."</a>");                
-                }
-                // Otherwise, just display the title (minus)
-            } else {
-                array_push($breadcrumbs, $title);
-            }            
-        }            
-        // Build our temporary array (pieces of bread) into one big string :)
-        return implode($separator, array_unique($breadcrumbs));        
+        array_push($breadcrumbs, "<a href=$base>".$home."</a>");
+        //array_push($breadcrumbs, $actual);
+        return implode($separator, array_unique($breadcrumbs)); 
     }
     
     private function createPath($path){
@@ -121,12 +98,6 @@ abstract class Controller
         return [$this->generateTitleAction(), $this->generateTitleEntity()];
     }
     /*
-    protected function checkEnlace(){
-        $this->enlaces[$this->generateTitle()] = $_SERVER['REQUEST_URI'];        
-    }
-    protected function getEnlaces(){
-        return $this->enlaces;
-    }
     private function generateTitleAction(){
         $d = explode("=", $_SERVER['REQUEST_URI']);
         $d1 = explode("&", $d[2]);

@@ -13,7 +13,7 @@ class AccessController extends AppController
         }
     }        
     protected function getRoles() {
-        return ["Administrador","Supervisor","Usuario"];
+        return ["Administrador","Supervisor","Cliente","Piloto"];
     }
     protected function getMessageRole() {
         return "usuario en general";

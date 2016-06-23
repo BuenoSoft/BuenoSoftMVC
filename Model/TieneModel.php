@@ -25,12 +25,7 @@ class TieneModel extends AppModel
     }
     /*---------------------------------------------------------------------*/
     public function getProductos($dates = []){
-        $datos= array();
-        foreach($this->fetch($this->getFindQuery(), $this->getFindTieneParameter($dates)) as $row){
-            $obj = $this->createEntity($row); 
-            array_push($datos, $obj);
-        }
-        return $datos;
+        return $this->fetch($this->getFindQuery(), $this->getFindTieneParameter($dates));
     }
     private function getFindTieneParameter($dates = []){
         return [$dates[0]];        

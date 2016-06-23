@@ -6,6 +6,6 @@ class TodosController extends AppController
         parent::__construct();
     }
     public function index(){
-        $this->redirect_todos(array('index.php'));
+        $this->redirect_todos(['index.php']);
     }   
 }

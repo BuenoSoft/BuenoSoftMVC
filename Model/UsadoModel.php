@@ -19,12 +19,7 @@ class UsadoModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     public function getUsados($dates = []){
-        $datos= array();
-        foreach($this->fetch($this->getFindQuery(), $this->getFindUsadoParameter($dates)) as $row){
-            $obj = $this->createEntity($row); 
-            array_push($datos, $obj);
-        }
-        return $datos;
+        return $this->fetch($this->getFindQuery(), $this->getFindUsadoParameter($dates));
     }
     private function getFindUsadoParameter($dates = []){
         return ["id" => $dates[0]];

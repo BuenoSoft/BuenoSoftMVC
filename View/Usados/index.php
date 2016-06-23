@@ -25,7 +25,7 @@
                         </td>
                         <td>
                             <a href="index.php?c=usados&a=historial&d=<?php echo $usado->getAplicacion()->getId(); ?>&v=<?php echo $usado->getVehiculo()->getId();?>" title="Historial">
-                                <i class="fa fa-info-circle" style="font-size: 22px;"></i>
+                                <i class="fa fa-tint" style="font-size: 22px;"></i>
                             </a>
                         </td>
                     </tr>

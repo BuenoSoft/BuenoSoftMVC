@@ -11,12 +11,12 @@ abstract class Model implements IModel
     protected function getBD(){
         return $this->db->getConnect();
     }    
-    protected function execute($query, $parameter = array()){
+    protected function execute($query, $parameter = []){
         $consulta = $this->getBD()->prepare($query);
         $consulta->execute($parameter);  
         return ($consulta->rowCount() > 0) ? "Ok"  : null;
     }
-    protected function findByCondition($query, $parameter = array()) {
+    protected function findByCondition($query, $parameter = []) {
         $consulta = $this->getBD()->prepare($query);
         $consulta->execute($parameter);
         if($consulta->rowCount() > 0) {
@@ -27,10 +27,20 @@ abstract class Model implements IModel
             return null;
         }
     }
-    protected function fetch($query, $parameter = array()){
+    protected function fetchValues($query, $parameter = []){
         $consulta = $this->getBD()->prepare($query);
         $consulta->execute($parameter);
         return $consulta->fetchAll(PDO::FETCH_ASSOC);
+    }
+    protected function fetch($query, $parameter = []){
+        $datos= array();
+        $consulta = $this->getBD()->prepare($query);
+        $consulta->execute($parameter);        
+        foreach($consulta->fetchAll(PDO::FETCH_ASSOC) as $row){
+            $obj = $this->createEntity($row); 
+            array_push($datos, $obj);
+        }
+        return $datos;
     }
     /*------------------------------------------------------------------------*/
     private function check($unique) { 
@@ -61,16 +71,11 @@ abstract class Model implements IModel
     }
     /*--------------------------------------------------------------------*/
     public function find($criterio = null) {
-        $datos= array();
-        foreach($this->fetch($this->getFindQuery($criterio), $this->getFindParameter($criterio)) as $row){
-            $obj = $this->createEntity($row); 
-            array_push($datos, $obj);
-        }
-        return $datos;
+       return $this->fetch($this->getFindQuery($criterio), $this->getFindParameter($criterio));
     }
     /*--------------------------------------------------------------------*/
     public function findById($id) {        
-        return $this->findByCondition($this->getFindXIdQuery(), array($id));
+        return $this->findByCondition($this->getFindXIdQuery(), [$id]);
     }
     /*--------------------------------------------------------------------*/    
     abstract protected function getCheckQuery();

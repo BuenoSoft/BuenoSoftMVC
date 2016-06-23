@@ -18,12 +18,7 @@ class ProductoModel extends AppModel
     } 
     /*---------------------------------------------------------------------*/
     public function findByTipo($tipo){
-        $datos= array();
-        foreach($this->fetch("select * from productos where tpId = ?", [$tipo]) as $row){
-            $obj = $this->createEntity($row); 
-            array_push($datos, $obj);
-        }
-        return $datos;
+        return $this->fetch("select * from productos where tpId = ?", [$tipo]);
     }
     /*---------------------------------------------------------------------*/
     protected function getCheckMessage() {

@@ -7,7 +7,7 @@ class DatosUsuModel extends AppModel
         parent::__construct();
     }
     public function maxId(){
-        return $this->fetch("select max(datId) as maximo from datosusu",[])[0]['maximo'];
+        return $this->fetchValues("select max(datId) as maximo from datosusu",[])[0]['maximo'];
     }
     protected function getCheckMessage() {
         return "El Dato de ese usuario ya existe.";

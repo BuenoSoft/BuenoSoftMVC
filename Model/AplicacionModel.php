@@ -4,7 +4,7 @@ use \Clases\Aplicacion;
 class AplicacionModel extends AppModel
 {
     public function maxId(){
-        return $this->fetch("select max(aplId) as maximo from aplicaciones",[])[0]['maximo'];
+        return $this->fetchValues("select max(aplId) as maximo from aplicaciones",[])[0]['maximo'];
     }
     public function addApp($object){
         return $this->execute($this->getCreateQuery(),  $this->getCreateParameter($object));
@@ -43,12 +43,7 @@ class AplicacionModel extends AppModel
         ];
     }
     public function findAdvance($datos = []){                
-        $rows= array();
-        foreach($this->fetch($this->getFindQueryAdvance($datos), $this->getFindParameterAdvance($datos)) as $row){
-            $obj = $this->createEntity($row); 
-            array_push($rows, $obj);
-        }
-        return $rows;
+        return $this->fetch($this->getFindQueryAdvance($datos), $this->getFindParameterAdvance($datos));
     }
     protected function getFindParameterAdvance($datos = []) {
         $rows = array();

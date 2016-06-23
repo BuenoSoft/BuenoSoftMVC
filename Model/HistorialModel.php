@@ -20,12 +20,7 @@ class HistorialModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     public function getHistoriales($dates = []){
-        $datos= array();
-        foreach($this->fetch($this->getFindQuery(), $this->getFindHisParameter($dates)) as $row){
-            $obj = $this->createEntity($row); 
-            array_push($datos, $obj);
-        }
-        return $datos;
+        return $this->fetch($this->getFindQuery(), $this->getFindHisParameter($dates));
     }
     protected function getFindQuery($criterio = null) { 
         return "select * from historial where aplId = ? and vehId = ?";
