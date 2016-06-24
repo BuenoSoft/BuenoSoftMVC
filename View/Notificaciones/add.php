@@ -1,9 +1,9 @@
-<h3><i class="fa fa-angle-right"></i>Crear Notificación</h3>
+<h3><i class="fa fa-angle-right"></i>&nbsp;Crear Notificación</h3>
 <form class="form-horizontal style-form" method="post" action="index.php?c=notificaciones&a=add" name="frmadd">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
-                <h4><i class="fa fa-angle-right"></i> Datos de la Notificación:</h4>
+                <h4><i class="fa fa-angle-right"></i>&nbsp;Datos de la Notificación:</h4>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Log de la Notificación&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">

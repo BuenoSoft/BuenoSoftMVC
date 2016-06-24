@@ -16,6 +16,6 @@ class AccessController extends AppController
         return ["Administrador","Supervisor","Cliente","Piloto"];
     }
     protected function getMessageRole() {
-        return "usuario en general";
+        return "cualquier usuario menos uno tipo cliente";
     }
 }

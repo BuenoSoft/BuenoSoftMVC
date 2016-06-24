@@ -154,25 +154,27 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Piloto&nbsp;<font color="red">*</font></label>
-                    <div class="col-sm-10">
-                        <input list="pilotos" class="form-control" placeholder="Seleccione Piloto" required="required" name="piloto" tabindex="14" value="<?php echo \App\Session::get("pass")[17]; ?>"/>
-                        <datalist id="pilotos">
-                            <?php
-                                foreach ($usuarios as $usuario){
-                                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Piloto") { 
-                                        if($usuario->checkTra(\App\Session::get('app'))) { ?>
-                                            <option value="<?php echo $usuario->getId() ?>"><?php echo $usuario->getDatoUsu()->getNombre();?></option> 
-                        <?php           } else if(!$usuario->checkFin()) { ?>
-                                            <option value="<?php echo $usuario->getId() ?>"><?php echo $usuario->getDatoUsu()->getNombre();?></option>
-                        <?php           }
+                <?php if(\App\Session::get('log_in')!= null and (\App\Session::get('log_in')->getRol()->getNombre() == "Administrador" or \App\Session::get('log_in')->getRol()->getNombre() == "Administrador")){?>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Piloto&nbsp;<font color="red">*</font></label>
+                        <div class="col-sm-10">
+                            <input list="pilotos" class="form-control" placeholder="Seleccione Piloto" required="required" name="piloto" tabindex="14" value="<?php echo \App\Session::get("pass")[17]; ?>"/>
+                            <datalist id="pilotos">
+                                <?php
+                                    foreach ($usuarios as $usuario){
+                                        if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Piloto") { 
+                                            if($usuario->checkTra(\App\Session::get('app'))) { ?>
+                                                <option value="<?php echo $usuario->getId() ?>"><?php echo $usuario->getDatoUsu()->getNombre();?></option> 
+                                <?php       } else if(!$usuario->checkFin()) { ?>
+                                                <option value="<?php echo $usuario->getId() ?>"><?php echo $usuario->getDatoUsu()->getNombre();?></option>
+                                <?php       }
+                                        }
                                     }
-                                }
-                            ?>
-                        </datalist>
+                                ?>
+                            </datalist>
+                        </div>
                     </div>
-                </div>
+                <?php } ?>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Padrón&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">

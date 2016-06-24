@@ -71,32 +71,14 @@ abstract class Controller
     }
     /*----------para el tema de los enlaces----------*/
     
-    function breadcrumbs($separator = ' &rsaquo; ', $home = 'Inicio') {        
+    function breadcrumbs($separator = ' &rsaquo; ', $home = 'Inicio') {          
         $actual = $_SERVER['REQUEST_URI'];
         $base = "index.php?c=access&a=index";
         $breadcrumbs = [];
         array_push($breadcrumbs, "<a href=$base>".$home."</a>");
         //array_push($breadcrumbs, $actual);
         return implode($separator, array_unique($breadcrumbs)); 
-    }
-    
-    private function createPath($path){
-        return array_filter(explode('=', $path));        
-    }
-    private function generateTitleAction(){
-        $d = explode("=", $_SERVER['REQUEST_URI']);
-        $d1 = explode("&", $d[2]);
-        return $d1[0];
-    }
-    private function generateTitleEntity(){
-        $d = explode("=", $_SERVER['REQUEST_URI']);        
-        $d1 = explode("&", $d[1]);
-        return $d1[0];
-    }
-    
-    private function generateTitle(){
-        return [$this->generateTitleAction(), $this->generateTitleEntity()];
-    }
+    }    
     /*
     private function generateTitleAction(){
         $d = explode("=", $_SERVER['REQUEST_URI']);

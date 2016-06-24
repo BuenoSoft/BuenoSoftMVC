@@ -17,7 +17,7 @@ class UsuariosController extends AppController
                 Session::set("msg","Ingrese los datos obligatorios (*) para continuar.");
             } else {
                 $usuario = (new Usuario())->login([$_POST['txtuser'], $_POST['txtpass']]);
-                if (isset($usuario) and $usuario->getEstado() == "H"){
+                if (isset($usuario) and $usuario->getEstado() == "H" and $usuario->getRol()->getNombre()!= "Chofer"){
                     Session::login();
                     Session::set("log_in",$usuario);  
                     Session::set("msg","Acceso concedido... Usuario: ". $usuario->getNombre());

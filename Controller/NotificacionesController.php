@@ -9,7 +9,7 @@ class NotificacionesController extends AppController
         parent::__construct();
     }
     public function index(){
-        if($this->checkUser()){
+        if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
             Session::set('veh',"");
             Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
             Session::set('b',(isset($_POST['txtbuscador'])) ? $this->clean($_POST['txtbuscador']) : Session::get('b'));
@@ -60,6 +60,13 @@ class NotificacionesController extends AppController
                 "notificacion" => (new Notificacion())->findById(Session::get("not")),
                 "vehiculos" => $vehiculos
             ]);
+        }
+    }
+    public function view(){
+        if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
+            $this->redirect_administrador(["view.php"], [
+                "notificacion" => (new Notificacion())->findById($_GET['d'])
+            ]);        
         }
     }
     private function createEntity(){

@@ -13,15 +13,15 @@ class AplicacionesController extends AppController
         parent::__construct();
     }
     public function index(){
-        if($this->checkUser()){
+        if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
             Session::set("app",0);
             Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
             $apl = $this->getPaginator()->paginar(
                 (new Aplicacion())->findAdvance([
                     "aeronave" => isset($_POST["aeronave"]) ? $_POST["aeronave"] : null,
-                    "piloto" => isset($_POST["piloto"]) ? $_POST["piloto"] : null,
+                    "piloto" => (isset($_POST["piloto"]) and Session::get('log_in')->getRol()->getNombre() != "Piloto") ? $_POST["piloto"] : ((Session::get('log_in')->getRol()->getNombre() == "Piloto") ? Session::get('log_in')->getId() : null),
                     "tipo" => isset($_POST["tipo"]) ? $_POST["tipo"] : null,
-                    "cliente" => isset($_POST["cliente"]) ? $_POST["cliente"] : null,
+                    "cliente" => (isset($_POST["cliente"]) and Session::get('log_in')->getRol()->getNombre() != "Cliente") ? $_POST["cliente"] : ((Session::get('log_in')->getRol()->getNombre() == "Cliente") ? Session::get('log_in')->getId() : null),
                     "fec1" => isset($_POST["fec1"]) ? $_POST["fec1"] : null,
                     "fec2" => isset($_POST["fec2"]) ? $_POST["fec2"] : null
                 ]), 
@@ -72,7 +72,7 @@ class AplicacionesController extends AppController
     }
     private function addExtras(){
         $apl = (new Aplicacion())->findById((new Aplicacion())->maxID());
-        $piloto = (new Usuario())->findById(Session::get('pass')[17]);
+        $piloto = (new Usuario())->findById((Session::get("log_in")->getRol()->getNombre() == "Piloto") ? Session::get("log_in")->getId() : Session::get('pass')[17]);
         $chofer = (new Usuario())->findById(Session::get('pass')[18]);        
         $aeronave = (new Vehiculo())->findById(Session::get('pass')[19]);
         $terrestre = (new Vehiculo())->findById(Session::get('pass')[20]);
@@ -158,7 +158,7 @@ class AplicacionesController extends AppController
         foreach($apl->getUsados() as $usado){
             $apl->delUsu($usado->getVehiculo()->getId(),$usado->getUsuario()->getId());
         }        
-        $piloto = (new Usuario())->findById(Session::get('pass')[17]);
+        $piloto = (new Usuario())->findById((Session::get("log_in")->getRol()->getNombre() == "Piloto") ? Session::get("log_in")->getId() : Session::get('pass')[17]);
         $chofer = (new Usuario())->findById(Session::get('pass')[18]);        
         $aeronave = (new Vehiculo())->findById(Session::get('pass')[19]);
         $terrestre = (new Vehiculo())->findById(Session::get('pass')[20]);
@@ -167,7 +167,7 @@ class AplicacionesController extends AppController
     }
     /*-------------------------------------------------------------------------------*/
     public function view(){
-        if($this->checkUser()){
+        if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
             Session::set("app",$_GET['d']);
             $this->redirect_administrador(['view.php'],[
                 "aplicacion" => (new Aplicacion())->findById(Session::get("app")),
@@ -251,7 +251,7 @@ class AplicacionesController extends AppController
         return $aplicacion;
     }
     protected function getRoles() {
-        return ["Administrador","Supervisor"];
+        return ["Administrador","Supervisor","Piloto"];
     }
     protected function getMessageRole() {
         return "administrador o supervisor";

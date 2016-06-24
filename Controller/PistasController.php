@@ -74,7 +74,7 @@ class PistasController extends AppController
         }
     }
     public function view(){
-        if($this->checkUser()){
+        if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
             $this->redirect_administrador(['view.php'],[
                 "pista" => (new Pista())->findById($_GET['d'])
             ]);

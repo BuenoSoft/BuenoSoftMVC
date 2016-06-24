@@ -92,9 +92,9 @@ class UsadosController extends AppController
         return $historial;
     }
     protected function getRoles() {
-        return ["Administrador","Supervisor"];
+        return ["Administrador","Supervisor","Piloto"];
     }
     protected function getMessageRole() {
-        return "administrador o supervisor";
+        return "administrador o supervisor o piloto";
     }
 }
