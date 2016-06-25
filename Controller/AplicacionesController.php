@@ -83,12 +83,11 @@ class AplicacionesController extends AppController
     public function edit(){
         if($this->checkUser()){
             Session::set("app",$_GET['d']);
-            $this->passEdit();
+            $this->passDates();
             $productos = (Session::get("pass")[9] != "") ? $this->getPaginator()->paginar((new Producto())->findByTipo(Session::get("pass")[9])) : array();
             $clientes = (Session::get('pass')[16] != "") ? $this->getPaginator()->paginar((new Usuario())->find(Session::get('pass')[16]),1) : array();
             $pistas = (Session::get('pass')[2] != "") ? $this->getPaginator()->paginar((new Pista())->find(Session::get('pass')[2]),1) : array();
             if (Session::get('app')!=null && isset($_POST['btnaceptar'])){
-                $this->passDates();
                 $apl = $this->createEntity();
                 $apl->save();
                 $this->modProductos($apl);
@@ -179,55 +178,50 @@ class AplicacionesController extends AppController
         }
     }
     private function passDates(){
+        $apl = (new Aplicacion())->findById(Session::get("app"));
         Session::set("pass",[
             (Session::get("app")!= 0) ? Session::get("app") : 0, 
-            isset($_POST['txtcoordcul']) ? $this->clean($_POST['txtcoordcul']) : null,
-            isset($_POST["pista"]) ? $this->clean($_POST["pista"]) : null, 
-            isset($_POST['txtarea_apl']) ? $this->clean($_POST['txtarea_apl']) : null,
-            isset($_POST['txtfaja']) ? $this->clean($_POST['txtfaja']) : null, 
-            isset($_POST['dtfechaini']) ? $this->clean($_POST['dtfechaini']) : null,
-            isset($_POST['dtfechafin']) ? $this->clean($_POST['dtfechafin']) : null, 
-            isset($_POST['txttrat']) ? $this->clean($_POST['txttrat']) : null,
-            isset($_POST['txtviento']) ? $this->clean($_POST['txtviento']) : null, 
-            isset($_POST["tipo"]) ? $this->clean($_POST["tipo"]) : null,
-            isset($_POST['txttaquiIni']) ? $this->clean($_POST['txttaquiIni']) : null, 
-            isset($_POST['txttaquiFin']) ? $this->clean($_POST['txttaquiFin']) : null, 
-            isset($_POST['txtpadron']) ? $this->clean($_POST['txtpadron']) : null,
-            isset($_POST['txtcultivo']) ? $this->clean($_POST['txtcultivo']) : null, 
-            isset($_POST['txtcaudal']) ? $this->clean($_POST['txtcaudal']) : null,
-            isset($_POST['txtdosis']) ? $this->clean($_POST['txtdosis']) : null, 
-            isset($_POST['cliente']) ? $this->clean($_POST['cliente']) : null, 
-            isset($_POST['piloto']) ? $this->clean($_POST['piloto']) : null,
-            isset($_POST['chofer']) ? $this->clean($_POST['chofer']) : null, 
-            isset($_POST['aeronave']) ? $this->clean($_POST['aeronave']) : null,
-            isset($_POST['terrestre']) ? $this->clean($_POST['terrestre']) : null
+            isset($_POST['txtcoordcul']) ? $this->clean($_POST['txtcoordcul']) : 
+                ((Session::get("app")!= 0) ? $apl->getCoordCul() : null),
+            isset($_POST["pista"]) ? $this->clean($_POST["pista"]) : 
+                ((Session::get("app")!= 0) ? $apl->getPista()->getId() : null), 
+            isset($_POST['txtarea_apl']) ? $this->clean($_POST['txtarea_apl']) : 
+                ((Session::get("app")!= 0) ? $apl->getAreaapl() : null),
+            isset($_POST['txtfaja']) ? $this->clean($_POST['txtfaja']) : 
+                ((Session::get("app")!= 0) ? $apl->getFaja() : null), 
+            isset($_POST['dtfechaini']) ? $this->clean($_POST['dtfechaini']) : 
+                ((Session::get("app")!= 0) ? $apl->mostrarDateTimeIni() : null),
+            isset($_POST['dtfechafin']) ? $this->clean($_POST['dtfechafin']) : 
+                ((Session::get("app")!= 0) ? $apl->mostrarDateTimeFin() : null), 
+            isset($_POST['txttrat']) ? $this->clean($_POST['txttrat']) : 
+                ((Session::get("app")!= 0) ? $apl->getTratamiento() : null),
+            isset($_POST['txtviento']) ? $this->clean($_POST['txtviento']) : 
+                ((Session::get("app")!= 0) ? $apl->getViento() : null), 
+            isset($_POST["tipo"]) ? $this->clean($_POST["tipo"]) : 
+                ((Session::get("app")!= 0) ? $apl->getTipo()->getId() : null),
+            isset($_POST['txttaquiIni']) ? $this->clean($_POST['txttaquiIni']) : 
+                ((Session::get("app")!= 0) ? $apl->getTaquiIni() : null), 
+            isset($_POST['txttaquiFin']) ? $this->clean($_POST['txttaquiFin']) : 
+                ((Session::get("app")!= 0) ? $apl->getTaquiFin() : null), 
+            isset($_POST['txtpadron']) ? $this->clean($_POST['txtpadron']) : 
+                ((Session::get("app")!= 0) ? $apl->getPadron() : null),
+            isset($_POST['txtcultivo']) ? $this->clean($_POST['txtcultivo']) : 
+                ((Session::get("app")!= 0) ? $apl->getCultivo() : null), 
+            isset($_POST['txtcaudal']) ? $this->clean($_POST['txtcaudal']) : 
+                ((Session::get("app")!= 0) ? $apl->getCaudal() : null),
+            isset($_POST['txtdosis']) ? $this->clean($_POST['txtdosis']) : 
+                ((Session::get("app")!= 0) ? $apl->getDosis() : null), 
+            isset($_POST['cliente']) ? $this->clean($_POST['cliente']) : 
+                ((Session::get("app")!= 0) ? $apl->getCliente()->getId() : null), 
+            isset($_POST['piloto']) ? $this->clean($_POST['piloto']) : 
+                ((Session::get("app")!= 0) ? $this->getPiloto()->getId() : null),
+            isset($_POST['chofer']) ? $this->clean($_POST['chofer']) : 
+                ((Session::get("app")!= 0) ? $this->getChofer()->getId() : null), 
+            isset($_POST['aeronave']) ? $this->clean($_POST['aeronave']) : 
+                ((Session::get("app")!= 0) ? $this->getAeronave()->getId() : null),
+            isset($_POST['terrestre']) ? $this->clean($_POST['terrestre']) : 
+                ((Session::get("app")!= 0) ? $this->getTerrestre()->getId() : null)
         ]);       
-    }
-    private function passEdit(){
-        $apl = (new Aplicacion())->findById(Session::get("app"));
-        Session::set("pass", [
-            $apl->getId(),
-            $apl->getCoordCul(),
-            $apl->getPista()->getId(),
-            $apl->getAreaapl(),
-            $apl->getFaja(),
-            $apl->mostrarDateTimeIni(),
-            $apl->mostrarDateTimeFin(),
-            $apl->getTratamiento(),
-            $apl->getViento(),
-            $apl->getTipo()->getId(),
-            $apl->getTaquiIni(),
-            $apl->getTaquiFin(),
-            $apl->getPadron(),
-            $apl->getCultivo(),
-            $apl->getCaudal(),
-            $apl->getDosis(),
-            $apl->getCliente()->getId(),
-            $this->getPiloto()->getId(),
-            $this->getChofer()->getId(),
-            $this->getAeronave()->getId(),
-            $this->getTerrestre()->getId()            
-        ]);
     }
     private function createEntity() {        
         $aplicacion = new Aplicacion();
