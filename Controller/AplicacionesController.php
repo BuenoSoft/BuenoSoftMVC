@@ -96,7 +96,7 @@ class AplicacionesController extends AppController
                 Session::set("msg","Aplicación Editada");
                 header("Location:index.php?c=aplicaciones&a=index");
                 exit();
-            }
+            } 
             $this->redirect_administrador(['edit.php'],[
                 "clientes" => $clientes,
                 "usuarios" => (new Usuario())->find(),

@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="veh" class="form-control_datalist" placeholder="Seleccione Vehículo" required="required" name="cboxveh" value="<?php echo $notificacion->getVehiculo()->getId(); ?>" tabindex="4" />
+                        <input list="veh" id="v" class="form-control_datalist" placeholder="Seleccione Vehículo" required="required" name="cboxveh" value="<?php echo $notificacion->getVehiculo()->getId(); ?>" tabindex="4" />
                         <datalist id="veh">
                             <?php 
                                 foreach ($vehiculos as $vehiculo) { 
@@ -54,3 +54,17 @@
         </div>
     </div>
 </form>
+<script>
+    $(function() {
+        $('form[name="frmedit"]').submit(function() {
+            var val = $('#v').val();
+            var selected = $('#veh option').filter(function() { return this.value === val; }).attr('value');
+            if(!selected){
+                alert('Seleccione una de las opciones existentes');
+                return false;
+            } else {
+                return true;
+            }
+        });
+    });
+</script>

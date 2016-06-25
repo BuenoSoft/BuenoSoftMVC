@@ -25,9 +25,9 @@ class NotificacionModel extends AppModel
     }
     protected function getFindQuery($criterio = null) {
         if($criterio == null){
-            return "select * from notificaciones n inner join vehiculos v on n.vehId = v.vehId";
+            return "select * from notificaciones n inner join vehiculos v on n.vehId = v.vehId order by notId";
         } else {
-            return "select * from notificaciones n inner join vehiculos v on n.vehId = v.vehId where n.notLog like :filtro or v.vehMatricula like :filtro";
+            return "select * from notificaciones n inner join vehiculos v on n.vehId = v.vehId where n.notLog like :filtro or v.vehMatricula like :filtro order by notId";
         }        
     }
     /*------------------------------------------------------------------------------------*/

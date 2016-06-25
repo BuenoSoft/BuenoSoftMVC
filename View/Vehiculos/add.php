@@ -19,7 +19,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tipo de Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input name="tipo" list="tipov" class="form-control" placeholder="Seleccione Tipo de Vehículo" required="required" tabindex="3" />
+                        <input name="tipo" list="tipov" id="tipo" class="form-control" placeholder="Seleccione Tipo de Vehículo" required="required" tabindex="3" />
                         <datalist id="tipov">
                             <?php foreach($tipos as $tipo) {
                                     if($tipo->getEstado() == "H"){ ?>
@@ -80,3 +80,17 @@
         </div>
     </div>
 </form>
+<script>
+    $(function() {
+        $('form[name="frmadd"]').submit(function() {
+            var val = $('#tipo').val();
+            var selected = $('#tipov option').filter(function() { return this.value === val; }).attr('value');
+            if(!selected){
+                alert('Seleccione una de las opciones existentes');
+                return false;
+            } else {
+                return true;
+            }
+        });
+    });
+</script>

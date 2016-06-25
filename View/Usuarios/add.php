@@ -65,7 +65,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Rol&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="tipos" class="form-control" placeholder="Seleccione un Rol" required="required" name="cboxtipo" tabindex="8" />
+                        <input list="tipos" id="tipo" class="form-control" placeholder="Seleccione un Rol" required="required" name="cboxtipo" tabindex="8" />
                         <datalist id="tipos">
                             <?php 
                                 foreach($roles as $rol){ 
@@ -109,6 +109,16 @@
             $("#txtdoc").val("");
             $("#txtdoc").prop('readonly',false);
             $("#txtdoc").focus();                
+        });
+        $('form[name="frmadd"]').submit(function() {
+            var val = $('#tipo').val();
+            var selected = $('#tipos option').filter(function() { return this.value === val; }).attr('value');
+            if(!selected){
+                alert('Seleccione una de las opciones existentes');
+                return false;
+            } else {
+                return true;
+            }
         });
     }); 
 </script>

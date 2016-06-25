@@ -27,11 +27,15 @@
                     <div class="col-sm-10">
                         <input type="text" name="txtmarca" class="form-control" required="required" onkeypress="return  validarTextoyNum(event);" pattern="[A-Za-z\s\d]*" placeholder="Ej: Castrol" value="<?php echo $producto->getMarca(); ?>" tabindex="3" />
                     </div>
-                </div>
+                </div>                
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="showback">
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tipo de Producto&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="tipop" class="form-control" placeholder="Seleccione Tipo de Producto" required="required" name="tipo" tabindex="13" value="<?php echo $producto->getTipo()->getId(); ?>"/>
+                        <input list="tipop" id="tipo" class="form-control" placeholder="Seleccione Tipo de Producto" required="required" name="tipo" tabindex="13" value="<?php echo $producto->getTipo()->getId(); ?>"/>
                         <datalist id="tipop">
                             <?php foreach ($tipos as $tipo){
                                     if($tipo->getEstado() == "H"){ ?>
@@ -50,3 +54,17 @@
         </div>
     </div>
 </form>
+<script>
+    $(function() {
+        $('form[name="frmedit"]').submit(function() {
+            var val = $('#tipo').val();
+            var selected = $('#tipop option').filter(function() { return this.value === val; }).attr('value');
+            if(!selected){
+                alert('Seleccione una de las opciones existentes');
+                return false;
+            } else {
+                return true;
+            }
+        });
+    });
+</script>
