@@ -20,7 +20,7 @@ class UsuariosController extends AppController
                 if (isset($usuario) and $usuario->getEstado() == "H" and $usuario->getRol()->getNombre()!= "Chofer"){
                     Session::login();
                     Session::set("log_in",$usuario);  
-                    Session::set("msg","Acceso concedido... Usuario: ". $usuario->getNombre());
+                    Session::set("msg", Session::msgInfo("Acceso concedido... Usuario: ". $usuario->getNombre()));
                     header("Location:index.php?c=access&a=index");
                     exit();
                 } else if (isset($usuario) and $usuario->getEstado() == "D"){
@@ -57,11 +57,11 @@ class UsuariosController extends AppController
                 $usuario = $this->createUsuario();
                 $id = $usuario->save();
                 if(isset($id)){
-                    Session::set("msg","Usuario Creado");
+                    Session::set("msg",Session::msgSuccess("Usuario Creado"));
                     header("Location:index.php?c=usuarios&a=index");
                     exit();
                 } else {
-                    Session::set("msg",Session::get('msg'));
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }                
             }
             $this->redirect_administrador(["add.php"],[
@@ -79,11 +79,11 @@ class UsuariosController extends AppController
                 $usuario->setDatoUsu($datousu);
                 $id = $usuario->save();
                 if(isset($idu) or isset($id)){
-                    Session::set("msg","Usuario Editado");
+                    Session::set("msg",Session::msgSuccess("Usuario Editado"));
                     header("Location:index.php?c=usuarios&a=index");
                     exit();
                 } else {
-                    Session::set("msg",Session::get('msg'));
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }                
             }
             $this->redirect_administrador(["edit.php"],[
@@ -122,7 +122,7 @@ class UsuariosController extends AppController
             if (isset($_GET['d'])){
                 $usuario = (new Usuario())->findById($_GET['d']);
                 $id = $usuario->del();                
-                Session::set("msg", (isset($id)) ? "Usuario Borrado" : "No se pudo borrar el usuario");
+                Session::set("msg", (isset($id)) ? Session::msgSuccess("Usuario Borrado") : Session::msgDanger("No se pudo borrar el usuario"));
                 header("Location:index.php?&c=usuarios&a=index");
             }            
         }
@@ -132,7 +132,7 @@ class UsuariosController extends AppController
             if (isset($_GET['d'])){
                 $usuario = (new Usuario())->findById($_GET['d']);
                 $id = $usuario->del();
-                Session::set("msg", (isset($id)) ? "Usuario Activado" : "No se pudo activar el usuario");
+                Session::set("msg", (isset($id)) ? Session::msgSuccess("Usuario Activado") : Session::msgDanger("No se pudo activar el usuario"));
                 header("Location:index.php?c=usuarios&a=index");
             }        
         }

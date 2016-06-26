@@ -24,11 +24,11 @@ class PistasController extends AppController
                 $pis = $this->createEntity();
                 $id = $pis->save();
                 if(isset($id)){
-                    Session::set("msg","Pista Creada");
+                    Session::set("msg",Session::msgSuccess("Pista Creada"));
                     header("Location:index.php?c=pistas&a=index");
                     exit();
                 } else {
-                    Session::set("msg",Session::get('msg'));
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }
             }
             $this->redirect_administrador(["add.php"]);
@@ -41,11 +41,11 @@ class PistasController extends AppController
                 $pis = $this->createEntity();
                 $id = $pis->save();
                 if(isset($id)){
-                    Session::set("msg","Pista Editada");
+                    Session::set("msg",Session::msgSuccess("Pista Editada"));
                     header("Location:index.php?c=pistas&a=index");
                     exit();
                 } else {
-                    Session::set("msg",Session::get('msg'));
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }
             }
             $this->redirect_administrador(["edit.php"],[
@@ -58,7 +58,7 @@ class PistasController extends AppController
             if (isset($_GET['d'])){
                 $pis = (new Pista())->findById($_GET['d']);
                 $id = $pis->del();                
-                Session::set("msg", (isset($id)) ? "Pista Borrada" : "No se pudo borrar la pista");
+                Session::set("msg", (isset($id)) ? Session::msgSuccess("Pista Borrada") : Session::msgDanger("No se pudo borrar la pista"));
                 header("Location:index.php?c=pistas&a=index");
             }            
         }
@@ -68,7 +68,7 @@ class PistasController extends AppController
             if (isset($_GET['d'])){
                 $pis = (new Pista())->findById($_GET['d']);
                 $id = $pis->del();
-                Session::set("msg", (isset($id)) ? "Pista Activada" : "No se pudo activar la pista");
+                Session::set("msg", (isset($id)) ? Session::msgSuccess("Pista Activada") : Session::msgDanger("No se pudo activar la pista"));
                 header("Location:index.php?c=pistas&a=index");
             }        
         }

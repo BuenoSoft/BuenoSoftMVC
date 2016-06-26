@@ -33,14 +33,14 @@ class UsadosController extends AppController
                 if($historial->getCombustible()->delStock($historial->getRecarga())){
                     $id = $usado->addHis($historial);
                     if(isset($id)){
-                        Session::set("msg","Historial de Vehículo Registrado");
+                        Session::set("msg",Session::msgSuccess("Historial de Vehículo Registrado"));
                         header("Location:index.php?c=usados&a=historial&d=".Session::get("app")."&v=".Session::get("v"));
                         exit();
                     } else {
-                        Session::set("msg","Error al registrar historial");
+                        Session::set("msg",Session::msgDanger("Error al registrar historial"));
                     }                
                 } else {
-                    Session::set("msg","No tiene suficiente stock para recargar");
+                    Session::set("msg",Session::msgDanger("No tiene suficiente stock para recargar"));
                 }
             }
             $this->redirect_administrador(['historial.php'],[
@@ -60,7 +60,7 @@ class UsadosController extends AppController
             $historial = $this->getHistorial($usado);
             $historial->getCombustible()->addStock($historial->getRecarga());
             $id = $usado->delHis($historial);
-            Session::set("msg", (isset($id)) ? "Historial de Vehículo Borrado" : "No se pudo borrar el producto");
+            Session::set("msg", (isset($id)) ? Session::msgSuccess("Historial de Vehículo Borrado") : Session::msgDanger("No se pudo borrar el producto"));
             header("Location:index.php?c=usados&a=historial&d=".Session::get("app")."&v=".Session::get("v"));
         }
     }

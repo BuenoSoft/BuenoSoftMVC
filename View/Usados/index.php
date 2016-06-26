@@ -1,4 +1,4 @@
-<h3>Vehículos de la Aplicación número&nbsp;<?php echo $aplicacion->getId();?></h3>
+<h3><i class="fa fa-angle-right"></i>&nbsp;Vehículos de la Aplicación número&nbsp;<?php echo $aplicacion->getId();?></h3>
 <p>
     <a href="index.php?c=aplicaciones&a=index"><button class="btn btn-theme05"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;
 </p>

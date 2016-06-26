@@ -26,14 +26,14 @@ class CombustiblesController extends AppController
                 if($combustible->getStock() >= $combustible->getStockMin()){
                     $id = $combustible->save();
                     if(isset($id)){
-                        Session::set("msg","Combustible Creado");
+                        Session::set("msg",Session::msgSuccess("Combustible Creado"));
                         header("Location:index.php?c=combustibles&a=index");
                         exit();                
                     } else {
-                        Session::set("msg",Session::get('msg'));
+                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                     }                    
                 } else {
-                    Session::set("msg","Asegurese que el stock sea mayor al stock mínimo");
+                    Session::set("msg",Session::msgDanger("Asegurese que el stock sea mayor al stock mínimo"));
                 }
             }
             $this->redirect_administrador(['add.php'],[
@@ -49,14 +49,14 @@ class CombustiblesController extends AppController
                 if($combustible->getStock() >= $combustible->getStockMin()){
                     $id = $combustible->save();
                     if(isset($id)){
-                        Session::set("msg","Combustible Editado");
+                        Session::set("msg",Session::msgSuccess("Combustible Editado"));
                         header("Location:index.php?c=combustibles&a=index");
                         exit();                
                     }else {
-                        Session::set("msg",Session::get('msg'));
+                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                     }                
                 } else {
-                    Session::set("msg","Asegurese que el stock sea mayor al stock mínimo");
+                    Session::set("msg",Session::msgDanger("Asegurese que el stock sea mayor al stock mínimo"));
                 }
             }
             $this->redirect_administrador(['edit.php'],[
@@ -70,7 +70,7 @@ class CombustiblesController extends AppController
             if (isset($_GET['d'])){
                 $combustible = (new Combustible())->findById($_GET['d']);
                 $id = $combustible->del();                
-                Session::set("msg", (isset($id)) ? "Combustible Borrado" : "No se pudo borrar el combustible");
+                Session::set("msg", (isset($id)) ? Session::msgSuccess("Combustible Borrado") : Session::msgDanger("No se pudo borrar el combustible"));
                 header("Location:index.php?&c=combustibles&a=index");
             }            
         }
@@ -80,7 +80,7 @@ class CombustiblesController extends AppController
             if (isset($_GET['d'])){
                 $combustible = (new Combustible())->findById($_GET['d']);
                 $id = $combustible->del();
-                Session::set("msg", (isset($id)) ? "Combustible Activado" : "No se pudo activar el combustible");
+                Session::set("msg", (isset($id)) ? Session::msgSuccess("Combustible Activado") : Session::msgDanger("No se pudo activar el combustible"));
                 header("Location:index.php?c=combustibles&a=index");
             }        
         }

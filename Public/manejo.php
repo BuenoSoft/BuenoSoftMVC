@@ -36,10 +36,15 @@
             <section class="wrapper">
                 <br />
                 <?php echo $enlaces; ?>
-                <br />
+                <br /><br />
                 <?php
-                    if (\App\Session::get('msg')!=null) {  
-                        echo \App\Session::get('msg')."<br /><br />"; 
+                    if (\App\Session::get('msg')!=null) {  ?>
+                        <div class="alert alert-<?php echo \App\Session::get('msg')[0]; ?> fade in">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times</a>
+                            <i class="fa fa-<?php echo \App\Session::get('msg')[1]; ?>" style="font-size: 24px;"></i>&nbsp;
+                            <?php echo \App\Session::get('msg')[2]; ?>
+                        </div>                        
+                <?php    
                         \App\Session::set('msg', "");                     
                     } 
                     echo $content;        

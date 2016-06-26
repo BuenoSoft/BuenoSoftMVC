@@ -25,11 +25,11 @@ class ProductosController extends AppController
                 $producto = $this->createEntity();
                 $id = $producto->save();
                 if(isset($id)){
-                    Session::set("msg","Producto Creado");
+                    Session::set("msg",Session::msgSuccess("Producto Creado"));
                     header("Location:index.php?c=productos&a=index");
                     exit();                
                 } else {
-                    Session::set("msg",Session::get('msg'));
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }
             }
             $this->redirect_administrador(['add.php'],[
@@ -44,11 +44,11 @@ class ProductosController extends AppController
                 $producto = $this->createEntity();
                 $id = $producto->save();
                 if(isset($id)){
-                    Session::set("msg","Producto Editado");
+                    Session::set("msg",Session::msgSuccess("Producto Editado"));
                     header("Location:index.php?c=productos&a=index");
                     exit();                
                 } else {
-                    Session::set("msg",Session::get('msg'));
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }
             }
             $this->redirect_administrador(['edit.php'],[
@@ -62,7 +62,7 @@ class ProductosController extends AppController
             if (isset($_GET['d'])){
                 $producto = (new Producto())->findById($_GET['d']);
                 $id = $producto->del();                
-                Session::set("msg", (isset($id)) ? "Producto Borrado" : "No se pudo borrar el producto");
+                Session::set("msg", (isset($id)) ? Session::msgSuccess("Producto Borrado") : Session::msgDanger("No se pudo borrar el producto"));
                 header("Location:index.php?&c=productos&a=index");
             }            
         }
@@ -72,7 +72,7 @@ class ProductosController extends AppController
             if (isset($_GET['d'])){
                 $producto = (new Producto())->findById($_GET['d']);
                 $id = $producto->del();
-                Session::set("msg", (isset($id)) ? "Producto Activado" : "No se pudo activar el producto");
+                Session::set("msg", (isset($id)) ? Session::msgSuccess("Producto Activado") : Session::msgDanger("No se pudo activar el producto"));
                 header("Location:index.php?c=productos&a=index");
             }        
         }

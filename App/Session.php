@@ -19,4 +19,13 @@ class Session
     public static function isLoggedIn() {
         return isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true;
     }
+    public static function msgDanger($mensaje){
+        return ["danger","times-circle",$mensaje];
+    }
+    public static function msgSuccess($mensaje){
+        return ["success","check-circle",$mensaje];
+    }
+    public static function msgInfo($mensaje){
+        return ["info","info-circle",$mensaje];
+    }
 }

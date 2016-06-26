@@ -28,11 +28,11 @@ class NotificacionesController extends AppController
                 $not = $this->createEntity();
                 $id = $not->save();
                 if(isset($id)){
-                    Session::set("msg","Notificación Creada");
+                    Session::set("msg",Session::msgSuccess("Notificación Creada"));
                     header("Location:index.php?c=notificaciones&a=index");
                     exit();
                 } else {
-                    Session::set("msg",Session::get('msg'));
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }                
             }
             $this->redirect_administrador(["add.php"],[
@@ -49,11 +49,11 @@ class NotificacionesController extends AppController
                 $not = $this->createEntity();
                 $id = $not->save();
                 if(isset($id)){
-                    Session::set("msg","Notificación Editada");
+                    Session::set("msg",Session::msgSuccess("Notificación Editada"));
                     header("Location:index.php?c=notificaciones&a=index");
                     exit();
                 } else {
-                    Session::set("msg",Session::get('msg'));
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }
             }
             $this->redirect_administrador(["edit.php"],[

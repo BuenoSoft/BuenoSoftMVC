@@ -20,11 +20,11 @@ class TipovController extends AppController
                 $tv = $this->createEntity();
                 $id = $tv->save();
                 if(isset($id)){
-                    Session::set("msg","Tipo de Vehículo Creado");
+                    Session::set("msg",Session::msgSuccess("Tipo de Vehículo Creado"));
                     header("Location:index.php?c=tipov&a=index");
                     exit();
                 } else {
-                    Session::set("msg",Session::get('msg'));
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }
             }
             $this->redirect_administrador(["add.php"]);
@@ -37,11 +37,11 @@ class TipovController extends AppController
                 $tv = $this->createEntity();
                 $id = $tv->save();
                 if(isset($id)){
-                    Session::set("msg","Tipo de Vehículo Editado");
+                    Session::set("msg",Session::msgSuccess("Tipo de Vehículo Editado"));
                     header("Location:index.php?c=tipov&a=index");
                     exit();
                 } else {
-                    Session::set("msg",Session::get('msg'));
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }
             }
             $this->redirect_administrador(["edit.php"],[
@@ -54,7 +54,7 @@ class TipovController extends AppController
             if (isset($_GET['d'])){
                 $tp = (new TipoVehiculo())->findById($_GET['d']);
                 $id = $tp->del();                
-                Session::set("msg", (isset($id)) ? "Tipo de Vehículo Borrado" : "No se pudo borrar el tipo");
+                Session::set("msg", (isset($id)) ? Session::msgSuccess("Tipo de Vehículo Borrado") : Session::msgDanger("No se pudo borrar el tipo"));
                 header("Location:index.php?c=tipov&a=index");
             }            
         }
@@ -64,7 +64,7 @@ class TipovController extends AppController
             if (isset($_GET['d'])){
                 $tp = (new TipoVehiculo())->findById($_GET['d']);
                 $id = $tp->del();
-                Session::set("msg", (isset($id)) ? "Tipo de Vehículo Activado" : "No se pudo activar el tipo");
+                Session::set("msg", (isset($id)) ? Session::msgSuccess("Tipo de Vehículo Activado") : Session::msgDanger("No se pudo activar el tipo"));
                 header("Location:index.php?c=tipov&a=index");
             }        
         }

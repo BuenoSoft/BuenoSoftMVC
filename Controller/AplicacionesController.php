@@ -48,7 +48,7 @@ class AplicacionesController extends AppController
                 $apl->save();
                 $this->addProductos();
                 $this->addExtras();
-                Session::set("msg","Aplicación Creada");
+                Session::set("msg",Session::msgSuccess("Aplicación Creada"));
                 header("Location:index.php?c=aplicaciones&a=index");
                 exit();                
             }
@@ -92,7 +92,7 @@ class AplicacionesController extends AppController
                 $apl->save();
                 $this->modProductos($apl);
                 $this->modExtras($apl);
-                Session::set("msg","Aplicación Editada");
+                Session::set("msg",Session::msgSuccess("Aplicación Editada"));
                 header("Location:index.php?c=aplicaciones&a=index");
                 exit();
             } 

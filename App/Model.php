@@ -49,7 +49,7 @@ abstract class Model implements IModel
     /*------------------------------------------------------------------------*/
     public function create($object) {
         if($this->check($object)){
-            Session::set('msg', $this->getCheckMessage());
+            Session::set('msg', Session::msgDanger($this->getCheckMessage()));
             return null;
         }
         return $this->execute($this->getCreateQuery(), $this->getCreateParameter($object));
@@ -59,7 +59,7 @@ abstract class Model implements IModel
         $aux = $this->findById($object->getId()); 
         if(!$object->equals($aux)){
             if($this->check($object)){
-                Session::set('msg', $this->getCheckMessage());
+                Session::set('msg', Session::msgDanger($this->getCheckMessage()));
                 return null;
             }        
         }

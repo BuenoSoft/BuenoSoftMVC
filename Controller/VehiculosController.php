@@ -27,11 +27,11 @@ class VehiculosController extends AppController
                 $veh = $this->createEntity();
                 $id = $veh->save();
                 if(isset($id)){
-                    Session::set("msg","Vehículo Creado");
+                    Session::set("msg",Session::msgSuccess("Vehículo Creado"));
                     header("Location:index.php?c=vehiculos&a=index");
                     exit();
                 } else {
-                    Session::set("msg",Session::get('msg'));
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }
             }
             $this->redirect_administrador(["add.php"],[
@@ -46,11 +46,11 @@ class VehiculosController extends AppController
                 $veh = $this->createEntity();
                 $id = $veh->save();
                 if(isset($id)){
-                    Session::set("msg","Vehículo Editado");
+                    Session::set("msg",Session::msgSuccess("Vehículo Editado"));
                     header("Location:index.php?c=vehiculos&a=index");
                     exit();
                 } else {
-                    Session::set("msg",Session::get('msg'));
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }
             }
             $this->redirect_administrador(["edit.php"],[
@@ -71,7 +71,7 @@ class VehiculosController extends AppController
             if (isset($_GET['d'])){
                 $vehiculo = (new Vehiculo())->findById($_GET['d']);
                 $id = $vehiculo->del();                
-                Session::set("msg", (isset($id)) ? "Vehículo Borrado" : "No se pudo borrar el vehículo");
+                Session::set("msg", (isset($id)) ? Session::msgSuccess("Vehículo Borrado") : Session::msgDanger("No se pudo borrar el vehículo"));
                 header("Location:index.php?&c=vehiculos&a=index");
             }            
         }
@@ -81,7 +81,7 @@ class VehiculosController extends AppController
             if (isset($_GET['d'])){
                 $vehiculo = (new Vehiculo())->findById($_GET['d']);
                 $id = $vehiculo->del();
-                Session::set("msg", (isset($id)) ? "Vehículo Activado" : "No se pudo activar el vehículo");
+                Session::set("msg", (isset($id)) ? Session::msgSuccess("Vehículo Activado") : Session::msgDanger("No se pudo activar el vehículo"));
                 header("Location:index.php?c=vehiculos&a=index");
             }        
         }

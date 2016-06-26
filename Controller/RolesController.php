@@ -19,12 +19,12 @@ class RolesController extends AppController
             if (isset($_POST['btnaceptar'])) {
                 $rol = $this->createEntity();
                 $id = $rol->save();
-                if(isset($rol)){
-                    Session::set("msg","Rol Creado");
+                if(isset($id)){
+                    Session::set("msg",Session::msgSuccess("Rol Creado"));
                     header("Location:index.php?c=roles&a=index");
                     exit();
                 } else {
-                    Session::set("msg",Session::get('msg'));
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }
             }
             $this->redirect_administrador(["add.php"]);
@@ -37,11 +37,11 @@ class RolesController extends AppController
                 $rol = $this->createEntity();
                 $id = $rol->save();
                 if(isset($id)){
-                    Session::set("msg","Rol Editado");
+                    Session::set("msg",Session::msgSuccess("Rol Editado"));
                     header("Location:index.php?c=roles&a=index");
                     exit();
                 } else {
-                    Session::set("msg",Session::get('msg'));
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }
             }
             $this->redirect_administrador(["edit.php"],[
@@ -54,7 +54,7 @@ class RolesController extends AppController
             if (isset($_GET['d'])){
                 $rol = (new Rol())->findById($_GET['d']);
                 $id = $rol->del();                
-                Session::set("msg", (isset($id)) ? "Rol Borrado" : "No se pudo borrar el rol");
+                Session::set("msg", (isset($id)) ? Session::msgSuccess("Rol Borrado") : Session::msgDanger("No se pudo borrar el rol"));
                 header("Location:index.php?c=roles&a=index");
             }            
         }
@@ -64,7 +64,7 @@ class RolesController extends AppController
             if (isset($_GET['d'])){
                 $rol = (new Rol())->findById($_GET['d']);
                 $id = $rol->del();
-                Session::set("msg", (isset($id)) ? "Rol Activado" : "No se pudo activar el rol");
+                Session::set("msg", (isset($id)) ? Session::msgSuccess("Rol Activado") : Session::msgDanger("No se pudo activar el rol"));
                 header("Location:index.php?c=roles&a=index");
             }        
         }

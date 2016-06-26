@@ -1,15 +1,9 @@
-<h3><i class="fa fa-angle-right"></i>&nbsp;Ver Usuario</h3>
+<h3><i class="fa fa-angle-right"></i>&nbsp;Ver Usuario número&nbsp;<?php echo $usuario->getId(); ?></h3>
 <div class="form-horizontal style-form">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
                 <h4><i class="fa fa-angle-right"></i>&nbsp;Datos Personales:</h4>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Número del Usuario</label>
-                    <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $usuario->getDatoUsu()->getId(); ?>
-                    </div>
-                </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Documento</label>
                     <div class="col-sm-10" style="text-align: center;">

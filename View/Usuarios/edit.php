@@ -1,15 +1,10 @@
-<h3><i class="fa fa-angle-right"></i>&nbsp;Editar Usuario</h3>
+<h3><i class="fa fa-angle-right"></i>&nbsp;Editar Usuario número&nbsp;<?php echo $usuario->getId(); ?></h3>
 <form class="form-horizontal style-form" method="post" action="index.php?c=usuarios&a=edit&d=<?php echo \App\Session::get('usu'); ?>" name="frmedit">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
                 <h4><i class="fa fa-angle-right"></i>&nbsp;Datos Personales:</h4>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Número</label>
-                    <div class="col-sm-10" style="text-align: center;">
-                        <input type="hidden" name="hid" value="<?php echo $usuario->getId(); ?>" /><?php echo $usuario->getId(); ?>
-                    </div>
-                </div>
+                <input type="hidden" name="hid" value="<?php echo $usuario->getId(); ?>" />
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tipo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">

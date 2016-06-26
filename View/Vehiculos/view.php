@@ -1,15 +1,9 @@
-<h3><i class="fa fa-angle-right"></i>Ver Vehículo</h3>
+<h3><i class="fa fa-angle-right"></i>&nbsp;Ver Vehículo número&nbsp;<?php echo $vehiculo->getId(); ?></h3>
 <div class="form-horizontal style-form">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
-                <h4><i class="fa fa-angle-right"></i> Datos del Vehículo:</h4>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Número del Vehículo</label>
-                    <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $vehiculo->getId(); ?>
-                    </div>
-                </div>
+                <h4><i class="fa fa-angle-right"></i>&nbsp;Datos del Vehículo:</h4>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Matrícula del Vehículo</label>
                     <div class="col-sm-10" style="text-align: center;">
@@ -33,17 +27,18 @@
                     <div class="col-sm-10" style="text-align: center;">
                         <?php echo $vehiculo->getMotor(); ?>
                     </div>
-                </div>                
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
-            <div class="showback">
+                </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Chasis del Vehículo</label>
                     <div class="col-sm-10" style="text-align: center;">
                         <?php echo $vehiculo->getChasis(); ?>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="showback">
+                
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Capacidad de Carga</label>
                     <div class="col-sm-10" style="text-align: center;">

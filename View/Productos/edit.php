@@ -1,15 +1,10 @@
-<h3><i class="fa fa-angle-right"></i> Editar Producto</h3>
+<h3><i class="fa fa-angle-right"></i>&nbsp;Editar Producto número&nbsp;<?php echo $producto->getId(); ?></h3>
 <form class="form-horizontal style-form" method="post" action="index.php?c=productos&a=edit&d=<?php echo \App\Session::get('prod');?>" name="frmedit">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
                 <h4><i class="fa fa-angle-right"></i> Datos del Producto:</h4>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Número del Producto</label>
-                    <div class="col-sm-10" style="text-align: center;">
-                        <input type="hidden" name="hid" value="<?php echo $producto->getId(); ?>" /><?php echo $producto->getId(); ?>
-                    </div>
-                </div>
+                <input type="hidden" name="hid" value="<?php echo $producto->getId(); ?>" />
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Código del Producto&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">

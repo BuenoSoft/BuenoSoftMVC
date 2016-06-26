@@ -1,15 +1,9 @@
-<h3><i class="fa fa-angle-right"></i>&nbsp;Ver Producto</h3>
+<h3><i class="fa fa-angle-right"></i>&nbsp;Ver Producto&nbsp;<?php echo $producto->getId(); ?></h3>
 <div class="form-horizontal style-form">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
                 <h4><i class="fa fa-angle-right"></i> Datos del Producto:</h4>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Número del Producto</label>
-                    <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $producto->getId(); ?>
-                    </div>
-                </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Código del Producto</label>
                     <div class="col-sm-10" style="text-align: center;">

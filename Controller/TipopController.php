@@ -20,11 +20,11 @@ class TipopController extends AppController
                 $tp = $this->createEntity();
                 $id = $tp->save();
                 if(isset($id)){
-                    Session::set("msg","Tipo de Producto Creado");
+                    Session::set("msg",Session::msgSuccess("Tipo de Producto Creado"));
                     header("Location:index.php?c=tipop&a=index");
                     exit();
                 } else {
-                    Session::set("msg",Session::get('msg'));
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }
             }
             $this->redirect_administrador(["add.php"]);
@@ -37,11 +37,11 @@ class TipopController extends AppController
                 $tp = $this->createEntity();
                 $id = $tp->save();
                 if(isset($id)){
-                    Session::set("msg","Tipo de Producto Editado");
+                    Session::set("msg",Session::msgSuccess("Tipo de Producto Editado"));
                     header("Location:index.php?c=tipop&a=index");
                     exit();
                 } else {
-                    Session::set("msg",Session::get('msg'));
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }
             }
             $this->redirect_administrador(["edit.php"],[
@@ -54,7 +54,7 @@ class TipopController extends AppController
             if (isset($_GET['d'])){
                 $tp = (new TipoProducto())->findById($_GET['d']);
                 $id = $tp->del();                
-                Session::set("msg", (isset($id)) ? "Tipo de Producto Borrado" : "No se pudo borrar el tipo");
+                Session::set("msg", (isset($id)) ? Session::msgSuccess("Tipo de Producto Borrado") : Session::msgDanger("No se pudo borrar el tipo"));
                 header("Location:index.php?c=tipop&a=index");
             }            
         }
@@ -64,7 +64,7 @@ class TipopController extends AppController
             if (isset($_GET['d'])){
                 $tp = (new TipoProducto())->findById($_GET['d']);
                 $id = $tp->del();
-                Session::set("msg", (isset($id)) ? "Tipo de Producto Activado" : "No se pudo activar el tipo");
+                Session::set("msg", (isset($id)) ? Session::msgSuccess("Tipo de Producto Activado") : Session::msgDanger("No se pudo activar el tipo"));
                 header("Location:index.php?c=tipop&a=index");
             }        
         }
