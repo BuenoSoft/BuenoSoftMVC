@@ -1,4 +1,7 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Historial del Vehículo <?php echo $usado->getVehiculo()->getId(); ?>, de la Aplicación número&nbsp;<?php echo $usado->getAplicacion()->getId(); ?></h3>
+<h4>
+    <i class="fa fa-angle-right"></i>&nbsp;<?php echo "Capacidad del Vehículo: ".$usado->getVehiculo()->getCapcarga(); ?>
+</h4>
 <form class="form-horizontal style-form" method="post" action="index.php?c=usados&a=historial&d=<?php echo \App\Session::get('app'); ?>&v=<?php echo \App\Session::get('v'); ?>" name="frmadd">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -14,7 +17,7 @@
                         </p>
                         <p>
                             <?php echo "Stock Mínimo: ".$usado->getVehiculo()->getCombustible()->getStockMin(); ?>
-                        </p>
+                        </p>                        
                     </div>                                        
                 </div>
                 <div class="form-group">

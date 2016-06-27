@@ -92,6 +92,9 @@ class Vehiculo implements IPersiste
     public function equals(Vehiculo $obj){
         return $this->matricula == $obj->matricula;                
     }
+    public function checkCap($capacidad){
+        return $capacidad <= $this->capcarga;
+    }
     /*------------------------------------------*/
     public function del() {
         return (new VehiculoModel())->delete($this);

@@ -30,17 +30,21 @@ class UsadosController extends AppController
             $usado = $this->getUsado();
             if (isset($_POST['btnaceptar'])) {
                 $historial = $this->createEntity();
-                if($historial->getCombustible()->delStock($historial->getRecarga())){
-                    $id = $usado->addHis($historial);
-                    if(isset($id)){
-                        Session::set("msg",Session::msgSuccess("Historial de Vehículo Registrado"));
-                        header("Location:index.php?c=usados&a=historial&d=".Session::get("app")."&v=".Session::get("v"));
-                        exit();
+                if($historial->getUsado()->getVehiculo()->checkCap($historial->getRecarga())){
+                    if($historial->getCombustible()->delStock($historial->getRecarga())){
+                        $id = $usado->addHis($historial);
+                        if(isset($id)){
+                            Session::set("msg",Session::msgSuccess("Historial de Vehículo Registrado"));
+                            header("Location:index.php?c=usados&a=historial&d=".Session::get("app")."&v=".Session::get("v"));
+                            exit();
+                        } else {
+                            Session::set("msg",Session::msgDanger("Error al registrar historial"));
+                        }                
                     } else {
-                        Session::set("msg",Session::msgDanger("Error al registrar historial"));
-                    }                
+                        Session::set("msg",Session::msgDanger("No tiene suficiente stock para recargar"));
+                    }
                 } else {
-                    Session::set("msg",Session::msgDanger("No tiene suficiente stock para recargar"));
+                    Session::set("msg",Session::msgDanger("El vehículo no tiene capacidad para la recarga ingresada"));
                 }
             }
             $this->redirect_administrador(['historial.php'],[
