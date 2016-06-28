@@ -1,4 +1,4 @@
-<h3><i class="fa fa-angle-right"></i>&nbsp;Ver Pista</h3>
+<h3><i class="fa fa-angle-right"></i>&nbsp;Ver Pista número&nbsp;<?php echo $pista->getId(); ?></h3>
 <!--
 <p>
     <button class="btn btn-theme05" onclick="window.close();"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button>
@@ -8,12 +8,6 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
                 <h4><i class="fa fa-angle-right"></i>&nbsp;Datos de la Pista:</h4>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Número de la Pista</label>
-                    <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $pista->getId(); ?>
-                    </div>
-                </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre de la Pista</label>
                     <div class="col-sm-10" style="text-align: center;">

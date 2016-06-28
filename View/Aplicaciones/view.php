@@ -146,13 +146,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Inicio</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo ($aplicacion->getFechaIni() == null or $aplicacion->getFechaIni() == "0000-00-00 00:00:00") ? "" : $aplicacion->mostrarDateTimeIni(); ?>
+                        <?php echo ($aplicacion->getFechaIni() == null or $aplicacion->getFechaIni() == "0000-00-00 00:00:00") ? "" : $aplicacion->getFechaIni(); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Cierre</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo ($aplicacion->getFechaFin() == null or $aplicacion->getFechaFin() == "0000-00-00 00:00:00") ? "" : $aplicacion->mostrarDateTimeFin(); ?>
+                        <?php echo ($aplicacion->getFechaFin() == null or $aplicacion->getFechaFin() == "0000-00-00 00:00:00") ? "" : $aplicacion->getFechaFin(); ?>
                     </div>
                 </div> 
             </div>
