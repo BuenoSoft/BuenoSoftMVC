@@ -8,6 +8,7 @@ class Notificacion implements IPersiste
     private $log;
     private $fechaini;
     private $fechafin;
+    private $fechaAct;
     private $vehiculo;
     function getId() {
         return $this->id;
@@ -20,6 +21,9 @@ class Notificacion implements IPersiste
     }
     function getFechafin() {
         return $this->fechafin;
+    }
+    function getFechaAct() {
+        return $this->fechaAct;
     }
     function getVehiculo() {
         return $this->vehiculo;
@@ -35,6 +39,9 @@ class Notificacion implements IPersiste
     }
     function setFechafin($fechafin) {
         $this->fechafin = $fechafin;
+    }
+    function setFechaAct($fechaAct) {
+        $this->fechaAct = $fechaAct;
     }
     function setVehiculo($vehiculo) {
         $this->vehiculo = $vehiculo;

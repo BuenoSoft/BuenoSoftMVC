@@ -14,10 +14,10 @@ class NotificacionModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     protected function getCreateParameter($object) {       
-        return [$object->getLog(),$object->getFechaini(),$object->getFechafin(),$object->getVehiculo()->getId()];
+        return [$object->getLog(),$object->getFechaini(),$object->getFechafin(),$object->getFechaAct(),$object->getVehiculo()->getId()];
     }
     protected function getCreateQuery() {        
-        return "insert into notificaciones(notLog,notFechaIni,notFechaFin,vehId) values (?,?,?,?)";
+        return "insert into notificaciones(notLog,notFechaIni,notFechaFin,notFechaAct,vehId) values (?,?,?,?,?)";
     }
     /*------------------------------------------------------------------------------------*/
     protected function getFindParameter($criterio = null) {
@@ -32,10 +32,10 @@ class NotificacionModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     protected function getUpdateParameter($object) {
-        return [$object->getLog(),$object->getFechaini(),$object->getFechafin(),$object->getVehiculo()->getId(),$object->getId()];
+        return [$object->getLog(),$object->getFechaini(),$object->getFechafin(),$object->getFechaAct(),$object->getVehiculo()->getId(),$object->getId()];
     }
     protected function getUpdateQuery() {
-        return "update notificaciones set notLog = ?,notFechaIni = ?,notFechaFin = ?,vehId = ? where notId = ?";
+        return "update notificaciones set notLog = ?,notFechaIni = ?,notFechaFin = ?,notFechaAct = ?,vehId = ? where notId = ?";
     }
     /*------------------------------------------------------------------------------------*/
     protected function getFindXIdQuery() {
@@ -53,7 +53,7 @@ class NotificacionModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     private function getShowQuery(){
-        return "select * from notificaciones order by notFechaFin desc,notFechaIni desc limit 0,5";
+        return "select * from notificaciones order by notFechaAct desc limit 0,5";
     }
     public function getNotificaciones(){
        return $this->fetch($this->getShowQuery(), []);

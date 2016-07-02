@@ -1,11 +1,13 @@
 <?php
 namespace Controller;
+use App\Session;
 use \App\Controller;
 use \Clases\Notificacion;
 abstract class AppController extends Controller 
 {
     function __construct() {
-        parent::__construct();        
+        parent::__construct(); 
+        Session::set('b',"");
     }       
     public function redirect_administrador($file = [], $dates = []) {
         try {

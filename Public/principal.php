@@ -30,22 +30,19 @@
                                 <ul class="top-nav" >
                                     <?php if(\App\Session::isLoggedIn() == true){ ?>
                                         <li>
-                                            <a href="index.php?c=access&a=index" class="mybutton"><h3>Acceso</h3></a>
-                                            
+                                            <a href="index.php?c=access&a=index" class="mybutton"><h3>Acceso</h3></a>                                            
                                         </li>
                                     <?php } else {?>
                                         <li>                                            
                                             <a href="#" id="hrefAbrirPopup" class="mybutton" data-type="zoomin"><h3>Iniciar Sesion</h3></a>
                                             <div id="popup" class="overlay-container popbg">
                                                 <div class="window-container zoomin">
-                                                    <p style="color: red; font-weight: bold;">
-                                                    <?php 
-                                                        if (\App\Session::get('msg')!=null) {  
-                                                            echo \App\Session::get('msg')."<br /><br />"; 
-                                                            \App\Session::set('msg', "");                     
-                                                        } 
-                                                    ?>
-                                                    </p>
+                                                    <?php if(\App\Session::get('msg') != null) {?>
+                                                        <div class="alert alert-<?php echo \App\Session::get('msg')[0]; ?> fade in">
+                                                            <i class="fa fa-<?php echo \App\Session::get('msg')[1]; ?>" style="font-size: 24px;"></i>&nbsp;
+                                                            <?php echo \App\Session::get('msg')[2]; ?>
+                                                        </div>
+                                                    <?php } ?>
                                                     <h1 class="poph"><b>Iniciar Sesion</b></h1>
                                                     <form action="index.php?c=usuarios&a=login" method="post" name="frmlogin">
                                                         <input name="txtuser" type="text" placeholder="Usuario" class="estilo-textbox-login" autofocus />

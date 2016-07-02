@@ -1,6 +1,5 @@
 <?php
 namespace Controller;
-use App\Session;
 class AccessController extends AppController
 {
     public function __construct() {
@@ -8,7 +7,6 @@ class AccessController extends AppController
     }    
     public function index(){
         if($this->checkUser()){
-            Session::set('b',"");
             $this->redirect_administrador(['index.php']);
         }
     }        

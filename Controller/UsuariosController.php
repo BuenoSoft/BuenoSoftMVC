@@ -24,10 +24,10 @@ class UsuariosController extends AppController
                     header("Location:index.php?c=access&a=index");
                     exit();
                 } else if (isset($usuario) and $usuario->getEstado() == "D"){
-                    Session::set("msg","El usuario está desactivado");
+                    Session::set("msg",Session::msgDanger("El usuario está desactivado"));
                     header("Location:index.php?c=todos&a=index");
                 } else {
-                    Session::set("msg","Acceso denegado.");
+                    Session::set("msg",Session::msgDanger("Acceso denegado."));
                     header("Location:index.php?c=todos&a=index");
                 }
             }

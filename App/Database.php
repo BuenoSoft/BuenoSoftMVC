@@ -19,5 +19,4 @@ final class Database
     public function getConnect() {            
         return $this->bd;  
     }        
-}  
-?>  
+}

@@ -33,7 +33,7 @@
     <body>
         <?php echo $menu; ?>
         <section id="main-content">
-            <section class="wrapper">
+            <section class="wrapper">                
                 <br />
                 <?php echo $enlaces; ?>
                 <br /><br />
