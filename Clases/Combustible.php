@@ -8,6 +8,7 @@ class Combustible implements IPersiste
     private $nombre;
     private $stock;
     private $stockMin;
+    private $stockMax;
     private $fecUC;
     private $tipo;
     private $estado;
@@ -22,6 +23,9 @@ class Combustible implements IPersiste
     }
     function getStockMin() {
         return $this->stockMin;
+    }
+    function getStockMax() {
+        return $this->stockMax;
     }
     function getFecUC() {
         return $this->fecUC;
@@ -44,6 +48,9 @@ class Combustible implements IPersiste
     function setStockMin($stockMin) {
         $this->stockMin = $stockMin;
     }
+    function setStockMax($stockMax) {
+        $this->stockMax = $stockMax;
+    }
     function setFecUC($fecUC) {
         $this->fecUC = $fecUC;
     }
@@ -61,6 +68,7 @@ class Combustible implements IPersiste
         $date = date_create($this->fecUC);
         return date_format($date, "Y-m-d\TH:i:s");
     }
+    /*----------------------------------------*/
     public function addStock($cant){
         $this->stock += $cant;
         $this->save();
@@ -76,6 +84,28 @@ class Combustible implements IPersiste
     }
     public function hayStock($cant){
         return ($this->stock - $cant) >= $this->stockMin;
+    }
+    /*---------------------------------------*/
+    public function regla3(){
+        return ($this->stock * 100) / $this->stockMax;
+    }
+    public function get75(){
+        return ($this->stock * 75) / $this->stockMax;
+    }
+    public function get50(){
+        return $this->stockMax / 2;
+    }
+    public function get20(){
+        return ($this->stock * 20) / $this->stockMax;
+    }
+    public function isCompleted(){
+        return $this->regla3() == $this->stockMax;
+    }
+    public function isStable(){
+        return $this->regla3() >= $this->get75() and $this->regla3() < $this->stockMax;
+    }
+    public function isMedium(){
+        return $this->regla3() >= $this->get50() and $this->regla3() < $this->get75();
     }
     /*---------------------------------------*/
     public function del() {

@@ -1,4 +1,4 @@
-<h3><i class="fa fa-angle-right"></i> Mantenimiento de Combustibles</h3>
+<h3><i class="fa fa-angle-right"></i>&nbsp;Mantenimiento de Combustibles</h3>
 <p>
     <a href="index.php?c=access&a=index"><button class="btn btn-theme05" tabindex="3"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;
     <a href="index.php?c=combustibles&a=add"><button class="btn btn-theme05" tabindex="4"><i class="fa fa-plus"></i>&nbsp;Crear</button></a>        
@@ -67,5 +67,27 @@
                 <a href="<?php echo 'index.php?c=combustibles&a=index&p=' . $paginador['ultimo']; ?>" title="Último">Último</a>	
             <?php }     
         } ?>
-    </section>
+    </section>    
 </div>
+<?php foreach($combustibles as $combustible) { ?>
+    <div class="progress">
+        <label class="col-sm-2 col-sm-2 control-label"><?php echo $combustible->getNombre(); ?></label>
+        <?php 
+            $estilo = "";
+            if($combustible->isCompleted()){
+                $estilo = "success";
+            } else if($combustible->isStable()){
+                $estilo = "info";
+            } else if($combustible->isMedium()){
+                $estilo = "warning";
+            } else {
+                $estilo = "danger";
+            }
+        ?>
+        <?php echo $combustible->regla3(); ?>
+        <?php echo $estilo; ?>
+        <div class="progress-bar progress-bar-<?php echo $estilo; ?>" role="progressbar" aria-valuenow="<?php echo $combustible->regla3(); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $combustible->regla3(); ?>%">
+            <span class="sr-only"><?php echo $combustible->regla3(); ?></span>
+	</div>
+    </div>
+<?php } ?>

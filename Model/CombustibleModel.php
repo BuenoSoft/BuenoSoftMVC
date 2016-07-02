@@ -19,11 +19,11 @@ class CombustibleModel extends AppModel
         return "select * from combustibles where comNombre = ?";
     }
     protected function getCreateParameter($object) {
-        return [$object->getNombre(),$object->getStock(),$object->getStockMin(),
+        return [$object->getNombre(),$object->getStock(),$object->getStockMin(), $object->getStockMax(),
             $object->getFecUC(),$object->getTipo()->getId(),'H'];
     }
     protected function getCreateQuery() {
-        return "insert into combustibles(comNombre,comStock,comStockMin,comFecUC,tvId,comEstado) values(?,?,?,?,?,?)";
+        return "insert into combustibles(comNombre,comStock,comStockMin,comStockMax,comFecUC,tvId,comEstado) values(?,?,?,?,?,?,?)";
     }
     protected function getDeleteParameter($object) {
         if($object->getEstado() == "H"){
@@ -50,11 +50,11 @@ class CombustibleModel extends AppModel
         return "select * from combustibles where comId = ?";
     }
     protected function getUpdateParameter($object) {
-        return [$object->getNombre(),$object->getStock(),$object->getStockMin(),
+        return [$object->getNombre(),$object->getStock(),$object->getStockMin(), $object->getStockMax(),
             $object->getFecUC(),$object->getTipo()->getId(),$object->getId()];
     }
     protected function getUpdateQuery() {
-        return "update combustibles set comNombre = ?, comStock = ?, comStockMin = ?, comFecUC = ?, tvId = ? where comId = ?";
+        return "update combustibles set comNombre = ?, comStock = ?, comStockMin = ?, comStockMax = ?, comFecUC = ?, tvId = ? where comId = ?";
     }
     public function createEntity($row) {
         $combustible = new Combustible();
@@ -62,6 +62,7 @@ class CombustibleModel extends AppModel
         $combustible->setNombre($row["comNombre"]);
         $combustible->setStock($row["comStock"]);
         $combustible->setStockMin($row["comStockMin"]);
+        $combustible->setStockMax($row["comStockMax"]);
         $combustible->setFecUC($row["comFecUC"]);
         $combustible->setTipo((new TipoVehiculoModel())->findById($row["tvId"]));
         $combustible->setEstado($row["comEstado"]);

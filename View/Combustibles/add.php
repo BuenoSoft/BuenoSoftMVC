@@ -40,6 +40,12 @@
                         <input type="text" name="txtstockmin" class="form-control" required="required" placeholder="Ej: 15" onkeypress="return validarNumero(event);" pattern="[\d]*" tabindex="4" />
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Stock Máximo&nbsp;<font color="red">*</font></label>
+                    <div class="col-sm-10">
+                        <input type="text" name="txtstockmax" class="form-control" required="required" placeholder="Ej: 50" onkeypress="return validarNumero(event);" pattern="[\d]*" tabindex="4" />
+                    </div>
+                </div>
             </div>            
             <div style="text-align: center;">
                 <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="5"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;

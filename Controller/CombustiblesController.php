@@ -98,6 +98,7 @@ class CombustiblesController extends AppController
         $combustible->setNombre($this->clean($_POST['txtnombre']));
         $combustible->setStock($_POST['txtstock']);
         $combustible->setStockMin($_POST['txtstockmin']);
+        $combustible->setStockMax($_POST['txtstockmax']);
         $combustible->setFecUC($this->getUltimaAct($combustible->getId(),$_POST['txtstock']));
         $combustible->setTipo((new TipoVehiculo())->findById($_POST['tipo']));
         return $combustible;

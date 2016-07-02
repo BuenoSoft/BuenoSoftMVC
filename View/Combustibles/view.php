@@ -33,6 +33,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Stock Máximo</label>
+                    <div class="col-sm-10" style="text-align: center;">
+                        <?php echo $combustible->getStockMax(); ?>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Última Actualización</label>
                     <div class="col-sm-10" style="text-align: center;">
                         <?php echo ($combustible->getFecUC() == null or $combustible->getFecUC() == "0000-00-00 00:00:00") ? "" : $combustible->getFecUC(); ?>
