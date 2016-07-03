@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtnom" class="form-control" required="required" placeholder="Ej: Luis Ottonello" onkeypress="return validarTexto(event);" pattern="[A-Za-z\s]*" maxlength="20" tabindex="2" />
+                        <input type="text" name="txtnom" class="form-control" required="required" placeholder="Ej: Luis Ottonello" onkeypress="return validarTexto(event);" pattern="[A-Za-z\s]*" maxlength="21" tabindex="2" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -53,7 +53,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre del Usuario&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtuser" class="form-control" required="required" placeholder="Ej: pop32" tabindex="6" />
+                        <input type="text" name="txtuser" class="form-control" required="required" placeholder="Ej: pop32" maxlength="12" tabindex="6" />
                     </div>
                 </div>
                 <div class="form-group">

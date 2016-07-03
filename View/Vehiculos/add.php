@@ -7,7 +7,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Matrícula del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtmat" class="form-control" autofocus required="required" placeholder="Ej: T458-BDD" tabindex="1"/>
+                        <input type="text" name="txtmat" class="form-control" autofocus required="required" placeholder="Ej: T458-BDD" maxlength="14" tabindex="1"/>
                     </div>
                 </div>
                 <div class="form-group">

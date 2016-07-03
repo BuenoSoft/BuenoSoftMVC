@@ -7,7 +7,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre de la Pista&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtnombre" class="form-control" required="required" autofocus="autofocus" placeholder="Ej: Ruta 3" onkeypress="return validarTextoyNumPC(event);" pattern="[A-Za-z\s\d\.\,\/]*"  tabindex="1"  />
+                        <input type="text" name="txtnombre" class="form-control" required="required" autofocus="autofocus" placeholder="Ej: Ruta 3" onkeypress="return validarTextoyNumPC(event);" pattern="[A-Za-z\s\d\.\,\/]*" maxlength="20" tabindex="1"  />
                     </div>
                 </div>
                 <div class="form-group">

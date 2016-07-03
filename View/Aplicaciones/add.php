@@ -157,7 +157,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Padrón&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtpadron" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d]*" class="form-control"  placeholder="" required="required" tabindex="14" value="<?php echo \App\Session::get("pass")[12]; ?>" />
+                        <input type="text" name="txtpadron" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d]*" maxlength="15" class="form-control"  placeholder="" required="required" tabindex="14" value="<?php echo \App\Session::get("pass")[12]; ?>" />
                     </div>
                 </div>
                 <div class="form-group">

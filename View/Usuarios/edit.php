@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtnom" class="form-control" required="required" placeholder="Ej: Luis Ottonello" onkeypress="return validarTexto(event);" pattern="[A-Za-z\s]*" value="<?php echo $usuario->getDatoUsu()->getNombre(); ?>" tabindex="2">
+                        <input type="text" name="txtnom" class="form-control" required="required" placeholder="Ej: Luis Ottonello" onkeypress="return validarTexto(event);" pattern="[A-Za-z\s]*" maxlength="21" value="<?php echo $usuario->getDatoUsu()->getNombre(); ?>" tabindex="2">
                     </div>
                 </div>
                 <div class="form-group">
@@ -64,7 +64,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre del Usuario&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtuser" class="form-control" required="required" placeholder="Ej: pop32" value="<?php echo $usuario->getNombre(); ?>" tabindex="7" />
+                        <input type="text" name="txtuser" class="form-control" required="required" placeholder="Ej: pop32" maxlength="12" value="<?php echo $usuario->getNombre(); ?>" tabindex="7" />
                     </div>
                 </div>
                 <div class="form-group">
