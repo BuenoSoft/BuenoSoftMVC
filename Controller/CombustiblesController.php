@@ -23,7 +23,11 @@ class CombustiblesController extends AppController
         if($this->checkUser()){
             if(isset($_POST['btnaceptar'])){
                 $combustible = $this->createEntity();
-                if($combustible->getStock() >= $combustible->getStockMin()){
+                if($combustible->getStock() < $combustible->getStockMin()){
+                    Session::set("msg",Session::msgDanger("Asegurese que el stock sea mayor al stock mínimo"));                    
+                } else if($combustible->getStock() > $combustible->getStockMax()){
+                    Session::set("msg",Session::msgDanger("Asegurese que el stock sea menor al stock máximo"));
+                } else {                
                     $id = $combustible->save();
                     if(isset($id)){
                         Session::set("msg",Session::msgSuccess("Combustible Creado"));
@@ -32,8 +36,6 @@ class CombustiblesController extends AppController
                     } else {
                         Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                     }                    
-                } else {
-                    Session::set("msg",Session::msgDanger("Asegurese que el stock sea mayor al stock mínimo"));
                 }
             }
             $this->redirect_administrador(['add.php'],[
@@ -46,7 +48,11 @@ class CombustiblesController extends AppController
             Session::set("com",$_GET['d']);
             if (Session::get('com')!=null && isset($_POST['btnaceptar'])){
                 $combustible = $this->createEntity();
-                if($combustible->getStock() >= $combustible->getStockMin()){
+                if($combustible->getStock() < $combustible->getStockMin()){
+                    Session::set("msg",Session::msgDanger("Asegurese que el stock sea mayor al stock mínimo"));                    
+                } else if($combustible->getStock() > $combustible->getStockMax()){
+                    Session::set("msg",Session::msgDanger("Asegurese que el stock sea menor al stock máximo"));
+                } else {
                     $id = $combustible->save();
                     if(isset($id)){
                         Session::set("msg",Session::msgSuccess("Combustible Editado"));
@@ -55,9 +61,7 @@ class CombustiblesController extends AppController
                     }else {
                         Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                     }                
-                } else {
-                    Session::set("msg",Session::msgDanger("Asegurese que el stock sea mayor al stock mínimo"));
-                }
+                } 
             }
             $this->redirect_administrador(['edit.php'],[
                 "combustible" => (new Combustible())->findById(Session::get('com')),

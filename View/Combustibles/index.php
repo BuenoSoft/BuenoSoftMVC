@@ -69,25 +69,29 @@
         } ?>
     </section>    
 </div>
-<?php foreach($combustibles as $combustible) { ?>
-    <div class="progress">
-        <label class="col-sm-2 col-sm-2 control-label"><?php echo $combustible->getNombre(); ?></label>
-        <?php 
-            $estilo = "";
-            if($combustible->isCompleted()){
-                $estilo = "success";
-            } else if($combustible->isStable()){
-                $estilo = "info";
-            } else if($combustible->isMedium()){
-                $estilo = "warning";
-            } else {
-                $estilo = "danger";
-            }
-        ?>
-        <?php echo $combustible->regla3(); ?>
-        <?php echo $estilo; ?>
-        <div class="progress-bar progress-bar-<?php echo $estilo; ?>" role="progressbar" aria-valuenow="<?php echo $combustible->regla3(); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $combustible->regla3(); ?>%">
-            <span class="sr-only"><?php echo $combustible->regla3(); ?></span>
-	</div>
+<div class="row mt">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+      	<div class="showback">
+            <?php foreach($combustibles as $combustible) { ?>
+                <div class="progress progress-striped active">            
+                    <label class="col-sm-2 col-sm-2 control-label"><?php echo $combustible->getNombre(); ?></label>
+                    <?php 
+                        if($combustible->isCompleted()){
+                            $estilo = "success";
+                        } else if($combustible->isStable()){
+                            $estilo = "info";
+                        } else if($combustible->isMedium()){
+                            $estilo = "warning";
+                        } else {
+                            $estilo = "danger";
+                        }   
+                        echo $estilo;
+                        echo $combustible->regla3()."%";
+                    ?>                    
+                    <div class="progress-bar progress-bar-<?php echo $estilo; ?>" role="progressbar" aria-valuenow="<?php echo $combustible->regla3(); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $combustible->regla3()."%"; ?>;"></div>
+                </div>
+            <?php } ?>
+                    
+        </div>
     </div>
-<?php } ?>
+</div>
