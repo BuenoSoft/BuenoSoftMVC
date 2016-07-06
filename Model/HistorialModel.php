@@ -29,16 +29,6 @@ class HistorialModel extends AppModel
         return [$dates[0],$dates[1]];
     }
     /*------------------------------------------------------------------------------------*/
-    public function getHistorial($dates = []){
-        return $this->findByCondition($this->getFindXIdQuery(), $this->getHistorialXIdParameter($dates)); 
-    }
-    protected function getHistorialXIdParameter($dates = []) {
-        return [$dates[0],$dates[1],$dates[2],$dates[3]];
-    }
-    protected function getFindXIdQuery() {
-        return "select * from historial where aplId = ? and vehId = ? and comId = ? and hisFecha = ?";
-    }
-    /*------------------------------------------------------------------------------------*/
     protected function getDeleteParameter($object) {
         return [
             $object->getUsado()->getAplicacion()->getId(),$object->getUsado()->getVehiculo()->getId(),
@@ -68,6 +58,7 @@ class HistorialModel extends AppModel
         }
         return null;
     }
+    protected function getFindXIdQuery() { }
     protected function getFindParameter($criterio = null) {}        
     protected function getCheckMessage() { }
     protected function getCheckParameter($unique) { }

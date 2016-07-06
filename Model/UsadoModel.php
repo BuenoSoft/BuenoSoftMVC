@@ -52,9 +52,6 @@ class UsadoModel extends AppModel
     public function getHistoriales($dates = []){
         return (new HistorialModel())->getHistoriales($dates);
     }
-    public function getHistorial($dates = []){
-        return (new HistorialModel())->getHistorial($dates);
-    }
     public function modHis($his){
         return (new HistorialModel())->modHis($his);
     }

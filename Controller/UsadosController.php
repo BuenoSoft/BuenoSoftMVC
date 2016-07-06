@@ -2,6 +2,7 @@
 namespace Controller;
 use \App\Session;
 use \Clases\Vehiculo;
+use \Clases\Notificacion;
 use \Clases\Aplicacion;
 use \Clases\Historial;
 class UsadosController extends AppController 
@@ -34,6 +35,7 @@ class UsadosController extends AppController
                     if($historial->getCombustible()->delStock($historial->getRecarga())){
                         $id = $usado->addHis($historial);
                         if(isset($id)){
+                            $this->getRecarga($historial);
                             Session::set("msg",Session::msgSuccess("Historial de Vehículo Registrado"));
                             header("Location:index.php?c=usados&a=historial&d=".Session::get("app")."&v=".Session::get("v"));
                             exit();
@@ -64,8 +66,21 @@ class UsadosController extends AppController
             $historial = $this->getHistorial($usado);
             $historial->getCombustible()->addStock($historial->getRecarga());
             $id = $usado->delHis($historial);
+            $this->getRecarga($historial);
             Session::set("msg", (isset($id)) ? Session::msgSuccess("Historial de Vehículo Borrado") : Session::msgDanger("No se pudo borrar el producto"));
             header("Location:index.php?c=usados&a=historial&d=".Session::get("app")."&v=".Session::get("v"));
+        }
+    }
+    private function getRecarga($historial){
+        if($historial->getCombustible()->regla3() >= $historial->getCombustible()->get20() and $historial->getCombustible()->regla3() < $historial->getCombustible()->get50()){
+            $not = new Notificacion();
+            $not->setId(0);
+            $not->setFechaini($_POST['dtfecha']);
+            $not->setFechafin(null);
+            $not->setFechaAct($_POST['dtfecha']);
+            $not->setLog("Por favor recargue el combustible general ".$historial->getCombustible()->getNombre()." que está en el ".$historial->getCombustible()->regla3()."%");
+            $not->setVehiculo($historial->getUsado()->getVehiculo());
+            $not->save();
         }
     }
     private function getUsado(){

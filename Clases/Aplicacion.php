@@ -124,9 +124,6 @@ class Aplicacion implements IPersiste
         $this->cliente = $cliente;
     }
     function __construct() { }
-    public function equals(Aplicacion $obj){
-        return $this->ruc == $obj->ruc;                
-    }
     public function taquiDif(){
         return $this->taquiFin - $this->taquiIni;
     }
