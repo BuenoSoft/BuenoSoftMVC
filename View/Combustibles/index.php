@@ -5,12 +5,6 @@
 </p>
 <div class="content-panel">
     <section id="unseen" style="padding-left: 5px; padding-right: 5px;">
-        <p>
-            <form name="frmsearch" method="post" action="index.php?c=combustibles&a=index"> 
-                <input type="search" name="txtbuscador" placeholder="Nombre del Combustible" width="50" class="form-control_index" tabindex="1" autofocus />&nbsp;
-                <input type="button" onclick="frmsearch.submit();" name="btnsearch" value="Buscar" class="btn btn-theme01" tabindex="2" />
-            </form>        
-        </p>
         <table class="table table-bordered table-striped table-condensed">
             <thead>                
                 <th>Nº</th>
@@ -48,50 +42,32 @@
                     </tr>
                 <?php } ?>
             </tbody>
-        </table>
-        <?php if ($paginador != null) { ?> 
-            <br />
-            <?php if($paginador['primero']) { ?>	
-                <a href="<?php echo 'index.php?c=combustibles&a=index&p=' . $paginador['primero']; ?>" title="Primero">Primero</a>        
-            <?php } ?>
-            &nbsp;
-            <?php if($paginador['anterior']) { ?>	
-                <a href="<?php echo 'index.php?c=combustibles&a=index&p=' . $paginador['anterior']; ?>" title="Anterior">Anterior</a>	
-            <?php } ?>
-            &nbsp;
-            <?php if($paginador['siguiente']) { ?>	
-                <a href="<?php echo 'index.php?c=combustibles&a=index&p=' . $paginador['siguiente']; ?>" title="Siguiente">Siguiente</a>
-            <?php } ?>
-            &nbsp;
-            <?php if($paginador['ultimo']) { ?>	
-                <a href="<?php echo 'index.php?c=combustibles&a=index&p=' . $paginador['ultimo']; ?>" title="Último">Último</a>	
-            <?php }     
-        } ?>
+        </table>        
     </section>    
 </div>
-<div class="row mt">
-    <div class="col-lg-6 col-md-6 col-sm-12">
-      	<div class="showback">
-            <?php foreach($combustibles as $combustible) { ?>
-                <div class="progress progress-striped active">            
-                    <label class="col-sm-2 col-sm-2 control-label"><?php echo $combustible->getNombre(); ?></label>
+<br />
+<div class="content-panel">
+    <section id="unseen" style="padding-left: 5px; padding-right: 5px;">
+      	    <?php foreach($combustibles as $combustible) { 
+                if($combustible->getEstado() == "H"){
+            ?>
+                <div class="progress progress-striped active">                 
                     <?php 
-                        if($combustible->isCompleted()){
-                            $estilo = "success";
-                        } else if($combustible->isStable()){
-                            $estilo = "info";
+                        $estilo = "progress-bar progress-bar-";
+                        if($combustible->isDown()){
+                            $estilo .= "danger";
                         } else if($combustible->isMedium()){
-                            $estilo = "warning";
+                            $estilo .= "warning";
                         } else {
-                            $estilo = "danger";
-                        }   
-                        echo $estilo;
-                        echo $combustible->regla3()."%";
-                    ?>                    
-                    <div class="progress-bar progress-bar-<?php echo $estilo; ?>" role="progressbar" aria-valuenow="<?php echo $combustible->regla3(); ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $combustible->regla3()."%"; ?>;"></div>
-                </div>
-            <?php } ?>
-                    
-        </div>
-    </div>
+                            $estilo .= "success";
+                        }                      
+                    ?>                        
+                    <div class="<?php echo $estilo; ?>" role="progressbar" aria-valuenow="<?php echo $combustible->regla3(); ?>" aria-valuemin="0" aria-valuemax="<?php $combustible->getStockMax(); ?>" style="width:<?php echo $combustible->regla3()."%"; ?>;">
+                        <?php echo $combustible->getNombre()." ".round($combustible->regla3())."%"?>
+                    </div>                    
+                </div>                                                                                                                                                                                                                                                                 
+            <?php }             
+                } 
+            ?>                    
+    </section>
 </div>

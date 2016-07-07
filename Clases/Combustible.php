@@ -88,24 +88,15 @@ class Combustible implements IPersiste
     /*---------------------------------------*/
     public function regla3(){
         return ($this->stock * 100) / $this->stockMax;
-    }
-    public function get70(){
-        return $this->stockMax * 0.70;
-    }
-    public function get50(){
-        return $this->stockMax / 2;
-    }
-    public function get20(){
-        return $this->stockMax * 0.20;
-    }
-    public function isCompleted(){
-        return $this->regla3() == 100;
-    }
+    }    
     public function isStable(){
-        return $this->regla3() >= $this->get70() and $this->regla3() < 100;
+        return $this->regla3() >=70 and $this->regla3() <=100;
+    }
+    public function isDown(){
+        return $this->stock <= $this->stockMin;
     }
     public function isMedium(){
-        return $this->regla3() >= $this->get50() and $this->regla3() < $this->get70();
+        return $this->regla3() >= 30 and $this->regla3() <= 69;
     }
     /*---------------------------------------*/
     public function del() {

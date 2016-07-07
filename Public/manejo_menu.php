@@ -95,6 +95,11 @@
                 </li> 
                 <?php if(App\Session::get('log_in') != null and (App\Session::get('log_in')->getRol()->getNombre() == "Administrador" or App\Session::get('log_in')->getRol()->getNombre() == "Supervisor")) {?>            
                     <li class="sub-menu">
+                        <a href="index.php?c=estadisticas&a=index">
+                            <i class="fa fa-bar-chart"></i>&nbsp;Estadísticas
+                        </a>
+                    </li> 
+                    <li class="sub-menu">
                         <a href="index.php?c=aplicaciones&a=index">
                             <i class="fa fa-plane"></i>&nbsp;Aplicaciones
                         </a>

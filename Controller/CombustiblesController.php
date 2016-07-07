@@ -10,12 +10,8 @@ class CombustiblesController extends AppController
     }
     public function index(){
         if($this->checkUser()){
-            Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
-            Session::set('b',(isset($_POST['txtbuscador'])) ? $this->clean($_POST['txtbuscador']) : Session::get('b'));
-            $combustibles = $this->getPaginator()->paginar((new Combustible())->find(Session::get('b')), Session::get('p'));
             $this->redirect_administrador(['index.php'],[
-                "combustibles" => $combustibles,
-                "paginador" => $this->getPaginator()->getPages()
+                "combustibles" => (new Combustible())->find()
             ]);
         }
     }
@@ -23,7 +19,7 @@ class CombustiblesController extends AppController
         if($this->checkUser()){
             if(isset($_POST['btnaceptar'])){
                 $combustible = $this->createEntity();
-                if($combustible->getStock() < $combustible->getStockMin()){
+                if($combustible->getStock() < 0){
                     Session::set("msg",Session::msgDanger("Asegurese que el stock sea mayor al stock mínimo"));                    
                 } else if($combustible->getStock() > $combustible->getStockMax()){
                     Session::set("msg",Session::msgDanger("Asegurese que el stock sea menor al stock máximo"));
@@ -48,7 +44,7 @@ class CombustiblesController extends AppController
             Session::set("com",$_GET['d']);
             if (Session::get('com')!=null && isset($_POST['btnaceptar'])){
                 $combustible = $this->createEntity();
-                if($combustible->getStock() < $combustible->getStockMin()){
+                if($combustible->getStock() < 0){
                     Session::set("msg",Session::msgDanger("Asegurese que el stock sea mayor al stock mínimo"));                    
                 } else if($combustible->getStock() > $combustible->getStockMax()){
                     Session::set("msg",Session::msgDanger("Asegurese que el stock sea menor al stock máximo"));
