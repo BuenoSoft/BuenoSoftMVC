@@ -10,7 +10,9 @@
         </div>
     </div>
 </div>
-<script>
+<?php foreach ($estadistica as $dato) { ?>
+<?php echo $dato[0]."<br />"; }?>
+        <script>
 var Script = function () {
 
     //morris chart
@@ -18,23 +20,25 @@ var Script = function () {
     $(function () {
       // data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type
       var tax_data = [
-           {"period": "2011 Q3", "licensed": 4000, "sorned": 100, "icase": 100},
-           {"period": "2011 Q2", "licensed": 3351, "sorned": 629, "icase": 100},
-           {"period": "2011 Q1", "licensed": 3269, "sorned": 618, "icase": 100},
-           {"period": "2010 Q4", "licensed": 3246, "sorned": 661, "icase": 100},
-           {"period": "2009 Q4", "licensed": 3171, "sorned": 676, "icase": 100},
-           {"period": "2008 Q4", "licensed": 3155, "sorned": 681, "icase": 100},
-           {"period": "2007 Q4", "licensed": 3226, "sorned": 620, "icase": 100},
-           {"period": "2006 Q4", "licensed": 3245, "sorned": 100, "icase": 100 },
-           {"period": "2005 Q4", "licensed": 3289, "sorned": 50, "icase": 100 }
+        <?php 
+            $cont = 0;
+            foreach ($estadistica as $dato) {                 
+        ?>
+                {"period": "<?php echo $dato[1]." Q".(++$cont); ?>", "apl": <?php echo $dato[2]; ?>  },
+        <?php } ?>
+                        /*
+        {"period": "2005 Q1", "apl": null },
+        {"period": "2006 Q2", "apl": null },
+        {"period": "2007 Q3", "apl": null },
+        {"period": "2008 Q4", "apl": 100 } */
       ];
       Morris.Line({
         element: 'hero-graph',
         data: tax_data,
         xkey: 'period',
-        ykeys: ['licensed', 'sorned','icase'],
-        labels: ['Scribo', 'Code-uy','gallito'],
-        lineColors:['#4ECDC4','#ed5565','#ed5565']
+        ykeys: ['apl'],
+        labels: ['aplicaciones'],
+        lineColors:['#4ECDC4']
       });
 /*
       Morris.Donut({

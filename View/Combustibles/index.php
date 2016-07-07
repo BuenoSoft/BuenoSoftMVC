@@ -63,7 +63,7 @@
                         }                      
                     ?>                        
                     <div class="<?php echo $estilo; ?>" role="progressbar" aria-valuenow="<?php echo $combustible->regla3(); ?>" aria-valuemin="0" aria-valuemax="<?php $combustible->getStockMax(); ?>" style="width:<?php echo $combustible->regla3()."%"; ?>;">
-                        <?php echo $combustible->getNombre()." ".round($combustible->regla3())."%"?>
+                        <b style="color: black;"><?php echo $combustible->getNombre()." ".$combustible->getStock()." L"; ?></b>
                     </div>                    
                 </div>                                                                                                                                                                                                                                                                 
             <?php }             

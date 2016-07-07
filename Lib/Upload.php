@@ -13,10 +13,9 @@ class Upload
     /*--colaboración de Jorge Fernando Zabala Rueda con checkImage, checkExtension, stringURLSafe y uniqueId--*/    
     private function checkFile($file,$extensiones){
         if ($file["error"] > 0){
-            Session::set('msg', "ha ocurrido un error");
+            Session::set('msg', Session::msgDanger("Ha ocurrido un error por tamaño o formato."));
             return null;
-        }
-        else {
+        } else {
             if($this->checkExtension($file,$extensiones)){
                 // Es mejor calcular el prefijo y ruta luego de la validacion siguiente por q si no cumple habrias hecho ese trabajo en vano   
                 $limite_kb = 400;
@@ -35,14 +34,12 @@ class Upload
                     $ruta = "Public/upload/". $this->folder ."/".$archivo;
                     $resultado = move_uploaded_file($file["tmp_name"], $ruta);
                     return ($resultado) ? $ruta : null;                
-                }
-                else {
-                    Session::set('msg', "tipo de archivo no permitido o excede a los $limite_kb kb");
+                } else {
+                    Session::set('msg', Session::msgDanger("Tipo de archivo no permitido o excede a los $limite_kb kb."));
                     return null;
                 }          
-            }
-            else {
-                Session::set('msg', "error en la extensión");
+            } else {
+                Session::set('msg', Session::msgDanger("Error en la extensión."));
                 return null;
             }
         }
@@ -72,6 +69,6 @@ class Upload
     }
     
     private function getExtensionImage(){
-        return array('jpg', 'jpeg','png', 'gif');
+        return ['jpg', 'jpeg','png'];
     }
 }
