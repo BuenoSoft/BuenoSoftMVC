@@ -98,6 +98,15 @@ class Combustible implements IPersiste
     public function isMedium(){
        return $this->stock > $this->stockMin and $this->stock <= $this->stockMin + $this->aviso();
     }
+    public function restaCombustible(){
+        return 100 - $this->regla3();
+    }
+    public function restaGrafica(){
+        return $this->getStockMax() - $this->getStock();
+    }
+    public function isExcellent(){
+        return $this->stock == $this->stockMax;
+    }
     /*---------------------------------------*/
     public function del() {
         return (new CombustibleModel())->delete($this);

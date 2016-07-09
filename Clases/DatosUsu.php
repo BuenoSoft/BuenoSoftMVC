@@ -63,7 +63,7 @@ class DatosUsu implements IPersiste
     }        
     public function findById($id) {
         return (new DatosUsuModel())->findById($id);
-    }
+    }    
     public function maxID(){
         return (new DatosUsuModel())->maxId();
     }

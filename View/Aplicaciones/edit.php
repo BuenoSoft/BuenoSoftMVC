@@ -1,4 +1,4 @@
-<h3><i class="fa fa-angle-right"></i>Editar Aplicación número&nbsp;<?php echo \App\Session::get('app'); ?></h3>
+<h3><i class="fa fa-angle-right"></i>&nbsp;Editar Aplicación número&nbsp;<?php echo \App\Session::get('app'); ?></h3>
 <form class="form-horizontal style-form" method="post" action="index.php?c=aplicaciones&a=edit&d=<?php echo \App\Session::get('app'); ?>" name="frmedit">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">

@@ -1,5 +1,5 @@
-<h3><i class="fa fa-angle-right"></i> Crear Aplicación</h3>
-<form class="form-horizontal style-form" method="post" action="index.php?c=aplicaciones&a=add" name="frmadd">
+<h3><i class="fa fa-angle-right"></i>&nbsp;Crear Aplicación</h3>
+<form class="form-horizontal style-form" method="post" action="index.php?c=aplicaciones&a=add" name="frmadd" autocomplete="off">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
@@ -22,18 +22,17 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Usuario&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="clientes" id="cliente" class="form-control_datalist" placeholder="Seleccione Usuario"  name="cliente" required="required" tabindex="2" value="<?php echo \App\Session::get("pass")[16]; ?>"/>
+                        <input list="clientes" id="cliente" class="form-control" placeholder="Seleccione Usuario"  name="cliente" required="required" tabindex="2" value="<?php echo \App\Session::get("pass")[16]; ?>"/>
                         <datalist id="clientes">
                             <?php
-                                foreach ($clientes as $cliente){
-                                    if($cliente->getEstado() == "H" and $cliente->getRol()->getNombre() == "Cliente") { ?>
-                                        <option value="<?php echo $cliente->getId() ?>"><?php echo $cliente->getDatoUsu()->getNombre(); ?></option>
+                                foreach ($usuarios as $usuario){
+                                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Cliente") { ?>
+                                        <option value="<?php echo $usuario->getDatoUsu()->getNombre(); ?>" />
                                 <?php                                         
                                     }
                                 }
                             ?>
                         </datalist>
-                        <input type="button" onclick="frmadd.submit();" tabindex="3"value="Buscar" class="btn btn-theme01" />
                     </div>
                 </div>
                 <div class="form-group">

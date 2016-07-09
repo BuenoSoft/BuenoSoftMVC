@@ -6,6 +6,12 @@ class UsuarioModel extends AppModel
     function __construct() {
         parent::__construct();
     }
+    protected function getFindXNomDatoUsuQuery() {
+        return "select * from usuarios u inner join datosusu d on u.datId = d.datId where d.datNombre = ?";
+    }
+    public function findByNombre($nom) {        
+        return $this->findByCondition($this->getFindXNomDatoUsuQuery(), [$nom]);
+    }
     /*------------------------------------------------------------------------------------*/
     public function checkTra($dates = []) {
         return $this->execute($this->getCheckTraQuery(),$this->getCheckTraParameter($dates));

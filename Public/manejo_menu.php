@@ -78,7 +78,7 @@
             <ul class="sidebar-menu" id="nav-accordion">
                 <br />        
                 <p class="centered">
-                    <a href="index.php?c=usuarios&a=view&p=<?php echo \App\Session::get('log_in')->getId(); ?>">
+                    <a href="index.php?c=usuarios&a=view&d=<?php echo \App\Session::get('log_in')->getId(); ?>">
                         <?php if(\App\Session::get('log_in')->getAvatar() == null) { ?>
                             <img src="Public/img/manejo/profile_img.png" class="img-circle" width="80">
                         <?php } else { ?>

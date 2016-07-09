@@ -79,6 +79,9 @@ class Usuario implements IPersiste
     public function findById($id) {
         return (new UsuarioModel())->findById($id);
     }
+    public function findByNombre($nom) {
+        return (new UsuarioModel())->findByNombre($nom);
+    }
     public function save() {
         return ($this->id == 0) ? (new UsuarioModel())->create($this) : (new UsuarioModel())->update($this); 
     }

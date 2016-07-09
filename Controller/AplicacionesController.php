@@ -41,7 +41,6 @@ class AplicacionesController extends AppController
         if($this->checkUser()){
             $this->passDates();
             $productos = (Session::get("pass")[9] != "") ? $this->getPaginator()->paginar((new Producto())->findByTipo(Session::get("pass")[9])) : array();
-            $clientes = (Session::get('pass')[16] != "") ? $this->getPaginator()->paginar((new Usuario())->find(Session::get('pass')[16]),1) : array();
             $pistas = (Session::get('pass')[2] != "") ? $this->getPaginator()->paginar((new Pista())->find(Session::get('pass')[2]),1) : array();            
             if (isset($_POST['btnaceptar'])) {
                 $apl = $this->createEntity();
@@ -53,7 +52,7 @@ class AplicacionesController extends AppController
                 exit();                
             }
             $this->redirect_administrador(['add.php'],[
-                "clientes" => $clientes,
+               // "clientes" => $clientes,
                 "usuarios" => (new Usuario())->find(),
                 "vehiculos" => (new Vehiculo())->find(),
                 "pistas" => $pistas,
@@ -211,8 +210,8 @@ class AplicacionesController extends AppController
                 ((Session::get("app")!= 0) ? $apl->getCaudal() : null),
             isset($_POST['txtdosis']) ? $this->clean($_POST['txtdosis']) : 
                 ((Session::get("app")!= 0) ? $apl->getDosis() : null), 
-            isset($_POST['cliente']) ? $this->clean($_POST['cliente']) : 
-                ((Session::get("app")!= 0) ? $apl->getCliente()->getId() : null), 
+            isset($_POST['cliente']) ?  $this->clean($_POST['cliente']) : 
+                ((Session::get("app")!= 0) ? $apl->getCliente()->getNombre() : null), 
             isset($_POST['piloto']) ? $this->clean($_POST['piloto']) : 
                 ((Session::get("app")!= 0) ? $this->getPiloto()->getId() : null),
             isset($_POST['chofer']) ? $this->clean($_POST['chofer']) : 
@@ -241,7 +240,7 @@ class AplicacionesController extends AppController
         $aplicacion->setCultivo(Session::get("pass")[13]);
         $aplicacion->setCaudal(Session::get("pass")[14]);
         $aplicacion->setDosis(Session::get("pass")[15]);
-        $aplicacion->setCliente((new Usuario())->findById(Session::get("pass")[16]));
+        $aplicacion->setCliente((new Usuario())->findByNombre(Session::get("pass")[16]));
         return $aplicacion;
     }
     protected function getRoles() {

@@ -6,7 +6,7 @@ class AccessController extends AppController
         parent::__construct();
     }    
     public function index(){
-        if($this->checkUser()){
+        if($this->checkUser()){            
             $this->redirect_administrador(['index.php']);
         }
     }        
