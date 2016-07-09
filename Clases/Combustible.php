@@ -87,7 +87,7 @@ class Combustible implements IPersiste
     }
     /*---------------------------------------*/
     public function regla3(){
-        return ($this->stock * 100) / $this->stockMax;
+        return round(($this->stock * 100) / $this->stockMax);
     }
      public function aviso(){
         return ($this->stockMax * 10) / 100;
