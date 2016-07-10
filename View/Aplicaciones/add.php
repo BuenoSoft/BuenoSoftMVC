@@ -12,7 +12,7 @@
                             <?php 
                                 foreach ($vehiculos as $vehiculo) { 
                                     if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() == "Aeronave" and !$vehiculo->checkFin()){ ?>
-                                        <option value="<?php echo $vehiculo->getId(); ?>"><?php echo $vehiculo->getMatricula(); ?></option>
+                                        <option value="<?php echo $vehiculo->getMatricula(); ?>" />
                             <?php   }                            
                                 }
                             ?>                            
@@ -68,7 +68,7 @@
                         <datalist id="tipos">
                             <?php foreach ($tipos as $tipo){
                                     if($tipo->getEstado() == "H"){ ?>
-                                        <option value="<?php echo $tipo->getId() ?>"><?php echo $tipo->getNombre();?></option>
+                                        <option value="<?php echo $tipo->getNombre(); ?>" />
                             <?php   } 
                                 }
                             ?>
@@ -106,7 +106,7 @@
                             <?php
                                 foreach ($usuarios as $usuario){
                                     if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Chofer" and !$usuario->checkFin()) { ?>
-                                        <option value="<?php echo $usuario->getId() ?>"><?php echo $usuario->getDatoUsu()->getNombre();?></option>
+                                        <option value="<?php echo $usuario->getDatoUsu()->getNombre();?>" />
                                 <?php                                         
                                     }
                                 }
@@ -124,7 +124,7 @@
                             <?php 
                                 foreach ($vehiculos as $vehiculo) { 
                                     if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() != "Aeronave" and !$vehiculo->checkFin()){ ?>
-                                        <option value="<?php echo $vehiculo->getId(); ?>"><?php echo $vehiculo->getMatricula(); ?></option>
+                                        <option value="<?php echo $vehiculo->getMatricula(); ?>" />
                             <?php   }                            
                                 }
                             ?>
@@ -144,7 +144,7 @@
                                 <?php
                                     foreach ($usuarios as $usuario){
                                         if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Piloto" and !$usuario->checkFin()) { ?>
-                                            <option value="<?php echo $usuario->getId() ?>"><?php echo $usuario->getDatoUsu()->getNombre();?></option>
+                                            <option value="<?php echo $usuario->getDatoUsu()->getNombre();?>" />
                                     <?php                                         
                                         }
                                     }
@@ -171,7 +171,7 @@
                         <input list="pistas" id="pista" class="form-control_datalist" placeholder="Seleccione Pista"  required="required" name="pista" tabindex="16" value="<?php echo \App\Session::get("pass")[2]; ?>"/>
                         <datalist id="pistas">
                             <?php foreach ($pistas as $pista){ ?>
-                                <option value="<?php echo $pista->getId() ?>"><?php echo $pista->getNombre(); ?></option>
+                                <option value="<?php echo $pista->getNombre(); ?>" />
                             <?php } ?>
                         </datalist>
                         <input type="button" onclick="frmadd.submit();" tabindex="17" value="Buscar" class="btn btn-theme01" />
@@ -182,7 +182,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Faja&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtfaja" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d]*" class="form-control"  required="required" placeholder="" tabindex="18" value="<?php echo \App\Session::get("pass")[4]; ?>"/>
+                        <input type="text" name="txtfaja" onkeypress="return validarTextoyNumPC(event);" pattern="[A-Za-z\s\d\.\,\/]*" class="form-control"  required="required" placeholder="" tabindex="18" value="<?php echo \App\Session::get("pass")[4]; ?>"/>
                     </div>
                 </div>                               
                 <div class="form-group">

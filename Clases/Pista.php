@@ -48,4 +48,7 @@ class Pista implements IPersiste
     public function save() {
         return ($this->id == 0) ? (new PistaModel())->create($this) : (new PistaModel())->update($this);  
     }
+    public function findByX($x) {
+        return (new PistaModel())->findByX($x);
+    }
 }

@@ -111,6 +111,9 @@ class Vehiculo implements IPersiste
     public function findById($id) {
         return (new VehiculoModel())->findById($id);
     }
+    public function findByMat($mat) {
+        return (new VehiculoModel())->findByMat($mat);
+    }
     public function save() {
         return ($this->id == 0) ? (new VehiculoModel())->create($this) : (new VehiculoModel())->update($this); 
     }

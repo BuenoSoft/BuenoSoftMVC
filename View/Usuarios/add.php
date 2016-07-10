@@ -1,5 +1,5 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Crear Usuario</h3>
-<form class="form-horizontal style-form" method="post" action="index.php?c=usuarios&a=add" name="frmadd" onsubmit="return (document.getElementById('rper').value === 'Persona') ? validarCedula(this.txtdoc.value) : null;" id="add" enctype="multipart/form-data">
+<form class="form-horizontal style-form" method="post" action="index.php?c=usuarios&a=add" name="frmadd" onsubmit="return (document.getElementById('rper').value === 'Persona') ? validarCedula(this.txtdoc.value) : null;" id="add" enctype="multipart/form-data" autocomplete="off">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
@@ -70,7 +70,7 @@
                             <?php 
                                 foreach($roles as $rol){ 
                                     if($rol->getEstado() == "H"){?>
-                                        <option value="<?php echo $rol->getId(); ?>"><?php echo $rol->getNombre(); ?></option>                            
+                                        <option value="<?php echo $rol->getNombre(); ?>" />                            
                             <?php   }                            
                                 } 
                             ?>

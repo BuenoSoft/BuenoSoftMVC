@@ -1,5 +1,5 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Crear Vehículo</h3>
-<form class="form-horizontal style-form" method="post" action="index.php?c=vehiculos&a=add" name="frmadd">
+<form class="form-horizontal style-form" method="post" action="index.php?c=vehiculos&a=add" name="frmadd" autocomplete="off">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
@@ -23,7 +23,7 @@
                         <datalist id="tipov">
                             <?php foreach($tipos as $tipo) {
                                     if($tipo->getEstado() == "H"){ ?>
-                                        <option value="<?php echo $tipo->getId(); ?>"><?php echo $tipo->getNombre(); ?></option>
+                                        <option value="<?php echo $tipo->getNombre(); ?>" />
                             <?php   } 
                                 }
                             ?>                            

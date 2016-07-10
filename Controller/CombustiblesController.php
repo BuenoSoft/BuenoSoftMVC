@@ -104,7 +104,7 @@ class CombustiblesController extends AppController
         $combustible->setStockMin($_POST['txtstockmin']);
         $combustible->setStockMax($_POST['txtstockmax']);
         $combustible->setFecUC($this->getUltimaAct($combustible->getId(),$_POST['txtstock']));
-        $combustible->setTipo((new TipoVehiculo())->findById($_POST['tipo']));
+        $combustible->setTipo((new TipoVehiculo())->findByX($_POST['tipo']));
         return $combustible;
     }
     private function getUltimaAct($id,$cantidad){

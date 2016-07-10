@@ -41,4 +41,7 @@ class TipoProducto implements IPersiste
     public function save() {
         return ($this->id == 0 ) ? (new TipoProductoModel())->create($this) : (new TipoProductoModel())->update($this);
     }
+    public function findByX($x) {
+        return (new TipoProductoModel())->findByX($x);
+    }
 }

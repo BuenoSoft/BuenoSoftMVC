@@ -6,6 +6,10 @@ class TipoVehiculoModel extends AppModel
     public function __construct() {
         parent::__construct();
     }
+    public function findByX($x) {        
+        return $this->findByCondition($this->getCheckQuery(), [$x]);
+    }
+    /*------------------------------------------------------------------------------------*/
     protected function getCheckMessage() {
         return "Este tipo de vehículo ya existe";
     }

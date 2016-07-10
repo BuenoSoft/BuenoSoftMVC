@@ -41,4 +41,7 @@ class Rol implements IPersiste
     public function save() {
         return ($this->id == 0) ? (new RolModel())->create($this) : (new RolModel())->update($this);
     }
+    public function findByX($x) {
+        return (new RolModel())->findByX($x);
+    }
 }

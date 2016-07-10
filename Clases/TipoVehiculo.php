@@ -48,4 +48,7 @@ class TipoVehiculo implements IPersiste
     public function save() {
         return ($this->id == 0) ? (new TipoVehiculoModel())->create($this) : (new TipoVehiculoModel())->update($this); 
     }
+    public function findByX($x) {
+        return (new TipoVehiculoModel())->findByX($x);
+    }
 }

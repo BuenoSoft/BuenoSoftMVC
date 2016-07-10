@@ -6,6 +6,10 @@ class PistaModel extends AppModel
     public function __construct() {
         parent::__construct();
     }
+    public function findByX($x) {        
+        return $this->findByCondition($this->getCheckQuery(), [$x]);
+    }
+    /*------------------------------------------------------------------------------------*/
     protected function getCheckMessage() {
         return "Esta pista ya existe";
     }

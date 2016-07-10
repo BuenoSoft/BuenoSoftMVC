@@ -1,5 +1,5 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Editar Aplicación número&nbsp;<?php echo \App\Session::get('app'); ?></h3>
-<form class="form-horizontal style-form" method="post" action="index.php?c=aplicaciones&a=edit&d=<?php echo \App\Session::get('app'); ?>" name="frmedit">
+<form class="form-horizontal style-form" method="post" action="index.php?c=aplicaciones&a=edit&d=<?php echo \App\Session::get('app'); ?>" name="frmedit" autocomplete="off">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
@@ -13,9 +13,9 @@
                                 foreach ($vehiculos as $vehiculo) { 
                                     if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() == "Aeronave"){
                                         if($vehiculo->checkUsu(\App\Session::get('app'))) { ?>
-                                            <option value="<?php echo $vehiculo->getId(); ?>"><?php echo $vehiculo->getMatricula(); ?></option>
+                                            <option value="<?php echo $vehiculo->getMatricula(); ?>" />
                             <?php        }else if(!$vehiculo->checkFin()){ ?>
-                                            <option value="<?php echo $vehiculo->getId(); ?>"><?php echo $vehiculo->getMatricula(); ?></option>
+                                            <option value="<?php echo $vehiculo->getMatricula(); ?>" />
                             <?php       }                            
                                     }                            
                                 }
@@ -29,9 +29,9 @@
                         <input list="clientes" id="cliente" class="form-control_datalist" placeholder="Seleccione Usuario" required="required" name="cliente" tabindex="3" value="<?php echo \App\Session::get("pass")[16]; ?>"/>
                         <datalist id="clientes">
                             <?php
-                                foreach ($clientes as $cliente){
-                                    if($cliente->getEstado() == "H" and $cliente->getRol()->getNombre() == "Cliente") { ?>
-                                        <option value="<?php echo $cliente->getId() ?>"><?php echo $cliente->getDatoUsu()->getNombre(); ?></option>
+                                foreach ($usuarios as $usuario){
+                                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Cliente") { ?>
+                                        <option value="<?php echo $usuario->getDatoUsu()->getNombre(); ?>" />
                                 <?php                                         
                                     }
                                 }
@@ -73,7 +73,7 @@
                         <datalist id="tipos">
                             <?php foreach ($tipos as $tipo){
                                     if($tipo->getEstado() == "H"){ ?>
-                                        <option value="<?php echo $tipo->getId() ?>"><?php echo $tipo->getNombre();?></option>
+                                        <option value="<?php echo $tipo->getNombre();?>" />
                             <?php   } 
                                 }
                             ?>
@@ -103,7 +103,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Viento&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtviento" onkeypress="return validarNumeroPC(event);" pattern="[\d\.\,\-]*"  class="form-control" required="required" placeholder="" tabindex="11" value="<?php echo \App\Session::get("pass")[8]; ?>"/>
+                        <input type="text" name="txtviento" onkeypress="return validarTextoyNumPC(event);" pattern="[A-Za-z\s\d\.\,\/]*"  class="form-control" required="required" placeholder="" tabindex="11" value="<?php echo \App\Session::get("pass")[8]; ?>"/>
                     </div>
                 </div>
             </div>
@@ -118,9 +118,9 @@
                                 foreach ($usuarios as $usuario){
                                     if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Chofer") { 
                                         if($usuario->checkTra(\App\Session::get('app'))){ ?>
-                                            <option value="<?php echo $usuario->getId() ?>"><?php echo $usuario->getDatoUsu()->getNombre();?></option>
+                                            <option value="<?php echo $usuario->getDatoUsu()->getNombre();?>" />
                                 <?php   } else if(!$usuario->checkFin()) { ?>
-                                            <option value="<?php echo $usuario->getId(); ?>"><?php echo $usuario->getDatoUsu()->getNombre();?></option>
+                                            <option value="<?php echo $usuario->getDatoUsu()->getNombre();?>" />
                                 <?php       
                                         }                                        
                                     }
@@ -140,9 +140,9 @@
                                 foreach ($vehiculos as $vehiculo) { 
                                     if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() != "Aeronave"){ 
                                         if($vehiculo->checkUsu(\App\Session::get('app'))) { ?>
-                                            <option value="<?php echo $vehiculo->getId(); ?>"><?php echo $vehiculo->getMatricula(); ?></option>
+                                            <option value="<?php echo $vehiculo->getMatricula(); ?>" />
                             <?php       } else if(!$vehiculo->checkFin()) { ?>
-                                            <option value="<?php echo $vehiculo->getId(); ?>"><?php echo $vehiculo->getMatricula(); ?></option>
+                                            <option value="<?php echo $vehiculo->getMatricula(); ?>" />
                             <?php       }                                     
                                     }                            
                                 }
@@ -164,9 +164,9 @@
                                     foreach ($usuarios as $usuario){
                                         if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Piloto") { 
                                             if($usuario->checkTra(\App\Session::get('app'))) { ?>
-                                                <option value="<?php echo $usuario->getId() ?>"><?php echo $usuario->getDatoUsu()->getNombre();?></option> 
+                                                <option value="<?php echo $usuario->getDatoUsu()->getNombre();?>" /> 
                                 <?php       } else if(!$usuario->checkFin()) { ?>
-                                                <option value="<?php echo $usuario->getId() ?>"><?php echo $usuario->getDatoUsu()->getNombre();?></option>
+                                                <option value="<?php echo $usuario->getDatoUsu()->getNombre();?>" />
                                 <?php       }
                                         }
                                     }
@@ -193,7 +193,7 @@
                         <input list="pistas" id="pista" class="form-control_datalist" placeholder="Seleccione Pista" required="required" name="pista" tabindex="17" value="<?php echo \App\Session::get("pass")[2]; ?>"/>
                         <datalist id="pistas">
                             <?php foreach ($pistas as $pista){ ?>
-                                <option value="<?php echo $pista->getId() ?>"><?php echo $pista->getNombre(); ?></option>
+                                <option value="<?php echo $pista->getNombre(); ?>" />
                             <?php } ?>
                         </datalist>
                         <input type="button" onclick="frmedit.submit();" tabindex="18" value="Buscar" class="btn btn-theme01" />
@@ -204,7 +204,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Faja&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtfaja" onkeypress="return validarNumeroPC(event);" pattern="[\d\.\,\-]*" class="form-control" required="required" placeholder="" tabindex="19" value="<?php echo \App\Session::get("pass")[4]; ?>"/>
+                        <input type="text" name="txtfaja" onkeypress="return validarTextoyNumPC(event);" pattern="[A-Za-z\s\d\.\,\/]*" class="form-control" required="required" placeholder="" tabindex="19" value="<?php echo \App\Session::get("pass")[4]; ?>"/>
                     </div>
                 </div>
                 <div class="form-group">

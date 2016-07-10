@@ -1,5 +1,5 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Editar Notificación número&nbsp;<?php echo $notificacion->getId(); ?></h3>
-<form class="form-horizontal style-form" method="post" action="index.php?c=notificaciones&a=edit&d=<?php echo \App\Session::get('not'); ?>" name="frmedit">
+<form class="form-horizontal style-form" method="post" action="index.php?c=notificaciones&a=edit&d=<?php echo \App\Session::get('not'); ?>" name="frmedit" autocomplete="off">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
@@ -30,12 +30,12 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="veh" id="v" class="form-control_datalist" placeholder="Seleccione Vehículo" required="required" name="cboxveh" value="<?php echo $notificacion->getVehiculo()->getId(); ?>" tabindex="4" />
+                        <input list="veh" id="v" class="form-control_datalist" placeholder="Seleccione Vehículo" required="required" name="cboxveh" value="<?php echo $notificacion->getVehiculo()->getMatricula(); ?>" tabindex="4" />
                         <datalist id="veh">
                             <?php 
                                 foreach ($vehiculos as $vehiculo) { 
                                     if($vehiculo->getEstado() == "H"){ ?>
-                                        <option value="<?php echo $vehiculo->getId(); ?>"><?php echo $vehiculo->getMatricula(); ?></option>
+                                        <option value="<?php echo $vehiculo->getMatricula(); ?>" />
                             <?php   }                            
                                 }
                             ?>                            

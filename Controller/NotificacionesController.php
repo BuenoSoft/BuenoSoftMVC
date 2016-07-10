@@ -76,7 +76,7 @@ class NotificacionesController extends AppController
         $not->setFechaini($_POST["dtfechaini"]);
         $not->setFechafin(isset($_POST["dtfechafin"]) ? $_POST["dtfechafin"] : null);
         $not->setFechaAct(date("Y-m-d H:i:s"));
-        $not->setVehiculo((new Vehiculo())->findById($_POST["cboxveh"]));
+        $not->setVehiculo((new Vehiculo())->findByMat($_POST["cboxveh"]));
         return $not;
     }
     protected function getRoles() {

@@ -7,6 +7,13 @@ class VehiculoModel extends AppModel
         parent::__construct();
     }
     /*------------------------------------------------------------------------------------*/
+    protected function getFindXQuery() {
+        return "select * from vehiculos where vehMatricula = ?";
+    }
+    public function findByMat($mat) {        
+        return $this->findByCondition($this->getFindXQuery(), [$mat]);
+    }
+    /*------------------------------------------------------------------------------------*/
     public function checkUsu($dates = []) {
         return $this->execute($this->getCheckUsuQuery(),$this->getCheckUsuParameter($dates));
     }

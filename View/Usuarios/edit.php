@@ -1,5 +1,5 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Editar Usuario número&nbsp;<?php echo $usuario->getId(); ?></h3>
-<form class="form-horizontal style-form" method="post" action="index.php?c=usuarios&a=edit&d=<?php echo \App\Session::get('usu'); ?>" name="frmedit">
+<form class="form-horizontal style-form" method="post" action="index.php?c=usuarios&a=edit&d=<?php echo \App\Session::get('usu'); ?>" name="frmedit" autocomplete="off">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
@@ -76,12 +76,12 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Rol&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="tipos" id="tipo" class="form-control" placeholder="Seleccione un Rol" required="required" name="cboxtipo" value="<?php echo $usuario->getRol()->getId(); ?>" tabindex="9" />
+                        <input list="tipos" id="tipo" class="form-control" placeholder="Seleccione un Rol" required="required" name="cboxtipo" value="<?php echo $usuario->getRol()->getNombre(); ?>" tabindex="9" />
                         <datalist id="tipos">
                             <?php 
                                 foreach($roles as $rol){ 
                                     if($rol->getEstado() == "H"){?>
-                                        <option value="<?php echo $rol->getId(); ?>"><?php echo $rol->getNombre(); ?></option>                            
+                                        <option value="<?php echo $rol->getNombre(); ?>" />                            
                             <?php   }                            
                                 } 
                             ?>

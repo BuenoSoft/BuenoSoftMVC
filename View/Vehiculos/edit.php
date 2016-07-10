@@ -1,5 +1,5 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Editar Vehículo número&nbsp;<?php echo $vehiculo->getId(); ?></h3>
-<form class="form-horizontal style-form" method="post" action="index.php?c=vehiculos&a=edit&d=<?php echo \App\Session::get('vh'); ?>" name="frmedit">
+<form class="form-horizontal style-form" method="post" action="index.php?c=vehiculos&a=edit&d=<?php echo \App\Session::get('vh'); ?>" name="frmedit" autocomplete="off">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
@@ -20,11 +20,11 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tipo de Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input name="tipo" list="tipov" id="tipo" class="form-control" placeholder="Seleccione Tipo de Vehículo" required="required" value="<?php echo $vehiculo->getTipo()->getId(); ?>" tabindex="3" />
+                        <input name="tipo" list="tipov" id="tipo" class="form-control" placeholder="Seleccione Tipo de Vehículo" required="required" value="<?php echo $vehiculo->getTipo()->getNombre(); ?>" tabindex="3" />
                         <datalist id="tipov">
                             <?php foreach($tipos as $tipo) { 
                                     if($tipo->getEstado() == "H"){ ?>
-                                        <option value="<?php echo $tipo->getId(); ?>"><?php echo $tipo->getNombre(); ?></option>
+                                        <option value="<?php echo $tipo->getNombre(); ?>" />
                             <?php   }                             
                                 }                            
                             ?> 

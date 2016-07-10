@@ -6,6 +6,10 @@ class RolModel extends AppModel
     function __construct() {
         parent::__construct();
     }
+    public function findByX($x) {        
+        return $this->findByCondition($this->getCheckQuery(), [$x]);
+    }
+    /*------------------------------------------------------------------------------------*/
     protected function getCheckMessage() {
         return "El rol ya existe";
     }
