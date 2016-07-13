@@ -34,6 +34,9 @@ class AplicacionesController extends AppController
                 "tipos" => (new TipoProducto())->find(),
                 "paginador" => $this->getPaginator()->getPages()
             ]);
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));
+            header("Location:index.php?c=todos&a=index");
         }
     }
     /*-------------------------------------------------------------------------------*/

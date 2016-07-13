@@ -53,7 +53,7 @@ abstract class Controller
         if (Session::get("log_in") != null and Session::get("log_in")->getRol()->getNombre() == $this->getTypeRole()) {
             return true;
         } else {
-            Session::set("msg", "Debe loguearse como " . $this->getMessageRole() . " para acceder.");
+            Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));
             header("Location:index.php?c=todos&a=index");
         }
     }    

@@ -11,7 +11,7 @@
     </div>
 </div>
 <?php foreach ($estadistica as $dato) { ?>
-<?php echo $dato[0]."<br />"; }?>
+<?php echo " Mes: ".$dato[0]." Año: ".$dato[1]." Cantidad: ".$dato[2]."<br />"; } ?>
         <script>
 var Script = function () {
 
@@ -19,18 +19,25 @@ var Script = function () {
 
     $(function () {
       // data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type
-      var tax_data = [
-        <?php 
-            $cont = 0;
-            foreach ($estadistica as $dato) {                 
-        ?>
-                {"period": "<?php echo $dato[1]." Q".(++$cont); ?>", "apl": <?php echo $dato[2]; ?>  },
-        <?php } ?>
-                        /*
+      
+        var tax_data = [
+            <?php foreach ($estadistica as $dato) { ?>
+                {"period": "<?php echo $dato[1]?>-<?php echo $dato[0]?>", "licensed": <?php echo $dato[2]; ?>},
+            <?php } ?>
+        ];
+        Morris.Line({
+            element: 'hero-graph',
+            data: tax_data,
+            xkey: 'period',
+            ykeys: ['licensed'],
+            labels: ['licensed'],
+            lineColors:['#4ECDC4']
+        });
+                      /* 
         {"period": "2005 Q1", "apl": null },
         {"period": "2006 Q2", "apl": null },
         {"period": "2007 Q3", "apl": null },
-        {"period": "2008 Q4", "apl": 100 } */
+        {"period": "2008 Q4", "apl": 100 } 
       ];
       Morris.Line({
         element: 'hero-graph',
@@ -39,7 +46,8 @@ var Script = function () {
         ykeys: ['apl'],
         labels: ['aplicaciones'],
         lineColors:['#4ECDC4']
-      });
+      });*/
+      
 /*
       Morris.Donut({
         element: 'hero-donut',
