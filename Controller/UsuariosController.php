@@ -115,6 +115,9 @@ class UsuariosController extends AppController
     public function view(){
         if(Session::get("log_in") != null){
             $this->redirect_administrador(["view.php"],["usuario" => (new Usuario())->findById($_GET['d'])]);
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));
+            header("Location:index.php?c=todos&a=index");
         }
     }
     public function delete(){

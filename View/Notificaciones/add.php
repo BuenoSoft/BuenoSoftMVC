@@ -13,7 +13,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de la Notificación&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="datetime-local" name="dtfechaini" class="form-control" required="required" value="<?php echo date( "Y-m-d\TH:i:s");?>" tabindex="2"/>
+                        <!--<input type="datetime-local" name="dtfechaini" class="form-control" required="required" value="<?php echo date( "Y-m-d\TH:i:s");?>" tabindex="2"/> -->
+                        <div id="datetimepicker1">
+                            <input type="text" class="font-control" />
+                            <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>               
             </div>
@@ -45,6 +51,11 @@
     </div>    
 </form>
 <script>
+      $(function() {
+        $('#datetimepicker1').datetimepicker({
+          
+        });
+      });
     $(function() {
         $('form[name="frmadd"]').submit(function() {
             var val = $('#v').val();

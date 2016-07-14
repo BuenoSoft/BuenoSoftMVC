@@ -22,8 +22,7 @@
                         <input type="text" name="txtmarca" class="form-control" required="required" onkeypress="return  validarTextoyNum(event);" pattern="[A-Za-z\s\d]*" placeholder="Ej: Castrol" tabindex="3" />
                     </div>
                 </div>                
-            </div>
-            
+            </div>            
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">

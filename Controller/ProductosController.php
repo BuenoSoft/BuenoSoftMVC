@@ -82,12 +82,15 @@ class ProductosController extends AppController
             $this->redirect_administrador(['view.php'],[
                 "producto" => (new Producto())->findById($_GET['d'])
             ]);
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));
+            header("Location:index.php?c=todos&a=index");
         }
     }
     private function createEntity(){
         $producto = new Producto();
         $producto->setId((isset($_POST['hid'])) ? $_POST['hid'] : 0);
-        $producto->setCodigo($this->clean($_POST['txtcodigo']));
+        $producto->setCodigo($_POST['txtcodigo']);
         $producto->setNombre($this->clean($_POST['txtnombre']));
         $producto->setMarca($_POST['txtmarca']);
         $producto->setTipo((new TipoProducto())->findByX($_POST['tipo']));

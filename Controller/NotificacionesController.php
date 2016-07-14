@@ -18,6 +18,9 @@ class NotificacionesController extends AppController
                 "notificaciones" => $not,
                 "paginador" => $this->getPaginator()->getPages()
             ]);
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));
+            header("Location:index.php?c=todos&a=index");
         }
     }
     public function add(){
@@ -67,6 +70,9 @@ class NotificacionesController extends AppController
             $this->redirect_administrador(["view.php"], [
                 "notificacion" => (new Notificacion())->findById($_GET['d'])
             ]);        
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));
+            header("Location:index.php?c=todos&a=index");
         }
     }
     private function createEntity(){

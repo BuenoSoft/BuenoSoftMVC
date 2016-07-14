@@ -10,6 +10,8 @@
         <!-- Bootstrap core CSS -->
         <link rel="shortcut icon" href="Public/img/manejo/favicom.png" type="image/png" />
         <link href="Public/css/manejo/bootstrap.css" rel="stylesheet">
+        <link href="Public/css/manejo/datepicker.css" rel="stylesheet">
+        <link href="Public/css/manejo/prettify.css" rel="stylesheet">
         <!--external css-->
         <link href="Public/css/manejo/font-awesome.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="Public/css/manejo/zabuto_calendar.css">
@@ -55,6 +57,9 @@
         <!-- js placed at the end of the document so the pages load faster -->
         <script src="Public/js/manejo/jquery.js"></script>
         <script src="Public/js/manejo/bootstrap.min.js"></script>
+        <script src="Public/js/manejo/bootstrap-datetimepicker.js"></script>
+        <script src="Public/js/manejo/moment.js"></script>
+        <script src="Public/js/manejo/prettify.js"></script>
         <script class="include" type="text/javascript" src="Public/js/manejo/jquery.dcjqaccordion.2.7.js"></script>
         <!--script src="Public/js/manejo/jquery.scrollTo.min.js"></script-->
         <script src="Public/js/manejo/jquery.nicescroll.js" type="text/javascript"></script>

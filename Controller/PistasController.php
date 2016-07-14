@@ -78,6 +78,9 @@ class PistasController extends AppController
             $this->redirect_administrador(['view.php'],[
                 "pista" => (new Pista())->findById($_GET['d'])
             ]);
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));
+            header("Location:index.php?c=todos&a=index");
         }
     }
     private function createEntity(){

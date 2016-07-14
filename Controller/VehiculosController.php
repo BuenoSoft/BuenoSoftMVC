@@ -64,6 +64,9 @@ class VehiculosController extends AppController
             $this->redirect_administrador(["view.php"],[
                 'vehiculo' => (new Vehiculo())->findById($_GET['d']),
             ]);
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));
+            header("Location:index.php?c=todos&a=index");
         }
     }
     public function delete(){
