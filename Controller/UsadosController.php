@@ -72,7 +72,7 @@ class UsadosController extends AppController
         }
     }
     private function getRecarga($historial){
-        if($historial->getCombustible()->regla3() >= $historial->getCombustible()->get20() and $historial->getCombustible()->regla3() < $historial->getCombustible()->get50()){
+        if($historial->getCombustible()->isDown() or $historial->getCombustible()->isMedium()){
             $not = new Notificacion();
             $not->setId(0);
             $not->setFechaini($_POST['dtfecha']);

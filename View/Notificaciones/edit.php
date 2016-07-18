@@ -14,7 +14,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de la Notificación&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="datetime-local" name="dtfechaini" class="form-control" required="required" value="<?php echo ($notificacion->getFechaini() == null) ? "" : $notificacion->mostrarDateTimeIni(); ?>" tabindex="2" />
+                        <input type="text" name="dtfechaini" id="fecini" required="required" name="dtfecini" value="<?php echo $notificacion->mostrarDateTimeIni(); ?>" tabindex="2" />
                     </div>
                 </div>                               
             </div>
@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Cierre</label>
                     <div class="col-sm-10">
-                       <input type="datetime-local" name="dtfechafin" class="form-control" value="<?php echo ($notificacion->getFechafin() == null) ? "" : $notificacion->mostrarDateTimeFin(); ?>" tabindex="3" />
+                        <input type="text" id="fecfin" name="dtfechafin" value="<?php echo ($notificacion->getFechafin() == null) ? "" : $notificacion->mostrarDateTimeFin(); ?>" tabindex="3" />
                     </div>
                 </div> 
                 <div class="form-group">
@@ -53,6 +53,8 @@
 </form>
 <script>
     $(function() {
+        $('#fecini').combodate();
+        $('#fecfin').combodate();
         $('form[name="frmedit"]').submit(function() {
             var val = $('#v').val();
             var selected = $('#veh option').filter(function() { return this.value === val; }).attr('value');

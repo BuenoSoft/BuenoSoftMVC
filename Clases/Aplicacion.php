@@ -129,11 +129,11 @@ class Aplicacion implements IPersiste
     }
     public function mostrarDateTimeIni(){
         $date = date_create($this->fechaIni);
-        return date_format($date, "Y-m-d\TH:i:s");
+        return date_format($date, "Y-m-d H:i");
     }
     public function mostrarDateTimeFin(){
         $date = date_create($this->fechaFin);
-        return date_format($date, "Y-m-d\TH:i:s");
+        return date_format($date, "Y-m-d H:i");
     }
     /*-----------------------------------------*/        
     public function save() {

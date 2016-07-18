@@ -198,13 +198,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Inicio</label>
                     <div class="col-sm-10">
-                        <input type="datetime-local" name="dtfechaini" class="form-control" tabindex="20" value="<?php echo \App\Session::get("pass")[5]; ?>"/>
+                        <input type="text" name="dtfechaini" id="fecini" tabindex="20" value="<?php echo \App\Session::get("pass")[5]; ?>" value="" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Cierre</label>
                     <div class="col-sm-10">
-                        <input type="datetime-local" name="dtfechafin" class="form-control" tabindex="21" value="<?php echo \App\Session::get("pass")[6]; ?>" />
+                        <input type="text" name="dtfechafin" id="fecfin" tabindex="21" value="<?php echo \App\Session::get("pass")[6]; ?>" value="" />
                     </div>
                 </div> 
             </div>
@@ -231,6 +231,12 @@
 </form>
 <script>
     $(function() {
+        $('#fecini').combodate({
+            value: ''
+        });
+        $('#fecfin').combodate({
+            value: ''
+        });
         $('form[name="frmadd"]').submit(function() {
             var tipo_v = $('#tipo').val();
             var tipo_s = $('#tipos option').filter(function() { return this.value === tipo_v; }).attr('value');

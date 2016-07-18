@@ -52,11 +52,11 @@ class Notificacion implements IPersiste
     }
     public function mostrarDateTimeIni(){
         $date = date_create($this->fechaini);
-        return date_format($date, "Y-m-d\TH:i:s");
+        return date_format($date, "Y-m-d H:i");
     }
     public function mostrarDateTimeFin(){
         $date = date_create($this->fechafin);
-        return date_format($date, "Y-m-d\TH:i:s");
+        return date_format($date, "Y-m-d H:i");
     }
     /*----------------------------------*/
     public function find($criterio = null) {

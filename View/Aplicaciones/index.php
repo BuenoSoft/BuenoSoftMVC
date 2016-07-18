@@ -65,8 +65,8 @@
                     <?php } ?>
                 </p>
                 <p>
-                    <input type="date" name="fec1" class="form-control_index" placeholder="Seleccione Fecha" />&nbsp;
-                    <input type="date" name="fec2" class="form-control_index" placeholder="Seleccione Fecha" />&nbsp;
+                    <b>Período Inicial:&nbsp;</b><input type="text" name="fec1" id="fecini" />&nbsp;
+                    <b>Período Final:&nbsp;</b><input type="text" name="fec2" id="fecfin" />&nbsp;
                     <input type="button" onclick="frmsearch.submit();" name="btnsearch" value="Buscar" class="btn btn-theme01" tabindex="2" />&nbsp;
                     <a href="index.php?c=pdf&a=todos" target="_blank">
                         <input type="button" value="Imprimir" class="btn btn-theme01" tabindex="3" />
@@ -177,3 +177,17 @@
         } ?>
     </section>
 </div>
+<script>
+    $(function(){
+       $('#fecini').combodate({
+            value: '',
+            format: 'YYYY-MM-DD',
+            template: 'YYYY-MM-DD'
+        });
+        $('#fecfin').combodate({
+            value: '',
+            format: 'YYYY-MM-DD',
+            template: 'YYYY-MM-DD'
+        }); 
+    });
+</script>

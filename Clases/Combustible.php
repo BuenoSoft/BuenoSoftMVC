@@ -83,7 +83,7 @@ class Combustible implements IPersiste
         }
     }
     private function hayStock($cant){
-        return ($this->stock - $cant) >= $this->stockMin;
+        return $this->stock >= 0;
     }
     /*---------------------------------------*/
     public function regla3(){
