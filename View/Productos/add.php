@@ -29,15 +29,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tipo de Producto&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="tipop" id="tipo" class="form-control" placeholder="Seleccione Tipo de Producto" required="required" name="tipo" tabindex="4"/>
-                        <datalist id="tipop">
-                            <?php foreach ($tipos as $tipo){
-                                    if($tipo->getEstado() == "H"){ ?>
-                                        <option value="<?php echo $tipo->getNombre();?>" />
-                            <?php   } 
-                                }
-                            ?>
-                        </datalist>
+                        <input id="tipo" name="tipo" required="required" tabindex="4"/>
                     </div>
                 </div>
             </div>
@@ -50,15 +42,16 @@
 </form>
 <script>
     $(function() {
-        $('form[name="frmadd"]').submit(function() {
-            var val = $('#tipo').val();
-            var selected = $('#tipop option').filter(function() { return this.value === val; }).attr('value');
-            if(!selected){
-                alert('Seleccione una de las opciones existentes');
-                return false;
-            } else {
-                return true;
-            }
+        $('#tipo').magicSuggest({
+            placeholder: 'Seleccione un Tipo de Producto',
+            maxSelection: 1,
+            data: [
+                <?php foreach($tipos as $tipo){
+                    if($tipo->getEstado() == "H"){ ?>
+                     '<?php echo $tipo->getNombre(); ?>',
+                <?php }                
+                    } ?>
+            ]
         });
     });
 </script>

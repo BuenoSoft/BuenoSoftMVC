@@ -65,16 +65,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Rol&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="tipos" id="tipo" class="form-control" placeholder="Seleccione un Rol" required="required" name="cboxtipo" tabindex="8" />
-                        <datalist id="tipos">
-                            <?php 
-                                foreach($roles as $rol){ 
-                                    if($rol->getEstado() == "H"){?>
-                                        <option value="<?php echo $rol->getNombre(); ?>" />                            
-                            <?php   }                            
-                                } 
-                            ?>
-                        </datalist>
+                        <input id="rol" required="required" name="rol" tabindex="8" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -110,15 +101,16 @@
             $("#txtdoc").prop('readonly',false);
             $("#txtdoc").focus();                
         });
-        $('form[name="frmadd"]').submit(function() {
-            var val = $('#tipo').val();
-            var selected = $('#tipos option').filter(function() { return this.value === val; }).attr('value');
-            if(!selected){
-                alert('Seleccione una de las opciones existentes');
-                return false;
-            } else {
-                return true;
-            }
+        $('#rol').magicSuggest({
+            placeholder: 'Seleccione un Rol',
+            maxSelection: 1,
+            data: [
+                <?php foreach($roles as $rol){ 
+                    if($rol->getEstado() == "H"){?>
+                     '<?php echo $rol->getNombre(); ?>',
+                <?php }                
+                    } ?>
+            ]
         });
     }); 
 </script>

@@ -23,13 +23,17 @@ class ProductosController extends AppController
         if($this->checkUser()){
             if(isset($_POST['btnaceptar'])){
                 $producto = $this->createEntity();
-                $id = $producto->save();
-                if(isset($id)){
-                    Session::set("msg",Session::msgSuccess("Producto Creado"));
-                    header("Location:index.php?c=productos&a=index");
-                    exit();                
+                if($producto->getTipo() != null){
+                    $id = $producto->save();
+                    if(isset($id)){
+                        Session::set("msg",Session::msgSuccess("Producto Creado"));
+                        header("Location:index.php?c=productos&a=index");
+                        exit();                
+                    } else {
+                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    }                
                 } else {
-                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
                 }
             }
             $this->redirect_administrador(['add.php'],[
@@ -42,13 +46,17 @@ class ProductosController extends AppController
             Session::set("prod",$_GET['d']);
             if (Session::get('prod')!=null && isset($_POST['btnaceptar'])){
                 $producto = $this->createEntity();
-                $id = $producto->save();
-                if(isset($id)){
-                    Session::set("msg",Session::msgSuccess("Producto Editado"));
-                    header("Location:index.php?c=productos&a=index");
-                    exit();                
+                if($producto->getTipo() != null){
+                    $id = $producto->save();
+                    if(isset($id)){
+                        Session::set("msg",Session::msgSuccess("Producto Editado"));
+                        header("Location:index.php?c=productos&a=index");
+                        exit();                
+                    } else {
+                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    }
                 } else {
-                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
                 }
             }
             $this->redirect_administrador(['edit.php'],[
@@ -93,7 +101,7 @@ class ProductosController extends AppController
         $producto->setCodigo($_POST['txtcodigo']);
         $producto->setNombre($this->clean($_POST['txtnombre']));
         $producto->setMarca($_POST['txtmarca']);
-        $producto->setTipo((new TipoProducto())->findByX($_POST['tipo']));
+        $producto->setTipo((new TipoProducto())->findByX((isset($_POST['tipo'][0])) ? $_POST['tipo'][0] : 0));
         return $producto;
     }
     protected function getRoles() {

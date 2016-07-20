@@ -56,13 +56,17 @@ class UsuariosController extends AppController
                 $datousu->save();
                 $usuario = $this->createUsuario();
                 $id = $usuario->save();
-                if(isset($id)){
-                    Session::set("msg",Session::msgSuccess("Usuario Creado"));
-                    header("Location:index.php?c=usuarios&a=index");
-                    exit();
+                if($usuario->getRol() != null) {
+                    if(isset($id)){
+                        Session::set("msg",Session::msgSuccess("Usuario Creado"));
+                        header("Location:index.php?c=usuarios&a=index");
+                        exit();
+                    } else {
+                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    }                 
                 } else {
-                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
-                }                
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el rol"));
+                }               
             }
             $this->redirect_administrador(["add.php"],[
                 "roles" => (new Rol())->find()
@@ -77,14 +81,18 @@ class UsuariosController extends AppController
                 $idu = $datousu->save();
                 $usuario = $this->createUsuario();
                 $usuario->setDatoUsu($datousu);
-                $id = $usuario->save();
-                if(isset($idu) or isset($id)){
-                    Session::set("msg",Session::msgSuccess("Usuario Editado"));
-                    header("Location:index.php?c=usuarios&a=index");
-                    exit();
+                if($usuario->getRol() != null) {
+                    $id = $usuario->save();
+                    if(isset($idu) or isset($id)){
+                        Session::set("msg",Session::msgSuccess("Usuario Editado"));
+                        header("Location:index.php?c=usuarios&a=index");
+                        exit();
+                    } else {
+                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    }
                 } else {
-                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
-                }                
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el rol"));
+                }    
             }
             $this->redirect_administrador(["edit.php"],[
                 "usuario" => (new Usuario())->findById(Session::get('usu')),
@@ -158,7 +166,7 @@ class UsuariosController extends AppController
         $usuario->setId(isset($_POST['hid']) ? $_POST['hid'] : 0);
         $usuario->setNombre($this->clean($_POST['txtuser']));
         $usuario->setPass($_POST['txtpass']);
-        $usuario->setRol((new Rol())->findByX($_POST['cboxtipo']));
+        $usuario->setRol((new Rol())->findByX((isset($_POST['rol'][0])) ? $_POST['rol'][0] : 0));
         $usuario->setAvatar($ruta);
         $usuario->setDatoUsu($datousu);
         return $usuario; 

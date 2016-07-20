@@ -25,17 +25,21 @@ class NotificacionesController extends AppController
     }
     public function add(){
         if($this->checkUser()){
-            Session::set('veh', isset($_POST['cboxveh']) ? $_POST['cboxveh'] : Session::get('veh'));
+            Session::set('veh', isset($_POST['veh'][0]) ? $_POST['veh'][0] : Session::get('veh'));
             $vehiculos = (Session::get('veh')!= "") ? $this->getPaginator()->paginar((new Vehiculo())->find(Session::get('veh')),1) : array();
             if (isset($_POST['btnaceptar'])) {
                 $not = $this->createEntity();
-                $id = $not->save();
-                if(isset($id)){
-                    Session::set("msg",Session::msgSuccess("Notificación Creada"));
-                    header("Location:index.php?c=notificaciones&a=index");
-                    exit();
+                if($not->getVehiculo() != null){
+                    $id = $not->save();
+                    if(isset($id)){
+                        Session::set("msg",Session::msgSuccess("Notificación Creada"));
+                        header("Location:index.php?c=notificaciones&a=index");
+                        exit();
+                    } else {
+                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    }                
                 } else {
-                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el vehículo"));
                 }                
             }
             $this->redirect_administrador(["add.php"],[
@@ -46,18 +50,22 @@ class NotificacionesController extends AppController
     public function edit(){
         if($this->checkUser()){
             Session::set("not",$_GET['d']);
-            Session::set('veh', isset($_POST['cboxveh']) ? $_POST['cboxveh'] : Session::get('veh'));
+            Session::set('veh', isset($_POST['veh'][0]) ? $_POST['veh'][0] : Session::get('veh'));
             $vehiculos = (Session::get('veh')!= "") ? $this->getPaginator()->paginar((new Vehiculo())->find(Session::get('veh')),1) : array();
             if (Session::get('not')!=null && isset($_POST['btnaceptar'])){
                 $not = $this->createEntity();
-                $id = $not->save();
-                if(isset($id)){
-                    Session::set("msg",Session::msgSuccess("Notificación Editada"));
-                    header("Location:index.php?c=notificaciones&a=index");
-                    exit();
+                if($not->getVehiculo() != null){
+                    $id = $not->save();
+                    if(isset($id)){
+                        Session::set("msg",Session::msgSuccess("Notificación Editada"));
+                        header("Location:index.php?c=notificaciones&a=index");
+                        exit();
+                    } else {
+                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    }
                 } else {
-                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
-                }
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el vehículo"));
+                } 
             }
             $this->redirect_administrador(["edit.php"],[
                 "notificacion" => (new Notificacion())->findById(Session::get("not")),
@@ -82,7 +90,7 @@ class NotificacionesController extends AppController
         $not->setFechaini($_POST["dtfechaini"]);
         $not->setFechafin(isset($_POST["dtfechafin"]) ? $_POST["dtfechafin"] : null);
         $not->setFechaAct(date("Y-m-d H:i:s"));
-        $not->setVehiculo((new Vehiculo())->findByMat($_POST["cboxveh"]));
+        $not->setVehiculo((new Vehiculo())->findByMat((isset($_POST["veh"][0]) ? $_POST["veh"][0] : 0)));
         return $not;
     }
     protected function getRoles() {

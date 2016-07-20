@@ -12,6 +12,7 @@
         <link href="Public/css/manejo/bootstrap.css" rel="stylesheet">
         <!--external css-->
         <link href="Public/css/manejo/font-awesome.css" rel="stylesheet" />
+        <link href="Public/css/manejo/magicsuggest.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="Public/css/manejo/zabuto_calendar.css">
         <link rel="stylesheet" type="text/css" href="Public/js/manejo/gritter/css/jquery.gritter.css" />
         <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
@@ -58,8 +59,8 @@
         <script src="Public/js/manejo/bootstrap.min.js"></script>
         <script src="Public/js/manejo/combodate.js"></script>
         <script src="Public/js/manejo/moment.js"></script>
+        <script src="Public/js/manejo/magicsuggest.js"></script>
         <script class="include" type="text/javascript" src="Public/js/manejo/jquery.dcjqaccordion.2.7.js"></script>
-        <!--script src="Public/js/manejo/jquery.scrollTo.min.js"></script-->
         <script src="Public/js/manejo/jquery.nicescroll.js" type="text/javascript"></script>
         <!--common script for all pages-->
         <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>

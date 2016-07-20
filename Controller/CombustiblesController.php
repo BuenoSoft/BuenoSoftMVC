@@ -24,7 +24,9 @@ class CombustiblesController extends AppController
                 } else if($combustible->getStock() > $combustible->getStockMax()){
                     Session::set("msg",Session::msgDanger("Asegurese que el stock sea menor al stock máximo"));
                 } else if($combustible->getStockMin() >= $combustible->getStockMax()){
-                    Session::set("msg",Session::msgDanger("Asegurese que el stock mínimo sea menor al stock máximo"));                    
+                    Session::set("msg",Session::msgDanger("Asegurese que el stock mínimo sea menor al stock máximo"));
+                } else if($combustible->getTipo() == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));    
                 } else {                
                     $id = $combustible->save();
                     if(isset($id)){
@@ -51,7 +53,9 @@ class CombustiblesController extends AppController
                 } else if($combustible->getStock() > $combustible->getStockMax()){
                     Session::set("msg",Session::msgDanger("Asegurese que el stock sea menor al stock máximo"));
                 } else if($combustible->getStockMin() >= $combustible->getStockMax()){
-                    Session::set("msg",Session::msgDanger("Asegurese que el stock mínimo sea menor al stock máximo"));    
+                    Session::set("msg",Session::msgDanger("Asegurese que el stock mínimo sea menor al stock máximo")); 
+                } else if($combustible->getTipo() == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
                 } else {
                     $id = $combustible->save();
                     if(isset($id)){
@@ -104,7 +108,7 @@ class CombustiblesController extends AppController
         $combustible->setStockMin($_POST['txtstockmin']);
         $combustible->setStockMax($_POST['txtstockmax']);
         $combustible->setFecUC($this->getUltimaAct($combustible->getId(),$_POST['txtstock']));
-        $combustible->setTipo((new TipoVehiculo())->findByX($_POST['tipo']));
+        $combustible->setTipo((new TipoVehiculo())->findByX((isset($_POST['tipo'][0])) ? $_POST['tipo'][0] : 0));
         return $combustible;
     }
     private function getUltimaAct($id,$cantidad){

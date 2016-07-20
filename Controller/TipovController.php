@@ -18,13 +18,17 @@ class TipovController extends AppController
         if($this->checkUser()){
             if (isset($_POST['btnaceptar'])) {
                 $tv = $this->createEntity();
-                $id = $tv->save();
-                if(isset($id)){
-                    Session::set("msg",Session::msgSuccess("Tipo de Vehículo Creado"));
-                    header("Location:index.php?c=tipov&a=index");
-                    exit();
+                if($tv->getMedida() != null){
+                    $id = $tv->save();
+                    if(isset($id)){
+                        Session::set("msg",Session::msgSuccess("Tipo de Vehículo Creado"));
+                        header("Location:index.php?c=tipov&a=index");
+                        exit();
+                    } else {
+                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    }                
                 } else {
-                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado la unidad de medida"));
                 }
             }
             $this->redirect_administrador(["add.php"]);
@@ -35,13 +39,17 @@ class TipovController extends AppController
             Session::set("tv",$_GET['d']);
             if (Session::get('tv')!=null && isset($_POST['btnaceptar'])){
                 $tv = $this->createEntity();
-                $id = $tv->save();
-                if(isset($id)){
-                    Session::set("msg",Session::msgSuccess("Tipo de Vehículo Editado"));
-                    header("Location:index.php?c=tipov&a=index");
-                    exit();
+                if($tv->getMedida() != null){
+                    $id = $tv->save();
+                    if(isset($id)){
+                        Session::set("msg",Session::msgSuccess("Tipo de Vehículo Editado"));
+                        header("Location:index.php?c=tipov&a=index");
+                        exit();
+                    } else {
+                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    }
                 } else {
-                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado la unidad de medida"));
                 }
             }
             $this->redirect_administrador(["edit.php"],[
@@ -73,7 +81,7 @@ class TipovController extends AppController
         $tv = new TipoVehiculo();
         $tv->setId(isset($_POST["hid"]) ? $_POST["hid"] : 0);
         $tv->setNombre($this->clean($_POST["txtnombre"]));
-        $tv->setMedida($this->clean($_POST["medida"]));
+        $tv->setMedida((isset($_POST["medida"][0]) ? $_POST["medida"][0] : null));
         return $tv;
     }
     protected function getRoles() {

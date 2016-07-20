@@ -23,16 +23,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="veh" id="v" class="form-control_datalist" placeholder="Seleccione Vehículo" required="required" name="cboxveh" tabindex="3" />
-                        <datalist id="veh">
-                            <?php 
-                                foreach ($vehiculos as $vehiculo) { 
-                                    if($vehiculo->getEstado() == "H"){ ?>
-                                        <option value="<?php echo $vehiculo->getMatricula(); ?>" />
-                            <?php   }                            
-                                }
-                            ?>                            
-                        </datalist>
+                        <input name="veh" id="v" class="form-control_datalist" required="required" tabindex="3" />                        
                         <input type="button" onclick="frmadd.submit();" tabindex="4" value="Buscar" class="btn btn-theme01" />
                     </div>
                 </div>
@@ -47,15 +38,16 @@
 <script>
     $(function() {
         $('#fecini').combodate();
-        $('form[name="frmadd"]').submit(function() {
-            var val = $('#v').val();
-            var selected = $('#veh option').filter(function() { return this.value === val; }).attr('value');
-            if(!selected){
-                alert('Seleccione una de las opciones existentes');
-                return false;
-            } else {
-                return true;
-            }
+        $('#v').magicSuggest({
+            placeholder: 'Seleccione un Vehículo',
+            maxSelection: 1,
+            data: [
+                <?php foreach ($vehiculos as $vehiculo) { 
+                    if($vehiculo->getEstado() == "H"){ ?>
+                     '<?php echo $vehiculo->getMatricula(); ?>',
+                <?php }                
+                    } ?>
+            ]
         });
     });
 </script>

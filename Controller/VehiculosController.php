@@ -25,13 +25,17 @@ class VehiculosController extends AppController
         if($this->checkUser()){
             if (isset($_POST['btnaceptar'])) {
                 $veh = $this->createEntity();
-                $id = $veh->save();
-                if(isset($id)){
-                    Session::set("msg",Session::msgSuccess("Vehículo Creado"));
-                    header("Location:index.php?c=vehiculos&a=index");
-                    exit();
+                if($veh->getTipo() != null){
+                    $id = $veh->save();
+                    if(isset($id)){
+                        Session::set("msg",Session::msgSuccess("Vehículo Creado"));
+                        header("Location:index.php?c=vehiculos&a=index");
+                        exit();
+                    } else {
+                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    }                
                 } else {
-                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
                 }
             }
             $this->redirect_administrador(["add.php"],[
@@ -44,13 +48,17 @@ class VehiculosController extends AppController
             Session::set("vh",$_GET['d']);
             if (Session::get('vh')!=null && isset($_POST['btnaceptar'])){
                 $veh = $this->createEntity();
-                $id = $veh->save();
-                if(isset($id)){
-                    Session::set("msg",Session::msgSuccess("Vehículo Editado"));
-                    header("Location:index.php?c=vehiculos&a=index");
-                    exit();
+                if($veh->getTipo() != null){
+                    $id = $veh->save();
+                    if(isset($id)){
+                        Session::set("msg",Session::msgSuccess("Vehículo Editado"));
+                        header("Location:index.php?c=vehiculos&a=index");
+                        exit();
+                    } else {
+                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    }                
                 } else {
-                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
                 }
             }
             $this->redirect_administrador(["edit.php"],[
@@ -94,7 +102,7 @@ class VehiculosController extends AppController
         $vehiculo->setId((isset($_POST['hid'])) ? $_POST['hid'] : 0);
         $vehiculo->setMatricula($this->clean($_POST['txtmat']));
         $vehiculo->setPadron($this->clean($_POST['txtpadron']));
-        $vehiculo->setTipo((new TipoVehiculo())->findByX($_POST['tipo']));
+        $vehiculo->setTipo((new TipoVehiculo())->findByX((isset($_POST['tipo'][0])) ? $_POST['tipo'][0] : 0));
         $vehiculo->setMotor($this->clean($_POST['txtmotor']));
         $vehiculo->setChasis($this->clean($_POST['txtchasis']));
         $vehiculo->setCapcarga($this->clean($_POST['txtcap']));

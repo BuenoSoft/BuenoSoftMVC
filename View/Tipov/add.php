@@ -13,11 +13,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Unidad de Medida&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input name="medida" list="unim" class="form-control" placeholder="Seleccione Unidad" required="required" tabindex="2" />
-                        <datalist id="unim">
-                            <option value="Kilometro">Km</option>
-                            <option value="Horas de Vuelo">Hs Vuelo</option>                            
-                        </datalist>
+                        <input name="medida" id="medida" required="required" tabindex="2" />
                     </div>
                 </div>
             </div>
@@ -28,3 +24,14 @@
         </div>
     </div>
 </form>
+<script>
+    $(function() {
+        $('#medida').magicSuggest({
+            placeholder: 'Seleccione una Unidad',
+            maxSelection: 1,
+            data: [
+                'Kilometro','Horas de Vuelo'
+            ]
+        });
+    });
+</script>
