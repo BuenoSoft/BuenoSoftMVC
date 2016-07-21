@@ -1,6 +1,6 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Estadísticas</h3>
 <p>
-    <a href="index.php?c=access&a=index"><button class="btn btn-theme05" tabindex="3"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;
+    <a href="index.php?c=inicio&a=index"><button class="btn btn-theme05" tabindex="3"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;
 </p>
 <div class="col-lg-6">
     <div class="content-panel">

@@ -1,7 +1,9 @@
 <?php
 namespace Controller;
 use \App\Session;
+use \App\Breadcrumbs;
 use \Clases\Vehiculo;
+use \Clases\Usuario;
 use \Clases\Notificacion;
 use \Clases\Aplicacion;
 use \Clases\Historial;
@@ -12,6 +14,11 @@ class UsadosController extends AppController
     }
     public function index(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb("index.php?c=aplicaciones&a=index");
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             Session::set("app",$_GET['d']);
             Session::set('s', isset($_GET['p']) ? $_GET['p'] : 1);
             $apl = (new Aplicacion())->findById(Session::get("app"));
@@ -25,6 +32,12 @@ class UsadosController extends AppController
     }
     public function historial(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb("index.php?c=aplicaciones&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             Session::set("app",$_GET['d']);
             Session::set("v",$_GET['v']);
             Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
@@ -69,6 +82,36 @@ class UsadosController extends AppController
             $this->getRecarga($historial);
             Session::set("msg", (isset($id)) ? Session::msgSuccess("Historial de Vehículo Borrado") : Session::msgDanger("No se pudo borrar el producto"));
             header("Location:index.php?c=usados&a=historial&d=".Session::get("app")."&v=".Session::get("v"));
+        }
+    }
+    public function usuario(){
+        if(Session::get("log_in") != null){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb("index.php?c=aplicaciones&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
+            $this->redirect_administrador(["usuario.php"],["usuario" => (new Usuario())->findById($_GET['d'])]);
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));
+            header("Location:index.php?c=todos&a=index");
+        }
+    }
+    public function vehiculo(){
+        if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb("index.php?c=aplicaciones&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
+            $this->redirect_administrador(["vehiculo.php"],[
+                'vehiculo' => (new Vehiculo())->findById($_GET['d']),
+            ]);
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));
+            header("Location:index.php?c=todos&a=index");
         }
     }
     private function getRecarga($historial){

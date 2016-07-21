@@ -1,6 +1,6 @@
 <h3><i class="fa fa-angle-right"></i>Ver Aplicación número&nbsp;<?php echo $aplicacion->getId(); ?></h3>
 <p>
-    <a href="index.php?c=pdf&a=myapp&d=<?php echo $aplicacion->getId(); ?>" target="_blank">
+    <a href="index.php?c=pdf&a=myapp&d=<?php echo $aplicacion->getId(); ?>" >
         <button class="btn btn-theme05" tabindex="3">
             <i class="fa fa-print"></i>&nbsp;Imprimir
         </button>
@@ -14,7 +14,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Aeronave</label>
                     <div class="col-sm-10" style="text-align: center;">                        
-                        <a href="index.php?c=vehiculos&a=view&d=<?php echo $aeronave->getId();?>" target="_blank">
+                        <a href="index.php?c=aplicaciones&a=vehiculo&d=<?php echo $aeronave->getId();?>">
                             <?php echo $aeronave->getMatricula(); ?>
                         </a>
                     </div>
@@ -61,7 +61,7 @@
                     <label class="col-sm-2 col-sm-2 control-label">Productos</label>
                     <div class="col-sm-10" style="text-align: center;">                        
                         <?php foreach ($aplicacion->getProductos() as $producto) { ?>
-                                <a href="index.php?c=productos&a=view&d=<?php echo $producto->getId(); ?>" target="_blank">
+                                <a href="index.php?c=aplicaciones&a=producto&d=<?php echo $producto->getId(); ?>">
                                     <?php echo $producto->getNombre()."<br />"; ?>
                                 </a>
                         <?php } ?>                                                    
@@ -78,9 +78,9 @@
             </div>
             <div class="showback">
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Chofer&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Chofer</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <a href="index.php?c=usuarios&a=view&d=<?php echo $chofer->getId(); ?>" target="_blank">
+                        <a href="index.php?c=aplicaciones&a=usuario&d=<?php echo $chofer->getId(); ?>">
                             <?php echo $chofer->getDatoUsu()->getNombre(); ?>
                         </a>
                     </div>
@@ -88,9 +88,9 @@
             </div>
             <div class="showback">
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Terrestre&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Terrestre</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <a href="index.php?c=vehiculos&a=view&d=<?php echo $terrestre->getId();?>" target="_blank">
+                        <a href="index.php?c=aplicaciones&a=vehiculo&d=<?php echo $terrestre->getId();?>">
                             <?php echo $terrestre->getMatricula(); ?>
                         </a>
                     </div>
@@ -102,13 +102,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Piloto</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <a href="index.php?c=usuarios&a=view&d=<?php echo $piloto->getId(); ?>" target="_blank">
+                        <a href="index.php?c=aplicaciones&a=usuario&d=<?php echo $piloto->getId(); ?>">
                             <?php echo $piloto->getDatoUsu()->getNombre(); ?>
                         </a>                            
                     </div>
                 </div>                    
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Padrón&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Padrón</label>
                     <div class="col-sm-10" style="text-align: center;">
                         <?php echo $aplicacion->getPadron(); ?>
                     </div>
@@ -120,7 +120,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Pista&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Pista</label>
                     <div class="col-sm-10" style="text-align: center;">
                         <?php echo $aplicacion->getPista()->getNombre(); ?>
                     </div>
@@ -128,13 +128,13 @@
             </div>
             <div class="showback">
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Faja&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Faja</label>
                     <div class="col-sm-10" style="text-align: center;">
                         <?php echo $aplicacion->getFaja(); ?>
                     </div>
                 </div>                               
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Dosis&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Dosis</label>
                     <div class="col-sm-10" style="text-align: center;">
                         <?php echo $aplicacion->getDosis(); ?>
                     </div>

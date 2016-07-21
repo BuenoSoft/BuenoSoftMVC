@@ -1,6 +1,7 @@
 <?php
 namespace Controller;
 use \App\Session;
+use \App\Breadcrumbs;
 use \Clases\TipoProducto;
 class TipopController extends AppController
 {
@@ -8,7 +9,11 @@ class TipopController extends AppController
         parent::__construct();
     }
     public function index(){
-        if($this->checkUser()){          
+        if($this->checkUser()){ 
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             $this->redirect_administrador(["index.php"],[
                 "tipos" => (new TipoProducto())->find()
             ]);
@@ -16,6 +21,11 @@ class TipopController extends AppController
     }
     public function add(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             if (isset($_POST['btnaceptar'])) {
                 $tp = $this->createEntity();
                 $id = $tp->save();
@@ -32,6 +42,11 @@ class TipopController extends AppController
     }
     public function edit(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             Session::set("tp",$_GET['d']);
             if (Session::get('tp')!=null && isset($_POST['btnaceptar'])){
                 $tp = $this->createEntity();

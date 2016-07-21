@@ -1,6 +1,7 @@
 <?php
 namespace Controller;
 use \App\Session;
+use \App\Breadcrumbs;
 use \Lib\Upload;
 use \Clases\Rol;
 use \Clases\DatosUsu;
@@ -21,7 +22,7 @@ class UsuariosController extends AppController
                     Session::login();
                     Session::set("log_in",$usuario);  
                     Session::set("msg", Session::msgInfo("Acceso concedido... Usuario: ". $usuario->getNombre()));
-                    header("Location:index.php?c=access&a=index");
+                    header("Location:index.php?c=inicio&a=index");
                     exit();
                 } else if (isset($usuario) and $usuario->getEstado() == "D"){
                     Session::set("msg",Session::msgDanger("El usuario está desactivado"));
@@ -40,6 +41,10 @@ class UsuariosController extends AppController
     } 
     public function index(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
             Session::set('b',(isset($_POST['txtbuscador'])) ? $this->clean($_POST['txtbuscador']) : Session::get('b'));
             $usuarios= $this->getPaginator()->paginar((new Usuario)->find(Session::get('b')), Session::get('p'));
@@ -51,6 +56,11 @@ class UsuariosController extends AppController
     }
     public function add(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             if(isset($_POST["btnaceptar"])){               
                 $datousu = $this->createDatoUsu();
                 $datousu->save();
@@ -75,6 +85,11 @@ class UsuariosController extends AppController
     }
     public function edit(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             Session::set("usu",$_GET['d']); 
             if (Session::get('usu')!=null && isset($_POST['btnaceptar'])){
                 $datousu = $this->createDatoUsu();
@@ -102,6 +117,12 @@ class UsuariosController extends AppController
     }
     public function avatar(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb("index.php?c=usuarios&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             if (isset($_POST['btnaceptar'])) {
                 if(isset($_FILES['avatar'])){
                     $ruta = $this->upload->uploadImage($_FILES['avatar']);
@@ -122,6 +143,11 @@ class UsuariosController extends AppController
     }
     public function view(){
         if(Session::get("log_in") != null){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             $this->redirect_administrador(["view.php"],["usuario" => (new Usuario())->findById($_GET['d'])]);
         } else {
             Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));

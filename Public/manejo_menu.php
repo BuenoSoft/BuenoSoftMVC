@@ -89,7 +89,7 @@
                 <h5 class="centered"><?php echo \App\Session::get('log_in')->getNombre(); ?></h5> 
                 <br />
                 <li class="sub-menu">
-                    <a href="index.php?c=access&a=index">
+                    <a href="index.php?c=inicio&a=index">
                         <i class="fa fa-home"></i>&nbsp;Inicio
                     </a>
                 </li> 

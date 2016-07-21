@@ -21,7 +21,7 @@
 
 <!-- favicon -->
 <link rel="shortcut icon" href="Public/img/principal/favicon.ico" type="Public/img/principal/x-icon">
-<link rel="icon" href="ublic/img/principal/favicon.ico" type="Public/img/principal/x-icon">
+<link rel="icon" href="Public/img/principal/favicon.ico" type="Public/img/principal/x-icon">
 <!-- popup -->   
 <link rel="stylesheet" href="Public/css/principal/style.css">
 <link href="Public/css/principal/popup.css" rel="stylesheet" type='text/css'>
@@ -30,8 +30,7 @@
 <script type="text/javascript" src="Public/js/principal/popup.js"></script>
 <script>
 $(function() {
-    $(".popup").hide();
-        function abrir(){
+    function abrir(){
             $("#popup").show();
        }
         $("#hrefAbrirPopup").click(function(){
@@ -76,25 +75,25 @@ $(function() {
                  <li ><a href="#contact">Contact</a></li>
                  <?php if(\App\Session::isLoggedIn() == true){ ?>
                             <li>
-                                <a href="index.php?c=access&a=index">Acceso</a>                                            
+                                <a href="index.php?c=inicio&a=index">Acceso</a>                                            
                             </li>
                         <?php } else {?>
                             <li>                                            
                                 <a href="#" id="hrefAbrirPopup" data-type="zoomin">Iniciar Sesion</a>
                                 
-                                <div id="popup" class="overlay-container popbg">
-                                    <div class="window-container zoomin">
+                                <div id="popup" class="overlay-container">
+                                    <div class="popup-contenedor zoomin">
                                         <?php if(\App\Session::get('msg') != null) {?>
-                                            <div class="alert alert-<?php echo \App\Session::get('msg')[0]; ?> fade in">
+                                            <div id="resultado" class="alert alert-<?php echo \App\Session::get('msg')[0]; ?> fade in">
                                                 <i class="fa fa-<?php echo \App\Session::get('msg')[1]; ?>" style="font-size: 24px;"></i>&nbsp;
                                                 <?php echo \App\Session::get('msg')[2]; ?>
                                             </div>
-                                        <?php } ?>
-                                        <h1 class="poph"><b>Iniciar Sesion</b></h1>
-                                        <form action="index.php?c=usuarios&a=login" method="post" name="frmlogin">
-                                            <input name="txtuser" type="text" placeholder="Usuario" class="estilo-textbox-login" autofocus="autofocus" required="required" />
-                                            <input name="txtpass" type="password" placeholder="Contraseña"  class="estilo-textbox-login" required="required" />
-                                            <input name="btnaceptar" type="submit" value="Aceptar" class="boton hoverbtn"/>
+                                        <?php } ?> 
+                                        <p class="popup-titulo">INICIAR SESION</p>
+                                        <form action="index.php?c=usuarios&a=login" class="frm-login" method="post" name="frmlogin">
+                                            <input name="txtuser" type="text" placeholder="Usuario" class="popup-textbox" autofocus="autofocus" required="required" />
+                                            <input name="txtpass" type="password" placeholder="Contraseña"  class="popup-textbox" required="required" />
+                                            <input name="btnaceptar" type="submit" value="Aceptar" class="popup-btn popup-hover-btn"/>
                                         </form>                                        
                                     </div>
                                 </div>
@@ -108,7 +107,6 @@ $(function() {
         </div>
 
       </div>
-    </div>
     </div>
 <!-- #Header Starts -->
 <div id="home">

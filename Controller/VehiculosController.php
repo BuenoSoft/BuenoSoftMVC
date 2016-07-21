@@ -1,6 +1,7 @@
 <?php
 namespace Controller;
 use \App\Session;
+use \App\Breadcrumbs;
 use \Clases\TipoVehiculo;
 use \Clases\Combustible;
 use \Clases\Vehiculo;
@@ -11,6 +12,10 @@ class VehiculosController extends AppController
     }
     public function index(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             Session::set('comb', '');
             Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
             Session::set('b',(isset($_POST['txtbuscador'])) ? $this->clean($_POST['txtbuscador']) : Session::get('b'));
@@ -23,6 +28,11 @@ class VehiculosController extends AppController
     }
     public function add(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             if (isset($_POST['btnaceptar'])) {
                 $veh = $this->createEntity();
                 if($veh->getTipo() != null){
@@ -45,6 +55,11 @@ class VehiculosController extends AppController
     }
     public function edit(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             Session::set("vh",$_GET['d']);
             if (Session::get('vh')!=null && isset($_POST['btnaceptar'])){
                 $veh = $this->createEntity();
@@ -69,6 +84,11 @@ class VehiculosController extends AppController
     }
     public function view(){
         if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             $this->redirect_administrador(["view.php"],[
                 'vehiculo' => (new Vehiculo())->findById($_GET['d']),
             ]);

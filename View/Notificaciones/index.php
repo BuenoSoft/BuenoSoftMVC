@@ -1,6 +1,6 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Mantenimiento de Notificaciones</h3>
 <p>
-    <a href="index.php?c=access&a=index"><button class="btn btn-theme05" tabindex="3"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;  
+    <a href="index.php?c=inicio&a=index"><button class="btn btn-theme05" tabindex="3"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;  
     <?php if(App\Session::get('log_in') != null and (\App\Session::get('log_in')->getRol()->getNombre() == "Administrador" or \App\Session::get('log_in')->getRol()->getNombre() == "Supervisor")) { ?>
         <a href="index.php?c=notificaciones&a=add"><button class="btn btn-theme05" tabindex="4"><i class="fa fa-plus"></i>&nbsp;Crear</button></a>
     <?php } ?>     
@@ -27,7 +27,7 @@
                     <tr>
                         <td><?php echo $notificacion->getId(); ?></td>
                         <td>
-                            <a href="index.php?c=vehiculos&a=view&d=<?php echo $notificacion->getVehiculo()->getId(); ?>" target="_blank">
+                            <a href="index.php?c=vehiculos&a=view&d=<?php echo $notificacion->getVehiculo()->getId(); ?>">
                                 <?php echo $notificacion->getVehiculo()->getMatricula(); ?>
                             </a>
                         </td>                        

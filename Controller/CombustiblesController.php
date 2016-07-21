@@ -1,6 +1,7 @@
 <?php
 namespace Controller;
 use \App\Session;
+use App\Breadcrumbs;
 use \Clases\TipoVehiculo;
 use \Clases\Combustible;
 class CombustiblesController extends AppController
@@ -10,6 +11,10 @@ class CombustiblesController extends AppController
     }
     public function index(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             $this->redirect_administrador(['index.php'],[
                 "combustibles" => (new Combustible())->find()
             ]);
@@ -17,6 +22,11 @@ class CombustiblesController extends AppController
     }
     public function add(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             if(isset($_POST['btnaceptar'])){
                 $combustible = $this->createEntity();
                 if($combustible->getStock() < 0){
@@ -45,6 +55,11 @@ class CombustiblesController extends AppController
     }
     public function edit(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             Session::set("com",$_GET['d']);
             if (Session::get('com')!=null && isset($_POST['btnaceptar'])){
                 $combustible = $this->createEntity();
@@ -95,6 +110,11 @@ class CombustiblesController extends AppController
     }
     public function view(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             $this->redirect_administrador(["view.php"], [
                 "combustible" => (new Combustible())->findById($_GET['d'])
             ]);        

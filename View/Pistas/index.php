@@ -1,6 +1,6 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Mantenimiento de Pistas</h3>
 <p>
-    <a href="index.php?c=access&a=index"><button class="btn btn-theme05" tabindex="3"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp; 
+    <a href="index.php?c=inicio&a=index"><button class="btn btn-theme05" tabindex="3"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp; 
     <a href="index.php?c=pistas&a=add"><button class="btn btn-theme05" tabindex="4"><i class="fa fa-plus"></i>&nbsp;Crear</button></a>       
 </p>
 <div class="content-panel">
@@ -27,7 +27,7 @@
                         <td><?php echo $pista->getNombre(); ?></td>
                         <td><?php echo $pista->getCoordenadas(); ?></td>
                         <td>
-                            <a href="index.php?c=pistas&a=view&d=<?php echo $pista->getId(); ?>" target="_blank" title="Ver">
+                            <a href="index.php?c=pistas&a=view&d=<?php echo $pista->getId(); ?>" title="Ver">
                                 <i class="fa fa-eye" style="font-size: 22px;"></i>
                             </a>&nbsp;
                             <a href="index.php?c=pistas&a=edit&d=<?php echo $pista->getId(); ?>">

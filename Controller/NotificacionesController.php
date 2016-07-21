@@ -1,6 +1,7 @@
 <?php
 namespace Controller;
 use \App\Session;
+use \App\Breadcrumbs;
 use \Clases\Vehiculo;
 use \Clases\Notificacion;
 class NotificacionesController extends AppController
@@ -10,6 +11,10 @@ class NotificacionesController extends AppController
     }
     public function index(){
         if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             Session::set('veh',"");
             Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
             Session::set('b',(isset($_POST['txtbuscador'])) ? $this->clean($_POST['txtbuscador']) : Session::get('b'));
@@ -25,6 +30,11 @@ class NotificacionesController extends AppController
     }
     public function add(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             if (isset($_POST['btnaceptar'])) {
                 $not = $this->createEntity();
                 if($not->getVehiculo() != null){
@@ -47,6 +57,11 @@ class NotificacionesController extends AppController
     }
     public function edit(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             Session::set("not",$_GET['d']);
             if (Session::get('not')!=null && isset($_POST['btnaceptar'])){
                 $not = $this->createEntity();
@@ -71,6 +86,11 @@ class NotificacionesController extends AppController
     }
     public function view(){
         if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             $this->redirect_administrador(["view.php"], [
                 "notificacion" => (new Notificacion())->findById($_GET['d'])
             ]);        

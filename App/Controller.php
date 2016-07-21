@@ -16,7 +16,7 @@ abstract class Controller
             $ns = explode('\\', get_called_class());
             $path = $this->createFile(APPLICATION_PATH . DS . "View" . DS . str_replace("Controller", "", $ns[1]) . DS . $file[0], $dates);
             $menu = $this->createFile(APPLICATION_PATH . DS . 'Public' . DS . 'manejo_menu.php');
-            echo $this->createFile(APPLICATION_PATH . DS . 'Public' . DS . 'manejo.php', array('content' => $path, 'menu' => $menu, 'enlaces' => $this->breadcrumbs()));
+            echo $this->createFile(APPLICATION_PATH . DS . 'Public' . DS . 'manejo.php', array('content' => $path, 'menu' => $menu));
         } 
         catch (Exception $ex) {
             echo $ex->getMessage();
@@ -70,76 +70,16 @@ abstract class Controller
         return htmlentities($cadena);
     }
     /*----------para el tema de los enlaces----------*/
-    
+    /*
     function breadcrumbs($separator = ' &rsaquo; ', $home = 'Inicio') {          
         $actual = $_SERVER['REQUEST_URI'];
         $base = "index.php?c=access&a=index";
-        $breadcrumbs = [];
-        array_push($breadcrumbs, "<a href=$base>".$home."</a>");
-        //array_push($breadcrumbs, $actual);
-        return implode($separator, array_unique($breadcrumbs)); 
-    }    
-    /*
-    private function generateTitleAction(){
-        $d = explode("=", $_SERVER['REQUEST_URI']);
-        $d1 = explode("&", $d[2]);
-        return $d1[0];
-    }
-    private function generateTitleEntity(){
-        $d = explode("=", $_SERVER['REQUEST_URI']);        
-        $d1 = explode("&", $d[1]);
-        return $d1[0];
-    }
-    private function generateTitle(){
-        $array = [$this->generateTitleAction(), $this->generateTitleEntity()];
-        if($array[0] == "index"){
-            return $this->removeRare($array[1]);
-        } else if($array[0] == "add"){
-            return "Crear ".$this->removePlural($array[1]);
-        } else if($array[0] == "edit"){
-            return "Editar ".$this->removePlural($array[1]);
-        } else if($array[0] == "view"){
-            return "Ver ".$this->removePlural($array[1]);    
-        } else {
-            return $array[0]." ".$array[1];
-        }        
-    }
-    private function removePlural($palabra){
-        $cambio = "";
-        if($this->endsWith($palabra, "bles")){
-            $cambio = rtrim($palabra, "s");
-        } else if($this->endsWith($palabra, "es")){
-            $cambio = rtrim($palabra, "es");
-        } else if($this->endsWith($palabra, "s")){
-            $cambio = rtrim($palabra, "s");
-        } else if($this->endsWith($palabra, "p")){
-            $cambio = rtrim($palabra, "p");
-        } else if($this->endsWith($palabra, "v")){
-            $cambio = rtrim($palabra, "v");
-        } else {
-            $cambio = $palabra;
-        }
-        return ucwords($cambio);
-    }
-    private function removeRare($palabra){
-        $cambio = "";
-        if($this->endsWith($palabra, "p")){
-            $cambio = rtrim($palabra, "p")."s";
-        } else if($this->endsWith($palabra, "v")){
-            $cambio = rtrim($palabra, "v")."s";
-        } else {
-            $cambio = $palabra;
-        } 
-        return ucwords($cambio);
-    }
-    function startsWith($haystack, $needle) {
-        // search backwards starting from haystack length characters from the end
-        return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== false;
-    }
-    function endsWith($haystack, $needle) {
-        // search forward starting from end minus needle length characters
-        return $needle === "" || (($temp = strlen($haystack) - strlen($needle)) >= 0 && strpos($haystack, $needle, $temp) !== false);
-    }*/
+        array_push($this->breadcrumbs, "<a href=$base>".$home."</a>");
+        array_push($this->breadcrumbs, $this->generateTitle());
+        return implode($separator, array_unique($this->breadcrumbs)); 
+    } */   
+    
+    
     protected function getMessageRole() { }
     protected function getRoles(){}
 }

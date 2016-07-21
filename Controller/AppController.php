@@ -18,12 +18,14 @@ abstract class AppController extends Controller
             ]);
             echo $this->createFile(APPLICATION_PATH . DS . 'Public' . DS . 'manejo.php', [
                 'content' => $path, 
-                'menu' => $menu ,
-                'enlaces' => $this->breadcrumbs()
+                'menu' => $menu,
             ]);
         } 
         catch (Exception $ex) {
             echo $ex->getMessage();
         }
+    }
+    private function breadcrumbs($migas){
+        return $migas;
     }
 }

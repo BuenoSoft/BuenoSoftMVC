@@ -1,6 +1,7 @@
 <?php
 namespace Controller;
 use \App\Session;
+use \App\Breadcrumbs;
 use \Clases\Pista;
 class PistasController extends AppController
 {
@@ -9,6 +10,10 @@ class PistasController extends AppController
     }
     public function index(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
             Session::set('b',(isset($_POST['txtbuscador'])) ? $this->clean($_POST['txtbuscador']) : Session::get('b'));
             $pistas = $this->getPaginator()->paginar((new Pista())->find(Session::get('b')), Session::get('p'));
@@ -20,6 +25,11 @@ class PistasController extends AppController
     }
     public function add(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             if (isset($_POST['btnaceptar'])) {
                 $pis = $this->createEntity();
                 $id = $pis->save();
@@ -36,6 +46,11 @@ class PistasController extends AppController
     }
     public function edit(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             Session::set("pis",$_GET['d']);
             if (Session::get('pis')!=null && isset($_POST['btnaceptar'])){
                 $pis = $this->createEntity();
@@ -75,6 +90,11 @@ class PistasController extends AppController
     }
     public function view(){
         if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             $this->redirect_administrador(['view.php'],[
                 "pista" => (new Pista())->findById($_GET['d'])
             ]);

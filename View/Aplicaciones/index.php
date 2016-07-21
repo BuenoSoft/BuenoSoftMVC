@@ -1,6 +1,6 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Mantenimiento de Aplicaciones</h3>
 <p>
-    <a href="index.php?c=access&a=index"><button class="btn btn-theme05" tabindex="3"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;
+    <a href="index.php?c=inicio&a=index"><button class="btn btn-theme05" tabindex="3"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;
     <?php if(\App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>
         <a href="index.php?c=aplicaciones&a=add"><button class="btn btn-theme05" tabindex="4"><i class="fa fa-plus"></i>&nbsp;Crear</button></a>    
     <?php } ?>    
@@ -36,12 +36,7 @@
                         </td>
                     </tr>
                 </table>
-                <p>
-                    
-                    
-                    
-                    
-                </p>
+                <br />
                 <p>
                     <b>Período Inicial:&nbsp;</b><input type="text" name="fec1" id="fecini" />&nbsp;
                     <b>Período Final:&nbsp;</b><input type="text" name="fec2" id="fecfin" />&nbsp;
@@ -72,7 +67,7 @@
                             <?php 
                                 foreach($aplicacion->getUsados() as $usado) {
                                     if($usado->getUsuario()->getRol()->getNombre() == "Piloto"){ ?>
-                                        <a href="index.php?c=usuarios&a=view&d=<?php echo $usado->getUsuario()->getId(); ?>" target="_blank">
+                                        <a href="index.php?c=usuarios&a=view&d=<?php echo $usado->getUsuario()->getId(); ?>">
                                             <?php echo $usado->getUsuario()->getDatoUsu()->getNombre(); ?>
                                         </a>                                        
                             <?php
@@ -84,7 +79,7 @@
                             <?php 
                                 foreach($aplicacion->getUsados() as $usado) {
                                     if($usado->getVehiculo()->getTipo()->getNombre() == "Aeronave"){ ?>
-                                        <a href="index.php?c=vehiculos&a=view&d=<?php echo $usado->getVehiculo()->getId(); ?>" target="_blank">
+                                        <a href="index.php?c=vehiculos&a=view&d=<?php echo $usado->getVehiculo()->getId(); ?>">
                                             <?php echo $usado->getVehiculo()->getMatricula(); ?>
                                         </a>                                        
                             <?php
@@ -93,12 +88,12 @@
                             ?>
                         </td>
                         <td>
-                            <a href="index.php?c=usuarios&a=view&d=<?php echo $aplicacion->getCliente()->getId(); ?>" target="_blank">
+                            <a href="index.php?c=usuarios&a=view&d=<?php echo $aplicacion->getCliente()->getId(); ?>">
                                 <?php echo $aplicacion->getCliente()->getNombre(); ?>
                             </a>
                         </td>
                         <td>
-                            <a href="index.php?c=pistas&a=view&d=<?php echo $aplicacion->getPista()->getId(); ?>" target="_blank">
+                            <a href="index.php?c=pistas&a=view&d=<?php echo $aplicacion->getPista()->getId(); ?>">
                                 <?php echo $aplicacion->getPista()->getNombre(); ?>
                             </a>
                         </td>

@@ -14,12 +14,12 @@
                 <?php foreach($usados as $usado) {?>
                     <tr>                        
                         <td>
-                            <a href="index.php?c=vehiculos&a=view&d=<?php echo $usado->getVehiculo()->getId();?>" target="_blank">
+                            <a href="index.php?c=usados&a=vehiculo&d=<?php echo $usado->getVehiculo()->getId();?>">
                                 <?php echo $usado->getVehiculo()->getMatricula();?>
                             </a>
                         </td>
                         <td>
-                            <a href="index.php?c=usuarios&a=view&d=<?php echo $usado->getUsuario()->getId(); ?>" target="_blank">
+                            <a href="index.php?c=usados&a=usuario&d=<?php echo $usado->getUsuario()->getId(); ?>">
                                 <?php echo $usado->getUsuario()->getDatoUsu()->getNombre();?>
                             </a>                            
                         </td>

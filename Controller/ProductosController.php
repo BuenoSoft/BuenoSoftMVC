@@ -1,6 +1,7 @@
 <?php
 namespace Controller;
 use \App\Session;
+use \App\Breadcrumbs;
 use \Clases\TipoProducto;
 use \Clases\Producto;
 class ProductosController extends AppController
@@ -10,6 +11,10 @@ class ProductosController extends AppController
     }
     public function index(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
             Session::set('b',(isset($_POST['txtbuscador'])) ? $this->clean($_POST['txtbuscador']) : Session::get('b'));
             $productos = $this->getPaginator()->paginar((new Producto())->find(Session::get('b')), Session::get('p'));
@@ -21,6 +26,11 @@ class ProductosController extends AppController
     }
     public function add(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             if(isset($_POST['btnaceptar'])){
                 $producto = $this->createEntity();
                 if($producto->getTipo() != null){
@@ -43,6 +53,11 @@ class ProductosController extends AppController
     }
     public function edit(){
         if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             Session::set("prod",$_GET['d']);
             if (Session::get('prod')!=null && isset($_POST['btnaceptar'])){
                 $producto = $this->createEntity();
@@ -87,6 +102,11 @@ class ProductosController extends AppController
     }
     public function view(){
         if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
             $this->redirect_administrador(['view.php'],[
                 "producto" => (new Producto())->findById($_GET['d'])
             ]);
