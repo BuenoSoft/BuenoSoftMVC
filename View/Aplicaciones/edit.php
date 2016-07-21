@@ -7,37 +7,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Aeronave&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="aeronaves" id="aeronave" class="form-control" placeholder="Seleccione Aeronave" required="required" name="aeronave" tabindex="1" value="<?php echo \App\Session::get("pass")[19]; ?>" />
-                        <datalist id="aeronaves">
-                            <?php 
-                                foreach ($vehiculos as $vehiculo) { 
-                                    if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() == "Aeronave"){
-                                        if($vehiculo->checkUsu(\App\Session::get('app'))) { ?>
-                                            <option value="<?php echo $vehiculo->getMatricula(); ?>" />
-                            <?php        }else if(!$vehiculo->checkFin()){ ?>
-                                            <option value="<?php echo $vehiculo->getMatricula(); ?>" />
-                            <?php       }                            
-                                    }                            
-                                }
-                            ?>                            
-                        </datalist>
+                        <input id="aeronave" required="required" name="aeronave" tabindex="1" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Usuario&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="clientes" id="cliente" class="form-control_datalist" placeholder="Seleccione Usuario" required="required" name="cliente" tabindex="3" value="<?php echo \App\Session::get("pass")[16]; ?>"/>
-                        <datalist id="clientes">
-                            <?php
-                                foreach ($usuarios as $usuario){
-                                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Cliente") { ?>
-                                        <option value="<?php echo $usuario->getDatoUsu()->getNombre(); ?>" />
-                                <?php                                         
-                                    }
-                                }
-                            ?>
-                        </datalist>
-                        <input type="button" onclick="frmedit.submit();" tabindex="4" value="Buscar" class="btn btn-theme01" />
+                        <input id="cliente" required="required" name="cliente" tabindex="3" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -69,15 +45,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tipo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="tipos" id="tipo" class="form-control_datalist" placeholder="Seleccione Tipo de Producto" required="required" name="tipo" tabindex="9" value="<?php echo \App\Session::get("pass")[9]; ?>"/>
-                        <datalist id="tipos">
-                            <?php foreach ($tipos as $tipo){
-                                    if($tipo->getEstado() == "H"){ ?>
-                                        <option value="<?php echo $tipo->getNombre();?>" />
-                            <?php   } 
-                                }
-                            ?>
-                        </datalist>
+                        <input id="tipo" required="required" name="tipo" tabindex="9" />
                         <input type="button" onclick="frmedit.submit();" tabindex="10" value="Buscar" class="btn btn-theme01" />
                     </div>
                 </div>
@@ -112,21 +80,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Chofer&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="choferes" id="chofer" class="form-control" placeholder="Seleccione Chofer" required="required" name="chofer" tabindex="12" value="<?php echo \App\Session::get("pass")[18]; ?>"/>
-                        <datalist id="choferes">
-                            <?php
-                                foreach ($usuarios as $usuario){
-                                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Chofer") { 
-                                        if($usuario->checkTra(\App\Session::get('app'))){ ?>
-                                            <option value="<?php echo $usuario->getDatoUsu()->getNombre();?>" />
-                                <?php   } else if(!$usuario->checkFin()) { ?>
-                                            <option value="<?php echo $usuario->getDatoUsu()->getNombre();?>" />
-                                <?php       
-                                        }                                        
-                                    }
-                                }
-                            ?>
-                        </datalist>
+                        <input id="chofer" required="required" name="chofer" tabindex="12" />
                     </div>
                 </div>
             </div>
@@ -134,20 +88,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Terrestre&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="terrestres" id="terrestre" class="form-control" placeholder="Seleccione Terrestre" required="required" name="terrestre" tabindex="13" value="<?php echo \App\Session::get("pass")[20]; ?>" />
-                        <datalist id="terrestres">
-                            <?php 
-                                foreach ($vehiculos as $vehiculo) { 
-                                    if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() != "Aeronave"){ 
-                                        if($vehiculo->checkUsu(\App\Session::get('app'))) { ?>
-                                            <option value="<?php echo $vehiculo->getMatricula(); ?>" />
-                            <?php       } else if(!$vehiculo->checkFin()) { ?>
-                                            <option value="<?php echo $vehiculo->getMatricula(); ?>" />
-                            <?php       }                                     
-                                    }                            
-                                }
-                            ?>
-                        </datalist>
+                        <input id="terrestre" required="required" name="terrestre" tabindex="13" />
                     </div>
                 </div>
             </div>
@@ -158,20 +99,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Piloto&nbsp;<font color="red">*</font></label>
                         <div class="col-sm-10">
-                            <input list="pilotos" id="piloto" class="form-control" placeholder="Seleccione Piloto" required="required" name="piloto" tabindex="14" value="<?php echo \App\Session::get("pass")[17]; ?>"/>
-                            <datalist id="pilotos">
-                                <?php
-                                    foreach ($usuarios as $usuario){
-                                        if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Piloto") { 
-                                            if($usuario->checkTra(\App\Session::get('app'))) { ?>
-                                                <option value="<?php echo $usuario->getDatoUsu()->getNombre();?>" /> 
-                                <?php       } else if(!$usuario->checkFin()) { ?>
-                                                <option value="<?php echo $usuario->getDatoUsu()->getNombre();?>" />
-                                <?php       }
-                                        }
-                                    }
-                                ?>
-                            </datalist>
+                            <input id="piloto" required="required" name="piloto" tabindex="14" />
                         </div>
                     </div>
                 <?php } ?>
@@ -190,13 +118,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Pista&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input list="pistas" id="pista" class="form-control_datalist" placeholder="Seleccione Pista" required="required" name="pista" tabindex="17" value="<?php echo \App\Session::get("pass")[2]; ?>"/>
-                        <datalist id="pistas">
-                            <?php foreach ($pistas as $pista){ ?>
-                                <option value="<?php echo $pista->getNombre(); ?>" />
-                            <?php } ?>
-                        </datalist>
-                        <input type="button" onclick="frmedit.submit();" tabindex="18" value="Buscar" class="btn btn-theme01" />
+                        <input id="pista" required="required" name="pista" tabindex="17" />
                     </div>
                 </div>
             </div>
@@ -255,45 +177,107 @@
     $(function() {
         $('#fecini').combodate();
         $('#fecfin').combodate();
-        $('form[name="frmedit"]').submit(function() {
-            var tipo_v = $('#tipo').val();
-            var tipo_s = $('#tipos option').filter(function() { return this.value === tipo_v; }).attr('value');
-            var aeronave_v = $('#aeronave').val();
-            var aeronave_s = $('#aeronaves option').filter(function() { return this.value === aeronave_v; }).attr('value');
-            var piloto_v = $('#piloto').val();
-            var piloto_s = $('#pilotos option').filter(function() { return this.value === piloto_v; }).attr('value');
-            var terrestre_v = $('#terrestre').val();
-            var terrestre_s = $('#terrestres option').filter(function() { return this.value === terrestre_v; }).attr('value');
-            var chofer_v = $('#chofer').val();
-            var chofer_s = $('#choferes option').filter(function() { return this.value === chofer_v; }).attr('value');
-            var cliente_v = $('#cliente').val();
-            var cliente_s = $('#clientes option').filter(function() { return this.value === cliente_v; }).attr('value');
-            var pista_v = $('#pista').val();
-            var pista_s = $('#pistas option').filter(function() { return this.value === pista_v; }).attr('value');
-            if(!tipo_s){
-                alert('Seleccione una de las opciones existentes para el tipo');
-                return false;
-            } else if(!aeronave_s){
-                alert('Seleccione una de las opciones existentes para la aeronave');
-                return false;
-            } else if(!piloto_s){
-                alert('Seleccione una de las opciones existentes para el piloto');
-                return false;
-            } else if(!terrestre_s){
-                alert('Seleccione una de las opciones existentes para el terrestre');
-                return false;
-            } else if(!chofer_s){
-                alert('Seleccione una de las opciones existentes para el chofer');
-                return false;
-            } else if(!cliente_s){
-                alert('Seleccione una de las opciones existentes para el cliente');
-                return false;
-            } else if(!pista_s){
-                alert('Seleccione una de las opciones existentes para la pista');
-                return false;    
-            } else {
-                return true;
-            }
+        $('#aeronave').magicSuggest({
+            placeholder: 'Seleccione Aeronave',
+            value: ['<?php echo \App\Session::get("pass")[19]; ?>'],
+            maxSelection: 1,
+            data: [
+                <?php foreach ($vehiculos as $vehiculo) { 
+                        if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() == "Aeronave"){ 
+                            if($vehiculo->checkUsu(\App\Session::get('app'))) { ?>
+                                '<?php echo $vehiculo->getMatricula(); ?>',
+                <?php       }else if(!$vehiculo->checkFin()){ ?> 
+                                '<?php echo $vehiculo->getMatricula(); ?>',
+                <?php   
+                            }
+                        }                
+                    } ?>
+            ]
+        });
+        $('#cliente').magicSuggest({
+            placeholder: 'Seleccione Usuario',
+            value: ['<?php echo \App\Session::get("pass")[16]; ?>'], 
+            maxSelection: 1,
+            data: [
+                <?php foreach ($usuarios as $usuario){
+                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Cliente") { ?>
+                     '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                <?php }                
+                    } ?>
+            ]
+        });
+        $('#tipo').magicSuggest({
+            placeholder: 'Seleccione un Tipo de Producto',
+            value: ['<?php echo \App\Session::get("pass")[9]; ?>'],            
+            maxSelection: 1,
+            data: [
+                <?php foreach($tipos as $tipo){
+                    if($tipo->getEstado() == "H"){ ?>
+                     '<?php echo $tipo->getNombre(); ?>',
+                <?php }                
+                    } ?>
+            ]
+        });
+        $('#chofer').magicSuggest({
+            placeholder: 'Seleccione Chofer',
+            value: ['<?php echo \App\Session::get("pass")[18]; ?>'], 
+            maxSelection: 1,
+            data: [
+                <?php foreach ($usuarios as $usuario){
+                        if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Chofer") { 
+                            if($usuario->checkTra(\App\Session::get('app'))){ ?> 
+                                '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                <?php       } else if(!$usuario->checkFin()) { ?>
+                                '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                <?php 
+                            }
+                        }                
+                    } ?>
+            ]
+        });
+        $('#terrestre').magicSuggest({
+            placeholder: 'Seleccione Terrestre',
+            value: ['<?php echo \App\Session::get("pass")[20]; ?>'],
+            maxSelection: 1,
+            data: [
+                <?php foreach ($vehiculos as $vehiculo) { 
+                        if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() != "Aeronave"){ 
+                            if($vehiculo->checkUsu(\App\Session::get('app'))) { ?>
+                                '<?php echo $vehiculo->getMatricula(); ?>',
+                <?php       } else if(!$vehiculo->checkFin()) { ?>
+                                '<?php echo $vehiculo->getMatricula(); ?>',
+                <?php       }                
+                        }                
+                    } ?>
+            ]
+        });
+        $('#piloto').magicSuggest({
+            placeholder: 'Seleccione Piloto',
+            value: ['<?php echo \App\Session::get("pass")[17]; ?>'], 
+            maxSelection: 1,
+            data: [
+                <?php foreach ($usuarios as $usuario){
+                        if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Piloto") { 
+                            if($usuario->checkTra(\App\Session::get('app'))) { ?>
+                                '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                <?php       } else if(!$usuario->checkFin()) { ?>
+                                '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                <?php       }                
+                        }                
+                    } ?>
+            ]
+        });
+        $('#pista').magicSuggest({
+            placeholder: 'Seleccione Pista',
+            value: ['<?php echo \App\Session::get("pass")[2]; ?>'], 
+            maxSelection: 1,
+            data: [
+                <?php foreach ($pistas as $pista){
+                    if($pista->getEstado() == "H") { ?>
+                     '<?php echo $pista->getNombre(); ?>',
+                <?php }                
+                    } ?>
+            ]
         });
     });
 </script>

@@ -9,60 +9,38 @@
     <section id="unseen" style="padding-left: 5px; padding-right: 5px;">
         <p>
             <form name="frmsearch" method="post" action="index.php?c=aplicaciones&a=index"> 
+                <table style="width: 100%;">
+                    <tr>
+                        <td>
+                            <?php if(\App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>
+                                <input name="aeronave" id="aeronave" /> 
+                            <?php } ?>
+                        </td>
+                        <td>
+                            <?php if(\App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Piloto" and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>                    
+                                <input name="piloto" id="piloto" /> 
+                            <?php } ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?php if(\App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>        
+                                <input name="tipo" id="tipo" /> 
+                                
+                            <?php } ?>
+                        </td>
+                        <td>
+                            <?php if(\App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>    
+                                <input name="usuario" id="cliente" />                         
+                            <?php } ?>
+                        </td>
+                    </tr>
+                </table>
                 <p>
-                    <?php if(\App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>
-                        <input list="aeronaves" name="aeronave" placeholder="Seleccione Aeronave" class="form-control_index" /> 
-                        <datalist id="aeronaves">
-                            <?php 
-                                foreach ($vehiculos as $vehiculo) {
-                                    if($vehiculo->getEstado() == "H" and ($vehiculo->getTipo()->getNombre() == "Avion" or $vehiculo->getTipo()->getNombre() == "Aeronave")) {
-                                ?>
-                                        <option value="<?php echo $vehiculo->getId(); ?>"><?php echo $vehiculo->getMatricula(); ?></option>
-                            <?php   } 
-                                }
-                            ?>
-                        </datalist>&nbsp;
-                    <?php } ?>
-                    <?php if(\App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Piloto" and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>                    
-                            <input list="pilotos" name="piloto" placeholder="Seleccione Piloto" class="form-control_index" /> 
-                            <datalist id="pilotos">
-                                <?php 
-                                foreach ($usuarios as $usuario) {
-                                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Piloto") {
-                            ?>
-                                        <option value="<?php echo $usuario->getId(); ?>"><?php echo $usuario->getDatoUsu()->getNombre(); ?></option>
-                            <?php   } 
-                                }
-                            ?>
-                            </datalist>&nbsp;
-                    <?php } ?>
-                    <?php if(\App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>        
-                        <input list="tipos" name="tipo" placeholder="Seleccione Tipo" class="form-control_index" /> 
-                        <datalist id="tipos">
-                            <?php 
-                                foreach ($tipos as $tipo) {
-                                    if($tipo->getEstado() == "H") {
-                            ?>
-                                        <option value="<?php echo $tipo->getId(); ?>"><?php echo $tipo->getNombre(); ?></option>
-                            <?php                         
-                                    }
-                                }
-                            ?>
-                        </datalist>&nbsp;
-                    <?php } ?>
-                    <?php if(\App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>    
-                        <input list="clientes" name="usuario" placeholder="Seleccione Usuario" class="form-control_index" /> 
-                        <datalist id="clientes">
-                            <?php 
-                                foreach ($usuarios as $usuario) {
-                                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Cliente") {
-                            ?>
-                                        <option value="<?php echo $usuario->getId(); ?>"><?php echo $usuario->getDatoUsu()->getNombre(); ?></option>
-                            <?php   } 
-                                }
-                            ?>
-                        </datalist>
-                    <?php } ?>
+                    
+                    
+                    
+                    
                 </p>
                 <p>
                     <b>Período Inicial:&nbsp;</b><input type="text" name="fec1" id="fecini" />&nbsp;
@@ -179,7 +157,53 @@
 </div>
 <script>
     $(function(){
-       $('#fecini').combodate({
+        $('#aeronave').magicSuggest({
+            style: 'width: 99%; margin-bottom: 5px; margin-top: 5px;',
+            placeholder: 'Seleccione Aeronave',            
+            maxSelection: 1,
+            data: [
+                <?php foreach ($vehiculos as $vehiculo) { 
+                    if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() == "Aeronave"){ ?>
+                     '<?php echo $vehiculo->getMatricula(); ?>',
+                <?php }                
+                    } ?>
+            ]
+        });
+        $('#piloto').magicSuggest({
+            placeholder: 'Seleccione Piloto', 
+            maxSelection: 1,
+            data: [
+                <?php foreach ($usuarios as $usuario){
+                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Piloto") { ?>
+                     '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                <?php }                
+                    } ?>
+            ]
+        });
+        $('#tipo').magicSuggest({
+            style: 'width: 99%;',
+            placeholder: 'Seleccione un Tipo de Producto',
+            maxSelection: 1,
+            data: [
+                <?php foreach($tipos as $tipo){
+                    if($tipo->getEstado() == "H"){ ?>
+                     '<?php echo $tipo->getNombre(); ?>',
+                <?php }                
+                    } ?>
+            ]
+        });
+        $('#cliente').magicSuggest({
+            placeholder: 'Seleccione Usuario',
+            maxSelection: 1,
+            data: [
+                <?php foreach ($usuarios as $usuario){
+                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Cliente") { ?>
+                     '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                <?php }                
+                    } ?>
+            ]
+        });
+        $('#fecini').combodate({
             value: '',
             format: 'YYYY-MM-DD',
             template: 'YYYY-MM-DD'

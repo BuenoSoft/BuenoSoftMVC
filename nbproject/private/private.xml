@@ -17,6 +17,7 @@
             <file>file:/var/www/html/BuenoSoftMVC/View/Aplicaciones/edit.php</file>
             <file>file:/var/www/html/BuenoSoftMVC/View/Aplicaciones/add.php</file>
             <file>file:/var/www/html/BuenoSoftMVC/View/Notificaciones/edit.php</file>
+            <file>file:/var/www/html/BuenoSoftMVC/Controller/AplicacionesController.php</file>
         </group>
     </open-files>
 </project-private>

@@ -25,8 +25,6 @@ class NotificacionesController extends AppController
     }
     public function add(){
         if($this->checkUser()){
-            Session::set('veh', isset($_POST['veh'][0]) ? $_POST['veh'][0] : Session::get('veh'));
-            $vehiculos = (Session::get('veh')!= "") ? $this->getPaginator()->paginar((new Vehiculo())->find(Session::get('veh')),1) : array();
             if (isset($_POST['btnaceptar'])) {
                 $not = $this->createEntity();
                 if($not->getVehiculo() != null){
@@ -43,15 +41,13 @@ class NotificacionesController extends AppController
                 }                
             }
             $this->redirect_administrador(["add.php"],[
-                "vehiculos" => $vehiculos
+                "vehiculos" => (new Vehiculo())->find()
             ]);
         }
     }
     public function edit(){
         if($this->checkUser()){
             Session::set("not",$_GET['d']);
-            Session::set('veh', isset($_POST['veh'][0]) ? $_POST['veh'][0] : Session::get('veh'));
-            $vehiculos = (Session::get('veh')!= "") ? $this->getPaginator()->paginar((new Vehiculo())->find(Session::get('veh')),1) : array();
             if (Session::get('not')!=null && isset($_POST['btnaceptar'])){
                 $not = $this->createEntity();
                 if($not->getVehiculo() != null){
@@ -69,7 +65,7 @@ class NotificacionesController extends AppController
             }
             $this->redirect_administrador(["edit.php"],[
                 "notificacion" => (new Notificacion())->findById(Session::get("not")),
-                "vehiculos" => $vehiculos
+                "vehiculos" => (new Vehiculo())->find()
             ]);
         }
     }

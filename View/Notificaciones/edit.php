@@ -31,7 +31,6 @@
                     <label class="col-sm-2 col-sm-2 control-label">Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input name="veh" id="v" class="form-control_datalist" required="required" tabindex="3" />
-                        <input type="button" onclick="frmedit.submit();" tabindex="5" value="Buscar" class="btn btn-theme01" />
                     </div>
                 </div>
             </div>

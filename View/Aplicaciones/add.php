@@ -113,7 +113,6 @@
                     <label class="col-sm-2 col-sm-2 control-label">Pista&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input id="pista" required="required" name="pista" tabindex="16" />
-                        <input type="button" onclick="frmadd.submit();" tabindex="17" value="Buscar" class="btn btn-theme01" />
                     </div>
                 </div>
             </div>
@@ -178,7 +177,7 @@
         });
         $('#aeronave').magicSuggest({
             placeholder: 'Seleccione Aeronave',
-            value: [<?php echo \App\Session::get("pass")[19]; ?>],
+            value: ['<?php echo \App\Session::get("pass")[19]; ?>'],
             maxSelection: 1,
             data: [
                 <?php foreach ($vehiculos as $vehiculo) { 
@@ -224,9 +223,9 @@
                     } ?>
             ]
         });
-        $('#aeronave').magicSuggest({
+        $('#terrestre').magicSuggest({
             placeholder: 'Seleccione Terrestre',
-            value: [<?php echo \App\Session::get("pass")[20]; ?>],
+            value: ['<?php echo \App\Session::get("pass")[20]; ?>'],
             maxSelection: 1,
             data: [
                 <?php foreach ($vehiculos as $vehiculo) { 

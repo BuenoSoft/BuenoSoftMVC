@@ -7,12 +7,12 @@ class PdfController extends AppController
     public function todos(){
         if($this->checkUser()){
             $aplicaciones = (new Aplicacion())->findAdvance([
-                "aeronave" => isset($_POST["aeronave"]) ? $_POST["aeronave"] : null,
-                "piloto" => isset($_POST["piloto"]) ? $_POST["piloto"] : null,
-                "tipo" => isset($_POST["tipo"]) ? $_POST["tipo"] : null,
-                "cliente" => isset($_POST["cliente"]) ? $_POST["cliente"] : null,
-                "fec1" => isset($_POST["fec1"]) ? $_POST["fec1"] : null,
-                "fec2" => isset($_POST["fec2"]) ? $_POST["fec2"] : null
+                "aeronave" => isset($_POST["aeronave"][0]) ? $_POST["aeronave"][0] : null,
+                "piloto" => isset($_POST["piloto"][0]) ? $_POST["piloto"][0] : null,
+                "tipo" => isset($_POST["tipo"][0]) ? $_POST["tipo"][0] : null,
+                "cliente" => isset($_POST["cliente"][0]) ? $_POST["cliente"][0] : null,
+                "fec1" => isset($_POST["fec1"][0]) ? $_POST["fec1"] : null,
+                "fec2" => isset($_POST["fec2"][0]) ? $_POST["fec2"] : null
             ]);
             $this->getPdf()->AddPage();
             $this->getPdf()->SetFont('Arial','B',16);
