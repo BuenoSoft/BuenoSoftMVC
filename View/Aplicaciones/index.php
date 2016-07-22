@@ -30,7 +30,7 @@
                         </td>
                         <td style="width: 50%;">
                             <?php if(\App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>    
-                                <input name="usuario" id="cliente" />                         
+                                <input name="cliente" id="cliente" />                         
                             <?php } ?>
                         </td>
                     </tr>

@@ -20,7 +20,7 @@ class AplicacionesController extends AppController
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
             Session::set("app",0);
-            Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
+            Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);            
             $apl = $this->getPaginator()->paginar(
                 (new Aplicacion())->findAdvance([
                     "aeronave" => isset($_POST["aeronave"][0]) ? $_POST["aeronave"][0] : null,

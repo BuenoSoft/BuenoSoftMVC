@@ -61,12 +61,6 @@ class Usuario implements IPersiste
     public function del() {
         return (new UsuarioModel())->delete($this);
     }
-    public function checkTra($ap){
-        return (new UsuarioModel())->checkTra([$ap, $this->id]);
-    }
-    public function checkFin(){
-        return (new UsuarioModel())->checkAplFin($this);
-    }
     public function funcionarios(){
         return (new UsuarioModel())->funcionarios();
     }

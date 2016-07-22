@@ -183,13 +183,9 @@
             maxSelection: 1,
             data: [
                 <?php foreach ($vehiculos as $vehiculo) { 
-                        if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() == "Aeronave"){ 
-                            if($vehiculo->checkUsu(\App\Session::get('app'))) { ?>
-                                '<?php echo $vehiculo->getMatricula(); ?>',
-                <?php       }else if(!$vehiculo->checkFin()){ ?> 
-                                '<?php echo $vehiculo->getMatricula(); ?>',
-                <?php   
-                            }
+                        if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() == "Aeronave"){ ?>
+                            '<?php echo $vehiculo->getMatricula(); ?>',
+                <?php       
                         }                
                     } ?>
             ]
@@ -201,7 +197,7 @@
             data: [
                 <?php foreach ($usuarios as $usuario){
                     if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Cliente") { ?>
-                     '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                        '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
                 <?php }                
                     } ?>
             ]
@@ -213,7 +209,7 @@
             data: [
                 <?php foreach($tipos as $tipo){
                     if($tipo->getEstado() == "H"){ ?>
-                     '<?php echo $tipo->getNombre(); ?>',
+                        '<?php echo $tipo->getNombre(); ?>',
                 <?php }                
                     } ?>
             ]
@@ -224,13 +220,9 @@
             maxSelection: 1,
             data: [
                 <?php foreach ($usuarios as $usuario){
-                        if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Chofer") { 
-                            if($usuario->checkTra(\App\Session::get('app'))){ ?> 
-                                '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
-                <?php       } else if(!$usuario->checkFin()) { ?>
+                        if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Chofer") { ?> 
                                 '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
                 <?php 
-                            }
                         }                
                     } ?>
             ]
@@ -241,12 +233,9 @@
             maxSelection: 1,
             data: [
                 <?php foreach ($vehiculos as $vehiculo) { 
-                        if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() != "Aeronave"){ 
-                            if($vehiculo->checkUsu(\App\Session::get('app'))) { ?>
+                        if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() != "Aeronave"){ ?>
                                 '<?php echo $vehiculo->getMatricula(); ?>',
-                <?php       } else if(!$vehiculo->checkFin()) { ?>
-                                '<?php echo $vehiculo->getMatricula(); ?>',
-                <?php       }                
+                <?php
                         }                
                     } ?>
             ]
@@ -257,12 +246,9 @@
             maxSelection: 1,
             data: [
                 <?php foreach ($usuarios as $usuario){
-                        if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Piloto") { 
-                            if($usuario->checkTra(\App\Session::get('app'))) { ?>
+                        if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Piloto") { ?>
                                 '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
-                <?php       } else if(!$usuario->checkFin()) { ?>
-                                '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
-                <?php       }                
+                <?php                       
                         }                
                     } ?>
             ]

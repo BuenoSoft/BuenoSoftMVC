@@ -14,27 +14,6 @@ class VehiculoModel extends AppModel
         return $this->findByCondition($this->getFindXQuery(), [$mat]);
     }
     /*------------------------------------------------------------------------------------*/
-    public function checkUsu($dates = []) {
-        return $this->execute($this->getCheckUsuQuery(),$this->getCheckUsuParameter($dates));
-    }
-    private function getCheckUsuQuery() {
-        return "select * from utiliza where aplId = ? and vehId = ?";
-    }
-    public function getCheckUsuParameter($dates = []) {
-        return [$dates[0],$dates[1]];
-    }
-    /*------------------------------------------------------------------------------------*/
-    public function checkAplFin($object) {
-        return $this->execute($this->getCheckFinQuery(),$this->getCheckFinParameter($object));
-    }
-    protected function getCheckFinQuery() {
-        return "select * from utiliza u inner join aplicaciones a on u.aplId = a.aplId "
-        . "where u.vehId = ? and (a.aplFechaFin = '0000-00-00 00:00:00' or a.aplFechaFin is NULL)";
-    }
-    protected function getCheckFinParameter($object) {
-        return [$object->getId()];
-    }
-    /*------------------------------------------------------------------------------------*/
     protected function getCheckMessage() {
         return "El Vehículo ya existe";
     }

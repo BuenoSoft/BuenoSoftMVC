@@ -48,16 +48,16 @@ class AplicacionModel extends AppModel
     protected function getFindParameterAdvance($datos = []) {
         $rows = array();
         if($datos["aeronave"] != null){
-            array_push($rows, $datos["aeronave"]);
+            array_push($rows, (new VehiculoModel())->findByMat($datos["aeronave"])->getId());
         }                
         if($datos["piloto"] != null){
-            array_push($rows, $datos["piloto"]);
+            array_push($rows, (new UsuarioModel())->findByNombre($datos["piloto"])->getId());
         }
         if($datos["tipo"] != null){
-            array_push($rows, $datos["tipo"]);
+            array_push($rows, (new TipoProductoModel())->findByX($datos["tipo"])->getId());
         }
         if($datos["cliente"] != null){
-            array_push($rows, $datos["cliente"]);
+            array_push($rows, (new UsuarioModel())->findByNombre($datos["cliente"])->getId());
         }
         if($datos["fec1"] != null and $datos["fec2"] != null){
             array_push($rows, $datos["fec1"]);

@@ -181,7 +181,7 @@
             maxSelection: 1,
             data: [
                 <?php foreach ($vehiculos as $vehiculo) { 
-                    if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() == "Aeronave" and !$vehiculo->checkFin()){ ?>
+                    if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() == "Aeronave"){ ?>
                      '<?php echo $vehiculo->getMatricula(); ?>',
                 <?php }                
                     } ?>
@@ -194,7 +194,7 @@
             data: [
                 <?php foreach ($usuarios as $usuario){
                     if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Cliente") { ?>
-                     '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                        '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
                 <?php }                
                     } ?>
             ]
@@ -217,7 +217,7 @@
             maxSelection: 1,
             data: [
                 <?php foreach ($usuarios as $usuario){
-                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Chofer" and !$usuario->checkFin()) { ?>
+                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Chofer") { ?>
                      '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
                 <?php }                
                     } ?>
@@ -229,7 +229,7 @@
             maxSelection: 1,
             data: [
                 <?php foreach ($vehiculos as $vehiculo) { 
-                    if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() != "Aeronave" and !$vehiculo->checkFin()){ ?>
+                    if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() != "Aeronave"){ ?>
                      '<?php echo $vehiculo->getMatricula(); ?>',
                 <?php }                
                     } ?>
@@ -241,7 +241,7 @@
             maxSelection: 1,
             data: [
                 <?php foreach ($usuarios as $usuario){
-                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Piloto" and !$usuario->checkFin()) { ?>
+                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Piloto") { ?>
                      '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
                 <?php }                
                     } ?>

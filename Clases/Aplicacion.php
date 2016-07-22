@@ -167,9 +167,6 @@ class Aplicacion implements IPersiste
     public function addUsu($veh,$usu) {
         return (new AplicacionModel())->addUsu([$this->id, $veh, $usu]);
     }
-    public function checkUsu($veh){
-        return (new AplicacionModel())->checkUsu([$this->id, $veh]);
-    }
     public function delUsu($veh,$usu) {
         return (new AplicacionModel())->delUsu([$this->id, $veh, $usu]);
     }
