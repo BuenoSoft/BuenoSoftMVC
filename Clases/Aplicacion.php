@@ -148,8 +148,11 @@ class Aplicacion implements IPersiste
     public function maxID(){
         return (new AplicacionModel())->maxId();
     }
+    public function del() { 
+        return (new AplicacionModel())->delete($this);
+    }
     public function find($criterio = null) { }
-    public function del() { }
+    
     /*-----------------------------------------*/
     public function addPro($pro) {
         return (new AplicacionModel())->addPro([$this->id, $pro]);

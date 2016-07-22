@@ -38,6 +38,13 @@ class NotificacionModel extends AppModel
         return "update notificaciones set notLog = ?,notFechaIni = ?,notFechaFin = ?,notFechaAct = ?,vehId = ? where notId = ?";
     }
     /*------------------------------------------------------------------------------------*/
+    protected function getDeleteParameter($object) { 
+        return [$object->getId()];
+    }
+    protected function getDeleteQuery($notUsed = true) { 
+        return "delete from notificaciones where notId = ?";
+    }
+    /*------------------------------------------------------------------------------------*/    
     protected function getFindXIdQuery() {
         return "select * from notificaciones where notId = ?";
     }
@@ -57,7 +64,5 @@ class NotificacionModel extends AppModel
     }
     public function getNotificaciones(){
        return $this->fetch($this->getShowQuery(), []);
-    }
-    protected function getDeleteParameter($object) { }
-    protected function getDeleteQuery($notUsed = true) { }
+    }    
 }

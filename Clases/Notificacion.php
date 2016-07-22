@@ -71,5 +71,7 @@ class Notificacion implements IPersiste
     public function save() {
         return ($this->id == 0) ? (new NotificacionModel())->create($this) : (new NotificacionModel())->update($this); 
     }
-    public function del() { }
+    public function del() { 
+        return (new NotificacionModel())->delete($this);
+    }
 }

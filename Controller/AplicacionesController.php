@@ -210,6 +210,16 @@ class AplicacionesController extends AppController
         $apl->addUsu($terrestre->getId(),$chofer->getId());
     }
     /*-------------------------------------------------------------------------------*/
+    public function delete(){
+        if($this->checkUser()){
+            if (isset($_GET['d'])){
+                $apl = (new Aplicacion())->findById($_GET['d']);
+                $id = $apl->del();                
+                Session::set("msg", (isset($id)) ? Session::msgSuccess("Aplicación Borrada") : Session::msgDanger("No se pudo borrar la aplicación"));
+                header("Location:index.php?c=aplicaciones&a=index");
+            }            
+        }
+    }
     public function view(){
         if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
             $bc = new Breadcrumbs();

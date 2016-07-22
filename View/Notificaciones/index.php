@@ -43,6 +43,10 @@
                                 <a href="index.php?c=notificaciones&a=edit&d=<?php echo $notificacion->getId(); ?>" title="Editar">
                                     <i class="fa fa-edit" style="font-size: 22px;"></i>
                                 </a>
+                                &nbsp;
+                                <a href="index.php?c=notificaciones&a=delete&d=<?php echo $notificacion->getId(); ?>" title="Borrar" onclick="return confirm('¿Desea borrar la notificación seleccionada?');">
+                                    <i class="fa fa-times-circle" style="font-size: 22px;"></i>
+                                </a>
                             <?php } ?>
                         </td> 
                          

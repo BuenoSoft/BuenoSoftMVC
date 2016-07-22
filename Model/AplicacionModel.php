@@ -42,6 +42,7 @@ class AplicacionModel extends AppModel
             $object->getId()
         ];
     }
+    /*------------------------------------------------------------------------------------*/
     public function findAdvance($datos = []){                
         return $this->fetch($this->getFindQueryAdvance($datos), $this->getFindParameterAdvance($datos));
     }
@@ -109,9 +110,18 @@ class AplicacionModel extends AppModel
         }
         return $sql;
     }
+    /*------------------------------------------------------------------------------------*/
     protected function getFindXIdQuery() {
         return "select *,usuId as cliente from aplicaciones where aplId = ?";
-    }    
+    }
+    /*------------------------------------------------------------------------------------*/
+    protected function getDeleteParameter($object) { 
+        return [$object->getId()];
+    }
+    protected function getDeleteQuery($notUsed = true) { 
+        return "delete from aplicaciones where aplId = ?";
+    }
+    /*------------------------------------------------------------------------------------*/
     public function createEntity($row) {
         $aplicacion = new Aplicacion();
         $aplicacion->setId($row["aplId"]);
@@ -159,9 +169,7 @@ class AplicacionModel extends AppModel
     /*-------------------------------------------------------------------------------*/
     protected function getCheckMessage() { }
     protected function getCheckParameter($unique) { }
-    protected function getCheckQuery() { }
-    protected function getDeleteParameter($object) { }
-    protected function getDeleteQuery($notUsed = true) { }
+    protected function getCheckQuery() { }  
     protected function getFindQuery($criterio = null) { }
     protected function getFindParameter($criterio = null) { }
 }

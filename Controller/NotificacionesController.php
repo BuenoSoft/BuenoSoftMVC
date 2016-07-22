@@ -84,6 +84,16 @@ class NotificacionesController extends AppController
             ]);
         }
     }
+    public function delete(){
+        if($this->checkUser()){
+            if (isset($_GET['d'])){
+                $not = (new Notificacion())->findById($_GET['d']);
+                $id = $not->del();                
+                Session::set("msg", (isset($id)) ? Session::msgSuccess("Notificación Borrada") : Session::msgDanger("No se pudo borrar la notificación"));
+                header("Location:index.php?c=notificaciones&a=index");
+            }            
+        }
+    }
     public function view(){
         if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
             $bc = new Breadcrumbs();
