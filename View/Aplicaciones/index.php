@@ -9,27 +9,26 @@
     <section id="unseen" style="padding-left: 5px; padding-right: 5px;">
         <p>
             <form name="frmsearch" method="post" action="index.php?c=aplicaciones&a=index"> 
-                <table style="width: 100%;">
+                <table style="width: 99%;">
                     <tr>
-                        <td>
+                        <td style="width: 50%;">
                             <?php if(\App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>
                                 <input name="aeronave" id="aeronave" /> 
                             <?php } ?>
                         </td>
-                        <td>
+                        <td style="width: 50%;"> 
                             <?php if(\App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Piloto" and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>                    
                                 <input name="piloto" id="piloto" /> 
                             <?php } ?>
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td style="width: 50%;">
                             <?php if(\App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>        
-                                <input name="tipo" id="tipo" /> 
-                                
+                                <input name="tipo" id="tipo" />                                 
                             <?php } ?>
                         </td>
-                        <td>
+                        <td style="width: 50%;">
                             <?php if(\App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>    
                                 <input name="usuario" id="cliente" />                         
                             <?php } ?>
@@ -153,7 +152,7 @@
 <script>
     $(function(){
         $('#aeronave').magicSuggest({
-            style: 'width: 99%; margin-bottom: 5px; margin-top: 5px;',
+            style: 'margin-bottom: 5px; margin-top: 5px; margin-left:5px',
             placeholder: 'Seleccione Aeronave',            
             maxSelection: 1,
             data: [
@@ -165,6 +164,7 @@
             ]
         });
         $('#piloto').magicSuggest({
+            style: 'margin-left:10px',
             placeholder: 'Seleccione Piloto', 
             maxSelection: 1,
             data: [
@@ -176,7 +176,7 @@
             ]
         });
         $('#tipo').magicSuggest({
-            style: 'width: 99%;',
+            style: 'margin-left:5px',
             placeholder: 'Seleccione un Tipo de Producto',
             maxSelection: 1,
             data: [
@@ -188,6 +188,7 @@
             ]
         });
         $('#cliente').magicSuggest({
+            style: 'margin-left:10px',
             placeholder: 'Seleccione Usuario',
             maxSelection: 1,
             data: [
