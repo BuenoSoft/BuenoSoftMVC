@@ -25,7 +25,4 @@ abstract class AppController extends Controller
             echo $ex->getMessage();
         }
     }
-    private function breadcrumbs($migas){
-        return $migas;
-    }
 }

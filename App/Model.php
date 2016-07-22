@@ -14,7 +14,7 @@ abstract class Model implements IModel
     protected function execute($query, $parameter = []){
         $consulta = $this->getBD()->prepare($query);
         $consulta->execute($parameter);  
-        return ($consulta->rowCount() > 0) ? "Ok"  : null;
+        return ($consulta->rowCount() > 0) ? true  : false;
     }
     protected function findByCondition($query, $parameter = []) {
         $consulta = $this->getBD()->prepare($query);
@@ -50,9 +50,15 @@ abstract class Model implements IModel
     public function create($object) {
         if($this->check($object)){
             Session::set('msg', Session::msgDanger($this->getCheckMessage()));
-            return null;
+            return false;
         }
-        return $this->execute($this->getCreateQuery(), $this->getCreateParameter($object));
+        $ok = $this->execute($this->getCreateQuery(), $this->getCreateParameter($object));
+        if($ok){
+            return true;
+        } else {
+            Session::set('msg', Session::msgDanger("Error al guardar"));
+            return false;
+        }
     }
     /*------------------------------------------------------------------------*/    
     public function update($object) {
@@ -63,7 +69,13 @@ abstract class Model implements IModel
                 return null;
             }        
         }
-        return $this->execute($this->getUpdateQuery(), $this->getUpdateParameter($object)); 
+        $ok = $this->execute($this->getUpdateQuery(), $this->getUpdateParameter($object)); 
+        if($ok){
+            return true;
+        } else {
+            Session::set('msg', Session::msgDanger("Error al editar"));
+            return false;
+        }
     }
     /*------------------------------------------------------------------------*/
     public function delete($object, $notUsed = true) {
