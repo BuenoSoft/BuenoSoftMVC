@@ -189,7 +189,7 @@
         });
         $('#cliente').magicSuggest({
             style: 'margin-left:10px',
-            placeholder: 'Seleccione Usuario',
+            placeholder: 'Seleccione Cliente',
             maxSelection: 1,
             data: [
                 <?php foreach ($usuarios as $usuario){

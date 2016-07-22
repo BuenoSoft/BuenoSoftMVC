@@ -45,8 +45,16 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tipo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input id="tipo" required="required" name="tipo" tabindex="9" />
-                        <input type="button" onclick="frmedit.submit();" tabindex="10" value="Buscar" class="btn btn-theme01" />
+                        <table style="width: 100%;">
+                            <tr>
+                                <td style="width: 82%;">
+                                    <input id="tipo" name="tipo" required="required" tabindex="9" />
+                                </td>
+                                <td style="width: 18%;">
+                                    <input type="button" onclick="frmadd.submit();" tabindex="10" value="Buscar" class="btn btn-theme01" style="margin-left: 5px;" />
+                                </td>
+                            </tr>
+                        </table> 
                     </div>
                 </div>
                 <div class="form-group">
