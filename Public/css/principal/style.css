@@ -1,4 +1,4 @@
-body {	color:#333;	font:300 15px/15px Roboto,Arial,Helvetica;background:url(../../img/principal/bg.jpg) right no-repeat fixed #fff; -webkit-font-smoothing:antialiased;}
+body {	color:#333;	font:300 15px/15px Roboto,Arial,Helvetica;background: #fff; -webkit-font-smoothing:antialiased;}
 
 a{color:#00a9c6; text-decoration:none;}
 a:hover{color:#666;}
@@ -26,14 +26,14 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 .btn:hover,.btn:active{color: #fff;}
 .btn-default{color: #ccc;border: 1px solid #aaa;}
 .btn-default:hover,.btn-default:active{background: rgba(0,0,0,0.8);}
-.btn-primary{color: #fff;background:#e89f10;width: 100%;outline: none;}
-.btn-primary:hover,.btn-primary:active,.btn-primary:focus{background:#f3c024;box-shadow: none;}
+.btn-primary{color: #fff;background:#FF5200;width: 100%;outline: none;}
+.btn-primary:hover,.btn-primary:active,.btn-primary:focus{background:#FFDD05;box-shadow: none;}
 
 .topbar {background:url(../../img/principal/lines.png);	height:5px;position: fixed;top: 0;width: 100%;z-index: 1000;}
 .navbar-nav > li > a{font-size: 1em;line-height: 3.6em;}
 .navbar-fixed-top{top: 5px;}
-.navbar-inverse{background: #111;}
-.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus{background: none;color: #E89F10;}
+.navbar-inverse{background: rgba(0,0,0,0.75);}
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus{background: none;color: #FF5200;}
 
 #head,.carousel{margin-top: 0;}
 
@@ -88,7 +88,7 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 	body{font:300 13px/13px Roboto,Arial,Helvetica;}
 	.navbar-brand{padding-top: 11px;}
 	.services ul li{margin:0 0.5em; }
-	
+
 	.grid figure h2{font: 700 1.5em Roboto,Arial,Helvetica;}
 	figure.effect-oscar figcaption{padding: 12%;}
 	figure.effect-oscar figcaption::before,figure.effect-chico figcaption::before{top: 20px;right: 20px;bottom: 20px;left: 20px;}
@@ -102,16 +102,16 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 	.btn{padding: 1em 2em;}
 	.partners img{margin: 0 15px 25px 0;width: 157px;}
 	.services ul li{width: 9em;height: 9em;}
-	figure.effect-chico figcaption {padding: 2em;}	
+	figure.effect-chico figcaption {padding: 2em;}
 	figure.effect-oscar figcaption {padding: 20%;}
 	figure.effect-chico figcaption::before{top: 10px;right: 10px;bottom: 10px;left: 10px;}
-	.grid figure.effect-chico p{font-size: 0.6em;line-height: 1.5em;}	
+	.grid figure.effect-chico p{font-size: 0.6em;line-height: 1.5em;}
 }
 
 
 @media (max-width: 767px) {
 	body{font:300 12px/12px Roboto,Arial,Helvetica;}
-	.navbar-nav > li > a {line-height: 1em;}	
+	.navbar-nav > li > a {line-height: 1em;}
 	.navbar-brand{padding: 7px;}
 	.navbar-brand img{height: 37px;}
 	.navbar-toggle{margin-top: 12px;}
@@ -120,7 +120,7 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 
 	h2.text-center{text-align: left;font-size: 1.7em;}
 	h4 {font: 300 1.2em Roboto,Arial,Helvetica;}
-	#partners h2{padding: 0 1em;} 
+	#partners h2{padding: 0 1em;}
 	#home {padding-top: 5em;}
 
 	.partners{display: block;float: left;}
@@ -138,3 +138,7 @@ p{font-size:1em;line-height: 1.7em; margin-bottom: 1.7em;}
 	figure.effect-chico figcaption {padding: 1.5em;}
 	.footer{margin-top: 2em;padding-bottom: 2em;}
 }
+
+.highlight-info{ background:url(../../img/principal/lab.jpg) center fixed; background-size: cover; color:#fff;}
+.highlight-info .overlay{background: rgba(18,157,222,0.5);}
+.highlight-info h4{color: #fff;margin:0.5em 0 0 0;}

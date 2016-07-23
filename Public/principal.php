@@ -20,9 +20,9 @@
 <link rel="stylesheet" href="Public/css/principal/set.css" />
 
 <!-- favicon -->
-<link rel="shortcut icon" href="Public/img/principal/favicon.ico" type="Public/img/principal/x-icon">
-<link rel="icon" href="Public/img/principal/favicon.ico" type="Public/img/principal/x-icon">
-<!-- popup -->   
+<link rel="shortcut icon" href="Public/img/principal/favicon.png" type="Public/img/principal/x-icon">
+<link rel="icon" href="Public/img/principal/favicon.png" type="Public/img/principal/x-icon">
+<!-- popup -->
 <link rel="stylesheet" href="Public/css/principal/style.css">
 <link href="Public/css/principal/popup.css" rel="stylesheet" type='text/css'>
 <script src="Public/js/manejo/jquery-ui-1.9.2.custom.min.js"></script>
@@ -30,12 +30,12 @@
 <script type="text/javascript" src="Public/js/principal/popup.js"></script>
 <script>
 $(function() {
-    function abrir(){
+        function abrir(){
             $("#popup").show();
        }
         $("#hrefAbrirPopup").click(function(){
-            abrir();  
-        })   
+            abrir();
+        })
     });
 </script>
 </head>
@@ -68,37 +68,40 @@ $(function() {
             <!-- Nav Starts -->
             <div class="navbar-collapse  collapse">
               <ul class="nav navbar-nav navbar-right scroll">
-                 <li class="active"><a href="#home">Home</a></li>
-                 <li ><a href="#about">About</a></li>
-                 <li ><a href="#works">Works</a></li>
-                 <li ><a href="#partners">Partners</a></li>
-                 <li ><a href="#contact">Contact</a></li>
+                 <li class="active"><a href="#home">Inicio</a></li>
+                 <li ><a href="#about">Nosotros</a></li>
+                 <li ><a href="#works">Trabajos</a></li>
+                 <li ><a href="#partners">De Interés</a></li>
+                 <li ><a href="#contact">Contacto</a></li>
+
+            <!-- PopUp -->
+
                  <?php if(\App\Session::isLoggedIn() == true){ ?>
                             <li>
-                                <a href="index.php?c=inicio&a=index">Acceso</a>                                            
+                                <a href="index.php?c=access&a=index">Acceso</a>
                             </li>
-                        <?php } else {?>
-                            <li>                                            
-                                <a href="#" id="hrefAbrirPopup" data-type="zoomin">Iniciar Sesion</a>
-                                
-                                <div id="popup" class="overlay-container">
-                                    <div class="popup-contenedor zoomin">
-                                        <?php if(\App\Session::get('msg') != null) {?>
-                                            <div id="resultado" class="alert alert-<?php echo \App\Session::get('msg')[0]; ?> fade in">
-                                                <i class="fa fa-<?php echo \App\Session::get('msg')[1]; ?>" style="font-size: 24px;"></i>&nbsp;
-                                                <?php echo \App\Session::get('msg')[2]; ?>
-                                            </div>
-                                        <?php } ?> 
-                                        <p class="popup-titulo">INICIAR SESION</p>
-                                        <form action="index.php?c=usuarios&a=login" class="frm-login" method="post" name="frmlogin">
-                                            <input name="txtuser" type="text" placeholder="Usuario" class="popup-textbox" autofocus="autofocus" required="required" />
-                                            <input name="txtpass" type="password" placeholder="Contraseña"  class="popup-textbox" required="required" />
-                                            <input name="btnaceptar" type="submit" value="Aceptar" class="popup-btn popup-hover-btn"/>
-                                        </form>                                        
+                            <?php } else {?>
+                                <li>
+                                    <a href="#" id="hrefAbrirPopup" data-type="zoomin">Iniciar Sesion</a>
+
+                                    <div id="popup" class="overlay-container">
+                                        <div class="popup-contenedor zoomin">
+                                            <?php if(\App\Session::get('msg') != null) {?>
+                                                <div id="resultado" class="alert alert-<?php echo \App\Session::get('msg')[0]; ?> fade in">
+                                                    <i class="fa fa-<?php echo \App\Session::get('msg')[1]; ?>" style="font-size: 24px;"></i>&nbsp;
+                                                    <?php echo \App\Session::get('msg')[2]; ?>
+                                                </div>
+                                            <?php } ?>
+                                            <p class="popup-titulo">Iniciar Sesi&oacuten</p>
+                                            <form action="index.php?c=usuarios&a=login" class="frm-login" method="post" name="frmlogin">
+                                                <input name="txtuser" type="text" placeholder="Usuario" class="popup-textbox" autofocus="autofocus" required="required" />
+                                                <input name="txtpass" type="password" placeholder="Contraseña"  class="popup-textbox" required="required" />
+                                                <input name="btnaceptar" type="submit" value="Aceptar" class="popup-btn popup-hover-btn"/>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                        <?php } ?>
+                                </li>
+                            <?php } ?>
               </ul>
             </div>
             <!-- #Nav Ends -->
@@ -108,10 +111,11 @@ $(function() {
 
       </div>
     </div>
+    </div>
 <!-- #Header Starts -->
 <div id="home">
 <!-- Slider Starts -->
-<div id="myCarousel" class="carousel slide banner-slider animated bounceInDown" data-ride="carousel">     
+<div id="myCarousel" class="carousel slide banner-slider animated bounceInDown" data-ride="carousel">
       <div class="carousel-inner">
         <!-- Item 1 -->
         <div class="item active">
@@ -130,12 +134,6 @@ $(function() {
           <img src="Public/img/principal/back3.jpg" alt="banner">
         </div>
         <!-- #Item 1 -->
-
-        <!-- Item 1 -->
-        <div class="item">
-          <img src="Public/img/principal/back4.jpg" alt="banner">
-        </div>
-        <!-- #Item 1 -->
       </div>
       <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon-chevron-left"><i class="fa fa-angle-left"></i></span></a>
       <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon-chevron-right"><i class="fa fa-angle-right"></i></span></a>
@@ -144,21 +142,22 @@ $(function() {
 </div>
 <!-- Cirlce Starts -->
 <div id="about"  class="container spacer about">
-<h2 class="text-center wowload fadeInUp">Creative photographers of London</h2>  
+<h2 class="text-center wowload fadeInUp">Creative photographers of London</h2>
   <div class="row">
   <div class="col-sm-6 wowload fadeInLeft">
     <h4><i class="fa fa-camera-retro"></i> Introduction </h4>
     <p>Creative digital agency for sleek and sophisticated solutions for mobile, websites and software designs, lead by passionate and uber progressive team that lives and breathes design. Creative digital agency for sleek and sophisticated solutions for mobile, websites and software designs.</p>
-    
+
 
   </div>
   <div class="col-sm-6 wowload fadeInRight">
   <h4><i class="fa fa-coffee"></i> Passion</h4>
-  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>    
+  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+  
   </div>
   </div>
 
-  <div class="services">
+    <div class="services">
   <h3 class="text-center wowload fadeInUp">Services</h3>
 	<ul class="row text-center list-inline  wowload bounceInUp">
    		<li>
@@ -172,7 +171,7 @@ $(function() {
         </li>
         <li>
             <span><i class="fa fa-umbrella"></i><b>Travel</b></span>
-        </li>        
+        </li>
         <li>
             <span><i class="fa fa-heart-o"></i><b>Wedding</b></span>
         </li>
@@ -183,108 +182,6 @@ $(function() {
 
 
 <!-- works -->
-<div id="works"  class=" clearfix grid"> 
-    <figure class="effect-oscar  wowload fadeInUp">
-        <img src="Public/img/principal/portfolio/1.jpg" alt="img01"/>
-        <figcaption>
-            <h2>Nature</h2>
-            <p>Lily likes to play with crayons and pencils<br>
-            <a href="Public/img/principal/portfolio/1.jpg" title="1" data-gallery>View more</a></p>            
-        </figcaption>
-    </figure>
-     <figure class="effect-oscar  wowload fadeInUp">
-        <img src="Public/img/principal/portfolio/2.jpg" alt="img01"/>
-        <figcaption>
-            <h2>Events</h2>
-            <p>Lily likes to play with crayons and pencils<br>
-            <a href="Public/img/principal/portfolio/2.jpg" title="1" data-gallery>View more</a></p>            
-        </figcaption>
-    </figure>
-     <figure class="effect-oscar  wowload fadeInUp">
-        <img src="Public/img/principal/portfolio/3.jpg" alt="img01"/>
-        <figcaption>
-            <h2>music</h2>
-            <p>Lily likes to play with crayons and pencils<br>
-            <a href="Public/img/principal/portfolio/3.jpg" title="1" data-gallery>View more</a></p>            
-        </figcaption>
-    </figure>
-     <figure class="effect-oscar  wowload fadeInUp">
-        <img src="Public/img/principal/portfolio/4.jpg" alt="img01"/>
-        <figcaption>
-            <h2>Vintage</h2>
-            <p>Lily likes to play with crayons and pencils<br>
-            <a href="Public/img/principal/portfolio/4.jpg" title="1" data-gallery>View more</a></p>            
-        </figcaption>
-    </figure>
-     <figure class="effect-oscar  wowload fadeInUp">
-        <img src="Public/img/principal/portfolio/5.jpg" alt="img01"/>
-        <figcaption>
-            <h2>Typers</h2>
-            <p>Lily likes to play with crayons and pencils<br>
-            <a href="Public/img/principal/portfolio/5.jpg" title="1" data-gallery>View more</a></p>            
-        </figcaption>
-    </figure>
-     
-     <figure class="effect-oscar  wowload fadeInUp">
-        <img src="Public/img/principal/portfolio/6.jpg" alt="img01"/>
-        <figcaption>
-            <h2>hotel</h2>
-            <p>Lily likes to play with crayons and pencils<br>
-            <a href="Public/img/principal/portfolio/6.jpg" title="1" data-gallery>View more</a></p>            
-        </figcaption>
-    </figure>
-    <figure class="effect-oscar  wowload fadeInUp">
-        <img src="Public/img/principal/portfolio/7.jpg" alt="img01"/>
-        <figcaption>
-            <h2>Chinese</h2>
-            <p>Lily likes to play with crayons and pencils<br>
-            <a href="Public/img/principal/portfolio/7.jpg" title="1" data-gallery>View more</a></p>            
-        </figcaption>
-    </figure>
-    <figure class="effect-oscar  wowload fadeInUp">
-        <img src="Public/img/principal/portfolio/8.jpg" alt="img01"/>
-        <figcaption>
-            <h2>Dicrap</h2>
-            <p>Lily likes to play with crayons and pencils<br>
-            <a href="Public/img/principal/portfolio/8.jpg" title="1" data-gallery>View more</a></p>            
-        </figcaption>
-    </figure>
-    <figure class="effect-oscar  wowload fadeInUp">
-        <img src="Public/img/principal/portfolio/9.jpg" alt="img01"/>
-        <figcaption>
-            <h2>Coffee</h2>
-            <p>Lily likes to play with crayons and pencils<br>
-            <a href="Public/img/principal/portfolio/9.jpg" title="1" data-gallery>View more</a></p>            
-        </figcaption>
-    </figure>
-    <figure class="effect-oscar  wowload fadeInUp">
-        <img src="Public/img/principal/portfolio/10.jpg" alt="img01"/>
-        <figcaption>
-            <h2>cameras</h2>
-            <p>Lily likes to play with crayons and pencils<br>
-            <a href="Public/img/principal/portfolio/10.jpg" title="1" data-gallery>View more</a></p>            
-        </figcaption>
-    </figure>
-    <figure class="effect-oscar  wowload fadeInUp">
-        <img src="Public/img/principal/portfolio/11.jpg" alt="img01"/>
-        <figcaption>
-            <h2>design</h2>
-            <p>Lily likes to play with crayons and pencils<br>
-            <a href="Public/img/principal/portfolio/11.jpg" title="1" data-gallery>View more</a></p>            
-        </figcaption>
-    </figure>
-    <figure class="effect-oscar  wowload fadeInUp">
-        <img src="Public/img/principal/portfolio/12.jpg" alt="img01"/>
-        <figcaption>
-            <h2>studio</h2>
-            <p>Lily likes to play with crayons and pencils<br>
-            <a href="Public/img/principal/portfolio/12.jpg" title="1" data-gallery>View more</a></p>            
-        </figcaption>
-    </figure>
-    
-
-     
-</div>
 <!-- works -->
 
 
@@ -301,11 +198,11 @@ $(function() {
 
 
     <div id="carousel-testimonials" class="carousel slide testimonails  wowload fadeInRight" data-ride="carousel">
-    <div class="carousel-inner">  
+    <div class="carousel-inner">
       <div class="item active animated bounceInRight row">
       <div class="animated slideInLeft col-xs-2"><img alt="portfolio" src="Public/img/principal/team/1.jpg" width="100" class="img-circle img-responsive"></div>
       <div  class="col-xs-10">
-      <p> I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. </p>      
+      <p> I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. </p>
       <span>Angel Smith - <b>eshop Canada</b></span>
       </div>
       </div>
@@ -341,48 +238,6 @@ $(function() {
 
 
 <!-- team -->
-<h3 class="text-center  wowload fadeInUp">Our team</h3>
-<p class="text-center  wowload fadeInLeft">Our creative team that is making everything possible</p>
-<div class="row grid team  wowload fadeInUpBig">	
-	<div class=" col-sm-3 col-xs-6">
-	<figure class="effect-chico">
-        <img src="Public/img/principal/team/8.jpg" alt="img01" class="img-responsive" />
-        <figcaption>
-            <p><b>Barbara Husto</b><br>Senior Designer<br><br><a href="#"><i class="fa fa-dribbble"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-twitter"></i></a></p>            
-        </figcaption>
-    </figure>
-    </div>
-
-    <div class=" col-sm-3 col-xs-6">
-	<figure class="effect-chico">
-        <img src="Public/img/principal/team/10.jpg" alt="img01"/>
-        <figcaption>            
-            <p><b>Barbara Husto</b><br>Senior Designer<br><br><a href="#"><i class="fa fa-dribbble"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-twitter"></i></a></p>            
-        </figcaption>
-    </figure>
-    </div>
-
-    <div class=" col-sm-3 col-xs-6">
-	<figure class="effect-chico">
-        <img src="Public/img/principal/team/12.jpg" alt="img01"/>
-        <figcaption>
-            <p><b>Barbara Husto</b><br>Senior Designer<br><br><a href="#"><i class="fa fa-dribbble"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-twitter"></i></a></p>          
-        </figcaption>
-    </figure>
-    </div>
-
-    <div class=" col-sm-3 col-xs-6">
-	<figure class="effect-chico">
-        <img src="Public/img/principal/team/17.jpg" alt="img01"/>
-        <figcaption>
-            <p><b>Barbara Husto</b><br>Senior Designer<br><br><a href="#"><i class="fa fa-dribbble"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-twitter"></i></a></p>
-        </figcaption>
-    </figure>
-    </div>
-
- 
-</div>
-<!-- team -->
 
 </div>
 <!-- About Starts -->
@@ -391,16 +246,16 @@ $(function() {
 <div class="container">
 <div class="row text-center  wowload fadeInDownBig">
 	<div class="col-sm-3 col-xs-6">
-	<i class="fa fa-smile-o  fa-5x"></i><h4>24 Clients</h4>
+	<i class="fa fa-smile-o  fa-5x"></i><h4>aplicaciones felices</h4>
 	</div>
 	<div class="col-sm-3 col-xs-6">
-	<i class="fa fa-rocket  fa-5x"></i><h4>75 Projects</h4>
+	<i class="fa fa-rocket  fa-5x"></i><h4>naves que vuelan alto</h4>
 	</div>
 	<div class="col-sm-3 col-xs-6">
-	<i class="fa fa-cloud-download  fa-5x"></i><h4>454 Downloads</h4>
+	<i class="fa fa-cloud-download  fa-5x"></i><h4>hacemos llover las nubes</h4>
 	</div>
 	<div class="col-sm-3 col-xs-6">
-	<i class="fa fa-map-marker fa-5x"></i><h4>2 Offices</h4>
+	<i class="fa fa-map-marker fa-5x"></i><h4>en cualquier lugar del mundo </h4>
 	</div>
 </div>
 </div>
@@ -410,13 +265,13 @@ $(function() {
 <div id="contact" class="spacer">
 <!--Contact Starts-->
 <div class="container contactform center">
-<h2 class="text-center  wowload fadeInUp">Get in touch to start your project</h2>
-  <div class="row wowload fadeInLeftBig">      
-      <div class="col-sm-6 col-sm-offset-3 col-xs-12">      
-        <input type="text" placeholder="Name">
-        <input type="text" placeholder="Company">
-        <textarea rows="5" placeholder="Message"></textarea>
-        <button class="btn btn-primary"><i class="fa fa-paper-plane"></i> Send</button>
+<h2 class="text-center  wowload fadeInUp">P&oacutengase en contaco con nosotros!</h2>
+  <div class="row wowload fadeInLeftBig">
+      <div class="col-sm-6 col-sm-offset-3 col-xs-12">
+        <input type="text" placeholder="Nombre">
+        <input type="text" placeholder="Correo">
+        <textarea rows="5" placeholder="Mensaje"></textarea>
+        <button class="btn btn-primary"><i class="fa fa-paper-plane"></i> Enviar</button>
       </div>
   </div>
 
@@ -429,7 +284,7 @@ $(function() {
 <!-- Footer Starts -->
 <div class="footer text-center spacer">
 <p class="wowload flipInX"><a href="#"><i class="fa fa-facebook fa-2x"></i></a> <a href="#"><i class="fa fa-instagram fa-2x"></i></a> <a href="#"><i class="fa fa-twitter fa-2x"></i></a> <a href="#"><i class="fa fa-flickr fa-2x"></i></a> </p>
-Copyright 2014 Cyrus Creative Studio. All rights reserved.
+Desarrollado por Tecnicatura en Redes y Software 2016. Salto, Uruguay.
 </div>
 <!-- # Footer Ends -->
 <a href="#home" class="gototop "><i class="fa fa-angle-up  fa-3x"></i></a>
@@ -446,3 +301,5 @@ Copyright 2014 Cyrus Creative Studio. All rights reserved.
 
 </body>
 </html>
+
+
