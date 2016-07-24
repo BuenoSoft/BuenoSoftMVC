@@ -65,7 +65,12 @@ class NotificacionesController extends AppController
             Session::set("not",$_GET['d']);
             if (Session::get('not')!=null && isset($_POST['btnaceptar'])){
                 $not = $this->createEntity();
-                if($not->getVehiculo() != null){
+                if($not->getVehiculo() == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el vehículo"));
+                } else if($not->getFechaini() > $not->getFechafin()){
+                    Session::set("msg",Session::msgDanger("Asegurese de que la fecha sea menor a la de cierre"));
+                } else {
+                
                     $id = $not->save();
                     if(isset($id)){
                         Session::set("msg",Session::msgSuccess("Notificación Editada"));
@@ -74,9 +79,7 @@ class NotificacionesController extends AppController
                     } else {
                         Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                     }
-                } else {
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el vehículo"));
-                } 
+                }
             }
             $this->redirect_administrador(["edit.php"],[
                 "notificacion" => (new Notificacion())->findById(Session::get("not")),

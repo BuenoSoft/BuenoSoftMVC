@@ -70,6 +70,8 @@ class AplicacionesController extends AppController
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Aeronave"));
                 } else if(Session::get('pass')[20] == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Terrestre"));
+                } else if($apl->getFechaIni() > $apl->getFechaFin()){
+                    Session::set("msg",Session::msgDanger("Asegurese de que la fecha de inicio sea menor a la fecha final"));
                 } else {
                     $apl->save();
                     $this->addProductos();
@@ -133,6 +135,8 @@ class AplicacionesController extends AppController
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Aeronave"));
                 } else if(Session::get('pass')[20] == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Terrestre"));
+                } else if($apl->getFechaIni() > $apl->getFechaFin()){
+                    Session::set("msg",Session::msgDanger("Asegurese de que la fecha de inicio sea menor a la fecha final"));    
                 } else {
                     $apl->save();
                     $this->modProductos($apl);
