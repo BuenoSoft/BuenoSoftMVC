@@ -2,6 +2,7 @@
 namespace Controller;
 use \App\Session;
 use \App\Breadcrumbs;
+use \Clases\Usuario;
 use \Clases\Vehiculo;
 use \Clases\Notificacion;
 class NotificacionesController extends AppController
@@ -51,7 +52,8 @@ class NotificacionesController extends AppController
                 }                
             }
             $this->redirect_administrador(["add.php"],[
-                "vehiculos" => (new Vehiculo())->find()
+                "vehiculos" => (new Vehiculo())->find(),
+                "usuarios" => (new Usuario())->find()
             ]);
         }
     }
@@ -83,7 +85,8 @@ class NotificacionesController extends AppController
             }
             $this->redirect_administrador(["edit.php"],[
                 "notificacion" => (new Notificacion())->findById(Session::get("not")),
-                "vehiculos" => (new Vehiculo())->find()
+                "vehiculos" => (new Vehiculo())->find(),
+                "usuarios" => (new Usuario())->find()
             ]);
         }
     }
@@ -104,8 +107,10 @@ class NotificacionesController extends AppController
             $bc->add_crumb($_SERVER['HTTP_REFERER']);
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
+            $not = (new Notificacion())->findById($_GET['d']);
+            $not->save();
             $this->redirect_administrador(["view.php"], [
-                "notificacion" => (new Notificacion())->findById($_GET['d'])
+                "notificacion" => $not
             ]);        
         } else {
             Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));
@@ -120,6 +125,7 @@ class NotificacionesController extends AppController
         $not->setFechafin(isset($_POST["dtfechafin"]) ? $_POST["dtfechafin"] : null);
         $not->setFechaAct(date("Y-m-d H:i:s"));
         $not->setVehiculo((new Vehiculo())->findByMat((isset($_POST["veh"][0]) ? $_POST["veh"][0] : 0)));
+        $not->setUsuario((new Usuario())->findByNombre((isset($_POST["usu"][0]) ? $_POST["usu"][0] : 0)));
         return $not;
     }
     protected function getRoles() {

@@ -11,8 +11,8 @@ class RolesController extends AppController
      public function index(){
         if($this->checkUser()){
             $bc = new Breadcrumbs();
-            //$bc->add_crumb("index.php?c=inicio&a=index");
-            //$bc->add_crumb($_SERVER['REQUEST_URI']);
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
             $this->redirect_administrador(["index.php"],[
                 "roles" => (new Rol())->find()

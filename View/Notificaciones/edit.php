@@ -33,6 +33,12 @@
                         <input name="veh" id="v" class="form-control_datalist" required="required" tabindex="3" />
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Dedicado a&nbsp;<font color="red">*</font></label>
+                    <div class="col-sm-10">
+                        <input name="usu" id="u" required="required" tabindex="4" />                        
+                    </div>
+                </div>
             </div>
             <div style="text-align: center;">
                 <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="6"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
@@ -43,8 +49,26 @@
 </form>
 <script>
     $(function() {
-        $('#fecini').combodate();
-        $('#fecfin').combodate();
+        $('#fecini').combodate({
+            value: '',
+            format: 'YYYY-MM-DD',
+            template: 'YYYY-MM-DD'           
+        });
+        $('#fecfin').combodate({
+            value: '',
+            format: 'YYYY-MM-DD',
+            template: 'YYYY-MM-DD'        
+        });
+        $('#u').magicSuggest({
+            placeholder: 'Seleccione un Usuario',
+            value: ['<?php echo $notificacion->getUsuario()->getDatoUsu()->getNombre(); ?>'],
+            maxSelection: 1,
+            data: [
+                <?php foreach ($usuarios as $usuario){ ?>
+                     '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                <?php } ?>
+            ]
+        });
         $('#v').magicSuggest({
             placeholder: 'Seleccione un Vehículo',
             value: ['<?php echo $notificacion->getVehiculo()->getMatricula(); ?>'], 

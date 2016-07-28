@@ -39,6 +39,12 @@
                         <?php echo $notificacion->getVehiculo()->getMatricula(); ?>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Dedicado a&nbsp;<font color="red">*</font></label>
+                    <div class="col-sm-10">
+                        <?php echo $notificacion->getUsuario()->getDatoUsu()->getNombre(); ?>                        
+                    </div>
+                </div>
             </div>            
         </div>
     </div>

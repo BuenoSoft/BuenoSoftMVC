@@ -61,9 +61,9 @@ class NotificacionModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     private function getShowQuery(){
-        return "select * from notificaciones order by notFechaAct desc limit 0,5";
+        return "select * from notificaciones where notEstado = ? order by notFechaAct desc limit 0,5";
     }
     public function getNotificaciones(){
-       return $this->fetch($this->getShowQuery(), []);
+       return $this->fetch($this->getShowQuery(), ["N"]);
     }    
 }

@@ -37,7 +37,7 @@
         <section id="main-content">
             <section class="wrapper">                
                 <br />
-                <?php// echo \App\Session::get('enlaces'); ?>
+                <?php echo \App\Session::get('enlaces'); ?>
                 <br /><br />
                 <?php
                     if (\App\Session::get('msg')!=null) {  ?>
