@@ -128,11 +128,9 @@
             value: ['<?php echo $usuario->getRol()->getNombre(); ?>'], 
             maxSelection: 1,
             data: [
-                <?php foreach($roles as $rol){ 
-                    if($rol->getEstado() == "H"){?>
+                <?php foreach($roles as $rol){ ?>
                      '<?php echo $rol->getNombre(); ?>',
-                <?php }                
-                    } ?>
+                <?php } ?>
             ]
         });
     }); 

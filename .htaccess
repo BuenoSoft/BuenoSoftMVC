@@ -1,12 +1,8 @@
+<IfModule mod_rewrite.c>
+# Activar RewriteEngine
 RewriteEngine on
-RewriteBase /
-
-RewriteCond %{REQUEST_URI} !\.(css|jpg|gif|png|js|ttf|htm)$ [NC]
-RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/(.*) index.php?c=$1&a=$2&id=$3 [QSA,L]
-
-RewriteCond %{REQUEST_URI} !\.(css|jpg|gif|png|js|ttf|htm)$ [NC]
-RewriteRule ^([a-zA-Z0-9_-]+)/(.*) index.php?c=$1&a=$2 [QSA,L]
-
-RewriteCond %{REQUEST_URI} !\.(css|jpg|gif|png|js|ttf|htm)$ [NC]
-RewriteCond %{REQUEST_URI} !test.php$ [NC]
-RewriteRule ^(.*)$ index.php [QSA,L]
+RewriteBase /BuenoSoftMVC/
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteRule ^(\w+)/(\w+)/?$ index.php?c=$1&a=$2 [L]
+</IfModule>

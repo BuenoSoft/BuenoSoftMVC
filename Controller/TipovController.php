@@ -82,16 +82,6 @@ class TipovController extends AppController
             }            
         }
     }
-    public function active(){
-        if($this->checkUser()){
-            if (isset($_GET['d'])){
-                $tp = (new TipoVehiculo())->findById($_GET['d']);
-                $id = $tp->del();
-                Session::set("msg", (isset($id)) ? Session::msgSuccess("Tipo de Vehículo Activado") : Session::msgDanger("No se pudo activar el tipo"));
-                header("Location:index.php?c=tipov&a=index");
-            }        
-        }
-    }
     private function createEntity(){
         $tv = new TipoVehiculo();
         $tv->setId(isset($_POST["hid"]) ? $_POST["hid"] : 0);

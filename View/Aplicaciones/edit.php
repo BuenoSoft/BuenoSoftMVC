@@ -191,11 +191,9 @@
             maxSelection: 1,
             data: [
                 <?php foreach ($vehiculos as $vehiculo) { 
-                        if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() == "Aeronave"){ ?>
+                        if($vehiculo->getTipo()->getNombre() == "Aeronave"){ ?>
                             '<?php echo $vehiculo->getMatricula(); ?>',
-                <?php       
-                        }                
-                    } ?>
+                <?php } } ?>
             ]
         });
         $('#cliente').magicSuggest({
@@ -204,10 +202,9 @@
             maxSelection: 1,
             data: [
                 <?php foreach ($usuarios as $usuario){
-                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Cliente") { ?>
+                    if($usuario->getRol()->getNombre() == "Cliente") { ?>
                         '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
-                <?php }                
-                    } ?>
+                <?php } } ?>
             ]
         });
         $('#tipo').magicSuggest({
@@ -215,11 +212,9 @@
             value: ['<?php echo \App\Session::get("pass")[9]; ?>'],            
             maxSelection: 1,
             data: [
-                <?php foreach($tipos as $tipo){
-                    if($tipo->getEstado() == "H"){ ?>
+                <?php foreach($tipos as $tipo){ ?>
                         '<?php echo $tipo->getNombre(); ?>',
-                <?php }                
-                    } ?>
+                <?php } ?>
             ]
         });
         $('#chofer').magicSuggest({
@@ -228,11 +223,9 @@
             maxSelection: 1,
             data: [
                 <?php foreach ($usuarios as $usuario){
-                        if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Chofer") { ?> 
+                        if($usuario->getRol()->getNombre() == "Chofer") { ?> 
                                 '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
-                <?php 
-                        }                
-                    } ?>
+                <?php } } ?>
             ]
         });
         $('#terrestre').magicSuggest({
@@ -241,11 +234,9 @@
             maxSelection: 1,
             data: [
                 <?php foreach ($vehiculos as $vehiculo) { 
-                        if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() != "Aeronave"){ ?>
+                        if($vehiculo->getTipo()->getNombre() != "Aeronave"){ ?>
                                 '<?php echo $vehiculo->getMatricula(); ?>',
-                <?php
-                        }                
-                    } ?>
+                <?php } } ?>
             ]
         });
         $('#piloto').magicSuggest({
@@ -254,11 +245,9 @@
             maxSelection: 1,
             data: [
                 <?php foreach ($usuarios as $usuario){
-                        if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Piloto") { ?>
+                        if($usuario->getRol()->getNombre() == "Piloto") { ?>
                                 '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
-                <?php                       
-                        }                
-                    } ?>
+                <?php } } ?>
             ]
         });
         $('#pista').magicSuggest({
@@ -266,11 +255,9 @@
             value: ['<?php echo \App\Session::get("pass")[2]; ?>'], 
             maxSelection: 1,
             data: [
-                <?php foreach ($pistas as $pista){
-                    if($pista->getEstado() == "H") { ?>
+                <?php foreach ($pistas as $pista){ ?>
                      '<?php echo $pista->getNombre(); ?>',
-                <?php }                
-                    } ?>
+                <?php } ?>
             ]
         });
     });

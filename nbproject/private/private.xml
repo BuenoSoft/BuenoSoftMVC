@@ -12,7 +12,14 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/html/BuenoSoftMVC/Public/principal.php</file>
+            <file>file:/var/www/html/BuenoSoftMVC/Controller/RolesController.php</file>
+            <file>file:/var/www/html/BuenoSoftMVC/View/Notificaciones/add.php</file>
+            <file>file:/var/www/html/BuenoSoftMVC/View/Roles/index.php</file>
+            <file>file:/var/www/html/BuenoSoftMVC/Clases/Notificacion.php</file>
+            <file>file:/var/www/html/BuenoSoftMVC/Public/manejo_menu.php</file>
+            <file>file:/var/www/html/BuenoSoftMVC/View/Notificaciones/edit.php</file>
+            <file>file:/var/www/html/BuenoSoftMVC/Model/NotificacionModel.php</file>
+            <file>file:/var/www/html/BuenoSoftMVC/.htaccess</file>
         </group>
     </open-files>
 </project-private>

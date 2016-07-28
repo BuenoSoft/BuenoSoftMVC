@@ -41,11 +41,9 @@
             placeholder: 'Seleccione un Vehículo',
             maxSelection: 1,
             data: [
-                <?php foreach ($vehiculos as $vehiculo) { 
-                    if($vehiculo->getEstado() == "H"){ ?>
+                <?php foreach ($vehiculos as $vehiculo) { ?>
                      '<?php echo $vehiculo->getMatricula(); ?>',
-                <?php }                
-                    } ?>
+                <?php } ?>
             ]
         });
     });

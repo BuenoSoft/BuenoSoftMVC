@@ -69,17 +69,6 @@ abstract class Controller
     protected function clean($cadena){
         return htmlentities($cadena);
     }
-    /*----------para el tema de los enlaces----------*/
-    /*
-    function breadcrumbs($separator = ' &rsaquo; ', $home = 'Inicio') {          
-        $actual = $_SERVER['REQUEST_URI'];
-        $base = "index.php?c=access&a=index";
-        array_push($this->breadcrumbs, "<a href=$base>".$home."</a>");
-        array_push($this->breadcrumbs, $this->generateTitle());
-        return implode($separator, array_unique($this->breadcrumbs)); 
-    } */   
-    
-    
     protected function getMessageRole() { }
     protected function getRoles(){}
 }

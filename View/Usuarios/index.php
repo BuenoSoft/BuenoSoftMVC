@@ -13,18 +13,14 @@
         </p>
         <table class="table table-bordered table-striped table-condensed">
             <thead>
-                <th>Usuario</th>
                 <th>Nombre de Usuario</th>
                 <th>Nombre Real</th>
                 <th>Rol</th>
                 <th>Opciones</th>                
             </thead>
             <tbody>
-                <?php foreach($usuarios as $usuario) {
-                    $style = ($usuario->getEstado() == "D") ? "color: #BDBDBD;" : "";                    
-                ?>  
+                <?php foreach($usuarios as $usuario) { ?>  
                     <tr style="<?php echo $style; ?>">                        
-                        <td><?php echo $usuario->getId(); ?></td>
                         <td><?php echo $usuario->getNombre(); ?></td>
                         <td><?php echo $usuario->getDatoUsu()->getNombre(); ?></td>
                         <td><?php echo $usuario->getRol()->getNombre(); ?></td>                        
@@ -35,15 +31,9 @@
                             <a href="index.php?c=usuarios&a=edit&d=<?php echo $usuario->getId(); ?>" title="Editar">
                                 <i class="fa fa-edit" style="font-size: 22px;"></i>
                             </a>&nbsp;
-                            <?php if($usuario->getEstado() == 'H') {?>
-                                <a href="index.php?c=usuarios&a=delete&d=<?php echo $usuario->getId(); ?>" onclick="return confirm('¿Desea borrar el usuario seleccionado?');" title="Borrar">
-                                    <i class="fa fa-times-circle" style="font-size: 22px;"></i>
-                                </a>
-                            <?php } else { ?>
-                                <a href="index.php?c=usuarios&a=active&d=<?php echo $usuario->getId(); ?>" onclick="return confirm('¿Desea activar el usuario seleccionado?');" title="Activar">
-                                    <i class="fa fa-unlock-alt" style="font-size: 22px;"></i>
-                                </a>
-                            <?php } ?>
+                            <a href="index.php?c=usuarios&a=delete&d=<?php echo $usuario->getId(); ?>" onclick="return confirm('¿Desea borrar el usuario seleccionado?');" title="Borrar">
+                                <i class="fa fa-times-circle" style="font-size: 22px;"></i>
+                            </a>
                         </td>
                     </tr>
                 <?php } ?>

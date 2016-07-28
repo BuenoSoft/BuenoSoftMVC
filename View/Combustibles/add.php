@@ -7,7 +7,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre del Combustible&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtnombre" class="form-control" required="required" placeholder="Ej: Gasoil" onkeypress="return validarTexto(event);" pattern="[A-Za-z\s]*" tabindex="1" autofocus />
+                        <input type="text" name="txtnombre" class="form-control" required="required" placeholder="Ej: Gasoil" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d]*" tabindex="1" autofocus />
                     </div>
                 </div>
                 <div class="form-group">
@@ -52,11 +52,9 @@
             placeholder: 'Seleccione un Tipo de Vehículo',
             maxSelection: 1,
             data: [
-                <?php foreach($tipos as $tipo){
-                    if($tipo->getEstado() == "H"){ ?>
+                <?php foreach($tipos as $tipo){ ?>
                      '<?php echo $tipo->getNombre(); ?>',
-                <?php }                
-                    } ?>
+                <?php } ?>
             ]
         });
     });

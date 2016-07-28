@@ -20,16 +20,16 @@ class TipoProductoModel extends AppModel
         return "select * from tipo_producto where tpNombre = ?";
     }
     protected function getCreateParameter($object) {
-        return [$object->getNombre(),"H"];
+        return [$object->getNombre()];
     }
     protected function getCreateQuery() {
-        return "insert into tipo_producto(tpNombre,tpEstado) values(?,?)";
+        return "insert into tipo_producto(tpNombre) values(?)";
     }
     protected function getFindParameter($criterio = null) {
         return [$criterio];
     }
     protected function getFindQuery($criterio = null) {
-        return "select * from tipo_producto order by tpEstado, tpId";
+        return "select * from tipo_producto order by tpNombre";
     }
     protected function getFindXIdQuery() {
         return "select * from tipo_producto where tpId = ?";
@@ -44,17 +44,12 @@ class TipoProductoModel extends AppModel
         $tp = new TipoProducto();
         $tp->setId($row["tpId"]);
         $tp->setNombre($row["tpNombre"]);
-        $tp->setEstado($row["tpEstado"]);
         return $tp;
     }
     protected function getDeleteParameter($object) {
-        if($object->getEstado() == "H"){
-            return ['D',$object->getId()];
-        } else {
-            return ['H',$object->getId()];
-        }
+        return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) { 
-        return "update tipo_producto set tpEstado = ? where tpId = ?";
+        return "delete from tipo_producto where tpId = ?";
     }
 }

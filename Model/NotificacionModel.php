@@ -14,10 +14,10 @@ class NotificacionModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     protected function getCreateParameter($object) {       
-        return [$object->getLog(),$object->getFechaini(),$object->getFechafin(),$object->getFechaAct(),$object->getVehiculo()->getId()];
+        return [$object->getLog(),$object->getFechaini(),$object->getFechafin(),$object->getFechaAct(),'N',$object->getUsuario()->getId(),$object->getVehiculo()->getId()];
     }
     protected function getCreateQuery() {        
-        return "insert into notificaciones(notLog,notFechaIni,notFechaFin,notFechaAct,vehId) values (?,?,?,?,?)";
+        return "insert into notificaciones(notLog,notFechaIni,notFechaFin,notFechaAct,notEstado,vehId,usuId) values (?,?,?,?,?,?,?)";
     }
     /*------------------------------------------------------------------------------------*/
     protected function getFindParameter($criterio = null) {
@@ -32,10 +32,10 @@ class NotificacionModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     protected function getUpdateParameter($object) {
-        return [$object->getLog(),$object->getFechaini(),$object->getFechafin(),$object->getFechaAct(),$object->getVehiculo()->getId(),$object->getId()];
+        return [$object->getLog(),$object->getFechaini(),$object->getFechafin(),$object->getFechaAct(),'L',$object->getUsuario()->getId(),$object->getVehiculo()->getId(),$object->getId()];
     }
     protected function getUpdateQuery() {
-        return "update notificaciones set notLog = ?,notFechaIni = ?,notFechaFin = ?,notFechaAct = ?,vehId = ? where notId = ?";
+        return "update notificaciones set notLog = ?,notFechaIni = ?,notFechaFin = ?,notFechaAct = ?,notEstado = ?,vehId = ?,usuId = ? where notId = ?";
     }
     /*------------------------------------------------------------------------------------*/
     protected function getDeleteParameter($object) { 
@@ -55,6 +55,7 @@ class NotificacionModel extends AppModel
         $not->setLog($row["notLog"]); 
         $not->setFechaini($row["notFechaIni"]);
         $not->setFechafin($row["notFechaFin"]);
+        $not->setEstado($row["notEstado"]);
         $not->setVehiculo($veh);
         return $not;
     }

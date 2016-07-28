@@ -78,7 +78,7 @@ $(function() {
 
                  <?php if(\App\Session::isLoggedIn() == true){ ?>
                             <li>
-                                <a href="index.php?c=access&a=index">Acceso</a>
+                                <a href="index.php?c=inicio&a=index">Acceso</a>
                             </li>
                             <?php } else {?>
                                 <li>

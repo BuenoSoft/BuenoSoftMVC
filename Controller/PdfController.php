@@ -22,20 +22,20 @@ class PdfController extends AppController
             $this->getPdf()->SetFont('Arial','B',10);
             $this->getPdf()->Cell(40,10,'Hecho por: '.Session::get('log_in')->getDatoUsu()->getNombre());
             $this->getPdf()->Ln(10);
-            $this->getPdf()->Cell(20, 8, utf8_decode('Aplicación'),"TB", 0 ,'C');
-            $this->getPdf()->Cell(40, 8, 'Piloto',"TB", 0 ,'C');
+            $this->getPdf()->Cell(30, 8, 'Piloto',"TB", 0 ,'C');
             $this->getPdf()->Cell(29, 8, 'Aeronave',"TB", 0 ,'C');
             $this->getPdf()->Cell(27, 8, 'Cliente',"TB", 0 ,'C');
             $this->getPdf()->Cell(32, 8, 'Pista',"TB", 0 ,'C');
+            $this->getPdf()->Cell(32, 8, utf8_decode("Hectáreas"),"TB", 0 ,'C');
             $this->getPdf()->Cell(25, 8, 'Tipo',"TB", 0 ,'C');
             $this->getPdf()->Cell(20, 8, 'Fecha',"TB", 0 ,'C');
             $this->getPdf()->Ln(8);
             foreach ($aplicaciones as $aplicacion){
-                $this->getPdf()->Cell(20, 8, $aplicacion->getId(), 0, 0 ,'C');
-                $this->getPdf()->Cell(40, 8, $this->getPiloto($aplicacion)->getDatoUsu()->getNombre(), 0, 0 ,'C');
+                $this->getPdf()->Cell(30, 8, $this->getPiloto($aplicacion)->getDatoUsu()->getNombre(), 0, 0 ,'C');
                 $this->getPdf()->Cell(29, 8, $this->getAeronave($aplicacion)->getMatricula(), 0, 0 ,'C');
                 $this->getPdf()->Cell(27, 8, $aplicacion->getCliente()->getNombre(), 0, 0 ,'C');
                 $this->getPdf()->Cell(32, 8, $aplicacion->getPista()->getNombre(), 0, 0 ,'C');
+                $this->getPdf()->Cell(32, 8, $aplicacion->getAreaapl(), 0, 0 ,'C');
                 $this->getPdf()->Cell(25, 8, $aplicacion->getTipo()->getNombre(), 0, 0 ,'C');
                 $this->getPdf()->Cell(20, 8, ($aplicacion->getFechaIni() == "0000-00-00 00:00:00") ? "" : $this->getDate($aplicacion->getFechaIni()), 0, 0 ,'C');
                 $this->getPdf()->Ln(8);

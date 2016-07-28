@@ -29,7 +29,7 @@ class TipoVehiculoModel extends AppModel
         return [$criterio];
     }
     protected function getFindQuery($criterio = null) {
-        return "select * from tipo_vehiculo order by tvEstado, tvId";
+        return "select * from tipo_vehiculo order by tvNombre";
     }
     protected function getFindXIdQuery() {
         return "select * from tipo_vehiculo where tvId = ?";
@@ -45,17 +45,12 @@ class TipoVehiculoModel extends AppModel
         $tv->setId($row["tvId"]);
         $tv->setNombre($row["tvNombre"]);
         $tv->setMedida($row["tvMedida"]);
-        $tv->setEstado($row["tvEstado"]);
         return $tv;
     }
     protected function getDeleteParameter($object) {
-        if($object->getEstado() == "H"){
-            return ['D',$object->getId()];
-        } else {
-            return ['H',$object->getId()];
-        }
+        return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) { 
-        return "update tipo_vehiculo set tvEstado = ? where tvId = ?";
+        return "delete from tipo_vehiculo where tvId = ?";
     }
 }

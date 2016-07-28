@@ -7,18 +7,14 @@
     <section id="unseen" style="padding-left: 5px; padding-right: 5px;">
         <table class="table table-bordered table-striped table-condensed">
             <thead>                
-                <th>Nº</th>
                 <th>Nombre</th>
                 <th>Stock</th>
                 <th>Tipo</th>
                 <th>Opciones</th>
             </thead>
             <tbody>
-                <?php foreach($combustibles as $combustible){ 
-                    $style = ($combustible->getEstado() == "D") ? "color: #BDBDBD;" : "";    
-                ?>
-                    <tr style="<?php echo $style; ?>">
-                        <td><?php echo $combustible->getId(); ?></td>
+                <?php foreach($combustibles as $combustible){ ?>
+                    <tr>
                         <td><?php echo $combustible->getNombre(); ?></td>
                         <td><?php echo $combustible->getStock(); ?></td>
                         <td><?php echo $combustible->getTipo()->getNombre(); ?></td>
@@ -29,15 +25,9 @@
                             <a href="index.php?c=combustibles&a=edit&d=<?php echo $combustible->getId(); ?>" title="Editar">
                                 <i class="fa fa-edit" style="font-size: 22px;"></i>
                             </a>&nbsp;
-                            <?php if($combustible->getEstado() == 'H'){ ?>
                             <a href="index.php?c=combustibles&a=delete&d=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea borrar el combustible seleccionado?');" title="Borrar">
                                 <i class="fa fa-times-circle" style="font-size: 22px;"></i>
                             </a>
-                        <?php } else {?>
-                            <a href="index.php?c=combustibles&a=active&d=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea activar el combustible seleccionado?');" title="Activar">
-                                <i class="fa fa-unlock-alt" style="font-size: 22px;"></i>
-                            </a>
-                        <?php }?>
                         </td>                        
                     </tr>
                 <?php } ?>
@@ -48,9 +38,7 @@
 <br />
 <div class="content-panel">
     <section id="unseen" style="padding-left: 5px; padding-right: 5px;">
-      	    <?php foreach($combustibles as $combustible) { 
-                if($combustible->getEstado() == "H"){
-            ?>
+      	    <?php foreach($combustibles as $combustible) { ?>
                 <div class="progress progress-striped active">                 
                     <?php 
                         $estilo = "progress-bar progress-bar-";
@@ -69,7 +57,7 @@
                         <b style="color: black;"><?php echo $combustible->getNombre()."&nbsp;".$combustible->getStock()."&nbsp;L"."&nbsp;&nbsp;&nbsp;".$combustible->regla3()."%"; ?></b>
                     </div>                    
                 </div>                                                                                                                                                                                                                                                                 
-            <?php }             
+            <?php              
                 } 
             ?>                    
     </section>

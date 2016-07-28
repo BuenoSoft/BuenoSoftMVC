@@ -15,7 +15,6 @@
         </p>
         <table class="table table-bordered table-striped table-condensed">
             <thead>                
-                <th>Notificación</th>
                 <th>Vehículo</th>
                 <th>Log</th>
                 <th>Fecha de Inicio</th>
@@ -25,7 +24,6 @@
             <tbody>
                 <?php foreach($notificaciones as $notificacion){ ?>
                     <tr>
-                        <td><?php echo $notificacion->getId(); ?></td>
                         <td>
                             <a href="index.php?c=vehiculos&a=view&d=<?php echo $notificacion->getVehiculo()->getId(); ?>">
                                 <?php echo $notificacion->getVehiculo()->getMatricula(); ?>

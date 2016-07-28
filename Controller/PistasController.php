@@ -78,16 +78,6 @@ class PistasController extends AppController
             }            
         }
     }
-    public function active(){
-        if($this->checkUser()){
-            if (isset($_GET['d'])){
-                $pis = (new Pista())->findById($_GET['d']);
-                $id = $pis->del();
-                Session::set("msg", (isset($id)) ? Session::msgSuccess("Pista Activada") : Session::msgDanger("No se pudo activar la pista"));
-                header("Location:index.php?c=pistas&a=index");
-            }        
-        }
-    }
     public function view(){
         if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
             $bc = new Breadcrumbs();

@@ -20,26 +20,22 @@ class RolModel extends AppModel
         return "select * from roles where rolNombre = ?";
     }    
     protected function getCreateParameter($object) {
-        return [$object->getNombre(),"H"];
+        return [$object->getNombre()];
     }
     protected function getCreateQuery() {
-        return "insert into roles(rolNombre,rolEstado) values (?,?)";
+        return "insert into roles(rolNombre) values (?,?)";
     }
     protected function getDeleteParameter($object) {
-        if($object->getEstado() == "H"){
-            return ['D',$object->getId()];
-        } else {
-            return ['H',$object->getId()];
-        }
+        return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) {
-        return "update roles set rolEstado = ? where rolId = ?";
+        return "delete from roles where rolId = ?";
     }
     protected function getFindParameter($criterio = null) {
         return [$criterio];
     }
     protected function getFindQuery($criterio = null) {
-        return "select * from roles order by rolEstado, rolId";
+        return "select * from roles order by rolNombre";
     }
     protected function getFindXIdQuery() {
         return "select * from roles where rolId = ?";
@@ -54,7 +50,6 @@ class RolModel extends AppModel
         $rol = new Rol();
         $rol->setId($row["rolId"]);
         $rol->setNombre($row["rolNombre"]);
-        $rol->setEstado($row["rolEstado"]);
         return $rol;
     }
 }

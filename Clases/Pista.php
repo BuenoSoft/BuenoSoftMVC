@@ -7,7 +7,6 @@ class Pista implements IPersiste
     private $id;
     private $nombre;
     private $coordenadas;
-    private $estado;
     function getId() {
         return $this->id;
     }
@@ -17,9 +16,6 @@ class Pista implements IPersiste
     function getCoordenadas() {
         return $this->coordenadas;
     }
-    function getEstado() {
-        return $this->estado;
-    }
     function setId($id) {
         $this->id = $id;
     }
@@ -28,9 +24,6 @@ class Pista implements IPersiste
     }
     function setCoordenadas($coordenadas) {
         $this->coordenadas = $coordenadas;
-    }
-    function setEstado($estado) {
-        $this->estado = $estado;
     }
     function __construct() { }
     public function equals(Pista $obj){

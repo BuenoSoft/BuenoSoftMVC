@@ -28,23 +28,19 @@ class VehiculoModel extends AppModel
         return [
             $object->getMatricula(),$object->getPadron(),$object->getTipo()->getId(),$object->getMotor(),
             $object->getChasis(),$object->getCapcarga(),$object->getModelo(),$object->getMarca(),
-            $object->getAnio(),'H',$object->getCombustible()->getId()
+            $object->getAnio(),$object->getCombustible()->getId()
         ];
     }
     protected function getCreateQuery() {
         return "insert into vehiculos(vehMatricula,vehPadron,tvId,vehMotor,vehChasis,vehCapCarga,"
-            . "vehModelo,vehMarca,vehAnio,vehEstado,comId) values(?,?,?,?,?,?,?,?,?,?,?)";
+            . "vehModelo,vehMarca,vehAnio,comId) values(?,?,?,?,?,?,?,?,?,?)";
     }
     /*------------------------------------------------------------------------------------*/
     protected function getDeleteParameter($object) {
-        if($object->getEstado() == "H"){
-            return ['D',$object->getId()];
-        } else {
-            return ['H',$object->getId()];
-        }
+        return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) {
-        return "update vehiculos set vehEstado = ? where vehId = ?";
+        return "delete from vehiculos where vehId = ?";
     }
     /*------------------------------------------------------------------------------------*/
     protected function getFindParameter($criterio = null) {
@@ -52,9 +48,9 @@ class VehiculoModel extends AppModel
     }
     protected function getFindQuery($criterio = null) {
         if($criterio == null){
-            return "select * from vehiculos order by vehEstado, vehId";
+            return "select * from vehiculos order by vehMatricula";
         } else {
-            return "select * from vehiculos where vehMatricula like ? order by vehEstado, vehId";         
+            return "select * from vehiculos where vehMatricula like ? order by vehMatricula";         
         }
     }
     /*------------------------------------------------------------------------------------*/
@@ -86,7 +82,6 @@ class VehiculoModel extends AppModel
         $vehiculo->setModelo($row["vehModelo"]);
         $vehiculo->setMarca($row["vehMarca"]);
         $vehiculo->setAnio($row["vehAnio"]);
-        $vehiculo->setEstado($row["vehEstado"]);
         $vehiculo->setCombustible((new CombustibleModel())->findById($row["comId"]));
         return $vehiculo;
     }

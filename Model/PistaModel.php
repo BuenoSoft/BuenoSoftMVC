@@ -20,19 +20,19 @@ class PistaModel extends AppModel
         return "select * from pistas where pisNombre = ?";
     }
     protected function getCreateParameter($object) {
-        return [$object->getNombre(), $object->getCoordenadas(),'H'];
+        return [$object->getNombre(), $object->getCoordenadas()];
     }
     protected function getCreateQuery() {
-        return "insert into pistas(pisNombre,pisCoord,pisEstado) values(?,?,?)";
+        return "insert into pistas(pisNombre,pisCoord) values(?,?)";
     }    
     protected function getFindParameter($criterio = null) {
         return ["%".$criterio."%"];
     }
     protected function getFindQuery($criterio = null) {
         if($criterio == null){
-            return "select * from pistas order by pisEstado, pisId";
+            return "select * from pistas order by pisNombre";
         } else {
-            return "select * from pistas where pisNombre like ? order by pisEstado, pisId";         
+            return "select * from pistas where pisNombre like ? order by pisNombre";         
         }
     }
     protected function getFindXIdQuery() {
@@ -49,17 +49,12 @@ class PistaModel extends AppModel
         $pista->setId($row["pisId"]);
         $pista->setNombre($row["pisNombre"]);
         $pista->setCoordenadas($row["pisCoord"]);
-        $pista->setEstado($row["pisEstado"]);
         return $pista;
     }
     protected function getDeleteParameter($object) {
-        if($object->getEstado() == "H"){
-            return ['D',$object->getId()];
-        } else {
-            return ['H',$object->getId()];
-        }
+        return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) { 
-        return "update pistas set pisEstado = ? where pisId = ?";
+        return "delete from pistas where pisId = ?";
     }
 }

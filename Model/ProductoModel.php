@@ -32,21 +32,17 @@ class ProductoModel extends AppModel
     }
     /*---------------------------------------------------------------------*/
     protected function getCreateParameter($object) {
-        return [$object->getCodigo(), $object->getNombre(), $object->getMarca(),$object->getTipo()->getId(),'H'];
+        return [$object->getCodigo(), $object->getNombre(), $object->getMarca(),$object->getTipo()->getId()];
     }
     protected function getCreateQuery() {
-        return "insert into productos(proCodigo,proNombre,proMarca,tpId,proEstado) values(?,?,?,?,?)";
+        return "insert into productos(proCodigo,proNombre,proMarca,tpId) values(?,?,?,?)";
     }
     /*---------------------------------------------------------------------*/
     protected function getDeleteParameter($object) {
-        if($object->getEstado() == "H"){
-            return ['D',$object->getId()];
-        } else {
-            return ['H',$object->getId()];
-        }
+        return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) {
-        return "update productos set proEstado = ? where proId = ?";
+        return "delete from productos where proId = ?";
     }
     /*---------------------------------------------------------------------*/
     protected function getFindParameter($criterio = null) {
@@ -54,9 +50,9 @@ class ProductoModel extends AppModel
     }
     protected function getFindQuery($criterio = null) {
         if($criterio == null){
-            return "select * from productos order by proEstado, proId";
+            return "select * from productos order by proNombre";
         } else {
-            return "select * from productos where proNombre like ? order by proEstado, proId";
+            return "select * from productos where proNombre like ? order by proNombre";
         }        
     }
     /*---------------------------------------------------------------------*/
@@ -78,7 +74,6 @@ class ProductoModel extends AppModel
         $producto->setNombre($row['proNombre']);
         $producto->setMarca($row['proMarca']);
         $producto->setTipo((new TipoProductoModel())->findById($row["tpId"]));
-        $producto->setEstado($row['proEstado']);
         return $producto;
     }
 }

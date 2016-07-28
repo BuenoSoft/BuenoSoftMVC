@@ -11,7 +11,6 @@ class Combustible implements IPersiste
     private $stockMax;
     private $fecUC;
     private $tipo;
-    private $estado;
     function getId() {
         return $this->id;
     }
@@ -33,9 +32,6 @@ class Combustible implements IPersiste
     function getTipo() {
         return $this->tipo;
     }
-    function getEstado() {
-        return $this->estado;
-    }
     function setId($id) {
         $this->id = $id;
     }
@@ -56,9 +52,6 @@ class Combustible implements IPersiste
     }
     function setTipo($tipo) {
         $this->tipo = $tipo;
-    }
-    function setEstado($estado) {
-        $this->estado = $estado;
     }
     function __construct() { }
     public function equals(Combustible $obj){

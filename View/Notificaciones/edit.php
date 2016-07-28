@@ -50,11 +50,9 @@
             value: ['<?php echo $notificacion->getVehiculo()->getMatricula(); ?>'], 
             maxSelection: 1,
             data: [
-                <?php foreach ($vehiculos as $vehiculo) { 
-                    if($vehiculo->getEstado() == "H"){ ?>
+                <?php foreach ($vehiculos as $vehiculo) { ?>
                      '<?php echo $vehiculo->getMatricula(); ?>',
-                <?php }                
-                    } ?>
+                <?php } ?>
             ]
         });
     });

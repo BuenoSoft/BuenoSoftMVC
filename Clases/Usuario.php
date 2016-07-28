@@ -9,7 +9,6 @@ class Usuario implements IPersiste
     private $pass;
     private $rol;
     private $avatar;
-    private $estado;
     private $datousu;
     function getId() {
         return $this->id;
@@ -25,9 +24,6 @@ class Usuario implements IPersiste
     }
     function getAvatar() {
         return $this->avatar;
-    }
-    function getEstado() {
-        return $this->estado;
     }
     function getDatoUsu() {
         return $this->datousu;
@@ -46,9 +42,6 @@ class Usuario implements IPersiste
     }
     function setAvatar($avatar) {
         $this->avatar = $avatar;
-    }
-    function setEstado($estado) {
-        $this->estado = $estado;
     }
     function setDatoUsu($datousu) {
         $this->datousu = $datousu;

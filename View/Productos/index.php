@@ -13,7 +13,6 @@
         </p>
         <table class="table table-bordered table-striped table-condensed">
             <thead>                
-                <th>Producto</th>
                 <th>Nombre</th>                
                 <th>Código</th>
                 <th>Marca</th>
@@ -21,11 +20,8 @@
                 <th>Opciones</th>
             </thead>
             <tbody>
-                <?php foreach($productos as $producto){ 
-                    $style = ($producto->getEstado() == "D") ? "color: #BDBDBD;" : "";
-                ?>
-                <tr style="<?php echo $style; ?>">                    
-                    <td><?php echo $producto->getId(); ?></td>
+                <?php foreach($productos as $producto){ ?>
+                <tr>                    
                     <td><?php echo $producto->getNombre(); ?></td>
                     <td><?php echo $producto->getCodigo(); ?></td>
                     <td><?php echo $producto->getMarca(); ?></td>
@@ -37,15 +33,9 @@
                         <a href="index.php?c=productos&a=edit&d=<?php echo $producto->getId(); ?>" title="Editar">
                             <i class="fa fa-edit" style="font-size: 22px;"></i>
                         </a>&nbsp;
-                        <?php if($producto->getEstado() == 'H'){ ?>
-                            <a href="index.php?c=productos&a=delete&d=<?php echo $producto->getId(); ?>" onclick="return confirm('¿Desea borrar el producto seleccionado?');" title="Borrar">
-                                <i class="fa fa-times-circle" style="font-size: 22px;"></i>
-                            </a>
-                        <?php } else {?>
-                            <a href="index.php?c=productos&a=active&d=<?php echo $producto->getId(); ?>" onclick="return confirm('¿Desea activar el producto seleccionado?');" title="Activar">
-                                <i class="fa fa-unlock-alt" style="font-size: 22px;"></i>
-                            </a>
-                        <?php }?>
+                        <a href="index.php?c=productos&a=delete&d=<?php echo $producto->getId(); ?>" onclick="return confirm('¿Desea borrar el producto seleccionado?');" title="Borrar">
+                            <i class="fa fa-times-circle" style="font-size: 22px;"></i>
+                        </a>                        
                     </td>
                 </tr>
                 <?php }?>

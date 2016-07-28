@@ -9,20 +9,20 @@
         <title>Buenos Servicios</title>
         <!-- Bootstrap core CSS -->
         <link rel="shortcut icon" href="Public/img/manejo/favicom.png" type="image/png" />
-        <link href="Public/css/manejo/bootstrap.css" rel="stylesheet">
+        <link href="Public/css/manejo/bootstrap.css" rel="stylesheet" type="text/css" />
         <!--external css-->
-        <link href="Public/css/manejo/font-awesome.css" rel="stylesheet" />
-        <link href="Public/css/manejo/magicsuggest.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="Public/css/manejo/zabuto_calendar.css">
-        <link rel="stylesheet" type="text/css" href="Public/js/manejo/gritter/css/jquery.gritter.css" />
+        <link href="Public/css/manejo/font-awesome.css" rel="stylesheet" type="text/css" />
+        <link href="Public/css/manejo/magicsuggest.css" rel="stylesheet" type="text/css" />
+        <link href="Public/css/manejo/zabuto_calendar.css" rel="stylesheet" type="text/css" >
+        <link href="Public/js/manejo/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"  />
         <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
         <!-- Calendario -->
-        <link href="Public/js/manejo/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+        <link href="Public/js/manejo/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" type="text/css" />
         <!-- Efecto de imagen -->
-        <link href="Public/js/manejo/fancybox/jquery.fancybox.css" rel="stylesheet" />        
+        <link href="Public/js/manejo/fancybox/jquery.fancybox.css" rel="stylesheet" type="text/css"/>        
         <!-- Custom styles for this template -->
-        <link href="Public/css/manejo/style.css" rel="stylesheet">
-        <link href="Public/css/manejo/style-responsive.css" rel="stylesheet">  
+        <link href="Public/css/manejo/style.css" rel="stylesheet" type="text/css">
+        <link href="Public/css/manejo/style-responsive.css" rel="stylesheet" type="text/css">  
         <script src="Public/js/manejo/chart-master/Chart.js"></script>
         <!-- galeria -->
         <script src="Public/js/manejo/jquery.js"></script>
@@ -37,7 +37,7 @@
         <section id="main-content">
             <section class="wrapper">                
                 <br />
-                <?php echo \App\Session::get('enlaces'); ?>
+                <?php// echo \App\Session::get('enlaces'); ?>
                 <br /><br />
                 <?php
                     if (\App\Session::get('msg')!=null) {  ?>
@@ -55,19 +55,19 @@
         </section> 
         <!-- js placed at the end of the document so the pages load faster -->
          
-        <script src="Public/js/manejo/jquery-ui-1.9.2.custom.min.js"></script>
-        <script src="Public/js/manejo/bootstrap.min.js"></script>
-        <script src="Public/js/manejo/combodate.js"></script>
-        <script src="Public/js/manejo/moment.js"></script>
-        <script src="Public/js/manejo/magicsuggest.js"></script>
-        <script class="include" type="text/javascript" src="Public/js/manejo/jquery.dcjqaccordion.2.7.js"></script>
+        <script src="Public/js/manejo/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
+        <script src="Public/js/manejo/bootstrap.min.js" type="text/javascript"></script>
+        <script src="Public/js/manejo/combodate.js" type="text/javascript"></script>
+        <script src="Public/js/manejo/moment.js" type="text/javascript"></script>
+        <script src="Public/js/manejo/magicsuggest.js" type="text/javascript"></script>
+        <script src="Public/js/manejo/jquery.dcjqaccordion.2.7.js" class="include" type="text/javascript"></script>
         <script src="Public/js/manejo/jquery.nicescroll.js" type="text/javascript"></script>
         <!--common script for all pages-->
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
- 	<script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
-        <script src="Public/js/manejo/common-scripts.js"></script>
-        <script type="text/javascript" src="Public/js/manejo/gritter/js/jquery.gritter.js"></script>
-        <script type="text/javascript" src="Public/js/manejo/gritter-conf.js"></script>
-        <script type="text/javascript" src='Public/js/manejo/chequeos.js'></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js" type="text/javascript"></script>
+ 	<script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js" type="text/javascript"></script>
+        <script src="Public/js/manejo/common-scripts.js" type="text/javascript"></script>
+        <script src="Public/js/manejo/gritter/js/jquery.gritter.js" type="text/javascript"></script>
+        <script src="Public/js/manejo/gritter-conf.js" type="text/javascript"></script>
+        <script src="Public/js/manejo/chequeos.js" type="text/javascript"></script>
     </body>
 </html>    

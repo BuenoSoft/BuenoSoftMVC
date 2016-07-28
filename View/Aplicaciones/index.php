@@ -49,7 +49,6 @@
         </p>
         <table class="table table-bordered table-striped table-condensed">
             <thead>                
-                <th>Aplicación</th>
                 <th>Piloto</th>
                 <th>Aeronave</th>                
                 <th>Cliente</th>
@@ -61,7 +60,6 @@
             <tbody>
                 <?php foreach ($aplicaciones as $aplicacion) { ?>
                     <tr>
-                        <td><?php echo $aplicacion->getId(); ?></td>
                         <td>
                             <?php 
                                 foreach($aplicacion->getUsados() as $usado) {
@@ -160,10 +158,9 @@
             maxSelection: 1,
             data: [
                 <?php foreach ($vehiculos as $vehiculo) { 
-                    if($vehiculo->getEstado() == "H" and $vehiculo->getTipo()->getNombre() == "Aeronave"){ ?>
+                    if($vehiculo->getTipo()->getNombre() == "Aeronave"){ ?>
                      '<?php echo $vehiculo->getMatricula(); ?>',
-                <?php }                
-                    } ?>
+                <?php } } ?>
             ]
         });
         $('#piloto').magicSuggest({
@@ -172,10 +169,9 @@
             maxSelection: 1,
             data: [
                 <?php foreach ($usuarios as $usuario){
-                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Piloto") { ?>
+                    if($usuario->getRol()->getNombre() == "Piloto") { ?>
                      '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
-                <?php }                
-                    } ?>
+                <?php } }?>
             ]
         });
         $('#tipo').magicSuggest({
@@ -183,11 +179,9 @@
             placeholder: 'Seleccione un Tipo de Producto',
             maxSelection: 1,
             data: [
-                <?php foreach($tipos as $tipo){
-                    if($tipo->getEstado() == "H"){ ?>
+                <?php foreach($tipos as $tipo){ ?>
                      '<?php echo $tipo->getNombre(); ?>',
-                <?php }                
-                    } ?>
+                <?php } ?>
             ]
         });
         $('#cliente').magicSuggest({
@@ -196,10 +190,9 @@
             maxSelection: 1,
             data: [
                 <?php foreach ($usuarios as $usuario){
-                    if($usuario->getEstado() == "H" and $usuario->getRol()->getNombre() == "Cliente") { ?>
+                    if($usuario->getRol()->getNombre() == "Cliente") { ?>
                      '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
-                <?php }                
-                    } ?>
+                <?php } } ?>
             ]
         });
         $('#fecini').combodate({

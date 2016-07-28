@@ -6,24 +6,17 @@ class Rol implements IPersiste
 {
     private $id;
     private $nombre;
-    private $estado;
     function getId() {
         return $this->id;
     }
     function getNombre() {
         return $this->nombre;
     }
-    function getEstado() {
-        return $this->estado;
-    }
     function setId($id) {
         $this->id = $id;
     }
     function setNombre($nombre) {
         $this->nombre = $nombre;
-    }
-    function setEstado($estado) {
-        $this->estado = $estado;
     }
     function __construct() { }
     public function equals(Rol $obj){

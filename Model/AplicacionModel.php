@@ -108,6 +108,7 @@ class AplicacionModel extends AppModel
                 $where = true;
             }
         }
+        $sql .= " order by a.aplFechaIni desc";
         return $sql;
     }
     /*------------------------------------------------------------------------------------*/

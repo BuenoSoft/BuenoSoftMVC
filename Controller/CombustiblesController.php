@@ -98,16 +98,6 @@ class CombustiblesController extends AppController
             }            
         }
     }
-    public function active(){
-        if($this->checkUser()){
-            if (isset($_GET['d'])){
-                $combustible = (new Combustible())->findById($_GET['d']);
-                $id = $combustible->del();
-                Session::set("msg", (isset($id)) ? Session::msgSuccess("Combustible Activado") : Session::msgDanger("No se pudo activar el combustible"));
-                header("Location:index.php?c=combustibles&a=index");
-            }        
-        }
-    }
     public function view(){
         if($this->checkUser()){
             $bc = new Breadcrumbs();

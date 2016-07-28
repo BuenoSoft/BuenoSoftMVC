@@ -18,15 +18,12 @@ class UsuariosController extends AppController
                 Session::set("msg","Ingrese los datos obligatorios (*) para continuar.");
             } else {
                 $usuario = (new Usuario())->login([$_POST['txtuser'], $_POST['txtpass']]);
-                if (isset($usuario) and $usuario->getEstado() == "H" and $usuario->getRol()->getNombre()!= "Chofer"){
+                if ($usuario->getRol()->getNombre()!= "Chofer"){
                     Session::login();
                     Session::set("log_in",$usuario);  
                     Session::set("msg", Session::msgInfo("Acceso concedido... Usuario: ". $usuario->getNombre()));
                     header("Location:index.php?c=inicio&a=index");
                     exit();
-                } else if (isset($usuario) and $usuario->getEstado() == "D"){
-                    Session::set("msg",Session::msgDanger("El usuario está desactivado"));
-                    header("Location:index.php?c=todos&a=index");
                 } else {
                     Session::set("msg",Session::msgDanger("Acceso denegado."));
                     header("Location:index.php?c=todos&a=index");
@@ -158,20 +155,14 @@ class UsuariosController extends AppController
         if($this->checkUser()){
             if (isset($_GET['d'])){
                 $usuario = (new Usuario())->findById($_GET['d']);
-                $id = $usuario->del();                
-                Session::set("msg", (isset($id)) ? Session::msgSuccess("Usuario Borrado") : Session::msgDanger("No se pudo borrar el usuario"));
+                if(Session::get("log_in")->equals($usuario)){
+                    Session::set("msg",Session::msgDanger("No se puede eliminar a ud mismo"));
+                } else {
+                    $id = $usuario->del();                
+                    Session::set("msg", (isset($id)) ? Session::msgSuccess("Usuario Borrado") : Session::msgDanger("No se pudo borrar el usuario"));                    
+                }
                 header("Location:index.php?&c=usuarios&a=index");
             }            
-        }
-    }
-    public function active(){
-        if($this->checkUser()){
-            if (isset($_GET['d'])){
-                $usuario = (new Usuario())->findById($_GET['d']);
-                $id = $usuario->del();
-                Session::set("msg", (isset($id)) ? Session::msgSuccess("Usuario Activado") : Session::msgDanger("No se pudo activar el usuario"));
-                header("Location:index.php?c=usuarios&a=index");
-            }        
         }
     }
     private function createDatoUsu(){

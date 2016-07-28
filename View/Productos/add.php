@@ -46,11 +46,9 @@
             placeholder: 'Seleccione un Tipo de Producto',
             maxSelection: 1,
             data: [
-                <?php foreach($tipos as $tipo){
-                    if($tipo->getEstado() == "H"){ ?>
+                <?php foreach($tipos as $tipo){ ?>
                      '<?php echo $tipo->getNombre(); ?>',
-                <?php }                
-                    } ?>
+                <?php } ?>
             ]
         });
     });

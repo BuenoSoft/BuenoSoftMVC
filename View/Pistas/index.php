@@ -13,17 +13,13 @@
         </p>
         <table class="table table-bordered table-striped table-condensed">
             <thead>               
-                <th>Pista</th>
                 <th>Nombre</th>
                 <th>Coordenadas</th>
                 <th>Opciones</th>
             </thead>
             <tbody>
-                <?php foreach ($pistas as $pista) { 
-                    $style = ($pista->getEstado() == "D") ? "color: #BDBDBD;" : "";                    
-                ?>
-                    <tr style="<?php echo $style; ?>">
-                        <td><?php echo $pista->getId(); ?></td>
+                <?php foreach ($pistas as $pista) { ?>
+                    <tr>
                         <td><?php echo $pista->getNombre(); ?></td>
                         <td><?php echo $pista->getCoordenadas(); ?></td>
                         <td>
@@ -33,15 +29,9 @@
                             <a href="index.php?c=pistas&a=edit&d=<?php echo $pista->getId(); ?>">
                                 <i class="fa fa-edit" style="font-size: 22px;"></i>
                             </a>&nbsp;
-                            <?php if($pista->getEstado() == "H") { ?>
-                                <a href="index.php?c=pistas&a=delete&d=<?php echo $pista->getId(); ?>" onclick="return confirm('¿Desea borrar la Pista seleccionada?');" title="Borrar">
-                                    <i class="fa fa-times-circle" style="font-size: 22px;"></i>
-                                </a>
-                            <?php } else { ?>
-                                <a href="index.php?c=pistas&a=active&d=<?php echo $pista->getId(); ?>" onclick="return confirm('¿Desea activar la Pista seleccionada?');">
-                                    <i class="fa fa-unlock-alt" style="font-size: 22px;"></i>
-                                </a>
-                            <?php }?>
+                            <a href="index.php?c=pistas&a=delete&d=<?php echo $pista->getId(); ?>" onclick="return confirm('¿Desea borrar la Pista seleccionada?');" title="Borrar">
+                                <i class="fa fa-times-circle" style="font-size: 22px;"></i>
+                            </a>                           
                         </td>
                     </tr>
                 <?php } ?>

@@ -74,16 +74,6 @@ class TipopController extends AppController
             }            
         }
     }
-    public function active(){
-        if($this->checkUser()){
-            if (isset($_GET['d'])){
-                $tp = (new TipoProducto())->findById($_GET['d']);
-                $id = $tp->del();
-                Session::set("msg", (isset($id)) ? Session::msgSuccess("Tipo de Producto Activado") : Session::msgDanger("No se pudo activar el tipo"));
-                header("Location:index.php?c=tipop&a=index");
-            }        
-        }
-    }
     private function createEntity(){
         $tp = new TipoProducto();
         $tp->setId(isset($_POST["hid"]) ? $_POST["hid"] : 0);

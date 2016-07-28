@@ -7,7 +7,6 @@ class TipoVehiculo implements IPersiste
     private $id;
     private $nombre;
     private $medida;
-    private $estado;
     function getId() {
         return $this->id;
     }
@@ -17,9 +16,6 @@ class TipoVehiculo implements IPersiste
     function getMedida() {
         return $this->medida;
     }
-    function getEstado() {
-        return $this->estado;
-    }
     function setId($id) {
         $this->id = $id;
     }
@@ -28,9 +24,6 @@ class TipoVehiculo implements IPersiste
     }
     function setMedida($medida) {
         $this->medida = $medida;
-    }
-    function setEstado($estado) {
-        $this->estado = $estado;
     }
     function __construct() { }
     public function equals(TipoVehiculo $obj){

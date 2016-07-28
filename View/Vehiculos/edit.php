@@ -14,7 +14,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Padrón del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtpadron" class="form-control" required="required" placeholder="Ej: 1109971" value="<?php echo $vehiculo->getPadron(); ?>" tabindex="2" />
+                        <input type="text" name="txtpadron" class="form-control" placeholder="Ej: 1109971" value="<?php echo $vehiculo->getPadron(); ?>" tabindex="2" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -26,13 +26,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Motor del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtmotor" class="form-control" required="required" placeholder="Ej: kawata78" value="<?php echo $vehiculo->getMotor(); ?>" tabindex="4" />
+                        <input type="text" name="txtmotor" class="form-control" placeholder="Ej: kawata78" value="<?php echo $vehiculo->getMotor(); ?>" tabindex="4" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Chasis del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtchasis" class="form-control" required="required" placeholder="Ej: 285514564" value="<?php echo $vehiculo->getChasis(); ?>" tabindex="5" />
+                        <input type="text" name="txtchasis" class="form-control" placeholder="Ej: 285514564" value="<?php echo $vehiculo->getChasis(); ?>" tabindex="5" />
                     </div>
                 </div>                
             </div>
@@ -80,11 +80,9 @@
             value: ['<?php echo $vehiculo->getTipo()->getNombre(); ?>'],            
             maxSelection: 1,
             data: [
-                <?php foreach($tipos as $tipo){
-                    if($tipo->getEstado() == "H"){ ?>
+                <?php foreach($tipos as $tipo){ ?>
                      '<?php echo $tipo->getNombre(); ?>',
-                <?php }                
-                    } ?>
+                <?php } ?>
             ]
         });
     });

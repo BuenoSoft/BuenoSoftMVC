@@ -34,10 +34,10 @@ class UsuarioModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     protected function getCreateParameter($object) {
-        return [$object->getNombre(), md5($object->getPass()), $object->getRol()->getId(),$object->getAvatar(),'H',$object->getDatoUsu()->getId()];
+        return [$object->getNombre(), md5($object->getPass()), $object->getRol()->getId(),$object->getAvatar(),$object->getDatoUsu()->getId()];
     }
     protected function getCreateQuery() {
-        return "insert into usuarios(usuNombre,usuPass,rolId,usuAvatar,usuEstado,datId) values(?,?,?,?,?,?)"; 
+        return "insert into usuarios(usuNombre,usuPass,rolId,usuAvatar,datId) values(?,?,?,?,?)"; 
     }
     /*------------------------------------------------------------------------------------*/
     public function getAvatar($object){
@@ -51,14 +51,10 @@ class UsuarioModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     protected function getDeleteParameter($object) {
-        if($object->getEstado() == "H"){
-            return ['D',$object->getId()];
-        } else {
-            return ['H',$object->getId()];
-        }
+        return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) {
-        return "update usuarios set usuEstado = ? where usuId = ?";
+        return "delete from usuarios where usuId = ?";
     }
     /*------------------------------------------------------------------------------------*/
     protected function getFindParameter($criterio = null) {
@@ -66,9 +62,9 @@ class UsuarioModel extends AppModel
     }
     protected function getFindQuery($criterio = null) {
         if($criterio == null){
-            return "select * from usuarios u inner join datosusu d on u.datId = d.datId order by u.usuEstado,u.usuId";
+            return "select * from usuarios u inner join datosusu d on u.datId = d.datId order by u.usuNombre";
         } else {
-            return "select * from usuarios u inner join datosusu d on u.datId = d.datId where d.datNombre like :filtro or d.datDocumento like :filtro order by u.usuEstado,u.usuId";         
+            return "select * from usuarios u inner join datosusu d on u.datId = d.datId where d.datNombre like :filtro or d.datDocumento like :filtro order by u.usuNombre";         
         }
     }
     /*------------------------------------------------------------------------------------*/
@@ -90,7 +86,6 @@ class UsuarioModel extends AppModel
         $usuario->setPass($row['usuPass']);
         $usuario->setRol((new RolModel())->findById($row['rolId']));
         $usuario->setAvatar($row['usuAvatar']);
-        $usuario->setEstado($row['usuEstado']);
         $usuario->setDatoUsu((new DatosUsuModel())->findById($row['datId']));
         return $usuario;
     }

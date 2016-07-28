@@ -14,7 +14,6 @@ class Vehiculo implements IPersiste
     private $modelo;
     private $marca;
     private $anio;
-    private $estado;
     private $combustible;
     function getId() {
         return $this->id;
@@ -45,9 +44,6 @@ class Vehiculo implements IPersiste
     }
     function getAnio() {
         return $this->anio;
-    }
-    function getEstado() {
-        return $this->estado;
     }
     function getCombustible() {
         return $this->combustible;
@@ -81,9 +77,6 @@ class Vehiculo implements IPersiste
     }
     function setAnio($anio) {
         $this->anio = $anio;
-    }
-    function setEstado($estado) {
-        $this->estado = $estado;
     }
     function setCombustible($combustible) {
         $this->combustible = $combustible;

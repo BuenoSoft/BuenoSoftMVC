@@ -90,16 +90,6 @@ class ProductosController extends AppController
             }            
         }
     }
-    public function active(){
-        if($this->checkUser()){
-            if (isset($_GET['d'])){
-                $producto = (new Producto())->findById($_GET['d']);
-                $id = $producto->del();
-                Session::set("msg", (isset($id)) ? Session::msgSuccess("Producto Activado") : Session::msgDanger("No se pudo activar el producto"));
-                header("Location:index.php?c=productos&a=index");
-            }        
-        }
-    }
     public function view(){
         if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
             $bc = new Breadcrumbs();

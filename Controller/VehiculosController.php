@@ -107,16 +107,6 @@ class VehiculosController extends AppController
             }            
         }
     }
-    public function active(){
-        if($this->checkUser()){
-            if (isset($_GET['d'])){
-                $vehiculo = (new Vehiculo())->findById($_GET['d']);
-                $id = $vehiculo->del();
-                Session::set("msg", (isset($id)) ? Session::msgSuccess("Vehículo Activado") : Session::msgDanger("No se pudo activar el vehículo"));
-                header("Location:index.php?c=vehiculos&a=index");
-            }        
-        }
-    }
     private function createEntity(){
         $tipo = (new TipoVehiculo())->findByX((isset($_POST['tipo'][0])) ? $_POST['tipo'][0] : 0);
         $vehiculo = new Vehiculo();

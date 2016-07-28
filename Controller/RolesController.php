@@ -11,8 +11,8 @@ class RolesController extends AppController
      public function index(){
         if($this->checkUser()){
             $bc = new Breadcrumbs();
-            $bc->add_crumb("index.php?c=inicio&a=index");
-            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            //$bc->add_crumb("index.php?c=inicio&a=index");
+            //$bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
             $this->redirect_administrador(["index.php"],[
                 "roles" => (new Rol())->find()
@@ -72,16 +72,6 @@ class RolesController extends AppController
                 Session::set("msg", (isset($id)) ? Session::msgSuccess("Rol Borrado") : Session::msgDanger("No se pudo borrar el rol"));
                 header("Location:index.php?c=roles&a=index");
             }            
-        }
-    }
-    public function active(){
-        if($this->checkUser()){
-            if (isset($_GET['d'])){
-                $rol = (new Rol())->findById($_GET['d']);
-                $id = $rol->del();
-                Session::set("msg", (isset($id)) ? Session::msgSuccess("Rol Activado") : Session::msgDanger("No se pudo activar el rol"));
-                header("Location:index.php?c=roles&a=index");
-            }        
         }
     }
     private function createEntity(){

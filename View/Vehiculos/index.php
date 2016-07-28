@@ -13,18 +13,14 @@
         </p>
         <table class="table table-bordered table-striped table-condensed">
             <thead>               
-                <th>Vehículo</th>
                 <th>Matrícula</th>
                 <th>Tipo</th>
                 <th>Combustible</th>
                 <th>Opciones</th>
             </thead>
             <tbody>
-                <?php foreach ($vehiculos as $vehiculo) { 
-                    $style = ($vehiculo->getEstado() == "D") ? "color: #BDBDBD;" : "";                    
-                ?>                    
+                <?php foreach ($vehiculos as $vehiculo) { ?>                    
                     <tr style="<?php echo $style; ?>">                                                    
-                        <td><?php echo $vehiculo->getId(); ?></td>
                         <td><?php echo $vehiculo->getMatricula(); ?></td>
                         <td><?php echo $vehiculo->getTipo()->getNombre(); ?></td>
                         <td><?php echo $vehiculo->getCombustible()->getNombre(); ?></td> 
@@ -35,15 +31,9 @@
                             <a href="index.php?c=vehiculos&a=edit&d=<?php echo $vehiculo->getId(); ?>" title="Editar">
                                 <i class="fa fa-edit" style="font-size: 22px;"></i>
                             </a>&nbsp;
-                            <?php if($vehiculo->getEstado() == "H") { ?>
-                                <a href="index.php?c=vehiculos&a=delete&d=<?php echo $vehiculo->getId(); ?>" onclick="return confirm('¿Desea borrar el Vehículo seleccionado?');" title="Borrar">
-                                    <i class="fa fa-times-circle" style="font-size: 22px;"></i>
-                                </a>
-                            <?php } else { ?>
-                                <a href="index.php?c=vehiculos&a=active&d=<?php echo $vehiculo->getId(); ?>" onclick="return confirm('¿Desea activar el Vehículo seleccionado?');" title="Activar">
-                                    <i class="fa fa-unlock-alt" style="font-size: 22px;"></i>
-                                </a>
-                            <?php }?>
+                            <a href="index.php?c=vehiculos&a=delete&d=<?php echo $vehiculo->getId(); ?>" onclick="return confirm('¿Desea borrar el Vehículo seleccionado?');" title="Borrar">
+                                <i class="fa fa-times-circle" style="font-size: 22px;"></i>
+                            </a>                            
                         </td>
                     </tr>
                 <?php } ?>

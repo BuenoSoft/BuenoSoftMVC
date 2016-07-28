@@ -145,8 +145,9 @@
                         </a>
                     </li>
                     <li class="sub-menu">
+                        <!--<a href="roles/index">-->
                         <a href="index.php?c=roles&a=index">
-                            <i class="fa fa-user"></i>&nbsp;Roles                            
+                            <i class="fa fa-user"></i>&nbsp;Roles
                         </a>
                     </li>
                 <?php } else if(App\Session::get('log_in') != null and (App\Session::get('log_in')->getRol()->getNombre() == "Piloto" or App\Session::get('log_in')->getRol()->getNombre() == "Supervisor")) {?>    

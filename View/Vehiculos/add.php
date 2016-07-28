@@ -13,7 +13,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Padrón del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtpadron" class="form-control" required="required" placeholder="Ej: 1109971" tabindex="2"/>
+                        <input type="text" name="txtpadron" class="form-control" placeholder="Ej: 1109971" tabindex="2"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -25,13 +25,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Motor del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtmotor" class="form-control" required="required" placeholder="Ej: kawata78" tabindex="4" />
+                        <input type="text" name="txtmotor" class="form-control" placeholder="Ej: kawata78" tabindex="4" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Chasis del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtchasis" class="form-control" required="required" placeholder="Ej: 285514564" tabindex="5"/>
+                        <input type="text" name="txtchasis" class="form-control" placeholder="Ej: 285514564" tabindex="5"/>
                     </div>
                 </div>                
             </div>
@@ -78,11 +78,9 @@
             placeholder: 'Seleccione un Tipo de Vehículo',
             maxSelection: 1,
             data: [
-                <?php foreach($tipos as $tipo){
-                    if($tipo->getEstado() == "H"){ ?>
+                <?php foreach($tipos as $tipo){ ?>
                      '<?php echo $tipo->getNombre(); ?>',
-                <?php }                
-                    } ?>
+                <?php } ?>
             ]
         });
     });
