@@ -114,8 +114,6 @@ class VehiculosController extends AppController
         $vehiculo->setMatricula($this->clean($_POST['txtmat']));
         $vehiculo->setPadron($this->clean($_POST['txtpadron']));
         $vehiculo->setTipo($tipo);
-        $vehiculo->setMotor($this->clean($_POST['txtmotor']));
-        $vehiculo->setChasis($this->clean($_POST['txtchasis']));
         $vehiculo->setCapcarga($this->clean($_POST['txtcap']));
         $vehiculo->setModelo($this->clean($_POST['txtmodelo']));
         $vehiculo->setMarca($this->clean($_POST['txtmarca']));

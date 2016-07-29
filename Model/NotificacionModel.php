@@ -14,7 +14,7 @@ class NotificacionModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     protected function getCreateParameter($object) {       
-        return [$object->getLog(),$object->getFechaini(),$object->getFechafin(),$object->getFechaAct(),'N',$object->getUsuario()->getId(),$object->getVehiculo()->getId()];
+        return [$object->getLog(),$object->getFechaini(),$object->getFechafin(),$object->getFechaAct(),'N',$object->getVehiculo()->getId(),$object->getUsuario()->getId()];
     }
     protected function getCreateQuery() {        
         return "insert into notificaciones(notLog,notFechaIni,notFechaFin,notFechaAct,notEstado,vehId,usuId) values (?,?,?,?,?,?,?)";
@@ -32,7 +32,10 @@ class NotificacionModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     protected function getUpdateParameter($object) {
-        return [$object->getLog(),$object->getFechaini(),$object->getFechafin(),$object->getFechaAct(),'L',$object->getUsuario()->getId(),$object->getVehiculo()->getId(),$object->getId()];
+        return [$object->getLog(),$object->getFechaini(),$object->getFechafin(),$object->getFechaAct(),'L',
+            $object->getVehiculo()->getId(),
+            $object->getUsuario()->getId(),
+            $object->getId()];
     }
     protected function getUpdateQuery() {
         return "update notificaciones set notLog = ?,notFechaIni = ?,notFechaFin = ?,notFechaAct = ?,notEstado = ?,vehId = ?,usuId = ? where notId = ?";
@@ -50,6 +53,7 @@ class NotificacionModel extends AppModel
     }
     public function createEntity($row) {
         $veh = (new VehiculoModel())->findById($row["vehId"]);
+        $usu = (new UsuarioModel())->findById($row["usuId"]);
         $not = new Notificacion();
         $not->setId($row["notId"]);
         $not->setLog($row["notLog"]); 
@@ -57,6 +61,7 @@ class NotificacionModel extends AppModel
         $not->setFechafin($row["notFechaFin"]);
         $not->setEstado($row["notEstado"]);
         $not->setVehiculo($veh);
+        $not->setUsuario($usu);
         return $not;
     }
     /*------------------------------------------------------------------------------------*/

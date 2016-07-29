@@ -5,7 +5,7 @@
             <div class="showback">
                 <h4><i class="fa fa-angle-right"></i>&nbsp;Datos de la Notificación:</h4>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Log de la Notificación&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Mensaje de la Notificación&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <textarea name="txtlog" class="form-control" rows="5" cols="67" required="required" placeholder="Ej: Cambio de las ruedas traseras" tabindex="1"  autofocus="autofocus"></textarea>
                     </div>

@@ -6,7 +6,7 @@
                 <h4><i class="fa fa-angle-right"></i>&nbsp;Datos de la Notificación:</h4>
                 <input type="hidden" name="hid" value="<?php echo $notificacion->getId(); ?>" />
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Log de la Notificación&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Mensaje de la Notificación&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <textarea name="txtlog" rows="5" cols="67" required="required" placeholder="Ej: Cambio de las ruedas traseras" class="form-control" tabindex="1"><?php echo $notificacion->getLog(); ?></textarea>
                     </div>
@@ -14,7 +14,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de la Notificación&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="dtfechaini" id="fecini" required="required" name="dtfecini" value="<?php echo $notificacion->mostrarDateTimeIni(); ?>" tabindex="2" />
+                        <input type="text" name="dtfechaini" id="fecini" required="required" name="dtfecini" value="<?php echo $notificacion->mostrarDateIni(); ?>" tabindex="2" />
                     </div>
                 </div>                               
             </div>
@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Cierre</label>
                     <div class="col-sm-10">
-                        <input type="text" id="fecfin" name="dtfechafin" value="<?php echo ($notificacion->getFechafin() == null) ? "" : $notificacion->mostrarDateTimeFin(); ?>" tabindex="3" />
+                        <input type="text" id="fecfin" name="dtfechafin" value="<?php echo ($notificacion->getFechafin() == null) ? "" : $notificacion->mostrarDateFin(); ?>" tabindex="3" />
                     </div>
                 </div> 
                 <div class="form-group">

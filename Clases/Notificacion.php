@@ -64,13 +64,13 @@ class Notificacion implements IPersiste
     public function equals(Notificacion $obj){
         return $this->log == $obj->log and $this->vehiculo == $obj->vehiculo;                
     }
-    public function mostrarDateTimeIni(){
+    public function mostrarDateIni(){
         $date = date_create($this->fechaini);
-        return date_format($date, "Y-m-d H:i");
+        return date_format($date, "Y-m-d");
     }
-    public function mostrarDateTimeFin(){
+    public function mostrarDateFin(){
         $date = date_create($this->fechafin);
-        return date_format($date, "Y-m-d H:i");
+        return date_format($date, "Y-m-d");
     }
     /*----------------------------------*/
     public function find($criterio = null) {

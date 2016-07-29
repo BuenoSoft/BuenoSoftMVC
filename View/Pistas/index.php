@@ -21,7 +21,15 @@
                 <?php foreach ($pistas as $pista) { ?>
                     <tr>
                         <td><?php echo $pista->getNombre(); ?></td>
-                        <td><?php echo $pista->getCoordenadas(); ?></td>
+                        <td>
+                            <?php
+                                if($pista->getCoordenadas() != "0,0"){
+                                    echo "sur: ".$pista->getGMDLat()." oeste: ".$pista->getGMDLong();
+                                } else {
+                                    echo "";
+                                }                                
+                            ?>
+                        </td>
                         <td>
                             <a href="index.php?c=pistas&a=view&d=<?php echo $pista->getId(); ?>" title="Ver">
                                 <i class="fa fa-eye" style="font-size: 22px;"></i>

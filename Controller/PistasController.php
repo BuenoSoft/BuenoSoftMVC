@@ -64,7 +64,7 @@ class PistasController extends AppController
                 }
             }
             $this->redirect_administrador(["edit.php"],[
-                'pista' => (new Pista())->findById(Session::get('pis')),
+                'pista' => (new Pista())->findById(Session::get('pis'))
             ]);
         }
     }
@@ -97,9 +97,19 @@ class PistasController extends AppController
         $pista = new Pista();
         $pista->setId(isset($_POST["hid"]) ? $_POST["hid"] : 0);
         $pista->setNombre($this->clean($_POST["txtnombre"]));
-        $pista->setCoordenadas($_POST["txtcoord"]);
+        $pista->setCoordenadas($this->getCoords($_POST["txtsur"],$_POST["txtoeste"]));
         return $pista;
     }
+    private function getCoords($sur,$oeste){
+        $lat = $this->getCoord($sur);
+        $lon = $this->getCoord($oeste);
+        return $lat.",".$lon;
+    }
+    private function getCoord($date){
+        $arr=  explode(" ",$date);
+        return (-1 *($arr[0]+($arr[1]/60)+($arr[2]/3600)));
+    }
+    
     protected function getRoles() {
         return ["Administrador","Supervisor"];
     }

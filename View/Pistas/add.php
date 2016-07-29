@@ -13,7 +13,10 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Coordenadas de la Pista</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcoord" onkeypress="return validarNumeroPC(event);" class="form-control" pattern="[+-]?[\d]{1,3}.{1}?[\d]{1,6},[+-]?[\d]{1,3}.{1}?[\d]{1,6}" placeholder="Ej: -30.434,-57.439" tabindex="2" />
+                        <!--<input type="text" name="txtcoord" onkeypress="return validarNumeroPC(event);" class="form-control" pattern="[+-]?[\d]{1,3}.{1}?[\d]{1,6},[+-]?[\d]{1,3}.{1}?[\d]{1,6}" placeholder="Ej: -30.434,-57.439" tabindex="2" /> -->
+                        <b>Sur</b>&nbsp<input name="txtsur" id="sur" type="text" tabindex="1" placeholder="xx xx xx" class="form-control" />
+                        <br />
+                        <b>Oeste</b>&nbsp<input name="txtoeste" id="oeste" type="text" tabindex="1" placeholder="xxx xx xx" class="form-control" />
                     </div>
                 </div>
             </div>
@@ -24,3 +27,10 @@
         </div>        
     </div>
 </form>
+<script type="text/javascript">
+    $(function() {
+        $.mask.definitions['~'] = "[+-]";
+        $("#sur").mask("99 99 99",{ placeholder: "xx xx xx" });
+        $("#oeste").mask("999 99 99",{ placeholder: "xxx xx xx" });        
+    });
+</script>

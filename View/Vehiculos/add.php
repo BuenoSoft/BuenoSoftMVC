@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Padrón del Vehículo&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Padrón del Vehículo</label>
                     <div class="col-sm-10">
                         <input type="text" name="txtpadron" class="form-control" placeholder="Ej: 1109971" tabindex="2"/>
                     </div>
@@ -21,29 +21,17 @@
                     <div class="col-sm-10">
                         <input id="tipo" name="tipo" required="required" tabindex="3"/>
                     </div>
-                </div>
+                </div> 
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Motor del Vehículo&nbsp;<font color="red">*</font></label>
-                    <div class="col-sm-10">
-                        <input type="text" name="txtmotor" class="form-control" placeholder="Ej: kawata78" tabindex="4" />
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Chasis del Vehículo&nbsp;<font color="red">*</font></label>
-                    <div class="col-sm-10">
-                        <input type="text" name="txtchasis" class="form-control" placeholder="Ej: 285514564" tabindex="5"/>
-                    </div>
-                </div>                
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
-            <div class="showback">
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Capacidad de Carga&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Capacidad de Carga (lts)&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input type="text" name="txtcap" onkeypress="return validarNumeroPC(event); " class="form-control" required="required" placeholder="Ej: 25.8" tabindex="7"/>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="showback">                
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Modelo del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">

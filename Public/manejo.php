@@ -9,6 +9,7 @@
         <title>Buenos Servicios</title>
         <!-- Bootstrap core CSS -->
         <link rel="shortcut icon" href="Public/img/manejo/favicom.png" type="image/png" />
+        <link href="Public/css/manejo/inicio.css" rel="stylesheet" type="text/css" />
         <link href="Public/css/manejo/bootstrap.css" rel="stylesheet" type="text/css" />
         <!--external css-->
         <link href="Public/css/manejo/font-awesome.css" rel="stylesheet" type="text/css" />
@@ -56,6 +57,7 @@
         <!-- js placed at the end of the document so the pages load faster -->
          
         <script src="Public/js/manejo/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
+        <script src="Public/js/manejo/jquery.maskedinput" type="text/javascript"></script>
         <script src="Public/js/manejo/bootstrap.min.js" type="text/javascript"></script>
         <script src="Public/js/manejo/combodate.js" type="text/javascript"></script>
         <script src="Public/js/manejo/moment.js" type="text/javascript"></script>

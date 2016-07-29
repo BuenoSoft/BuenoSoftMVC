@@ -36,9 +36,13 @@ class NotificacionesController extends AppController
             $bc->add_crumb($_SERVER['HTTP_REFERER']);
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
-            if (isset($_POST['btnaceptar'])) {
+            if (isset($_POST['btnaceptar'])) {                   
                 $not = $this->createEntity();
-                if($not->getVehiculo() != null){
+                if($not->getVehiculo() == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el vehículo"));
+                } else if($not->getUsuario() == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el usuario"));
+                } else {
                     $id = $not->save();
                     if(isset($id)){
                         Session::set("msg",Session::msgSuccess("Notificación Creada"));
@@ -47,9 +51,7 @@ class NotificacionesController extends AppController
                     } else {
                         Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                     }                
-                } else {
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el vehículo"));
-                }                
+                }               
             }
             $this->redirect_administrador(["add.php"],[
                 "vehiculos" => (new Vehiculo())->find(),
@@ -69,6 +71,8 @@ class NotificacionesController extends AppController
                 $not = $this->createEntity();
                 if($not->getVehiculo() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el vehículo"));
+                } else if($not->getUsuario() == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el usuario"));    
                 } else if($not->getFechaini() > $not->getFechafin()){
                     Session::set("msg",Session::msgDanger("Asegurese de que la fecha sea menor a la de cierre"));
                 } else {

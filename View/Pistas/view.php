@@ -1,8 +1,4 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Ver Pista número&nbsp;<?php echo $pista->getId(); ?></h3>
-<!--
-<p>
-    <button class="btn btn-theme05" onclick="window.close();"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button>
-</p> -->
 <div class="form-horizontal style-form">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
@@ -17,7 +13,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Coordenadas de la Pista</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $pista->getCoordenadas(); ?>
+                        <?php echo "sur: ".$pista->getGMDLat()."<br /> oeste: ".$pista->getGMDLong(); ?>
                     </div>
                 </div>
             </div>

@@ -23,28 +23,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Motor del Vehículo</label>
-                    <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $vehiculo->getMotor(); ?>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Chasis del Vehículo</label>
-                    <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $vehiculo->getChasis(); ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
-            <div class="showback">
-                
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Capacidad de Carga</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Capacidad de Carga (lts)</label>
                     <div class="col-sm-10" style="text-align: center;">
                         <?php echo $vehiculo->getCapcarga(); ?>
                     </div>
-                </div>
+                </div>               
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="showback">                
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Modelo del Vehículo</label>
                     <div class="col-sm-10" style="text-align: center;">

@@ -8,8 +8,6 @@ class Vehiculo implements IPersiste
     private $matricula;
     private $padron;
     private $tipo;
-    private $motor;
-    private $chasis;
     private $capcarga;
     private $modelo;
     private $marca;
@@ -26,12 +24,6 @@ class Vehiculo implements IPersiste
     }
     function getTipo() {
         return $this->tipo;
-    }
-    function getMotor() {
-        return $this->motor;
-    }
-    function getChasis() {
-        return $this->chasis;
     }
     function getCapcarga() {
         return $this->capcarga;
@@ -59,12 +51,6 @@ class Vehiculo implements IPersiste
     }
     function setTipo($tipo) {
         $this->tipo = $tipo;
-    }
-    function setMotor($motor) {
-        $this->motor = $motor;
-    }
-    function setChasis($chasis) {
-        $this->chasis = $chasis;
     }
     function setCapcarga($capcarga) {
         $this->capcarga = $capcarga;
