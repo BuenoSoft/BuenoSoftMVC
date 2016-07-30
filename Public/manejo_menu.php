@@ -27,10 +27,13 @@
                             <i class="fa fa-envelope"></i>&nbsp;Notificaciones
                         </a>
                         <ul class='dropdown-menu' style="padding: 4px 4px 4px 4px; border: 2px;">
-                            <?php foreach($notificaciones as $notificacion) { ?>
+                            <?php 
+                                foreach($notificaciones as $notificacion) { 
+                                $style = ($notificacion->getEstado() == "N") ? "color: #2E9AFE;" : "";
+                                ?>
                                 <li class="dropdown-header">
                                     <a href="index.php?c=notificaciones&a=view&d=<?php echo $notificacion->getId(); ?>" title="Ver">
-                                        <table>
+                                        <table style="<?php echo $style; ?>">
                                             <tr>
                                                 <td rowspan="2" align="center">
                                                     <i class="fa fa-info-circle" style="font-size: 30px;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                                               
@@ -38,7 +41,7 @@
                                             </tr>
                                             <tr>
                                                 <td colspan="2">
-                                                    <b style="font-size: 13px;">Registro:</b>&nbsp;
+                                                    <b style="font-size: 13px;">Mensaje:</b>&nbsp;
                                                     <br />
                                                     <i style="font-size: 13px;">                                             
                                                         <?php

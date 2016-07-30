@@ -22,8 +22,10 @@
                 <th>Opciones</th>
             </thead>
             <tbody>
-                <?php foreach($notificaciones as $notificacion){ ?>
-                    <tr>
+                <?php foreach($notificaciones as $notificacion){ 
+                    $style = ($notificacion->getEstado() == "N") ? "color: #2E9AFE;" : "";
+                    ?>
+                    <tr style="<?php echo $style; ?>">
                         <td>
                             <a href="index.php?c=vehiculos&a=view&d=<?php echo $notificacion->getVehiculo()->getId(); ?>">
                                 <?php echo $notificacion->getVehiculo()->getMatricula(); ?>

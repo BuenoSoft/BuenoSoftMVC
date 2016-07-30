@@ -1,4 +1,4 @@
-<h3><i class="fa fa-angle-right"></i>&nbsp;Ver Notificación&nbsp;<?php echo $notificacion->getId(); ?></h3>
+ <h3><i class="fa fa-angle-right"></i>&nbsp;Ver Notificación&nbsp;<?php echo $notificacion->getId(); ?></h3>
 <p>
     <a href="index.php?c=notificaciones&a=index">
         <button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme05">

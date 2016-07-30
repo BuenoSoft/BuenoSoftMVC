@@ -107,9 +107,11 @@ class PistasController extends AppController
     }
     private function getCoord($date){
         $arr=  explode(" ",$date);
-        return (-1 *($arr[0]+($arr[1]/60)+($arr[2]/3600)));
-    }
-    
+        $p1 = $arr[1] /60;
+        $p2 = $p1 + $arr[1];
+        $p3 = $p2 /60;
+        return -1 * ($p3 + $arr[0]);
+    }    
     protected function getRoles() {
         return ["Administrador","Supervisor"];
     }

@@ -1,5 +1,6 @@
 <?php
 namespace Model;
+use \App\Session;
 use \Clases\Notificacion;
 class NotificacionModel extends AppModel
 {
@@ -21,14 +22,35 @@ class NotificacionModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     protected function getFindParameter($criterio = null) {
-        return ["filtro" => "%".$criterio."%"];
+        if($criterio == null){
+            if(Session::get("log_in")->getRol()->getNombre() != "Administrador" and Session::get("log_in")->getRol()->getNombre() != "Supervisor"){
+                return ["log" => Session::get("log_in")->getId()];
+            } 
+        }
+        else {
+            if(Session::get("log_in")->getRol()->getNombre() == "Administrador" or Session::get("log_in")->getRol()->getNombre() == "Supervisor"){
+                return ["filtro" => "%".$criterio."%"];
+            } else {
+                return ["filtro" => "%".$criterio."%", "log" => Session::get("log_in")->getId()];
+            }
+        }       
     }
     protected function getFindQuery($criterio = null) {
+        $sql = "select * from notificaciones n inner join vehiculos v on n.vehId = v.vehId";
         if($criterio == null){
-            return "select * from notificaciones n inner join vehiculos v on n.vehId = v.vehId order by notId";
+            if(Session::get("log_in")->getRol()->getNombre() == "Administrador" or Session::get("log_in")->getRol()->getNombre() == "Supervisor"){
+                $sql .=" order by n.notFechaAct desc, n.notEstado desc";
+            } else {
+                $sql .=" where n.usuId = :log order by n.notFechaAct desc, n.notEstado desc";
+            }
         } else {
-            return "select * from notificaciones n inner join vehiculos v on n.vehId = v.vehId where n.notLog like :filtro or v.vehMatricula like :filtro order by notId";
-        }        
+            if(Session::get("log_in")->getRol()->getNombre() == "Administrador" or Session::get("log_in")->getRol()->getNombre() == "Supervisor"){
+                $sql .=" where n.notLog like :filtro or v.vehMatricula like :filtro order by notFechaAct desc, notEstado desc";
+            } else {
+                $sql .=" where (n.notLog like :filtro or v.vehMatricula like :filtro) and n.usuId = :log order by notFechaAct desc, notEstado desc";
+            }            
+        }
+        return $sql;
     }
     /*------------------------------------------------------------------------------------*/
     protected function getUpdateParameter($object) {
@@ -66,9 +88,20 @@ class NotificacionModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     private function getShowQuery(){
-        return "select * from notificaciones where notEstado = ? order by notFechaAct desc limit 0,5";
+        if(Session::get("log_in")->getRol()->getNombre() == "Administrador" or Session::get("log_in")->getRol()->getNombre() == "Supervisor"){
+            return "select * from notificaciones order by notFechaAct desc, notEstado desc limit 0,5";
+        } else {
+            return "select * from notificaciones where usuId = ? order by notFechaAct desc, notEstado desc limit 0,5";
+        }       
+    }
+    private function getShowParam(){
+        if(Session::get("log_in")->getRol()->getNombre() == "Administrador" and Session::get("log_in")->getRol()->getNombre() == "Supervisor"){
+            return [];
+        } else {
+            return [Session::get("log_in")->getId()];
+        }
     }
     public function getNotificaciones(){
-       return $this->fetch($this->getShowQuery(), ["N"]);
+       return $this->fetch($this->getShowQuery(), $this->getShowParam());
     }    
 }

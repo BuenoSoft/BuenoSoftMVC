@@ -21,6 +21,10 @@ class Aplicacion implements IPersiste
     private $caudal;
     private $dosis;
     private $cliente;
+    private $terrestre;
+    private $aeronave;
+    private $chofer;
+    private $piloto;
     function getId() {
         return $this->id;
     }
@@ -71,7 +75,19 @@ class Aplicacion implements IPersiste
     }
     function getCliente() {
         return $this->cliente;
-    }    
+    }
+    function getTerrestre() {
+        return $this->terrestre;
+    }
+    function getAeronave() {
+        return $this->aeronave;
+    }
+    function getChofer() {
+        return $this->chofer;
+    }
+    function getPiloto() {
+        return $this->piloto;
+    }
     function setId($id) {
         $this->id = $id;
     }
@@ -123,6 +139,18 @@ class Aplicacion implements IPersiste
     function setCliente($cliente) {
         $this->cliente = $cliente;
     }
+    function setTerrestre($terrestre) {
+        $this->terrestre = $terrestre;
+    }
+    function setAeronave($aeronave) {
+        $this->aeronave = $aeronave;
+    }
+    function setChofer($chofer) {
+        $this->chofer = $chofer;
+    }
+    function setPiloto($piloto) {
+        $this->piloto = $piloto;
+    }
     function __construct() { }
     public function taquiDif(){
         return $this->taquiFin - $this->taquiIni;
@@ -165,15 +193,5 @@ class Aplicacion implements IPersiste
     }
     public function getProductos() {
         return (new AplicacionModel())->getProductos([$this->id]); 
-    }
-    /*-----------------------------------------*/
-    public function addUsu($veh,$usu) {
-        return (new AplicacionModel())->addUsu([$this->id, $veh, $usu]);
-    }
-    public function delUsu($veh,$usu) {
-        return (new AplicacionModel())->delUsu([$this->id, $veh, $usu]);
-    }
-    public function getUsados(){
-        return (new AplicacionModel())->getUsados([$this->id]);
     }
 }

@@ -62,15 +62,11 @@
                     <div class="col-sm-10">                        
                         <?php 
                             foreach ($productos as $producto) { 
-                                if($producto->getEstado() == "H") {
-                                    if($producto->checkPro(\App\Session::get('app'))){ ?>
-                                        <input type="checkbox" name="productos[]" value="<?php echo $producto->getId(); ?>" checked="checked"/>&nbsp;<?php echo $producto->getNombre(); ?><br />
-                        <?php                                                           
-                                    } else { ?>
-                                        <input type="checkbox" name="productos[]" value="<?php echo $producto->getId(); ?>" />&nbsp;<?php echo $producto->getNombre(); ?><br />
-                        <?php                
-                                    }
-                                }                         
+                                if($producto->checkPro(\App\Session::get('app'))){ ?>
+                                    <input type="checkbox" name="productos[]" value="<?php echo $producto->getId(); ?>" checked="checked"/>&nbsp;<?php echo $producto->getNombre(); ?><br />
+                        <?php   } else { ?>
+                                    <input type="checkbox" name="productos[]" value="<?php echo $producto->getId(); ?>" />&nbsp;<?php echo $producto->getNombre(); ?><br />
+                        <?php   }                                                         
                             } ?>                                                     
                     </div>
                 </div>                

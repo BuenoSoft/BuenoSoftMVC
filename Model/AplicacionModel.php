@@ -14,14 +14,17 @@ class AplicacionModel extends AppModel
             $object->getCoordCul(), $object->getPista()->getId(), $object->getAreaapl(), $object->getFaja(),
             $object->getFechaIni(), $object->getFechaFin(), $object->getTratamiento(), $object->getViento(), 
             $object->getTipo()->getId(), $object->getTaquiIni(), $object->getTaquiFin(), $object->getPadron(), 
-            $object->getCultivo(), $object->getCaudal(), $object->getDosis(), $object->getCliente()->getId()
+            $object->getCultivo(), $object->getCaudal(), $object->getDosis(), $object->getCliente()->getId(),
+            $object->getPiloto()->getId(),$object->getChofer()->getId(),$object->getAeronave()->getId(),
+            $object->getTerrestre()->getId()
         ];
     }
     protected function getCreateQuery() {
         return "insert into aplicaciones(aplCoordCul,pisId,aplAreaAplicada,aplFaja,"
             . "aplFechaIni,aplFechaFin,aplTratamiento,aplViento,tpId,aplTaquiIni,"
-            . "aplTaquiFin,aplPadron,aplCultivo,aplCaudal,aplDosis,usuId)"
-            . "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            . "aplTaquiFin,aplPadron,aplCultivo,aplCaudal,aplDosis,usuId,usuPiloto,"
+            . "usuChofer,vehAero,vehTerr)"
+            . "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     }
     /*------------------------------------------------------------------------------------*/
     public function modApp($object){
@@ -31,15 +34,17 @@ class AplicacionModel extends AppModel
         return "update aplicaciones set aplCoordCul = ?,pisId = ?, aplAreaAplicada = ?, "
             . "aplFaja = ?,aplFechaIni = ?,aplFechaFin = ?,aplTratamiento = ?,aplViento = ?,"
             . "tpId = ?,aplTaquiIni = ?,aplTaquiFin = ?,aplPadron = ?,aplCultivo = ?, "
-            . "aplCaudal = ?, aplDosis = ?,usuId = ? where aplId = ?";
+            . "aplCaudal = ?, aplDosis = ?,usuId = ?,usuPiloto = ?,usuChofer = ?,"
+            . "vehAero = ?,vehTerr = ? where aplId = ?";
     }
     protected function getUpdateParameter($object) {
         return [
             $object->getCoordCul(), $object->getPista()->getId(), $object->getAreaapl(), $object->getFaja(), 
             $object->getFechaIni(),$object->getFechaFin(), $object->getTratamiento(), $object->getViento(), 
             $object->getTipo()->getId(),$object->getTaquiIni(), $object->getTaquiFin(), $object->getPadron(), 
-            $object->getCultivo(), $object->getCaudal(),$object->getDosis(), $object->getCliente()->getId(), 
-            $object->getId()
+            $object->getCultivo(), $object->getCaudal(),$object->getDosis(), $object->getCliente()->getId(),
+            $object->getPiloto()->getId(),$object->getChofer()->getId(),$object->getAeronave()->getId(),
+            $object->getTerrestre()->getId(),$object->getId()
         ];
     }
     /*------------------------------------------------------------------------------------*/
@@ -142,6 +147,10 @@ class AplicacionModel extends AppModel
         $aplicacion->setCaudal($row["aplCaudal"]);
         $aplicacion->setDosis($row["aplDosis"]);
         $aplicacion->setCliente((new UsuarioModel())->findById($row["cliente"]));
+        $aplicacion->setPiloto((new UsuarioModel())->findById($row["usuPiloto"]));
+        $aplicacion->setChofer((new UsuarioModel())->findById($row["usuChofer"]));
+        $aplicacion->setAeronave((new VehiculoModel())->findById($row["vehAero"]));
+        $aplicacion->setTerrestre((new VehiculoModel())->findById($row["vehTerr"]));
         return $aplicacion;
     }
     /*-------------------------------------------------------------------------------*/
@@ -156,16 +165,6 @@ class AplicacionModel extends AppModel
     }
     public function delPro($dates = []){
         return (new TieneModel())->delPro($dates);
-    }
-    /*-------------------------------------------------------------------------------*/
-    public function addUsu($usado) {
-        return (new UsadoModel())->addUsu($usado);    
-    }
-    public function getUsados($dates = []){
-        return (new UsadoModel())->getUsados($dates);
-    }
-    public function delUsu($usado){
-        return (new UsadoModel())->delUsu($usado);
     }
     /*-------------------------------------------------------------------------------*/
     protected function getCheckMessage() { }

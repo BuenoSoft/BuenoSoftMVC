@@ -14,8 +14,8 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Aeronave</label>
                     <div class="col-sm-10" style="text-align: center;">                        
-                        <a href="index.php?c=aplicaciones&a=vehiculo&d=<?php echo $aeronave->getId();?>">
-                            <?php echo $aeronave->getMatricula(); ?>
+                        <a href="index.php?c=aplicaciones&a=vehiculo&d=<?php echo $aplicacion->getAeronave()->getId();?>">
+                            <?php echo $aplicacion->getAeronave()->getMatricula(); ?>
                         </a>
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                     <label class="col-sm-2 col-sm-2 control-label">Chofer</label>
                     <div class="col-sm-10" style="text-align: center;">
                         <a href="index.php?c=aplicaciones&a=usuario&d=<?php echo $chofer->getId(); ?>">
-                            <?php echo $chofer->getDatoUsu()->getNombre(); ?>
+                            <?php echo $aplicacion->getChofer()->getDatoUsu()->getNombre(); ?>
                         </a>
                     </div>
                 </div>
@@ -90,8 +90,8 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Terrestre</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <a href="index.php?c=aplicaciones&a=vehiculo&d=<?php echo $terrestre->getId();?>">
-                            <?php echo $terrestre->getMatricula(); ?>
+                        <a href="index.php?c=aplicaciones&a=vehiculo&d=<?php echo $aplicacion->getTerrestre()->getId();?>">
+                            <?php echo $aplicacion->getTerrestre()->getMatricula(); ?>
                         </a>
                     </div>
                 </div>
@@ -102,8 +102,8 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Piloto</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <a href="index.php?c=aplicaciones&a=usuario&d=<?php echo $piloto->getId(); ?>">
-                            <?php echo $piloto->getDatoUsu()->getNombre(); ?>
+                        <a href="index.php?c=aplicaciones&a=usuario&d=<?php echo $aplicacion->getPiloto()->getId(); ?>">
+                            <?php echo $aplicacion->getPiloto()->getDatoUsu()->getNombre(); ?>
                         </a>                            
                     </div>
                 </div>                    

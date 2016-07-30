@@ -58,31 +58,17 @@
                 <th>Opciones</th>
             </thead>
             <tbody>
-                <?php foreach ($aplicaciones as $aplicacion) { ?>
+                <?php foreach ($aplicaciones as $aplicacion) { ?>                    
                     <tr>
                         <td>
-                            <?php 
-                                foreach($aplicacion->getUsados() as $usado) {
-                                    if($usado->getUsuario()->getRol()->getNombre() == "Piloto"){ ?>
-                                        <a href="index.php?c=usuarios&a=view&d=<?php echo $usado->getUsuario()->getId(); ?>">
-                                            <?php echo $usado->getUsuario()->getDatoUsu()->getNombre(); ?>
-                                        </a>                                        
-                            <?php
-                                    }
-                                }
-                            ?>
+                            <a href="index.php?c=usuarios&a=view&d=<?php echo $aplicacion->getPiloto()->getId(); ?>">
+                                <?php echo $aplicacion->getPiloto()->getDatoUsu()->getNombre(); ?>
+                            </a>                                                                    
                         </td>
                         <td>
-                            <?php 
-                                foreach($aplicacion->getUsados() as $usado) {
-                                    if($usado->getVehiculo()->getTipo()->getNombre() == "Aeronave"){ ?>
-                                        <a href="index.php?c=vehiculos&a=view&d=<?php echo $usado->getVehiculo()->getId(); ?>">
-                                            <?php echo $usado->getVehiculo()->getMatricula(); ?>
-                                        </a>                                        
-                            <?php
-                                    }
-                                }
-                            ?>
+                            <a href="index.php?c=vehiculos&a=view&d=<?php echo $aplicacion->getAeronave()->getId(); ?>">
+                                <?php echo $aplicacion->getAeronave()->getMatricula(); ?>
+                            </a>                                                                    
                         </td>
                         <td>
                             <a href="index.php?c=usuarios&a=view&d=<?php echo $aplicacion->getCliente()->getId(); ?>">

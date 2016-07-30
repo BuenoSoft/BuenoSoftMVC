@@ -26,7 +26,7 @@ require 'simple_html_dom.php';
 $html = file_get_html("http://www.cambiomatriz.com.uy/");
 ?>
 
-<table style="margin: 0 auto;">
+<table style="margin: 0 auto;" width="95%">
     <tr>
         <td class="titulos centrado ancho1">Moneda</td>
         <td class="titulos centrado ancho2">Compra</td>

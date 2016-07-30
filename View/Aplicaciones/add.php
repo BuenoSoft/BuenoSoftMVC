@@ -60,13 +60,9 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Productos</label>
                     <div class="col-sm-10">                        
-                        <?php 
-                            foreach ($productos as $producto) { 
-                                if($producto->getEstado() == "H") { ?>
-                                    <input type="checkbox" name="productos[]" value="<?php echo $producto->getId(); ?>" />&nbsp;<?php echo $producto->getNombre(); ?><br />
-                        <?php                           
-                                }                         
-                            } ?>                                                    
+                        <?php foreach ($productos as $producto) { ?>
+                            <input type="checkbox" name="productos[]" value="<?php echo $producto->getId(); ?>" />&nbsp;<?php echo $producto->getNombre(); ?><br />
+                        <?php } ?>                                                    
                     </div>
                 </div>                
             </div>

@@ -112,7 +112,9 @@ class NotificacionesController extends AppController
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
             $not = (new Notificacion())->findById($_GET['d']);
-            $not->save();
+            if($not->getEstado() == "N"){
+                $not->save();
+            }            
             $this->redirect_administrador(["view.php"], [
                 "notificacion" => $not
             ]);        

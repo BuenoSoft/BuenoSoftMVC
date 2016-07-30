@@ -39,7 +39,7 @@ class Pista implements IPersiste
         $p3 = $arrp2[0];
         $p4 = ($p2 - $p3) * 60;
         $p5 = explode(".", $p4);
-        return $p1." ".$p3." ".$p5[0];
+        return ($p1)." ".($p3)." ".($p5[0]);
     }
     public function getGMDLong(){
         $arr = explode(",", $this->coordenadas);
@@ -51,7 +51,7 @@ class Pista implements IPersiste
         $p3 = $arrp2[0];
         $p4 = ($p2 - $p3) * 60;
         $p5 = explode(".", $p4);
-        return $p1." ".$p3." ".$p5[0];
+        return ($p1)." ".($p3)." ".($p5[0]);
     }
     /*-----------------------------------------------------*/
     public function del() {

@@ -14,9 +14,9 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Coordenadas de la Pista</label>
                     <div class="col-sm-10">
-                        <b>Sur</b>&nbsp<input name="txtsur" id="sur" type="text" tabindex="2" class="form-control" />
+                        <b>Sur</b>&nbsp<input name="txtsur" id="sur" type="text" placeholder="xx xx xx" tabindex="2" class="form-control" />
                         <br />
-                        <b>Oeste</b>&nbsp<input name="txtoeste" id="oeste" type="text" tabindex="3" class="form-control" />
+                        <b>Oeste</b>&nbsp<input name="txtoeste" id="oeste" type="text" placeholder="xxx xx xx" tabindex="3" class="form-control" />
                     </div>
                 </div>
             </div>

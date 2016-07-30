@@ -62,20 +62,19 @@ class AplicacionesController extends AppController
                     Session::set("msg",Session::msgDanger("No se ha seleccionado la pista"));
                 } else if($apl->getCliente() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Usuario"));
-                } else if(Session::get('pass')[17] == null){
+                } else if($apl->getPiloto() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Piloto"));
-                } else if(Session::get('pass')[18] == null){
+                } else if($apl->getChofer() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Chofer"));
-                } else if(Session::get('pass')[19] == null){
+                } else if($apl->getAeronave() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Aeronave"));
-                } else if(Session::get('pass')[20] == null){
+                } else if($apl->getTerrestre() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Terrestre"));
                 } else if($apl->getFechaIni() > $apl->getFechaFin()){
                     Session::set("msg",Session::msgDanger("Asegurese de que la fecha de inicio sea menor a la fecha final"));
                 } else {
                     $apl->save();
                     $this->addProductos();
-                    $this->addExtras();
                     Session::set("msg",Session::msgSuccess("Aplicación Creada"));
                     header("Location:index.php?c=aplicaciones&a=index");
                     exit();                 
@@ -98,15 +97,6 @@ class AplicacionesController extends AppController
             }
         }
     }
-    private function addExtras(){
-        $apl = (new Aplicacion())->findById((new Aplicacion())->maxID());
-        $piloto = (new Usuario())->findByNombre((Session::get("log_in")->getRol()->getNombre() == "Piloto") ? Session::get("log_in")->getId() : Session::get('pass')[17]);
-        $chofer = (new Usuario())->findByNombre(Session::get('pass')[18]);        
-        $aeronave = (new Vehiculo())->findByMat(Session::get('pass')[19]);
-        $terrestre = (new Vehiculo())->findByMat(Session::get('pass')[20]);
-        $apl->addUsu($aeronave->getId(),$piloto->getId());
-        $apl->addUsu($terrestre->getId(),$chofer->getId());
-    }
     /*-------------------------------------------------------------------------------*/
     public function edit(){
         if($this->checkUser()){
@@ -127,20 +117,19 @@ class AplicacionesController extends AppController
                     Session::set("msg",Session::msgDanger("No se ha seleccionado la pista"));
                 } else if($apl->getCliente() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Usuario"));
-                } else if(Session::get('pass')[17] == null){
+                } else if($apl->getPiloto() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Piloto"));
-                } else if(Session::get('pass')[18] == null){
+                } else if($apl->getChofer() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Chofer"));
-                } else if(Session::get('pass')[19] == null){
+                } else if($apl->getAeronave() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Aeronave"));
-                } else if(Session::get('pass')[20] == null){
+                } else if($apl->getTerrestre() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Terrestre"));
                 } else if($apl->getFechaIni() > $apl->getFechaFin()){
                     Session::set("msg",Session::msgDanger("Asegurese de que la fecha de inicio sea menor a la fecha final"));    
                 } else {
                     $apl->save();
                     $this->modProductos($apl);
-                    $this->modExtras($apl);
                     Session::set("msg",Session::msgSuccess("Aplicación Editada"));
                     header("Location:index.php?c=aplicaciones&a=index");
                     exit();                
@@ -155,42 +144,6 @@ class AplicacionesController extends AppController
             ]);    
         }
     }
-    private function getPiloto(){
-        $apl = (new Aplicacion())->findById(Session::get("app"));
-        foreach($apl->getUsados() as $piloto){
-            if($piloto->getUsuario()->getRol()->getNombre() == "Piloto"){
-                return $piloto->getUsuario();                
-            }
-        }
-        return null;
-    }
-    private function getChofer(){
-        $apl = (new Aplicacion())->findById(Session::get("app"));
-        foreach($apl->getUsados() as $chofer){
-            if($chofer->getUsuario()->getRol()->getNombre() == "Chofer"){
-                return $chofer->getUsuario();                
-            }
-        }
-        return null;
-    }
-    private function getAeronave(){
-        $apl = (new Aplicacion())->findById(Session::get("app"));
-        foreach($apl->getUsados() as $aereo){
-            if($aereo->getVehiculo()->getTipo()->getNombre() == "Aeronave"){
-                return $aereo->getVehiculo();
-            }
-        }
-        return null;
-    }
-    private function getTerrestre(){
-        $apl = (new Aplicacion())->findById(Session::get("app"));
-        foreach($apl->getUsados() as $terrestre){
-            if($terrestre->getVehiculo()->getTipo()->getNombre() == "Auto" or $terrestre->getVehiculo()->getTipo()->getNombre() == "Camion" or $terrestre->getVehiculo()->getTipo()->getNombre() == "Camioneta"){
-                return $terrestre->getVehiculo();
-            }            
-        }
-        return null;
-    }
     //Colaboración: Rodrigo López
     private function modProductos($apl){         
         foreach ($apl->getProductos() as $producto){
@@ -202,18 +155,6 @@ class AplicacionesController extends AppController
             }            
         }
     }
-    private function modExtras($apl){
-        foreach($apl->getUsados() as $usado){
-            $apl->delUsu($usado->getVehiculo()->getId(),$usado->getUsuario()->getId());
-        }        
-        $piloto = (new Usuario())->findByNombre((Session::get("log_in")->getRol()->getNombre() == "Piloto") ? Session::get("log_in")->getId() : Session::get('pass')[17]);
-        $chofer = (new Usuario())->findByNombre(Session::get('pass')[18]);        
-        $aeronave = (new Vehiculo())->findByMat(Session::get('pass')[19]);
-        $terrestre = (new Vehiculo())->findByMat(Session::get('pass')[20]);
-        $apl->addUsu($aeronave->getId(),$piloto->getId());
-        $apl->addUsu($terrestre->getId(),$chofer->getId());
-    }
-    /*-------------------------------------------------------------------------------*/
     public function delete(){
         if($this->checkUser()){
             if (isset($_GET['d'])){
@@ -234,10 +175,6 @@ class AplicacionesController extends AppController
             Session::set("app",$_GET['d']);
             $this->redirect_administrador(['view.php'],[
                 "aplicacion" => (new Aplicacion())->findById(Session::get("app")),
-                "piloto" => $this->getPiloto(),
-                "aeronave" => $this->getAeronave(),
-                "chofer" => $this->getChofer(),
-                "terrestre" => $this->getTerrestre()
             ]);
         }
     }
@@ -324,13 +261,13 @@ class AplicacionesController extends AppController
             isset($_POST['cliente'][0]) ?  $_POST['cliente'][0] : 
                 ((Session::get("app")!= 0) ? $apl->getCliente()->getDatoUsu()->getNombre() : null), 
             isset($_POST['piloto'][0]) ? $_POST['piloto'][0] : 
-                ((Session::get("app")!= 0) ? $this->getPiloto()->getDatoUsu()->getNombre() : null),
+                ((Session::get("app")!= 0) ? $apl->getPiloto()->getDatoUsu()->getNombre() : null),
             isset($_POST['chofer'][0]) ? $_POST['chofer'][0] : 
-                ((Session::get("app")!= 0) ? $this->getChofer()->getDatoUsu()->getNombre() : null), 
+                ((Session::get("app")!= 0) ? $apl->getChofer()->getDatoUsu()->getNombre() : null), 
             isset($_POST['aeronave'][0]) ? $_POST['aeronave'][0] : 
-                ((Session::get("app")!= 0) ? $this->getAeronave()->getMatricula() : null),
+                ((Session::get("app")!= 0) ? $apl->getAeronave()->getMatricula() : null),
             isset($_POST['terrestre'][0]) ? $_POST['terrestre'][0] : 
-                ((Session::get("app")!= 0) ? $this->getTerrestre()->getMatricula() : null)
+                ((Session::get("app")!= 0) ? $apl->getTerrestre()->getMatricula() : null)
         ]);       
     }
     private function createEntity() {        
@@ -352,6 +289,10 @@ class AplicacionesController extends AppController
         $aplicacion->setCaudal(Session::get("pass")[14]);
         $aplicacion->setDosis(Session::get("pass")[15]);
         $aplicacion->setCliente((new Usuario())->findByNombre((Session::get("pass")[16] != null) ? Session::get("pass")[16] : 0));
+        $aplicacion->setPiloto((new Usuario())->findByNombre((Session::get("pass")[17] != null) ? Session::get("pass")[17] : 0));
+        $aplicacion->setChofer((new Usuario())->findByNombre((Session::get("pass")[18] != null) ? Session::get("pass")[18] : 0));
+        $aplicacion->setAeronave((new Vehiculo())->findByMat((Session::get("pass")[19] != null) ? Session::get("pass")[19] : 0));
+        $aplicacion->setTerrestre((new Vehiculo())->findByMat((Session::get("pass")[20] != null) ? Session::get("pass")[20] : 0));
         return $aplicacion;
     }
     protected function getRoles() {
