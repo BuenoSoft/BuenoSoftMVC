@@ -33,6 +33,12 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">                
                 <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Stock del Vehículo</label>
+                    <div class="col-sm-10" style="text-align: center;">
+                        <?php echo $vehiculo->getStock(); ?>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Modelo del Vehículo</label>
                     <div class="col-sm-10" style="text-align: center;">
                         <?php echo $vehiculo->getModelo(); ?>

@@ -35,7 +35,11 @@ class VehiculosController extends AppController
             Session::set('enlaces', $bc->display());
             if (isset($_POST['btnaceptar'])) {
                 $veh = $this->createEntity();
-                if($veh->getTipo() != null){
+                if($veh->getTipo() == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
+                } else if($veh->getStock() > $veh->getCapcarga()){
+                    Session::set("msg",Session::msgDanger("El stock del vehículo excede a la capacidad de carga"));    
+                } else {                
                     $id = $veh->save();
                     if(isset($id)){
                         Session::set("msg",Session::msgSuccess("Vehículo Creado"));
@@ -43,9 +47,7 @@ class VehiculosController extends AppController
                         exit();
                     } else {
                         Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
-                    }                
-                } else {
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
+                    }                                    
                 }
             }
             $this->redirect_administrador(["add.php"],[
@@ -63,7 +65,11 @@ class VehiculosController extends AppController
             Session::set("vh",$_GET['d']);
             if (Session::get('vh')!=null && isset($_POST['btnaceptar'])){
                 $veh = $this->createEntity();
-                if($veh->getTipo() != null){
+                if($veh->getTipo() == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
+                } else if($veh->getStock() > $veh->getCapcarga()){
+                    Session::set("msg",Session::msgDanger("El stock del vehículo excede a la capacidad de carga"));
+                } else {                    
                     $id = $veh->save();
                     if(isset($id)){
                         Session::set("msg",Session::msgSuccess("Vehículo Editado"));
@@ -71,9 +77,7 @@ class VehiculosController extends AppController
                         exit();
                     } else {
                         Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
-                    }                
-                } else {
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
+                    }                                    
                 }
             }
             $this->redirect_administrador(["edit.php"],[
@@ -115,6 +119,7 @@ class VehiculosController extends AppController
         $vehiculo->setPadron($this->clean($_POST['txtpadron']));
         $vehiculo->setTipo($tipo);
         $vehiculo->setCapcarga($this->clean($_POST['txtcap']));
+        $vehiculo->setStock($this->clean($_POST['txtstock']));
         $vehiculo->setModelo($this->clean($_POST['txtmodelo']));
         $vehiculo->setMarca($this->clean($_POST['txtmarca']));
         $vehiculo->setAnio($this->clean($_POST['txtanio']));

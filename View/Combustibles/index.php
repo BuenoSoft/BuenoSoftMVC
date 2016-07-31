@@ -27,6 +27,9 @@
                             </a>&nbsp;
                             <a href="index.php?c=combustibles&a=delete&d=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea borrar el combustible seleccionado?');" title="Borrar">
                                 <i class="fa fa-times-circle" style="font-size: 22px;"></i>
+                            </a>&nbsp;
+                            <a href="index.php?c=combustibles&a=add_mov&d=<?php echo $combustible->getId(); ?>" title="Movimientos">
+                                <i class="fa fa-retweet" style="font-size: 22px;"></i>
                             </a>
                         </td>                        
                     </tr>

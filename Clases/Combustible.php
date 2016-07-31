@@ -116,4 +116,14 @@ class Combustible implements IPersiste
     public function save() {
         return ($this->id == 0) ? (new CombustibleModel())->create($this) : (new CombustibleModel())->update($this);
     }
+    /*---------------------------------------*/
+    public function addMov($mov){
+        return (new CombustibleModel())->addMov($mov);
+    }
+    public function delMov($mov){
+        return (new CombustibleModel())->delMov($mov);        
+    }
+    public function getMovimientos(){
+        return (new CombustibleModel())->getMovimientos($this->id);
+    } 
 }

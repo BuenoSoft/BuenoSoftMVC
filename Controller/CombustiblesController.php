@@ -1,9 +1,11 @@
 <?php
 namespace Controller;
 use \App\Session;
-use App\Breadcrumbs;
+use \App\Breadcrumbs;
 use \Clases\TipoVehiculo;
+use \Clases\Vehiculo;
 use \Clases\Combustible;
+use \Clases\Movimiento;
 class CombustiblesController extends AppController
 {
     public function __construct() {
@@ -117,51 +119,65 @@ class CombustiblesController extends AppController
             $bc->add_crumb($_SERVER['HTTP_REFERER']);
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
-            Session::set("app",$_GET['d']);
-            Session::set("v",$_GET['v']);
+            Session::set("com",$_GET['d']);
             Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
-            $usado = $this->getUsado();
+            $comb = (new Combustible())->findById(Session::get("com"));
             if (isset($_POST['btnaceptar'])) {
-                $historial = $this->createEntity();
-                if($historial->getUsado()->getVehiculo()->checkCap($historial->getRecarga())){
-                    if($historial->getCombustible()->delStock($historial->getRecarga())){
-                        $id = $usado->addHis($historial);
-                        if(isset($id)){
-                            $this->getRecarga($historial);
-                            Session::set("msg",Session::msgSuccess("Historial de Vehículo Registrado"));
-                            header("Location:index.php?c=usados&a=historial&d=".Session::get("app")."&v=".Session::get("v"));
-                            exit();
-                        } else {
-                            Session::set("msg",Session::msgDanger("Error al registrar historial"));
-                        }                
-                    } else {
-                        Session::set("msg",Session::msgDanger("No tiene suficiente stock para recargar"));
-                    }
+                $mov = $this->createMov();
+                if($mov->getEmisor() == $mov->getReceptor()){
+                    Session::set("msg",Session::msgDanger("El vehículo emisor debe ser distinto al receptor"));
+                } else if(!$mov->getEmisor()->checkCap($mov->getCantidad()) or !$mov->getEmisor()->checkCap($mov->getCantidad())){
+                    Session::set("msg",Session::msgDanger("Uno de los vehículos no tiene suficiente carga para este movimiento"));
+                } else if($mov->getEmisor() == null){
+                    Session::set("msg",Session::msgDanger("No ha seleccionado el vehículo emisor"));
+                } else if($mov->getReceptor() == null){
+                    Session::set("msg",Session::msgDanger("No ha seleccionado el vehículo receptor"));
                 } else {
-                    Session::set("msg",Session::msgDanger("El vehículo no tiene capacidad para la recarga ingresada"));
+                    $id = $comb->addMov($mov);
+                    if(isset($id)){
+                        Session::set("msg",Session::msgSuccess("Movimiento Realizado"));
+                        header("Location:index.php?c=combustibles&a=add_mov&d=".Session::get("com"));
+                        exit();
+                    } else {
+                        Session::set("msg",Session::msgDanger("Error al realizar el movimiento"));
+                    }
                 }
             }
-            $this->redirect_administrador(['historial.php'],[
-                "usado" => $usado,
-                "historiales" => $usado->getHistoriales(),
+            $this->redirect_administrador(['add_mov.php'],[
+                "combustible" => $comb,
+                "vehiculos" => (new Vehiculo())->find(),
+                "movimientos" => $comb->getMovimientos(),
                 "paginador" => $this->getPaginator()->getPages()
             ]);
         }                    
-    }
+    }   
     public function del_mov(){
         if($this->checkUser()){
-            Session::set("app",$_GET['d']);
-            Session::set("v",$_GET['v']);
-            Session::set("m",$_GET['m']);
+            Session::set("com",$_GET['d']);
             Session::set("f",$_GET['f']);
-            $usado = $this->getUsado();
-            $historial = $this->getHistorial($usado);
-            $historial->getCombustible()->addStock($historial->getRecarga());
-            $id = $usado->delHis($historial);
-            $this->getRecarga($historial);
-            Session::set("msg", (isset($id)) ? Session::msgSuccess("Historial de Vehículo Borrado") : Session::msgDanger("No se pudo borrar el producto"));
-            header("Location:index.php?c=usados&a=historial&d=".Session::get("app")."&v=".Session::get("v"));
+            $comb = (new Combustible())->findById(Session::get("com"));
+            $mov = $this->getMov($comb);
+            $id = $comb->delMov($mov);
+            Session::set("msg", (isset($id)) ? Session::msgSuccess("Movimiento Borrado") : Session::msgDanger("No se pudo borrar el movimiento"));
+            header("Location:index.php?c=combustibles&a=add_mov&d=".Session::get("com"));
         }
+    }
+    private function createMov(){
+        $mov = new Movimiento();
+        $mov->setFecha($_POST["dtfecha"]);
+        $mov->setCantidad($_POST["txtcant"]);
+        $mov->setEmisor((new Vehiculo())->findByMat((isset($_POST['vehemi'][0])) ? $_POST['vehemi'][0] : 0));
+        $mov->setReceptor((new Vehiculo())->findByMat((isset($_POST['vehrec'][0])) ? $_POST['vehrec'][0] : 0));
+        $mov->setUsuario(Session::get("log_in"));
+        return $mov;
+    }
+    private function getMov($comb){
+        foreach ($comb->getMovimientos() as $mov) {
+            if($mov->getFecha() == Session::get("f")){
+                return $mov;
+            }
+        }
+        return null;
     }
     private function createEntity(){
         $combustible = new Combustible();

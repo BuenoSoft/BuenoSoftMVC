@@ -9,6 +9,7 @@ class Vehiculo implements IPersiste
     private $padron;
     private $tipo;
     private $capcarga;
+    private $stock;
     private $modelo;
     private $marca;
     private $anio;
@@ -27,6 +28,9 @@ class Vehiculo implements IPersiste
     }
     function getCapcarga() {
         return $this->capcarga;
+    }
+    function getStock() {
+        return $this->stock;
     }
     function getModelo() {
         return $this->modelo;
@@ -55,6 +59,9 @@ class Vehiculo implements IPersiste
     function setCapcarga($capcarga) {
         $this->capcarga = $capcarga;
     }
+    function setStock($stock) {
+        $this->stock = $stock;
+    }
     function setModelo($modelo) {
         $this->modelo = $modelo;
     }
@@ -72,7 +79,7 @@ class Vehiculo implements IPersiste
         return $this->matricula == $obj->matricula;                
     }
     public function checkCap($capacidad){
-        return $capacidad <= $this->capcarga;
+        return $capacidad <= $this->stock;
     }
     /*------------------------------------------*/
     public function del() {
