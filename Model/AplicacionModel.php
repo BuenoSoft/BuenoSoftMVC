@@ -74,18 +74,16 @@ class AplicacionModel extends AppModel
     
     protected function getFindQueryAdvance($datos = []){                
         $where = false;
-        $sql= "select *,a.usuId as cliente,uv.usuId as piloto from aplicaciones a "
-            . "inner join utiliza uv on a.aplId = uv.aplId "
-            . "inner join usuarios u on uv.usuId = u.usuId and u.rolId = 4";
+        $sql= "select *,a.usuId as cliente from aplicaciones a";
         if($datos["aeronave"] != null){
-            $sql .= " where uv.vehId = ?";
+            $sql .= " where a.vehAero = ?";
             $where = true;
         }
         if($datos["piloto"] != null){
             if($where){
-                $sql .= " and uv.usuId = ?";
+                $sql .= " and a.usuPiloto = ?";
             } else {
-                $sql .= " where uv.usuId = ?";
+                $sql .= " where a.usuPiloto = ?";
                 $where = true;
             }
         }

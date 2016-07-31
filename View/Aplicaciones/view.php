@@ -80,7 +80,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Chofer</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <a href="index.php?c=aplicaciones&a=usuario&d=<?php echo $chofer->getId(); ?>">
+                        <a href="index.php?c=aplicaciones&a=usuario&d=<?php echo $aplicacion->getChofer()->getId(); ?>">
                             <?php echo $aplicacion->getChofer()->getDatoUsu()->getNombre(); ?>
                         </a>
                     </div>
@@ -116,7 +116,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Coordenadas de Cultivo</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $aplicacion->getCoordCul(); ?>
+                        <?php echo "sur: ".$aplicacion->getGMDLat()."<br /> oeste: ".$aplicacion->getGMDLong(); ?>
                     </div>
                 </div>
                 <div class="form-group">

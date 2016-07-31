@@ -110,6 +110,59 @@ class CombustiblesController extends AppController
             ]);        
         }
     }
+    public function add_mov(){
+        if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
+            Session::set("app",$_GET['d']);
+            Session::set("v",$_GET['v']);
+            Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
+            $usado = $this->getUsado();
+            if (isset($_POST['btnaceptar'])) {
+                $historial = $this->createEntity();
+                if($historial->getUsado()->getVehiculo()->checkCap($historial->getRecarga())){
+                    if($historial->getCombustible()->delStock($historial->getRecarga())){
+                        $id = $usado->addHis($historial);
+                        if(isset($id)){
+                            $this->getRecarga($historial);
+                            Session::set("msg",Session::msgSuccess("Historial de Vehículo Registrado"));
+                            header("Location:index.php?c=usados&a=historial&d=".Session::get("app")."&v=".Session::get("v"));
+                            exit();
+                        } else {
+                            Session::set("msg",Session::msgDanger("Error al registrar historial"));
+                        }                
+                    } else {
+                        Session::set("msg",Session::msgDanger("No tiene suficiente stock para recargar"));
+                    }
+                } else {
+                    Session::set("msg",Session::msgDanger("El vehículo no tiene capacidad para la recarga ingresada"));
+                }
+            }
+            $this->redirect_administrador(['historial.php'],[
+                "usado" => $usado,
+                "historiales" => $usado->getHistoriales(),
+                "paginador" => $this->getPaginator()->getPages()
+            ]);
+        }                    
+    }
+    public function del_mov(){
+        if($this->checkUser()){
+            Session::set("app",$_GET['d']);
+            Session::set("v",$_GET['v']);
+            Session::set("m",$_GET['m']);
+            Session::set("f",$_GET['f']);
+            $usado = $this->getUsado();
+            $historial = $this->getHistorial($usado);
+            $historial->getCombustible()->addStock($historial->getRecarga());
+            $id = $usado->delHis($historial);
+            $this->getRecarga($historial);
+            Session::set("msg", (isset($id)) ? Session::msgSuccess("Historial de Vehículo Borrado") : Session::msgDanger("No se pudo borrar el producto"));
+            header("Location:index.php?c=usados&a=historial&d=".Session::get("app")."&v=".Session::get("v"));
+        }
+    }
     private function createEntity(){
         $combustible = new Combustible();
         $combustible->setId((isset($_POST['hid']) ? $_POST['hid'] : 0));

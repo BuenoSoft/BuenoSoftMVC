@@ -106,10 +106,7 @@
                                 </a>&nbsp;
                                  <a href="index.php?c=aplicaciones&a=delete&d=<?php echo $aplicacion->getId(); ?>" title="Borrar" onclick="return confirm('¿Desea borrar la aplicación seleccionada?');" >
                                     <i class="fa fa-times-circle" style="font-size: 22px;"></i>
-                                </a>&nbsp;
-                                <a href="index.php?c=usados&a=index&d=<?php echo $aplicacion->getId(); ?>" title="Usados">
-                                    <i class="fa fa-car" style="font-size: 22px;"></i>
-                                </a>&nbsp;
+                                </a>
                             <?php } ?>
                         </td>                                    
                     </tr>

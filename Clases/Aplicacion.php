@@ -163,6 +163,30 @@ class Aplicacion implements IPersiste
         $date = date_create($this->fechaFin);
         return date_format($date, "Y-m-d H:i");
     }
+    public function getGMDLat(){
+        $arr = explode(",", $this->coordCul);
+        $arr[0] *= -1;        
+        $sur = explode(".",$arr[0]);
+        $p1 = $sur[0];
+        $p2= ($arr[0] - $p1) * 60;
+        $arrp2 =  explode(".", $p2);
+        $p3 = $arrp2[0];
+        $p4 = ($p2 - $p3) * 60;
+        $p5 = explode(".", $p4);
+        return ($p1)." ".($p3)." ".($p5[0]);
+    }
+    public function getGMDLong(){
+        $arr = explode(",", $this->coordCul);
+        $arr[1] *= -1;
+        $oeste = explode(".",$arr[1]);
+        $p1 = $oeste[0];
+        $p2= ($arr[1] - $p1) * 60;
+        $arrp2 =  explode(".", $p2);
+        $p3 = $arrp2[0];
+        $p4 = ($p2 - $p3) * 60;
+        $p5 = explode(".", $p4);
+        return ($p1)." ".($p3)." ".($p5[0]);
+    }
     /*-----------------------------------------*/        
     public function save() {
         return ($this->id == 0) ? (new AplicacionModel())->addApp($this) : (new AplicacionModel())->modApp($this);
