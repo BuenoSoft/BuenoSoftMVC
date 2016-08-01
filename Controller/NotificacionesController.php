@@ -108,7 +108,7 @@ class NotificacionesController extends AppController
         if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
             $bc = new Breadcrumbs();
             $bc->add_crumb("index.php?c=inicio&a=index");
-            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb("index.php?c=notificaciones&a=index");
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
             $not = (new Notificacion())->findById($_GET['d']);

@@ -2,6 +2,7 @@
 namespace Controller;
 use \App\Session;
 use \App\Breadcrumbs;
+use \Clases\Usuario;
 use \Clases\Pista;
 class PistasController extends AppController
 {
@@ -41,7 +42,9 @@ class PistasController extends AppController
                     Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }
             }
-            $this->redirect_administrador(["add.php"]);
+            $this->redirect_administrador(["add.php"],[
+                "usuarios" => (new Usuario())->find() 
+            ]);
         }
     }
     public function edit(){
@@ -64,7 +67,8 @@ class PistasController extends AppController
                 }
             }
             $this->redirect_administrador(["edit.php"],[
-                'pista' => (new Pista())->findById(Session::get('pis'))
+                'pista' => (new Pista())->findById(Session::get('pis')),
+                "usuarios" => (new Usuario())->find()
             ]);
         }
     }
@@ -93,11 +97,23 @@ class PistasController extends AppController
             header("Location:index.php?c=todos&a=index");
         }
     }
+    public function usuario(){
+        if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
+            $this->redirect_administrador(["usuario.php"],["usuario" => (new Usuario())->findById($_GET['d'])]);
+        }
+    }
     private function createEntity(){
         $pista = new Pista();
         $pista->setId(isset($_POST["hid"]) ? $_POST["hid"] : 0);
         $pista->setNombre($this->clean($_POST["txtnombre"]));
         $pista->setCoordenadas($this->getCoords($_POST["txtsur"],$_POST["txtoeste"]));
+        $pista->setCliente((new Usuario())->findByNombre(isset
+                ($_POST['cliente'][0]) ?  $_POST['cliente'][0] : 0));
         return $pista;
     }
     private function getCoords($sur,$oeste){

@@ -25,6 +25,9 @@
                     <li class='dropdown'>
                         <a href="#" class='dropdown-toggle' data-toggle='dropdown' style="font-size: 15px;">
                             <i class="fa fa-envelope"></i>&nbsp;Notificaciones
+                            <?php if($cantNot > 0){?>
+                                <span class="badge bg-theme"><?php echo $cantNot; ?></span>
+                            <?php } ?>
                         </a>
                         <ul class='dropdown-menu' style="padding: 4px 4px 4px 4px; border: 2px;">
                             <?php 
@@ -98,17 +101,26 @@
                 </li> 
                 <?php 
                     if(App\Session::get('log_in') != null) {
+                        if(App\Session::get('log_in')->getRol()->getNombre() != "Chofer"){ ?>
+                            <li class="sub-menu">
+                                <a href="index.php?c=aplicaciones&a=index">
+                                    <i class="fa fa-plane"></i>&nbsp;Aplicaciones
+                                </a>
+                            </li>                                    
+                <?php   } 
+                        if(App\Session::get('log_in')->getRol()->getNombre() != "Chofer" and App\Session::get('log_in')->getRol()->getNombre() != "Cliente"){ ?>            
+                            <li class="sub-menu">
+                                <a href="index.php?c=notificaciones&a=index">
+                                    <i class="fa fa-warning"></i>&nbsp;Notificaciones
+                                </a>
+                            </li>
+                <?php   } 
                         if((App\Session::get('log_in')->getRol()->getNombre() == "Administrador" or App\Session::get('log_in')->getRol()->getNombre() == "Supervisor")){ ?>                                
                             <li class="sub-menu">
                                 <a href="index.php?c=estadisticas&a=index">
                                     <i class="fa fa-bar-chart"></i>&nbsp;Estadísticas
                                 </a>
                             </li> 
-                            <li class="sub-menu">
-                                <a href="index.php?c=aplicaciones&a=index">
-                                    <i class="fa fa-plane"></i>&nbsp;Aplicaciones
-                                </a>
-                            </li>        
                             <li class="sub-menu">
                                 <a href="index.php?c=usuarios&a=index">
                                     <i class="fa fa-users"></i>&nbsp;Usuarios
@@ -130,49 +142,31 @@
                                 </a>
                             </li>
                             <li class="sub-menu">
-                                <a href="index.php?c=notificaciones&a=index">
-                                    <i class="fa fa-warning"></i>&nbsp;Notificaciones
-                                </a>
-                            </li>
-                            <li class="sub-menu">
                                 <a href="index.php?c=pistas&a=index">
                                     <i class="fa fa-road"></i>&nbsp;Pistas
                                 </a>
-                            </li> 
-                    <?php                     
-                        }
-                        if(\App\Session::get('log_in')->getRol()->getNombre() == "Supervisor"){
-                    ?>
-                        <li class="sub-menu">
-                            <a href="index.php?c=tipop&a=index">
-                                <i class="fa fa-flask"></i>&nbsp;Tipo de Producto
-                            </a>
-                        </li>
-                        <li class="sub-menu">
-                            <a href="index.php?c=tipov&a=index">
-                                <i class="fa fa-car"></i>&nbsp;Tipo de Vehículo
-                            </a>
-                        </li>
-                        <li class="sub-menu">
-                            <!--<a href="roles/index">-->
-                            <a href="index.php?c=roles&a=index">
-                                <i class="fa fa-user"></i>&nbsp;Roles
-                            </a>
-                        </li>
-                    <?php }?>
-                <?php } else if(App\Session::get('log_in') != null and (App\Session::get('log_in')->getRol()->getNombre() == "Piloto" or App\Session::get('log_in')->getRol()->getNombre() == "Supervisor")) {?>    
-                    <li class="sub-menu">
-                        <a href="index.php?c=aplicaciones&a=index">
-                            <i class="fa fa-plane"></i>&nbsp;Aplicaciones
-                        </a>
-                    </li>
-                <?php } else if(App\Session::get('log_in') != null and (App\Session::get('log_in')->getRol()->getNombre() == "Cliente" or App\Session::get('log_in')->getRol()->getNombre() == "Supervisor")) {?>
-                    <li class="sub-menu">
-                        <a href="index.php?c=aplicaciones&a=index">
-                            <i class="fa fa-plane"></i>&nbsp;Aplicaciones
-                        </a>
-                    </li>
-                <?php } ?>                	
+                            </li>                                                        
+                <?php   }
+                        if(\App\Session::get('log_in')->getRol()->getNombre() == "Supervisor") { ?>
+                            <li class="sub-menu">
+                                <a href="index.php?c=tipop&a=index">
+                                    <i class="fa fa-flask"></i>&nbsp;Tipo de Producto
+                                </a>
+                            </li>
+                            <li class="sub-menu">
+                                <a href="index.php?c=tipov&a=index">
+                                    <i class="fa fa-car"></i>&nbsp;Tipo de Vehículo
+                                </a>
+                            </li>
+                            <li class="sub-menu">
+                                <!--<a href="roles/index">-->
+                                <a href="index.php?c=roles&a=index">
+                                    <i class="fa fa-user"></i>&nbsp;Roles
+                                </a>
+                            </li>
+                <?php   }                     
+                    }
+                ?>                                	
             </ul>
         </div>
     </aside>

@@ -105,5 +105,13 @@ class NotificacionModel extends AppModel
        return $this->fetch($this->getShowQuery(), $this->getShowParam());
     }
     /*------------------------------------------------------------------------------------*/
-    
+    public function getCantNots(){
+        $cant =0;
+        foreach($this->getNotificaciones() as $not){
+            if($not->getEstado() == "N"){
+                $cant++;
+            }
+        }
+        return $cant ++;
+    }
 }

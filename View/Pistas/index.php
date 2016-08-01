@@ -15,6 +15,7 @@
             <thead>               
                 <th>Nombre</th>
                 <th>Coordenadas</th>
+                <th>Cliente</th>
                 <th>Opciones</th>
             </thead>
             <tbody>
@@ -29,6 +30,11 @@
                                     echo "";
                                 }                                
                             ?>
+                        </td>
+                        <td>
+                            <a href="index.php?c=pistas&a=usuario&d=<?php echo $pista->getCliente()->getId(); ?>">
+                                <?php echo $pista->getCliente()->getDatoUsu()->getNombre(); ?>
+                            </a>                           
                         </td>
                         <td>
                             <a href="index.php?c=pistas&a=view&d=<?php echo $pista->getId(); ?>" title="Ver">

@@ -14,7 +14,8 @@ abstract class AppController extends Controller
             $ns = explode('\\', get_called_class());
             $path = $this->createFile(APPLICATION_PATH . DS . "View" . DS . str_replace("Controller", "", $ns[1]) . DS . $file[0], $dates);
             $menu = $this->createFile(APPLICATION_PATH . DS . 'Public' . DS . 'manejo_menu.php',[
-                'notificaciones' => (new Notificacion())->notify()
+                'notificaciones' => (new Notificacion())->notify(),
+                'cantNot' => (new Notificacion())->cantNotify()
             ]);
             echo $this->createFile(APPLICATION_PATH . DS . 'Public' . DS . 'manejo.php', [
                 'content' => $path, 
