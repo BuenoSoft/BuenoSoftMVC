@@ -36,7 +36,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Stock del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtstock" onkeypress="return validarNumeroPC(event); " class="form-control" value="<?php echo $vehiculo->getStock(); ?>" required="required" placeholder="Ej: 25.8" tabindex="5"/>
+                        <p>
+                            <b>Cantidad Actual:</b>&nbsp;<input type="hidden" name="hdnstock" value="<?php echo $vehiculo->getStock(); ?>" /><?php echo $vehiculo->getStock(); ?>
+                        </p>
+                        <p>
+                            <b>Cantidad a Agregar:</b>&nbsp;<input type="text" name="txtstock" onkeypress="return validarNumeroPC(event); " class="form-control" placeholder="Ej: 25.8" tabindex="5" />
+                        </p>
+                        
                     </div>
                 </div>
                 <div class="form-group">

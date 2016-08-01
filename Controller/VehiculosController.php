@@ -38,10 +38,13 @@ class VehiculosController extends AppController
                 if($veh->getTipo() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
                 } else if($veh->getStock() > $veh->getCapcarga()){
-                    Session::set("msg",Session::msgDanger("El stock del vehículo excede a la capacidad de carga"));    
+                    Session::set("msg",Session::msgDanger("El stock ingresado excede a la capacidad de carga"));
+                } else if(!$veh->getCombustible()->hayStock($veh->getStock())){
+                    Session::set("msg",Session::msgDanger("El combustible no puede cargar el stock ingresado"));    
                 } else {                
                     $id = $veh->save();
                     if(isset($id)){
+                        $veh->getCombustible()->delStock($veh->getStock());
                         Session::set("msg",Session::msgSuccess("Vehículo Creado"));
                         header("Location:index.php?c=vehiculos&a=index");
                         exit();
@@ -68,10 +71,13 @@ class VehiculosController extends AppController
                 if($veh->getTipo() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
                 } else if($veh->getStock() > $veh->getCapcarga()){
-                    Session::set("msg",Session::msgDanger("El stock del vehículo excede a la capacidad de carga"));
+                    Session::set("msg",Session::msgDanger("El stock ingresado excede a la capacidad de carga"));
+                } else if(!$veh->getCombustible()->hayStock($_POST['txtstock'])){
+                    Session::set("msg",Session::msgDanger("El combustible no puede cargar el stock ingresado"));
                 } else {                    
                     $id = $veh->save();
                     if(isset($id)){
+                        $veh->getCombustible()->delStock(isset($_POST['txtstock']) ? $_POST['txtstock'] : 0);                        
                         Session::set("msg",Session::msgSuccess("Vehículo Editado"));
                         header("Location:index.php?c=vehiculos&a=index");
                         exit();
@@ -85,6 +91,10 @@ class VehiculosController extends AppController
                 "tipos" => (new TipoVehiculo())->find() 
             ]);
         }
+    }
+    private function checkStock($stock){
+        $veh = (new Vehiculo())->findById(Session::get('vh'));
+        return $veh->getStock() == $tock;
     }
     public function view(){
         if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
@@ -119,7 +129,7 @@ class VehiculosController extends AppController
         $vehiculo->setPadron($this->clean($_POST['txtpadron']));
         $vehiculo->setTipo($tipo);
         $vehiculo->setCapcarga($this->clean($_POST['txtcap']));
-        $vehiculo->setStock($this->clean($_POST['txtstock']));
+        $vehiculo->setStock((isset($_POST['hid'])) ? ($this->clean($_POST['txtstock']) + $this->clean($_POST['hdnstock'])) : $this->clean($_POST['txtstock']));
         $vehiculo->setModelo($this->clean($_POST['txtmodelo']));
         $vehiculo->setMarca($this->clean($_POST['txtmarca']));
         $vehiculo->setAnio($this->clean($_POST['txtanio']));

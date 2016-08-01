@@ -116,25 +116,27 @@ class CombustiblesController extends AppController
         if($this->checkUser()){
             $bc = new Breadcrumbs();
             $bc->add_crumb("index.php?c=inicio&a=index");
-            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb("index.php?c=combustibles&a=index");
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
             Session::set("com",$_GET['d']);
             Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
             $comb = (new Combustible())->findById(Session::get("com"));
             if (isset($_POST['btnaceptar'])) {
-                $mov = $this->createMov();
-                if($mov->getEmisor() == $mov->getReceptor()){
-                    Session::set("msg",Session::msgDanger("El vehículo emisor debe ser distinto al receptor"));
-                } else if(!$mov->getEmisor()->checkCap($mov->getCantidad()) or !$mov->getEmisor()->checkCap($mov->getCantidad())){
-                    Session::set("msg",Session::msgDanger("Uno de los vehículos no tiene suficiente carga para este movimiento"));
-                } else if($mov->getEmisor() == null){
+                $mov = $this->createMov();                
+                if($mov->getEmisor() == null){
                     Session::set("msg",Session::msgDanger("No ha seleccionado el vehículo emisor"));
                 } else if($mov->getReceptor() == null){
                     Session::set("msg",Session::msgDanger("No ha seleccionado el vehículo receptor"));
+                } else if($mov->getEmisor() == $mov->getReceptor()){
+                    Session::set("msg",Session::msgDanger("El vehículo emisor debe ser distinto al receptor"));                    
+                } else if(!$mov->getEmisor()->hayStock($mov->getCantidad())){
+                    Session::set("msg",Session::msgDanger("el vehículo emisor no tiene suficiente carga para este movimiento"));                                    
                 } else {
                     $id = $comb->addMov($mov);
                     if(isset($id)){
+                        $mov->getEmisor()->delStock($mov->getCantidad());
+                        $mov->getReceptor()->addStock($mov->getCantidad());
                         Session::set("msg",Session::msgSuccess("Movimiento Realizado"));
                         header("Location:index.php?c=combustibles&a=add_mov&d=".Session::get("com"));
                         exit();
@@ -158,7 +160,13 @@ class CombustiblesController extends AppController
             $comb = (new Combustible())->findById(Session::get("com"));
             $mov = $this->getMov($comb);
             $id = $comb->delMov($mov);
-            Session::set("msg", (isset($id)) ? Session::msgSuccess("Movimiento Borrado") : Session::msgDanger("No se pudo borrar el movimiento"));
+            if(isset($id)){
+                $mov->getEmisor()->addStock($mov->getCantidad());
+                $mov->getReceptor()->delStock($mov->getCantidad());
+                Session::set("msg",Session::msgSuccess("Movimiento Borrado"));
+            } else {
+                Session::set("msg",Session::msgDanger("No se pudo borrar el movimiento"));
+            }
             header("Location:index.php?c=combustibles&a=add_mov&d=".Session::get("com"));
         }
     }
@@ -178,6 +186,19 @@ class CombustiblesController extends AppController
             }
         }
         return null;
+    }
+    public function vehiculo(){
+        if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb("index.php?c=combustibles&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
+            $this->redirect_administrador(["vehiculo.php"],[
+                'vehiculo' => (new Vehiculo())->findById($_GET['d']),
+            ]);
+        } 
     }
     private function createEntity(){
         $combustible = new Combustible();

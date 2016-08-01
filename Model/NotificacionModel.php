@@ -103,5 +103,7 @@ class NotificacionModel extends AppModel
     }
     public function getNotificaciones(){
        return $this->fetch($this->getShowQuery(), $this->getShowParam());
-    }    
+    }
+    /*------------------------------------------------------------------------------------*/
+    
 }

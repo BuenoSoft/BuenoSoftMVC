@@ -62,10 +62,11 @@ class Combustible implements IPersiste
         return date_format($date, "Y-m-d\TH:i:s");
     }
     /*----------------------------------------*/
+    /*
     public function addStock($cant){
         $this->stock += $cant;
         $this->save();
-    }
+    }*/
     public function delStock($cant){
         if($this->hayStock($cant)){            
             $this->stock -= $cant;
@@ -75,8 +76,8 @@ class Combustible implements IPersiste
             return false;
         }
     }
-    private function hayStock($cant){
-        return $this->stock >= 0;
+    public function hayStock($cant){
+        return $this->stock >= $cant;
     }
     /*---------------------------------------*/
     public function regla3(){

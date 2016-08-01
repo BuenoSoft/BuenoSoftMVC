@@ -75,11 +75,25 @@ class Vehiculo implements IPersiste
         $this->combustible = $combustible;
     }
     function __construct() { }
+    /*------------------------------------------*/
     public function equals(Vehiculo $obj){
         return $this->matricula == $obj->matricula;                
     }
-    public function checkCap($capacidad){
-        return $capacidad <= $this->stock;
+    public function addStock($cant){
+        $this->stock += $cant;
+        $this->save();
+    }
+    public function delStock($cant){
+        if($this->hayStock($cant)){            
+            $this->stock -= $cant;
+            $this->save();
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function hayStock($cant){
+        return $this->stock >= $cant;
     }
     /*------------------------------------------*/
     public function del() {

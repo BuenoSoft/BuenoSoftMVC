@@ -52,8 +52,15 @@
                             <tr>                       
                                 <td><?php echo $movimiento->getFecha();?></td>
                                 <td><?php echo $movimiento->getCantidad();?></td>
-                                <td><?php echo $movimiento->getEmisor()->getMatricula();?></td>
-                                <td><?php echo $movimiento->getReceptor()->getMatricula();?></td>
+                                <td>
+                                    <a href="index.php?c=combustibles&a=vehiculo&d=<?php echo $movimiento->getEmisor()->getId();?>">
+                                        <?php echo $movimiento->getEmisor()->getMatricula();?>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="index.php?c=combustibles&a=vehiculo&d=<?php echo $movimiento->getReceptor()->getId();?>">
+                                        <?php echo $movimiento->getReceptor()->getMatricula();?>
+                                    </a>                                    
                                 <td>
                                     <a href="index.php?c=combustibles&a=del_mov&d=<?php echo $combustible->getId()?>&f=<?php echo $movimiento->getFecha(); ?>" onclick="return confirm('¿Desea borrar este movimiento?');" title="Borrar">
                                         <i class="fa fa-times-circle" style="font-size: 22px;"></i>
