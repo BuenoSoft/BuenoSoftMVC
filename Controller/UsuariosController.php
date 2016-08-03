@@ -18,7 +18,7 @@ class UsuariosController extends AppController
                 Session::set("msg","Ingrese los datos obligatorios (*) para continuar.");
             } else {
                 $usuario = (new Usuario())->login([$_POST['txtuser'], $_POST['txtpass']]);
-                if ($usuario->getRol()->getNombre()!= "Chofer"){
+                if (isset($usuario) and $usuario->getRol()->getNombre()!= "Chofer"){
                     Session::login();
                     Session::set("log_in",$usuario);  
                     Session::set("msg", Session::msgInfo("Acceso concedido... Usuario: ". $usuario->getNombre()));
@@ -26,7 +26,8 @@ class UsuariosController extends AppController
                     exit();
                 } else {
                     Session::set("msg",Session::msgDanger("Acceso denegado."));
-                    header("Location:index.php?c=todos&a=index");
+                    //header("Location:index.php?c=todos&a=index");
+                    header("Location:index.php?c=todos&a=index#");
                 }
             }
         }                

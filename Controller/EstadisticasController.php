@@ -20,9 +20,9 @@ class EstadisticasController extends AppController
         }
     }
     protected function getRoles() {
-        return ["Administrador"];
+        return ["Administrador","Supervisor"];
     }
     protected function getMessageRole() {
-        return "administrador";
+        return "administrador o supervisor";
     }
 }

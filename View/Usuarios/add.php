@@ -18,7 +18,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label" id="doc">Documento&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" id="txtdoc" name="txtdoc" class="form-control" required="required" onkeypress="return validarNumero(event);" pattern="[\d]*" tabindex="1" readonly placeholder="Seleccione tipo de documento" />
+                        <input type="text" id="txtdoc" name="txtdoc" class="form-control" required="required" onkeypress="return validarNumero(event);" pattern="[\d]*" tabindex="1" readonly="readonly" placeholder="Seleccione tipo de documento" />
                     </div>
                 </div> 
                 <div class="form-group">

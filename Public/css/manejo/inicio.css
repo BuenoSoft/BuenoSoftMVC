@@ -2,10 +2,12 @@
         text-align: center;
         margin-bottom: 2px;
     }
-    .lqq{
-        text-align: center;
-        margin-bottom: 2px;
-    }
+.estilotabla{
+    border:  2px solid;
+    color: #009dff;
+    margin: 0 auto;
+    width: 60%;
+}
 .tablita {     
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
     font-size: 12px;
@@ -18,18 +20,24 @@
     font-size: 13px;
     font-weight: normal;
     padding: 8px;
-    background: #97b9e0;
+    background: #009dff;
+    color: #000000;
     
     }
 .celdita {    
     padding: 8px;
-    background: #e8f6ff;
+    background: #d6efff;
     border-bottom: 1px solid #fff;
-    color: #4e4e4e;
+    color: #000000;
+    }
+.celditabr {    
+    padding: 8px;
+    background: #d6efff;
+    color: #000000;
     }
 
 .celda:hover{ 
-    background: #D6E6F2;
+    background: #b0e0ff;
      }
 .celda img{
     height: 15px;
@@ -38,12 +46,3 @@
 .centrado{
  text-align: center;
     }
-.ancho1{
-    width: 33.3%;    
-    } 
-.ancho2{
-    width: 33.3%;    
-    } 
-.ancho3{
-    width: 33.3%;    
-    } 

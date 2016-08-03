@@ -33,13 +33,17 @@ class PistasController extends AppController
             Session::set('enlaces', $bc->display());
             if (isset($_POST['btnaceptar'])) {
                 $pis = $this->createEntity();
-                $id = $pis->save();
-                if(isset($id)){
-                    Session::set("msg",Session::msgSuccess("Pista Creada"));
-                    header("Location:index.php?c=pistas&a=index");
-                    exit();
+                if($pis->getCliente() == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el cliente"));
                 } else {
-                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    $id = $pis->save();
+                    if(isset($id)){
+                        Session::set("msg",Session::msgSuccess("Pista Creada"));
+                        header("Location:index.php?c=pistas&a=index");
+                        exit();
+                    } else {
+                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    }                    
                 }
             }
             $this->redirect_administrador(["add.php"],[
@@ -57,13 +61,17 @@ class PistasController extends AppController
             Session::set("pis",$_GET['d']);
             if (Session::get('pis')!=null && isset($_POST['btnaceptar'])){
                 $pis = $this->createEntity();
-                $id = $pis->save();
-                if(isset($id)){
-                    Session::set("msg",Session::msgSuccess("Pista Editada"));
-                    header("Location:index.php?c=pistas&a=index");
-                    exit();
+                if($pis->getCliente() == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el cliente"));
                 } else {
-                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    $id = $pis->save();
+                    if(isset($id)){
+                        Session::set("msg",Session::msgSuccess("Pista Editada"));
+                        header("Location:index.php?c=pistas&a=index");
+                        exit();
+                    } else {
+                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    }                    
                 }
             }
             $this->redirect_administrador(["edit.php"],[

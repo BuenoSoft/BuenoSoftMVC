@@ -83,7 +83,6 @@ $(function() {
                             <?php } else {?>
                                 <li>
                                     <a href="#" id="hrefAbrirPopup" data-type="zoomin">Iniciar Sesion</a>
-
                                     <div id="popup" class="overlay-container">
                                         <div class="popup-contenedor zoomin">
                                             <?php if(\App\Session::get('msg') != null) {?>

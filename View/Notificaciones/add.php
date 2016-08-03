@@ -21,13 +21,13 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Vehículo&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Vehículo</label>
                     <div class="col-sm-10">
                         <input name="veh" id="v" required="required" tabindex="3" />                        
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Dedicado a&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Dedicado a</label>
                     <div class="col-sm-10">
                         <input name="usu" id="u" required="required" tabindex="4" />                        
                     </div>
@@ -47,7 +47,7 @@
             template: 'YYYY-MM-DD'
         });
         $('#u').magicSuggest({
-            placeholder: 'Seleccione un Usuario', 
+            placeholder: 'Seleccione un Usuario',
             maxSelection: 1,
             data: [
                 <?php foreach ($usuarios as $usuario){ ?>

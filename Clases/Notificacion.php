@@ -8,7 +8,6 @@ class Notificacion implements IPersiste
     private $log;
     private $fechaini;
     private $fechafin;
-    private $fechaAct;
     private $estado;
     private $vehiculo;
     private $usuario;
@@ -23,9 +22,6 @@ class Notificacion implements IPersiste
     }
     function getFechafin() {
         return $this->fechafin;
-    }
-    function getFechaAct() {
-        return $this->fechaAct;
     }
     function getEstado() {
         return $this->estado;
@@ -48,9 +44,6 @@ class Notificacion implements IPersiste
     function setFechafin($fechafin) {
         $this->fechafin = $fechafin;
     }
-    function setFechaAct($fechaAct) {
-        $this->fechaAct = $fechaAct;
-    }
     function setEstado($estado) {
         $this->estado = $estado;
     }
@@ -61,9 +54,6 @@ class Notificacion implements IPersiste
         $this->usuario = $usuario;
     }
     function __construct() { }
-    public function equals(Notificacion $obj){
-        return $this->log == $obj->log and $this->vehiculo == $obj->vehiculo;                
-    }
     public function mostrarDateIni(){
         $date = date_create($this->fechaini);
         return date_format($date, "Y-m-d");
@@ -86,7 +76,7 @@ class Notificacion implements IPersiste
         return (new NotificacionModel())->getCantNots();
     }
     public function save() {
-        return ($this->id == 0) ? (new NotificacionModel())->create($this) : (new NotificacionModel())->update($this); 
+        return ($this->id == 0) ? (new NotificacionModel())->addNot($this) : (new NotificacionModel())->modNot($this); 
     }
     public function del() { 
         return (new NotificacionModel())->delete($this);

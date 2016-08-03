@@ -27,9 +27,16 @@
                     ?>
                     <tr style="<?php echo $style; ?>">
                         <td>
-                            <a href="index.php?c=vehiculos&a=view&d=<?php echo $notificacion->getVehiculo()->getId(); ?>">
-                                <?php echo $notificacion->getVehiculo()->getMatricula(); ?>
-                            </a>
+                            <?php   
+                                if($notificacion->getVehiculo() == null){
+                                    echo " ";
+                                } else { ?>
+                                    <a href="index.php?c=vehiculos&a=view&d=<?php echo $notificacion->getVehiculo()->getId(); ?>">
+                                        <?php echo $notificacion->getVehiculo()->getMatricula(); ?>
+                                    </a>
+                            <?php                                 
+                                } 
+                            ?>                            
                         </td>                        
                         <td><?php echo $notificacion->getLog(); ?></td>
                         <td><?php echo ($notificacion->getFechaini() == null or $notificacion->getFechaini() == "0000-00-00 00:00:00") ? "" : $notificacion->getFechaini(); ?></td>
