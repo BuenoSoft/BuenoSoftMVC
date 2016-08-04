@@ -56,12 +56,13 @@
         </section> 
         <!-- js placed at the end of the document so the pages load faster -->
          
-        <script src="Public/js/manejo/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script>
-        <script src="Public/js/manejo/jquery.maskedinput.js" type="text/javascript"></script>
+        <script src="Public/js/manejo/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script> 
         <script src="Public/js/manejo/bootstrap.min.js" type="text/javascript"></script>
-        <script src="Public/js/manejo/combodate.js" type="text/javascript"></script>
+     <!--    -->
         <script src="Public/js/manejo/moment.js" type="text/javascript"></script>
         <script src="Public/js/manejo/magicsuggest.js" type="text/javascript"></script>
+        <script src="Public/js/manejo/jquery.maskedinput.js" type="text/javascript"></script>
+        <script src="Public/js/manejo/combodate.js" type="text/javascript"></script>
         <script src="Public/js/manejo/jquery.dcjqaccordion.2.7.js" class="include" type="text/javascript"></script>
         <script src="Public/js/manejo/jquery.nicescroll.js" type="text/javascript"></script>
         <!--common script for all pages-->

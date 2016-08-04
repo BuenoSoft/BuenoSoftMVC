@@ -61,7 +61,7 @@
         });
         $('#u').magicSuggest({
             placeholder: 'Seleccione un Usuario',
-            value: ['<?php echo $notificacion->getUsuario()->getDatoUsu()->getNombre(); ?>'],
+            value: ['<?php echo ($notificacion->getUsuario() != null) ? $notificacion->getUsuario()->getDatoUsu()->getNombre() : null; ?>'],
             maxSelection: 1,
             data: [
                 <?php foreach ($usuarios as $usuario){ ?>
@@ -71,7 +71,7 @@
         });
         $('#v').magicSuggest({
             placeholder: 'Seleccione un Vehículo',
-            value: ['<?php echo $notificacion->getVehiculo()->getMatricula(); ?>'], 
+            value: ['<?php echo ($notificacion->getVehiculo() != null) ? $notificacion->getVehiculo()->getMatricula() : null ; ?>'], 
             maxSelection: 1,
             data: [
                 <?php foreach ($vehiculos as $vehiculo) { ?>

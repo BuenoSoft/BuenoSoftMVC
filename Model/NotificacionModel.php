@@ -19,7 +19,7 @@ class NotificacionModel extends AppModel
         }       
     }
     protected function getFindQuery($criterio = null) {
-        $sql = "select * from notificaciones n inner join vehiculos v on n.vehId = v.vehId and n.vehId is null";
+        $sql = "select * from notificaciones n left join vehiculos v on n.vehId = v.vehId";
         if($criterio == null){
             if(Session::get("log_in")->getRol()->getNombre() == "Administrador" or Session::get("log_in")->getRol()->getNombre() == "Supervisor"){
             } else {

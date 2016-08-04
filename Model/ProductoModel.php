@@ -6,6 +6,9 @@ class ProductoModel extends AppModel
     public function __construct() {
         parent::__construct();
     }
+    public function findByX($x) {        
+        return $this->findByCondition("select * from productos where proNombre = ?", [$x]);
+    }
     /*---------------------------------------------------------------------*/
     public function checkPro($dates = []) {
         return $this->execute($this->getCheckProQuery(),$this->getCheckTieneParameter($dates));

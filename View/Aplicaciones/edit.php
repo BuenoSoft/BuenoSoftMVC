@@ -51,7 +51,7 @@
                                     <input id="tipo" name="tipo" required="required" tabindex="9" />
                                 </td>
                                 <td style="width: 18%;">
-                                    <input type="button" onclick="frmadd.submit();" tabindex="10" value="Buscar" class="btn btn-theme01" style="margin-left: 5px;" />
+                                    <input type="button" onclick="frmedit.submit();" tabindex="10" value="Buscar" class="btn btn-theme01" style="margin-left: 5px;" />
                                 </td>
                             </tr>
                         </table> 
@@ -60,14 +60,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Productos</label>
                     <div class="col-sm-10">                        
-                        <?php 
-                            foreach ($productos as $producto) { 
-                                if($producto->checkPro(\App\Session::get('app'))){ ?>
-                                    <input type="checkbox" name="productos[]" value="<?php echo $producto->getId(); ?>" checked="checked"/>&nbsp;<?php echo $producto->getNombre(); ?><br />
-                        <?php   } else { ?>
-                                    <input type="checkbox" name="productos[]" value="<?php echo $producto->getId(); ?>" />&nbsp;<?php echo $producto->getNombre(); ?><br />
-                        <?php   }                                                         
-                            } ?>                                                     
+                        <input id="producto" name="producto" required="required" tabindex="10" />                                                      
                     </div>
                 </div>                
             </div>
@@ -219,6 +212,20 @@
             data: [
                 <?php foreach($tipos as $tipo){ ?>
                         '<?php echo $tipo->getNombre(); ?>',
+                <?php } ?>
+            ]
+        });
+        $('#producto').magicSuggest({
+            placeholder: 'Seleccione Productos',
+            value:[
+              <?php foreach ($productos as $producto) { 
+                    if($producto->checkPro(\App\Session::get('app'))){ ?>  
+                        '<?php echo $producto->getNombre(); ?>',
+              <?php } }?>
+            ],
+            data: [
+                <?php foreach($productos as $producto){ ?>
+                     '<?php echo $producto->getNombre(); ?>',
                 <?php } ?>
             ]
         });

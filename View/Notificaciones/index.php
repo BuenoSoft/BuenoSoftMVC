@@ -15,8 +15,8 @@
         </p>
         <table class="table table-bordered table-striped table-condensed">
             <thead>                
-                <th>Vehículo</th>
-                <th>Log</th>
+                <th>Destinatario</th>
+                <th>Mensaje</th>
                 <th>Fecha de Inicio</th>
                 <th>Fecha de Cierre</th>
                 <th>Opciones</th>
@@ -27,16 +27,15 @@
                     ?>
                     <tr style="<?php echo $style; ?>">
                         <td>
-                            <?php   
-                                if($notificacion->getVehiculo() == null){
-                                    echo " ";
-                                } else { ?>
-                                    <a href="index.php?c=vehiculos&a=view&d=<?php echo $notificacion->getVehiculo()->getId(); ?>">
-                                        <?php echo $notificacion->getVehiculo()->getMatricula(); ?>
-                                    </a>
-                            <?php                                 
-                                } 
-                            ?>                            
+                            <?php if($notificacion->getVehiculo() != null){ ?>
+                                <a href="index.php?c=vehiculos&a=view&d=<?php echo $notificacion->getVehiculo()->getId(); ?>">
+                                    <?php echo "Vehículo: ". $notificacion->getVehiculo()->getMatricula(); ?>
+                                </a>
+                            <?php } else { ?>
+                                <a href="index.php?c=usuarios&a=view&d=<?php echo $notificacion->getUsuario()->getId(); ?>">
+                                    <?php echo $notificacion->getUsuario()->getRol()->getNombre().": ". $notificacion->getUsuario()->getDatoUsu()->getNombre(); ?>
+                                </a>
+                            <?php } ?>
                         </td>                        
                         <td><?php echo $notificacion->getLog(); ?></td>
                         <td><?php echo ($notificacion->getFechaini() == null or $notificacion->getFechaini() == "0000-00-00 00:00:00") ? "" : $notificacion->getFechaini(); ?></td>

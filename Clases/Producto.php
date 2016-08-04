@@ -59,6 +59,9 @@ class Producto implements IPersiste
     public function findByTipo($tipo) {
         return (new ProductoModel())->findByTipo($tipo);
     }
+    public function findByX($x) {        
+        return (new ProductoModel())->findByX($x);
+    }
     public function save() {
         return ($this->id == 0) ? (new ProductoModel())->create($this) : (new ProductoModel())->update($this); 
     }

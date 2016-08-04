@@ -59,10 +59,8 @@
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Productos</label>
-                    <div class="col-sm-10">                        
-                        <?php foreach ($productos as $producto) { ?>
-                            <input type="checkbox" name="productos[]" value="<?php echo $producto->getId(); ?>" />&nbsp;<?php echo $producto->getNombre(); ?><br />
-                        <?php } ?>                                                    
+                    <div class="col-sm-10">
+                        <input id="producto" name="producto" required="required" tabindex="10" />                                                  
                     </div>
                 </div>                
             </div>
@@ -93,7 +91,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
-                <?php if(\App\Session::get('log_in')!= null and (\App\Session::get('log_in')->getRol()->getNombre() == "Administrador" or \App\Session::get('log_in')->getRol()->getNombre() == "Administrador")){?>
+                <?php if(\App\Session::get('log_in')!= null and (\App\Session::get('log_in')->getRol()->getNombre() == "Administrador" or \App\Session::get('log_in')->getRol()->getNombre() == "Supervisor")){?>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Piloto&nbsp;<font color="red">*</font></label>
                         <div class="col-sm-10">
@@ -174,7 +172,7 @@
     </div>
 </form>
 <script>
-    $(function() {
+    $(function() {       
         $.mask.definitions['~'] = "[+-]";
         $("#sur").mask("99 99 99",{ 
             placeholder: "xx xx xx",
@@ -217,6 +215,14 @@
             data: [
                 <?php foreach($tipos as $tipo){ ?>
                      '<?php echo $tipo->getNombre(); ?>',
+                <?php } ?>
+            ]
+        });
+        $('#producto').magicSuggest({
+            placeholder: 'Seleccione Productos',
+            data: [
+                <?php foreach($productos as $producto){ ?>
+                     '<?php echo $producto->getNombre(); ?>',
                 <?php } ?>
             ]
         });

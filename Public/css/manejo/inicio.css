@@ -1,12 +1,24 @@
 .centrado1{
         text-align: center;
         margin-bottom: 2px;
-    }
+        color: #000000;
+}
 .estilotabla{
     border:  2px solid;
     color: #009dff;
     margin: 0 auto;
-    width: 60%;
+    width: 92%;
+}
+.tabletop{
+    position:absolute;
+    /*top:114px;*/
+    top:248px;
+    right:15px;
+    
+}
+.fuente{
+        font-family: "Segoe UI",Arial,sans-serif;
+        color: #002000;
 }
 .tablita {     
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
@@ -15,7 +27,7 @@
     width: 480px;
     text-align: left;
     border-collapse: collapse; 
-    }
+}
 .titulos {     
     font-size: 13px;
     font-weight: normal;
@@ -23,26 +35,51 @@
     background: #009dff;
     color: #000000;
     
-    }
+}
 .celdita {    
     padding: 8px;
     background: #d6efff;
     border-bottom: 1px solid #fff;
     color: #000000;
-    }
+}
 .celditabr {    
     padding: 8px;
     background: #d6efff;
     color: #000000;
-    }
-
+}
 .celda:hover{ 
     background: #b0e0ff;
-     }
+}
 .celda img{
     height: 15px;
     width: 20px;
-   }
+}
 .centrado{
  text-align: center;
-    }
+}
+.ancho1{
+    width: 38%;    
+} 
+.ancho2{
+    width: 32.5%;    
+} 
+.ancho3{
+    width: 32.5%;    
+} 
+.titulonoticia{
+    font-family: "Segoe UI",Arial,sans-serif;
+    color: #000000;
+}
+.titulonoticia:hover{
+    color: #009dff;
+}
+.textonoticia{
+    font-family: "Segoe UI",Arial,sans-serif;
+    color: #052e61;
+    font-size: 15px;
+}
+.horanoticia{
+    font-family: "Segoe UI",Arial,sans-serif;
+    color: #454545;
+   
+}

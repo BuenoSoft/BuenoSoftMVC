@@ -53,7 +53,7 @@ class AplicacionesController extends AppController
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
             $this->passDates();
-            $productos = (Session::get("pass")[10] != "") ? $this->getPaginator()->paginar((new Producto())->findByTipo((new TipoProducto())->findByX(Session::get("pass")[10])->getId())) : array();
+            $productos = (Session::get("pass")[10] != "") ? (new Producto())->findByTipo((new TipoProducto())->findByX(Session::get("pass")[10])->getId()) : array();
             if (isset($_POST['btnaceptar'])) {
                 $apl = $this->createEntity();
                 if($apl->getTipo() == null){
@@ -77,7 +77,8 @@ class AplicacionesController extends AppController
                     $this->addProductos();
                     Session::set("msg",Session::msgSuccess("Aplicación Creada"));
                     header("Location:index.php?c=aplicaciones&a=index");
-                    exit();                 
+                    exit();
+                    $this->addProductos();
                 }               
             }
             $this->redirect_administrador(['add.php'],[
@@ -91,9 +92,10 @@ class AplicacionesController extends AppController
     }
     private function addProductos(){
         $apl = (new Aplicacion())->findById((new Aplicacion())->maxID());
-        if(isset($_POST["productos"])){
-            foreach ($_POST["productos"] as $pro){
-                $apl->addPro($pro);
+        if(isset($_POST["producto"])){
+            foreach ($_POST["producto"] as $pro){
+                $producto = (new Producto())->findByX($pro);
+                $apl->addPro($producto->getId());
             }
         }
     }
@@ -107,7 +109,7 @@ class AplicacionesController extends AppController
             Session::set('enlaces', $bc->display());
             Session::set("app",$_GET['d']);
             $this->passDates();
-            $productos = (Session::get("pass")[10] != "") ? $this->getPaginator()->paginar((new Producto())->findByTipo(Session::get("pass")[10])) : array();
+            $productos = (Session::get("pass")[10] != "") ? (new Producto())->findByTipo((new TipoProducto())->findByX(Session::get("pass")[10])->getId()) : array();
             if (Session::get('app')!=null && isset($_POST['btnaceptar'])){
                 $apl = $this->createEntity();
                 if($apl->getTipo() == null){
@@ -148,10 +150,11 @@ class AplicacionesController extends AppController
         foreach ($apl->getProductos() as $producto){
             $apl->delPro($producto->getId());             
         }
-        if(isset($_POST["productos"])){
-            foreach ($_POST["productos"] as $pro){
-                $apl->addPro($pro);                            
-            }            
+        if(isset($_POST["producto"])){
+            foreach ($_POST["producto"] as $pro){
+                $producto = (new Producto())->findByX($pro);
+                $apl->addPro($producto->getId());
+            }
         }
     }
     public function delete(){
@@ -302,11 +305,15 @@ class AplicacionesController extends AppController
         return $lat.",".$lon;
     }
     private function getCoord($date){
-        $arr=  explode(" ",$date);
-        $p1 = $arr[1] /60;
-        $p2 = $p1 + $arr[1];
-        $p3 = $p2 /60;
-        return -1 * ($p3 + $arr[0]);
+        if($date == null){
+            return null;
+        } else {
+            $arr=  explode(" ",$date);
+            $p1 = $arr[1] /60;
+            $p2 = $p1 + $arr[1];
+            $p3 = $p2 /60;
+            return -1 * ($p3 + $arr[0]);         
+        }
     }
     protected function getRoles() {
         return ["Administrador","Supervisor","Piloto"];
