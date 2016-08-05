@@ -26,8 +26,7 @@ class UsuariosController extends AppController
                     exit();
                 } else {
                     Session::set("msg",Session::msgDanger("Acceso denegado."));
-                    //header("Location:index.php?c=todos&a=index");
-                    header("Location:index.php?c=todos&a=index#");
+                    header("Location:index.php?c=todos&a=index");
                 }
             }
         }                

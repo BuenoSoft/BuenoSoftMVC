@@ -7,6 +7,7 @@ use \Clases\TipoProducto;
 use \Clases\Usuario;
 use \Clases\Producto;
 use \Clases\Vehiculo;
+use \Clases\Notificacion;
 use \Clases\Aplicacion;
 class AplicacionesController extends AppController
 {
@@ -24,11 +25,11 @@ class AplicacionesController extends AppController
             $apl = $this->getPaginator()->paginar(
                 (new Aplicacion())->findAdvance([
                     "aeronave" => isset($_POST["aeronave"][0]) ? $_POST["aeronave"][0] : null,
-                    "piloto" => (isset($_POST["piloto"][0]) and Session::get('log_in')->getRol()->getNombre() != "Piloto") ? $_POST["piloto"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Piloto") ? Session::get('log_in')->getId() : null),
+                    "piloto" => (isset($_POST["piloto"][0]) and Session::get('log_in')->getRol()->getNombre() != "Piloto") ? $_POST["piloto"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Piloto") ? Session::get('log_in')->getDatoUsu()->getNombre() : null),
                     "tipo" => isset($_POST["tipo"][0]) ? $_POST["tipo"][0] : null,
-                    "cliente" => (isset($_POST["cliente"][0]) and Session::get('log_in')->getRol()->getNombre() != "Cliente") ? $_POST["cliente"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Cliente") ? Session::get('log_in')->getId() : null),
-                    "fec1" => isset($_POST["fec1"]) ? $_POST["fec1"] : null,
-                    "fec2" => isset($_POST["fec2"]) ? $_POST["fec2"] : null
+                    "cliente" => (isset($_POST["cliente"][0]) and Session::get('log_in')->getRol()->getNombre() != "Cliente") ? $_POST["cliente"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Cliente") ? Session::get('log_in')->getDatoUsu()->getNombre() : null),
+                    "fec1" => isset($_POST["fec1"]) ? $this->inverseDat($_POST["fec1"]) : null,
+                    "fec2" => isset($_POST["fec2"]) ? $this->inverseDat($_POST["fec2"]) : null
                 ]), 
                 Session::get('p')
             );
@@ -70,7 +71,7 @@ class AplicacionesController extends AppController
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Aeronave"));
                 } else if($apl->getTerrestre() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Terrestre"));
-                } else if($apl->getFechaIni() > $apl->getFechaFin()){
+                } else if($apl->getFechaFin() != null and $apl->getFechaIni() > $apl->getFechaFin()){
                     Session::set("msg",Session::msgDanger("Asegurese de que la fecha de inicio sea menor a la fecha final"));
                 } else {
                     $apl->save();
@@ -79,7 +80,7 @@ class AplicacionesController extends AppController
                     header("Location:index.php?c=aplicaciones&a=index");
                     exit();
                     $this->addProductos();
-                }               
+                }             
             }
             $this->redirect_administrador(['add.php'],[
                 "usuarios" => (new Usuario())->find(),
@@ -126,11 +127,12 @@ class AplicacionesController extends AppController
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Aeronave"));
                 } else if($apl->getTerrestre() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Terrestre"));
-                } else if($apl->getFechaIni() > $apl->getFechaFin()){
+                } else if($apl->getFechaFin() != null and $apl->getFechaIni() > $apl->getFechaFin()){
                     Session::set("msg",Session::msgDanger("Asegurese de que la fecha de inicio sea menor a la fecha final"));    
                 } else {
                     $apl->save();
                     $this->modProductos($apl);
+                    $this->increaseTaqui($apl);
                     Session::set("msg",Session::msgSuccess("Aplicación Editada"));
                     header("Location:index.php?c=aplicaciones&a=index");
                     exit();                
@@ -156,6 +158,24 @@ class AplicacionesController extends AppController
                 $apl->addPro($producto->getId());
             }
         }
+    }
+    private function increaseTaqui($apl){
+        if($apl->getFechaFin() != null){
+            if($apl->getTaquiIni() != null and $apl->getTaquiFin() != null){
+                $sum = $apl->getTaquiFin() - $apl->getTaquiIni();
+                $apl->getAeronave()->addTaqui($sum);
+                if($apl->getAeronave()->getTaquiDif() >= 1500){
+                    $not = new Notificacion();
+                    $not->setId(0);
+                    $not->setLog("Usted debe realizar a la aeronave ".$apl->getAeronave()->getMatricula()." un mantenimiento");
+                    $not->setFechaini(date("Y-m-d"));
+                    $not->setVehiculo($apl->getAeronave());
+                    $not->save();
+                    $apl->getAeronave()->setTaquiDif(($apl->getAeronave()->getTaquiDif() - 1500));
+                    $apl->getAeronave()->change();
+                }
+            }
+        }                
     }
     public function delete(){
         if($this->checkUser()){
@@ -240,9 +260,9 @@ class AplicacionesController extends AppController
                 ((Session::get("app")!= 0) ? $apl->getAreaapl() : null),
             isset($_POST['txtfaja']) ? $this->clean($_POST['txtfaja']) : 
                 ((Session::get("app")!= 0) ? $apl->getFaja() : null), 
-            isset($_POST['dtfechaini']) ? $this->clean($_POST['dtfechaini']) : 
+            isset($_POST['dtfechaini']) ? $this->inverseDate($_POST['dtfechaini']) : 
                 ((Session::get("app")!= 0) ? $apl->mostrarDateTimeIni() : null),
-            isset($_POST['dtfechafin']) ? $this->clean($_POST['dtfechafin']) : 
+            isset($_POST['dtfechafin']) ? $this->inverseDate($_POST['dtfechafin']) : 
                 ((Session::get("app")!= 0) ? $apl->mostrarDateTimeFin() : null), 
             isset($_POST['txttrat']) ? $this->clean($_POST['txttrat']) : 
                 ((Session::get("app")!= 0) ? $apl->getTratamiento() : null),
@@ -314,6 +334,18 @@ class AplicacionesController extends AppController
             $p3 = $p2 /60;
             return -1 * ($p3 + $arr[0]);         
         }
+    }
+    private function inverseDate($date){
+        if($date != null){
+            $arrdate = explode("-", $date);
+            return $arrdate[2]."-".$arrdate[1]."-".$arrdate[0]." ".$arrdate[3].":".$arrdate[4];
+        } else {
+            return null;
+        }
+    }
+    private function inverseDat($date){
+        $arrdate = explode("-", $date);
+        return $arrdate[2]."-".$arrdate[1]."-".$arrdate[0];
     }
     protected function getRoles() {
         return ["Administrador","Supervisor","Piloto"];

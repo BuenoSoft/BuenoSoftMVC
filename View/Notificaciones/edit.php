@@ -50,14 +50,14 @@
 <script>
     $(function() {
         $('#fecini').combodate({
-            value: '',
-            format: 'YYYY-MM-DD',
-            template: 'YYYY-MM-DD'           
+            //value: '',
+            format: 'DD-MM-YYYY',
+            template: 'DD / MM / YYYY'           
         });
         $('#fecfin').combodate({
-            value: '',
-            format: 'YYYY-MM-DD',
-            template: 'YYYY-MM-DD'        
+            //value: '',
+            format: 'DD-MM-YYYY',
+            template: 'DD / MM / YYYY'        
         });
         $('#u').magicSuggest({
             placeholder: 'Seleccione un Usuario',

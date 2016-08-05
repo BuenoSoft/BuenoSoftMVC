@@ -28,12 +28,12 @@ class VehiculoModel extends AppModel
         return [
             $object->getMatricula(),$object->getPadron(),$object->getTipo()->getId(),
             $object->getCapcarga(),$object->getStock(),$object->getModelo(),$object->getMarca(),
-            $object->getAnio(),$object->getCombustible()->getId()
+            $object->getAnio(),0,$object->getCombustible()->getId()
         ];
     }
     protected function getCreateQuery() {
         return "insert into vehiculos(vehMatricula,vehPadron,tvId,vehCapCarga,vehStock,"
-        . "vehModelo,vehMarca,vehAnio,comId) values(?,?,?,?,?,?,?,?,?)";
+        . "vehModelo,vehMarca,vehAnio,vehTaquiDif,comId) values(?,?,?,?,?,?,?,?,?,?)";
     }
     /*------------------------------------------------------------------------------------*/
     protected function getDeleteParameter($object) {
@@ -70,6 +70,16 @@ class VehiculoModel extends AppModel
         . "vehStock = ?,vehModelo = ?,vehMarca = ?,vehAnio = ?,comId = ? where vehId = ?";
     }
     /*------------------------------------------------------------------------------------*/
+    private function getUpdateTaquiParameter($object) {
+        return [$object->getTaquiDif(),$object->getId()];
+    }
+    private function getUpdateTaquiQuery() {
+        return "update vehiculos set vehTaquiDif = ? where vehId = ?";
+    }
+    public function modTaquiDif($object){
+        return $this->execute($this->getUpdateTaquiQuery(), $this->getUpdateTaquiParameter($object));
+    }
+    /*------------------------------------------------------------------------------------*/
     public function createEntity($row) {
         $vehiculo = new Vehiculo();
         $vehiculo->setId($row["vehId"]);
@@ -81,6 +91,7 @@ class VehiculoModel extends AppModel
         $vehiculo->setModelo($row["vehModelo"]);
         $vehiculo->setMarca($row["vehMarca"]);
         $vehiculo->setAnio($row["vehAnio"]);
+        $vehiculo->setTaquiDif($row["vehTaquiDif"]);
         $vehiculo->setCombustible((new CombustibleModel())->findById($row["comId"]));
         return $vehiculo;
     }

@@ -12,11 +12,8 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/html/BuenoSoftMVC/Public/js/manejo/magicsuggest.js</file>
-            <file>file:/var/www/html/BuenoSoftMVC/Public/manejo.php</file>
-            <file>file:/var/www/html/BuenoSoftMVC/View/Aplicaciones/add.php</file>
-            <file>file:/var/www/html/BuenoSoftMVC/Public/css/manejo/style.css</file>
-            <file>file:/var/www/html/BuenoSoftMVC/Public/css/manejo/magicsuggest.css</file>
+            <file>file:/var/www/html/BuenoSoftMVC/Public/principal.php</file>
+            <file>file:/var/www/html/BuenoSoftMVC/Controller/UsuariosController.php</file>
         </group>
     </open-files>
 </project-private>

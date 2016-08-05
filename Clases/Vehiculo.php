@@ -13,6 +13,7 @@ class Vehiculo implements IPersiste
     private $modelo;
     private $marca;
     private $anio;
+    private $taquiDif;
     private $combustible;
     function getId() {
         return $this->id;
@@ -40,6 +41,9 @@ class Vehiculo implements IPersiste
     }
     function getAnio() {
         return $this->anio;
+    }
+    function getTaquiDif() {
+        return $this->taquiDif;
     }
     function getCombustible() {
         return $this->combustible;
@@ -71,11 +75,14 @@ class Vehiculo implements IPersiste
     function setAnio($anio) {
         $this->anio = $anio;
     }
+    function setTaquiDif($taquiDif) {
+        $this->taquiDif = $taquiDif;
+    }
     function setCombustible($combustible) {
         $this->combustible = $combustible;
     }
+    /*------------------------------------------*/    
     function __construct() { }
-    /*------------------------------------------*/
     public function equals(Vehiculo $obj){
         return $this->matricula == $obj->matricula;                
     }
@@ -95,6 +102,10 @@ class Vehiculo implements IPersiste
     public function hayStock($cant){
         return $this->stock >= $cant;
     }
+    public function addTaqui($cant){
+        $this->taquiDif += $cant;
+        $this->change();
+    }
     /*------------------------------------------*/
     public function del() {
         return (new VehiculoModel())->delete($this);
@@ -107,6 +118,9 @@ class Vehiculo implements IPersiste
     }
     public function findByMat($mat) {
         return (new VehiculoModel())->findByMat($mat);
+    }
+    public function change() {
+        return (new VehiculoModel())->modTaquiDif($this);
     }
     public function save() {
         return ($this->id == 0) ? (new VehiculoModel())->create($this) : (new VehiculoModel())->update($this); 

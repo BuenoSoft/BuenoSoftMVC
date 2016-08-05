@@ -120,12 +120,16 @@ class NotificacionesController extends AppController
             header("Location:index.php?c=todos&a=index");
         }
     }
+    private function inverseDate($date){
+        $arrdate = explode("-", $date);
+        return $arrdate[2]."-".$arrdate[1]."-".$arrdate[0];
+    }
     private function createEntity(){
         $not = new Notificacion();
         $not->setId(isset($_POST["hid"]) ? $_POST["hid"] : 0);
         $not->setLog($this->clean($_POST["txtlog"])); 
-        $not->setFechaini($_POST["dtfechaini"]);
-        $not->setFechafin(isset($_POST["dtfechafin"]) ? $_POST["dtfechafin"] : null);
+        $not->setFechaini($this->inverseDate($_POST["dtfechaini"]));
+        $not->setFechafin(isset($_POST["dtfechafin"]) ? $this->inverseDate($_POST["dtfechafin"]) : null);
         $not->setVehiculo((new Vehiculo())->findByMat((isset($_POST["veh"][0]) ? $_POST["veh"][0] : 0)));
         $not->setUsuario((new Usuario())->findByNombre((isset($_POST["usu"][0]) ? $_POST["usu"][0] : 0)));
         return $not;

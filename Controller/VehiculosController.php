@@ -92,10 +92,6 @@ class VehiculosController extends AppController
             ]);
         }
     }
-    private function checkStock($stock){
-        $veh = (new Vehiculo())->findById(Session::get('vh'));
-        return $veh->getStock() == $tock;
-    }
     public function view(){
         if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
             $bc = new Breadcrumbs();
@@ -119,6 +115,18 @@ class VehiculosController extends AppController
                 Session::set("msg", (isset($id)) ? Session::msgSuccess("Vehículo Borrado") : Session::msgDanger("No se pudo borrar el vehículo"));
                 header("Location:index.php?&c=vehiculos&a=index");
             }            
+        }
+    }
+    public function reiniciar(){
+        if($this->checkUser()){
+            Session::set("vh",$_GET['d']);
+            $vehiculo = (new Vehiculo())->findById($_GET['d']);
+            $vehiculo->setTaquiDif(0);
+            $vehiculo->change();
+            $this->redirect_administrador(["edit.php"],[
+                "vehiculo" => $vehiculo,
+                "tipos" => (new TipoVehiculo())->find() 
+            ]);                        
         }
     }
     private function createEntity(){

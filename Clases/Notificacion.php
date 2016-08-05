@@ -56,11 +56,19 @@ class Notificacion implements IPersiste
     function __construct() { }
     public function mostrarDateIni(){
         $date = date_create($this->fechaini);
-        return date_format($date, "Y-m-d");
+        return date_format($date, "d-m-Y");
     }
     public function mostrarDateFin(){
         $date = date_create($this->fechafin);
-        return date_format($date, "Y-m-d");
+        return date_format($date, "d-m-Y");
+    }
+    public function inverseDateIni(){
+        $arrdate = explode("-", $this->fechaini);
+        return $arrdate[2]."/".$arrdate[1]."/".$arrdate[0];
+    }
+    public function inverseDateFin(){
+        $arrdate = explode("-", $this->fechafin);
+        return $arrdate[2]."/".$arrdate[1]."/".$arrdate[0];
     }
     /*----------------------------------*/
     public function find($criterio = null) {

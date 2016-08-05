@@ -88,11 +88,11 @@
                                         echo "En espera";
                                     }
                                     else {
-                                        echo "Iniciado: ".$aplicacion->getFechaIni();
+                                        echo "Iniciado: ".$aplicacion->inverseDateIni();
                                     }
                                 }
                                 else {
-                                    echo "Finalizado: ".$aplicacion->getFechaFin();
+                                    echo "Finalizado: ".$aplicacion->inverseDateFin();
                                 }
                             ?>                        
                         </td>
@@ -180,13 +180,13 @@
         });
         $('#fecini').combodate({
             value: '',
-            format: 'YYYY-MM-DD',
-            template: 'YYYY-MM-DD'
+            format: 'DD-MM-YYYY',
+            template: 'DD / MM / YYYY'
         });
         $('#fecfin').combodate({
             value: '',
-            format: 'YYYY-MM-DD',
-            template: 'YYYY-MM-DD'
+            format: 'DD-MM-YYYY',
+            template: 'DD / MM / YYYY'
         }); 
     });
 </script>

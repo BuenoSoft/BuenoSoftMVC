@@ -212,7 +212,7 @@
 .ms-stacked .ms-sel-item{
     float: inherit;
 }
-/*
+
 .ms-sel-ctn .ms-sel-item .ms-close-btn{
     width: 7px;
     cursor: pointer;
@@ -227,7 +227,7 @@
 }
 .ms-stacked .ms-sel-item .ms-close-btn {
     margin-left: 0px;
-}*/
+}
 .ms-helper{
     color: #AAA;
     font-size: 10px;

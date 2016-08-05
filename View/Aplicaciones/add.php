@@ -181,10 +181,14 @@
             placeholder: "xxx xx xx",
             autoclear: false }).val('<?php echo \App\Session::get("pass")[2]; ?>'); 
         $('#fecini').combodate({
-            value: ''
+            value: '',
+            format: 'DD-MM-YYYY-HH-mm',
+            template: 'DD / MM / YYYY     HH : mm'           
         });
         $('#fecfin').combodate({
-            value: ''
+            value: '',
+            format: 'DD-MM-YYYY-HH-mm',
+            template: 'DD / MM / YYYY     HH : mm'       
         });
         $('#aeronave').magicSuggest({
             placeholder: 'Seleccione Aeronave',

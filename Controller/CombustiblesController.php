@@ -172,7 +172,7 @@ class CombustiblesController extends AppController
     }
     private function createMov(){
         $mov = new Movimiento();
-        $mov->setFecha($_POST["dtfecha"]);
+        $mov->setFecha($this->inverseDate($_POST["dtfecha"]));
         $mov->setCantidad($_POST["txtcant"]);
         $mov->setEmisor((new Vehiculo())->findByMat((isset($_POST['vehemi'][0])) ? $_POST['vehemi'][0] : 0));
         $mov->setReceptor((new Vehiculo())->findByMat((isset($_POST['vehrec'][0])) ? $_POST['vehrec'][0] : 0));
@@ -219,6 +219,14 @@ class CombustiblesController extends AppController
             } else if($combustible->getStock() == $cantidad) {
                 return $combustible->getFecUC();
             }
+        } else {
+            return null;
+        }
+    }
+    private function inverseDate($date){
+        if($date != null){
+            $arrdate = explode("-", $date);
+            return $arrdate[2]."-".$arrdate[1]."-".$arrdate[0]." ".$arrdate[3].":".$arrdate[4];
         } else {
             return null;
         }

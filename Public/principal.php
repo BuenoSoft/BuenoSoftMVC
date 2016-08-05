@@ -92,7 +92,7 @@ $(function() {
                                                 </div>
                                             <?php } ?>
                                             <p class="popup-titulo">Iniciar Sesi&oacuten</p>
-                                            <form action="index.php?c=usuarios&a=login" class="frm-login" method="post" name="frmlogin">
+                                            <form action="index.php?c=usuarios&a=login" class="frm-login" method="post" name="frmlogin" id="login">
                                                 <input name="txtuser" type="text" placeholder="Usuario" class="popup-textbox" autofocus="autofocus" required="required" />
                                                 <input name="txtpass" type="password" placeholder="Contraseña"  class="popup-textbox" required="required" />
                                                 <input name="btnaceptar" type="submit" value="Aceptar" class="popup-btn popup-hover-btn"/>
@@ -297,7 +297,6 @@ Desarrollado por Tecnicatura en Redes y Software 2016. Salto, Uruguay.
 
 <!-- boostrap -->
 <script src="Public/js/principal/bootstrap.js" type="text/javascript" ></script>
-
 </body>
 </html>
 

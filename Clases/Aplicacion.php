@@ -151,17 +151,38 @@ class Aplicacion implements IPersiste
     function setPiloto($piloto) {
         $this->piloto = $piloto;
     }
+    /*-----------------------------------------*/
     function __construct() { }
     public function taquiDif(){
         return $this->taquiFin - $this->taquiIni;
     }
     public function mostrarDateTimeIni(){
         $date = date_create($this->fechaIni);
-        return date_format($date, "Y-m-d H:i");
+        return date_format($date, "d-m-Y-H-i");
     }
     public function mostrarDateTimeFin(){
         $date = date_create($this->fechaFin);
-        return date_format($date, "Y-m-d H:i");
+        return date_format($date, "d-m-Y-H-i");
+    }
+    public function inverseDateIni(){
+        if($this->fechaIni != null){
+            $arrdate = explode("-", $this->fechaIni);
+            $arresp = explode(" ", $arrdate[2]);
+            $arrigual = explode(":", $arresp[1]);
+            return $arresp[0]."/".$arrdate[1]."/".$arrdate[0]." ".$arrigual[0].":".$arrigual[1];
+        } else {
+            return null;
+        }
+    }
+    public function inverseDateFin(){
+        if($this->fechaFin != null){
+            $arrdate = explode("-", $this->fechaFin);
+            $arresp = explode(" ", $arrdate[2]);
+            $arrigual = explode(":", $arresp[1]);
+            return $arresp[0]."/".$arrdate[1]."/".$arrdate[0]." ".$arrigual[0].":".$arrigual[1];
+        } else {
+            return null;
+        }
     }
     public function getGMDLat(){
         $arr = explode(",", $this->coordCul);

@@ -50,7 +50,7 @@
                     <tbody>
                         <?php foreach($movimientos as $movimiento) { ?>
                             <tr>                       
-                                <td><?php echo $movimiento->getFecha();?></td>
+                                <td><?php echo $movimiento->inverseDateIni();?></td>
                                 <td><?php echo $movimiento->getCantidad();?></td>
                                 <td>
                                     <a href="index.php?c=combustibles&a=vehiculo&d=<?php echo $movimiento->getEmisor()->getId();?>">
@@ -94,7 +94,10 @@
 </form>
 <script>
     $(function(){
-        $('#fecha').combodate();
+        $('#fecha').combodate({
+            format: 'DD-MM-YYYY-HH-mm',
+            template: 'DD / MM / YYYY     HH : mm'
+        });
         $('#emi').magicSuggest({
             placeholder: 'Seleccione un Vehículo',
             maxSelection: 1,

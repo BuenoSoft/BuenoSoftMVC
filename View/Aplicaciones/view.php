@@ -1,6 +1,6 @@
 <h3><i class="fa fa-angle-right"></i>Ver Aplicación número&nbsp;<?php echo $aplicacion->getId(); ?></h3>
 <p>
-    <a href="index.php?c=pdf&a=myapp&d=<?php echo $aplicacion->getId(); ?>" >
+    <a href="index.php?c=pdf&a=myapp&d=<?php echo $aplicacion->getId(); ?>" target="_blank">
         <button class="btn btn-theme05" tabindex="3">
             <i class="fa fa-print"></i>&nbsp;Imprimir
         </button>
@@ -146,13 +146,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Inicio</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo ($aplicacion->getFechaIni() == null or $aplicacion->getFechaIni() == "0000-00-00 00:00:00") ? "" : $aplicacion->getFechaIni(); ?>
+                        <?php echo ($aplicacion->getFechaIni() == null or $aplicacion->getFechaIni() == "0000-00-00 00:00:00") ? "" : $aplicacion->inverseDateIni(); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Cierre</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo ($aplicacion->getFechaFin() == null or $aplicacion->getFechaFin() == "0000-00-00 00:00:00") ? "" : $aplicacion->getFechaFin(); ?>
+                        <?php echo ($aplicacion->getFechaFin() == null or $aplicacion->getFechaFin() == "0000-00-00 00:00:00") ? "" : $aplicacion->inverseDateFin(); ?>
                     </div>
                 </div> 
             </div>

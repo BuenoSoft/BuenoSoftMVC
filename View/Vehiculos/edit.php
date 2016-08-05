@@ -62,7 +62,17 @@
                     <div class="col-sm-10">
                         <input type="text" name="txtanio" class="form-control" required="required" placeholder="Ej: 2010" onkeypress="return validarNumero(event);" value="<?php echo $vehiculo->getAnio(); ?>" tabindex="8" />
                     </div>
-                </div>                
+                </div>  
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Taquímetro del Vehículo</label>
+                    <div class="col-sm-10" style="text-align: center;">
+                        <?php echo $vehiculo->getTaquiDif(); ?>&nbsp;
+                        <a href="index.php?c=vehiculos&a=reiniciar&d=<?php echo $vehiculo->getId(); ?>" onclick="return confirm('¿Desea reiniciar el taquímetro del vehículo?')">
+                            Reiniciar
+                        </a>
+                        
+                    </div>
+                </div>  
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">

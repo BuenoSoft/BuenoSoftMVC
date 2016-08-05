@@ -38,4 +38,14 @@ class Movimiento
         $this->usuario = $usuario;
     }
     function __construct() { }
+    public function inverseDateIni(){
+        if($this->fecha != null){
+            $arrdate = explode("-", $this->fecha);
+            $arresp = explode(" ", $arrdate[2]);
+            $arrigual = explode(":", $arresp[1]);
+            return $arresp[0]."/".$arrdate[1]."/".$arrdate[0]." ".$arrigual[0].":".$arrigual[1];
+        } else {
+            return null;
+        }
+    }
 }

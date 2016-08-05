@@ -181,8 +181,16 @@
         $("#oeste").mask("999 99 99",{ 
             placeholder: "xxx xx xx",
             autoclear: false }).val('<?php echo \App\Session::get("pass")[2]; ?>');
-        $('#fecini').combodate();
-        $('#fecfin').combodate();
+        $('#fecini').combodate({
+            value: '',
+            format: 'DD-MM-YYYY-HH-mm',
+            template: 'DD / MM / YYYY     HH : mm' 
+        });
+        $('#fecfin').combodate({
+            value: '',
+            format: 'DD-MM-YYYY-HH-mm',
+            template: 'DD / MM / YYYY     HH : mm' 
+        });
         $('#aeronave').magicSuggest({
             placeholder: 'Seleccione Aeronave',
             value: ['<?php echo \App\Session::get("pass")[20]; ?>'],

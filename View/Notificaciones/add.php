@@ -43,8 +43,8 @@
 <script>
     $(function() {
         $('#fecini').combodate({
-            format: 'YYYY-MM-DD',
-            template: 'YYYY-MM-DD'
+            format: 'DD-MM-YYYY',
+            template: 'DD-MM-YYYY'
         });
         $('#u').magicSuggest({
             placeholder: 'Seleccione un Usuario',

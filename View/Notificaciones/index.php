@@ -38,8 +38,8 @@
                             <?php } ?>
                         </td>                        
                         <td><?php echo $notificacion->getLog(); ?></td>
-                        <td><?php echo ($notificacion->getFechaini() == null or $notificacion->getFechaini() == "0000-00-00 00:00:00") ? "" : $notificacion->getFechaini(); ?></td>
-                        <td><?php echo ($notificacion->getFechafin() == null or $notificacion->getFechafin() == "0000-00-00 00:00:00") ? "" : $notificacion->getFechafin(); ?></td>
+                        <td><?php echo ($notificacion->getFechaini() == null or $notificacion->getFechaini() == "0000-00-00") ? "" : $notificacion->inverseDateIni(); ?></td>
+                        <td><?php echo ($notificacion->getFechafin() == null or $notificacion->getFechafin() == "0000-00-00") ? "" : $notificacion->inverseDateFin(); ?></td>
                         <td>
                             <a href="index.php?c=notificaciones&a=view&d=<?php echo $notificacion->getId(); ?>" title="Ver">
                                 <i class="fa fa-eye" style="font-size: 22px;"></i>
