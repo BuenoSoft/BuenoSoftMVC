@@ -40,7 +40,12 @@ class VehiculoModel extends AppModel
         return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) {
-        return "delete from vehiculos where vehId = ?";
+        $sql = "delete from vehiculos where vehId = ?";
+        if($notUsed){
+            $sql .= "and vehId not in (select distinct vehAero from aplicaciones)"
+                . "and vehId not in (select distinct vehTerr from aplicaciones)";
+        }
+        return $sql;
     }
     /*------------------------------------------------------------------------------------*/
     protected function getFindParameter($criterio = null) {
@@ -52,10 +57,6 @@ class VehiculoModel extends AppModel
         } else {
             return "select * from vehiculos where vehMatricula like ? order by vehMatricula";         
         }
-    }
-    /*------------------------------------------------------------------------------------*/
-    protected function getFindXIdQuery() {
-        return "select * from vehiculos where vehId = ?";
     }
     /*------------------------------------------------------------------------------------*/
     protected function getUpdateParameter($object) {
@@ -80,6 +81,9 @@ class VehiculoModel extends AppModel
         return $this->execute($this->getUpdateTaquiQuery(), $this->getUpdateTaquiParameter($object));
     }
     /*------------------------------------------------------------------------------------*/
+    protected function getFindXIdQuery() {
+        return "select * from vehiculos where vehId = ?";
+    }    
     public function createEntity($row) {
         $vehiculo = new Vehiculo();
         $vehiculo->setId($row["vehId"]);

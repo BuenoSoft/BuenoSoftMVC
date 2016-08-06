@@ -18,33 +18,42 @@ class RolModel extends AppModel
     }
     protected function getCheckQuery() {
         return "select * from roles where rolNombre = ?";
-    }    
+    }
+    /*------------------------------------------------------------------------------------*/    
     protected function getCreateParameter($object) {
         return [$object->getNombre()];
     }
     protected function getCreateQuery() {
         return "insert into roles(rolNombre) values (?,?)";
     }
+    /*------------------------------------------------------------------------------------*/    
     protected function getDeleteParameter($object) {
         return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) {
-        return "delete from roles where rolId = ?";
+        $sql ="delete from roles where rolId = ?";
+        if($notUsed){
+            $sql .= "and rolId not in (select distinct rolId from usuarios)";
+        }
+        return $sql;
     }
+    /*------------------------------------------------------------------------------------*/    
     protected function getFindParameter($criterio = null) {
         return [$criterio];
     }
     protected function getFindQuery($criterio = null) {
         return "select * from roles order by rolNombre";
     }
-    protected function getFindXIdQuery() {
-        return "select * from roles where rolId = ?";
-    }
+    /*------------------------------------------------------------------------------------*/    
     protected function getUpdateParameter($object) {
         return [$object->getNombre(),$object->getId()];
     }
     protected function getUpdateQuery() {
         return "update roles set rolNombre = ? where rolId = ?";        
+    }
+    /*------------------------------------------------------------------------------------*/    
+    protected function getFindXIdQuery() {
+        return "select * from roles where rolId = ?";
     }
     public function createEntity($row) {
         $rol = new Rol();

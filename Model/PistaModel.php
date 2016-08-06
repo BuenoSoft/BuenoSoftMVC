@@ -19,12 +19,14 @@ class PistaModel extends AppModel
     protected function getCheckQuery() {
         return "select * from pistas where pisNombre = ?";
     }
+    /*------------------------------------------------------------------------------------*/    
     protected function getCreateParameter($object) {
         return [$object->getNombre(), $object->getCoordenadas(), $object->getCliente()->getId()];
     }
     protected function getCreateQuery() {
         return "insert into pistas(pisNombre,pisCoord,usuId) values(?,?,?)";
-    }    
+    }
+    /*------------------------------------------------------------------------------------*/    
     protected function getFindParameter($criterio = null) {
         return ["%".$criterio."%"];
     }
@@ -35,15 +37,17 @@ class PistaModel extends AppModel
             return "select * from pistas where pisNombre like ? order by pisNombre";         
         }
     }
-    protected function getFindXIdQuery() {
-        return "select * from pistas where pisId = ?";
-    }
+    /*------------------------------------------------------------------------------------*/    
     protected function getUpdateParameter($object) {
         return [$object->getNombre(), $object->getCoordenadas(), $object->getCliente()->getId(), $object->getId()];
     }
     protected function getUpdateQuery() {
         return "update pistas set pisNombre = ?, pisCoord = ?, usuId = ? where pisId = ?";
     }
+    /*------------------------------------------------------------------------------------*/    
+    protected function getFindXIdQuery() {
+        return "select * from pistas where pisId = ?";
+    }    
     public function createEntity($row) {
         $pista = new Pista();
         $pista->setId($row["pisId"]);
@@ -52,10 +56,15 @@ class PistaModel extends AppModel
         $pista->setCliente((new UsuarioModel())->findById($row["usuId"]));
         return $pista;
     }
+    /*------------------------------------------------------------------------------------*/    
     protected function getDeleteParameter($object) {
         return [$object->getId()];        
     }
-    protected function getDeleteQuery($notUsed = true) { 
-        return "delete from pistas where pisId = ?";
+    protected function getDeleteQuery($notUsed = true) {
+        $sql = "delete from pistas where pisId = ?";
+        if($notUsed){
+            $sql .= "and pisId not in (select distinct pisId from aplicaciones)";
+        }
+        return $sql;
     }
 }

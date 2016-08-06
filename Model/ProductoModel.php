@@ -45,7 +45,11 @@ class ProductoModel extends AppModel
         return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) {
-        return "delete from productos where proId = ?";
+        $sql ="delete from productos where proId = ?";
+        if($notUsed){
+            $sql .="and proId not in (select distinct proId from tiene)";
+        }
+        return $sql;
     }
     /*---------------------------------------------------------------------*/
     protected function getFindParameter($criterio = null) {
@@ -59,10 +63,6 @@ class ProductoModel extends AppModel
         }        
     }
     /*---------------------------------------------------------------------*/
-    protected function getFindXIdQuery() {
-        return "select * from productos where proId = ?";
-    }
-    /*---------------------------------------------------------------------*/
     protected function getUpdateParameter($object) {
         return [$object->getCodigo(),$object->getNombre(),$object->getMarca(),$object->getTipo()->getId(),$object->getId()];
     }
@@ -70,6 +70,9 @@ class ProductoModel extends AppModel
         return "update productos set proCodigo = ?, proNombre = ?, proMarca = ?, tpId = ? where proId = ?";
     }
     /*---------------------------------------------------------------------*/
+    protected function getFindXIdQuery() {
+        return "select * from productos where proId = ?";
+    }
     public function createEntity($row) {
         $producto = new Producto();
         $producto->setId($row['proId']);

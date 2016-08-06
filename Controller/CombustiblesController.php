@@ -94,8 +94,14 @@ class CombustiblesController extends AppController
         if($this->checkUser()){
             if (isset($_GET['d'])){
                 $combustible = (new Combustible())->findById($_GET['d']);
-                $id = $combustible->del();                
-                Session::set("msg", (isset($id)) ? Session::msgSuccess("Combustible Borrado") : Session::msgDanger("No se pudo borrar el combustible"));
+                $id = $combustible->del();
+                if(isset($id)){
+                    if((new Combustible())->findById($combustible->getId()) == null){
+                        Session::set("msg",Session::msgSuccess("Combustible Borrado"));
+                    } else {
+                        Session::set("msg",Session::msgDanger("Hay vehículos usando este combustible"));
+                    }
+                }
                 header("Location:index.php?&c=combustibles&a=index");
             }            
         }

@@ -77,7 +77,13 @@ class TipovController extends AppController
             if (isset($_GET['d'])){
                 $tp = (new TipoVehiculo())->findById($_GET['d']);
                 $id = $tp->del();                
-                Session::set("msg", (isset($id)) ? Session::msgSuccess("Tipo de Vehículo Borrado") : Session::msgDanger("No se pudo borrar el tipo"));
+                if(isset($id)){
+                    if((new TipoVehiculo())->findById($tp->getId()) == null){
+                        Session::set("msg",Session::msgSuccess("Tipo de Vehículo Borrado"));
+                    } else {
+                        Session::set("msg",Session::msgDanger("Hay vehículos usando este tipo"));
+                    }
+                }
                 header("Location:index.php?c=tipov&a=index");
             }            
         }

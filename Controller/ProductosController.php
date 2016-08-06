@@ -85,7 +85,14 @@ class ProductosController extends AppController
             if (isset($_GET['d'])){
                 $producto = (new Producto())->findById($_GET['d']);
                 $id = $producto->del();                
-                Session::set("msg", (isset($id)) ? Session::msgSuccess("Producto Borrado") : Session::msgDanger("No se pudo borrar el producto"));
+                //Session::set("msg", (isset($id)) ? Session::msgSuccess("Producto Borrado") : Session::msgDanger("No se pudo borrar el producto"));
+                if(isset($id)){
+                    if((new Producto())->findById($producto->getId()) == null){
+                        Session::set("msg", Session::msgSuccess("Producto Borrado"));
+                    } else {
+                        Session::set("msg", Session::msgDanger("El producto está asignado en algunas aplicaciones"));
+                    }
+                }
                 header("Location:index.php?&c=productos&a=index");
             }            
         }

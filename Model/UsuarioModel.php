@@ -54,7 +54,13 @@ class UsuarioModel extends AppModel
         return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) {
-        return "delete from usuarios where usuId = ?";
+        $sql ="delete from usuarios where usuId = ?";
+        if($notUsed){
+            $sql .= "and usuId not in (select distinct usuId from pistas)"
+                . "and usuId not in (select distinct usuPiloto from aplicaciones)"
+                . "and usuId not in (select distinct usuChofer from aplicaciones)";
+        }
+        return $sql;
     }
     /*------------------------------------------------------------------------------------*/
     protected function getFindParameter($criterio = null) {

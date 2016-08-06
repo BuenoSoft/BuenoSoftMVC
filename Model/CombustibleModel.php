@@ -32,7 +32,11 @@ class CombustibleModel extends AppModel
         return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) {
-        return "delete from combustibles where comId = ?";
+        $sql ="delete from combustibles where comId = ?";
+        if($notUsed){
+            $sql .= "and comId not in (select distinct comId from vehiculos)";
+        }
+        return $sql;
     }
     /*-------------------------------------------------------------------------------*/
     protected function getFindParameter($criterio = null) {

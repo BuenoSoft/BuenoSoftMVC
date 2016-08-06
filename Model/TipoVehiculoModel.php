@@ -19,27 +19,31 @@ class TipoVehiculoModel extends AppModel
     protected function getCheckQuery() {
         return "select * from tipo_vehiculo where tvNombre = ?";
     }
+    /*------------------------------------------------------------------------------------*/    
     protected function getCreateParameter($object) {
         return [$object->getNombre(),$object->getMedida()];
     }
     protected function getCreateQuery() {
         return "insert into tipo_vehiculo(tvNombre,tvMedida) values(?,?)";
     }    
+    /*------------------------------------------------------------------------------------*/    
     protected function getFindParameter($criterio = null) {
         return [$criterio];
     }
     protected function getFindQuery($criterio = null) {
         return "select * from tipo_vehiculo order by tvNombre";
     }
-    protected function getFindXIdQuery() {
-        return "select * from tipo_vehiculo where tvId = ?";
-    }
+    /*------------------------------------------------------------------------------------*/    
     protected function getUpdateParameter($object) {
         return [$object->getNombre(),$object->getMedida(), $object->getId()];
     }
     protected function getUpdateQuery() {
         return "update tipo_vehiculo set tvNombre = ?, tvMedida = ? where tvId = ?";
     }
+    /*------------------------------------------------------------------------------------*/    
+    protected function getFindXIdQuery() {
+        return "select * from tipo_vehiculo where tvId = ?";
+    }    
     public function createEntity($row) {
         $tv = new TipoVehiculo();
         $tv->setId($row["tvId"]);
@@ -47,10 +51,15 @@ class TipoVehiculoModel extends AppModel
         $tv->setMedida($row["tvMedida"]);
         return $tv;
     }
+    /*------------------------------------------------------------------------------------*/    
     protected function getDeleteParameter($object) {
         return [$object->getId()];        
     }
-    protected function getDeleteQuery($notUsed = true) { 
-        return "delete from tipo_vehiculo where tvId = ?";
+    protected function getDeleteQuery($notUsed = true) {
+        $sql = "delete from tipo_vehiculo where tvId = ?";
+        if($notUsed){
+            $sql .= "and tvId not in (select distinct tvId from vehiculos)";
+        }
+        return $sql;
     }
 }

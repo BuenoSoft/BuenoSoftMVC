@@ -158,8 +158,21 @@ class UsuariosController extends AppController
                 if(Session::get("log_in")->equals($usuario)){
                     Session::set("msg",Session::msgDanger("No se puede eliminar a ud mismo"));
                 } else {
-                    $id = $usuario->del();                
-                    Session::set("msg", (isset($id)) ? Session::msgSuccess("Usuario Borrado") : Session::msgDanger("No se pudo borrar el usuario"));                    
+                    $id = $usuario->del();
+                    if(isset($id)){
+                        if((new Usuario())->findById($usuario->getId()) == null){
+                            Session::set("msg",Session::msgSuccess("Usuario Borrado"));
+                        } else {
+                            if($usuario->getRol()->getNombre() == "Cliente"){
+                                Session::set("msg",Session::msgDanger("El cliente tiene pistas a su nombre"));  
+                            } else if($usuario->getRol()->getNombre() == "Piloto"){
+                                Session::set("msg",Session::msgDanger("El piloto tiene aeronaves asignadas"));
+                            } else {
+                                Session::set("msg",Session::msgDanger("El Chofer tiene vehículos a su conducción"));
+                            }
+                        }
+                    }
+                    //Session::set("msg", (isset($id)) ? Session::msgSuccess("Usuario Borrado") : Session::msgDanger("No se pudo borrar el usuario"));                    
                 }
                 header("Location:index.php?&c=usuarios&a=index");
             }            
