@@ -170,7 +170,7 @@
                     </div>
                 </div>
             </div>
-            <?php if($aplicacion->getCoordCul()!= null){ ?>    
+            <?php if($aplicacion->getCoordCul()!= null and $aplicacion->getCoordCul()!=","){ ?>    
                 <div class="showback">   
                     <div class="form-group">
                         <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDOPxnk0UHSFpYuJ6bvRqhoK8LD9ZP8Si0'></script>

@@ -5,50 +5,38 @@
 }
 .estilotabla{
     border:  2px solid;
-    color: #009dff;
+    color: #bbe4ff;
     margin: 0 auto;
-    width: 92%;
+    width: 100%;
 }
 .tabletop{
     position:absolute;
-    /*top:114px;*/
     top:248px;
-    right:15px;
+    right:14px;
     
-}
-.fuente{
-        font-family: "Segoe UI",Arial,sans-serif;
-        color: #002000;
-}
-.tablita {     
-    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-    font-size: 12px;
-    margin: 45px;
-    width: 480px;
-    text-align: left;
-    border-collapse: collapse; 
 }
 .titulos {     
-    font-size: 13px;
+    font-size: 14px;
     font-weight: normal;
-    padding: 8px;
-    background: #009dff;
+    padding: 4px;
+    background: #cfecff;
     color: #000000;
-    
+    border-bottom: 1px solid #fff;
 }
 .celdita {    
-    padding: 8px;
-    background: #d6efff;
+    font-size: 14px;
+    padding: 7px;
+    background: #e6f5ff;
     border-bottom: 1px solid #fff;
     color: #000000;
 }
-.celditabr {    
-    padding: 8px;
-    background: #d6efff;
-    color: #000000;
+.celditamoneda {    
+     background: #bbe4ff;
 }
-.celda:hover{ 
-    background: #b0e0ff;
+.celditabr {    
+    padding: 7px;
+    background: #e6f5ff;
+    color: #000000;
 }
 .celda img{
     height: 15px;
@@ -57,15 +45,6 @@
 .centrado{
  text-align: center;
 }
-.ancho1{
-    width: 38%;    
-} 
-.ancho2{
-    width: 32.5%;    
-} 
-.ancho3{
-    width: 32.5%;    
-} 
 .titulonoticia{
     font-family: "Segoe UI",Arial,sans-serif;
     color: #000000;

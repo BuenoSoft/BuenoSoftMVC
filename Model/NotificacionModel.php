@@ -97,7 +97,7 @@ class NotificacionModel extends AppModel
         } else {
             $sql.=" where date(notFechaIni) = date(now()) and usuId = ?";
         }
-        $sql.= " order by notFechaIni desc, notEstado desc limit 0,5";
+        $sql.= " order by notFechaIni desc, notEstado limit 0,5";
         return $sql;
     }
     private function getShowParam(){

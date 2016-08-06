@@ -74,7 +74,7 @@ class AplicacionModel extends AppModel
     
     protected function getFindQueryAdvance($datos = []){                
         $where = false;
-        $sql= "select *,a.usuId as cliente from aplicaciones a";
+        $sql= "select * from aplicaciones a";
         if($datos["aeronave"] != null){
             $sql .= " where a.vehAero = ?";
             $where = true;
@@ -116,7 +116,7 @@ class AplicacionModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     protected function getFindXIdQuery() {
-        return "select *,usuId as cliente from aplicaciones where aplId = ?";
+        return "select * from aplicaciones where aplId = ?";
     }
     /*------------------------------------------------------------------------------------*/
     protected function getDeleteParameter($object) { 
@@ -144,7 +144,7 @@ class AplicacionModel extends AppModel
         $aplicacion->setCultivo($row["aplCultivo"]);
         $aplicacion->setCaudal($row["aplCaudal"]);
         $aplicacion->setDosis($row["aplDosis"]);
-        $aplicacion->setCliente((new UsuarioModel())->findById($row["cliente"]));
+        $aplicacion->setCliente((new UsuarioModel())->findById($row["usuId"]));
         $aplicacion->setPiloto((new UsuarioModel())->findById($row["usuPiloto"]));
         $aplicacion->setChofer((new UsuarioModel())->findById($row["usuChofer"]));
         $aplicacion->setAeronave((new VehiculoModel())->findById($row["vehAero"]));

@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
-            <?php if($pista->getCoordenadas()!= null){ ?>    
+            <?php if($pista->getCoordenadas()!= null and $pista->getCoordenadas()!=","){ ?>    
                 <div class="showback">   
                     <div class="form-group">
                         <script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDOPxnk0UHSFpYuJ6bvRqhoK8LD9ZP8Si0'></script>

@@ -1,6 +1,6 @@
 <table width="100%"> 
     <tr>
-        <td width="63%">
+        <td class="tablesize">
             <?php
             header('Content-Type: text/html; charset=utf-8');
             //if (!ini_get('date.timezone')) {
@@ -12,7 +12,7 @@
             <table style="margin: 0 auto;">
                 <tr>
                     <td>
-                        <img src="Public/img/manejo/espectador.png">
+                        <img src="Public/img/manejo/espectador.png" height="61" width="300">
                     </td>
                 </tr>
                 <tr>
@@ -26,6 +26,7 @@
                 </tr>
             </table>
             <?php foreach ($rss->item as $item): ?>
+            
             <h2>
                 <a href="<?php echo htmlSpecialChars($item->link) ?>" class="titulonoticia" ><?php echo htmlSpecialChars($item->title) ?></a>
                 <small class="horanoticia">
@@ -48,16 +49,18 @@
             <?php endforeach ?>
 
         </td>
-        <td>
+        <td border>
         <table class="tabletop">
-            <tr>
-                <td class="centrado1">El tiempo para Tomás Gomensoro de Code S.A.</td>
-            </tr>
-            <tr>
-                <td>
-                    <div id="cont_106d4e80ed2ff0054aa5ee200e05185b">
-                        <script type="text/javascript" async src="https://www.tiempo.com/wid_loader/106d4e80ed2ff0054aa5ee200e05185b"></script>
-                    </div>
+           <tr>
+               <td class="centrado titulonoticia">
+                   Tomás Gomensoro
+               </td>
+           </tr>
+            <tr> 
+                <td> 
+                    <div id="cont_6f19c3f02e8c2b5b7368bdb73acfa82d">
+                    <script type="text/javascript" async src="https://www.tiempo.com/wid_loader/6f19c3f02e8c2b5b7368bdb73acfa82d"></script>
+                    </div
                 </td>
             </tr>
             <tr>
@@ -67,20 +70,21 @@
                 $html = file_get_html("http://www.bancorepublica.com.uy/c/portal/render_portlet?p_l_id=123137&p_p_id=ExchangeLarge_WAR_ExchangeRate5121_INSTANCE_P2Af&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&p_p_col_id=column-2&p_p_col_pos=0&p_p_col_count=1&currentURL=%2Fweb%2Fguest%2Finstitucional%2Fcotizaciones");
                 ?>
                 <table class="estilotabla">
-                    <tr>
-                        <td class="titulos centrado ancho1">Moneda</td>
-                        <td class="titulos centrado ancho2">Compra</td>
-                        <td class="titulos centrado ancho3">Venta</td>
+                   <tr>
+                        <td class="celda celdita centrado celditamoneda" colspan="2"><img src="Public/img/manejo/us.png">&nbsp;&nbsp;Dolar</td>
                     </tr>
                     <tr>
-                        <td class="celda celdita"><img src="Public/img/manejo/us.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dolar</td>
+                        <td class="titulos centrado">Compra</td>
+                        <td class="titulos centrado">Venta</td>
+                    </tr>
+                    <tr>
                         <td class="celda celdita centrado">
                             <?php
                             $compra = $html->find('td[class=buy]', 0)->innertext;
                               echo $compra;
                             ?>
                         </td>
-                        <td class="celda celdita centrado">
+                         <td class="celda celdita centrado">
                             <?php
                             $venta = $html->find('td[class=sale]', 0)->innertext;
                             echo $venta;
@@ -88,36 +92,49 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="celda celdita"><img src="Public/img/manejo/ARG.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Peso Argentino</td>
+                        <td class="celda celdita centrado celditamoneda" colspan="2"><img src="Public/img/manejo/ARG.png">&nbsp;&nbsp;Peso Argentino</td>
+                    </tr>
+                    <tr>
+                        <td class="titulos centrado">Compra</td>
+                        <td class="titulos centrado">Venta</td>
+                    </tr>
+                    <tr>
                         <td class="celda celdita centrado">
-                            <?php
+                           <?php
                             $compra = $html->find('td[class=buy]', 4)->innertext;
                             echo $compra;
                             ?>
                         </td>
-                        <td class="celda celdita centrado">
-                            <?php
+                         <td class="celda celdita centrado">
+                             <?php
                             $venta = $html->find('td[class=sale]', 4)->innertext;
                             echo $venta;
-                            ?>
+                            ?>   
                         </td>
                     </tr>
                     <tr>
-                        <td class="celda celditabr"><img src="Public/img/manejo/br.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Real</td>
-                        <td class="celda celditabr centrado">
-                            <?php
+                        <td class="celda celdita centrado celditamoneda" colspan="2"><img src="Public/img/manejo/br.png">&nbsp;&nbsp;Real</td>
+                    </tr>
+                    <tr>
+                        <td class="titulos centrado">Compra</td>
+                        <td class="titulos centrado">Venta</td>
+                    </tr>
+                    <tr>
+                        <td class="celda celdita centrado">
+                           <?php
                             $compra = $html->find('td[class=buy]', 6)->innertext;
                             echo $compra;
                             ?>
                         </td>
-                        <td class="celda celditabr centrado">
+                         <td class="celda celdita centrado">
                             <?php
                             $venta= $html->find('td[class=sale]', 6)->innertext;
                             echo $venta;
-                            ?>
+                            ?>  
                         </td>
                     </tr>
                 </table>
             </td>
         </tr>
  </table> 
+</table> 

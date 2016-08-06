@@ -5,6 +5,7 @@ use \App\Breadcrumbs;
 use \Clases\TipoVehiculo;
 use \Clases\Combustible;
 use \Clases\Vehiculo;
+use \Clases\Notificacion;
 class VehiculosController extends AppController
 {
     public function __construct() {
@@ -45,6 +46,7 @@ class VehiculosController extends AppController
                     $id = $veh->save();
                     if(isset($id)){
                         $veh->getCombustible()->delStock($veh->getStock());
+                        $this->notifyDown($veh);
                         Session::set("msg",Session::msgSuccess("Vehículo Creado"));
                         header("Location:index.php?c=vehiculos&a=index");
                         exit();
@@ -77,7 +79,8 @@ class VehiculosController extends AppController
                 } else {                    
                     $id = $veh->save();
                     if(isset($id)){
-                        $veh->getCombustible()->delStock(isset($_POST['txtstock']) ? $_POST['txtstock'] : 0);                        
+                        $veh->getCombustible()->delStock(isset($_POST['txtstock']) ? $_POST['txtstock'] : 0);
+                        $this->notifyDown($veh);
                         Session::set("msg",Session::msgSuccess("Vehículo Editado"));
                         header("Location:index.php?c=vehiculos&a=index");
                         exit();
@@ -90,6 +93,16 @@ class VehiculosController extends AppController
                 'vehiculo' => (new Vehiculo())->findById(Session::get('vh')),
                 "tipos" => (new TipoVehiculo())->find() 
             ]);
+        }
+    }
+    private function notifyDown($veh){
+        if($veh->getCombustible()->isDown()){
+            $not = new Notificacion();
+            $not->setId(0);
+            $not->setLog("El combustible ".$veh->getCombustible()->getNombre()." necesita ser recargado");
+            $not->setFechaini(date("Y-m-d"));
+            $not->setVehiculo($veh);
+            $not->save();
         }
     }
     public function view(){

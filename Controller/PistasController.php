@@ -130,11 +130,15 @@ class PistasController extends AppController
         return $lat.",".$lon;
     }
     private function getCoord($date){
-        $arr=  explode(" ",$date);
-        $p1 = $arr[1] /60;
-        $p2 = $p1 + $arr[1];
-        $p3 = $p2 /60;
-        return -1 * ($p3 + $arr[0]);
+        if($date == null){
+            return null;
+        } else {
+            $arr=  explode(" ",$date);
+            $p1 = $arr[1] /60;
+            $p2 = $p1 + $arr[1];
+            $p3 = $p2 /60;
+            return -1 * ($p3 + $arr[0]);
+        }        
     }    
     protected function getRoles() {
         return ["Administrador","Supervisor"];

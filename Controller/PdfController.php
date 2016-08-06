@@ -90,10 +90,10 @@ class PdfController extends AppController
             $this->getPdf()->Cell(48, 8, $aplicacion->getPadron(), "B");
             $this->getPdf()->SetXY(125, 80);
             $this->getPdf()->Cell(27, 8, 'Coord/Pista:', 0);
-            $this->getPdf()->Cell(48, 8, $aplicacion->getPista()->getCoordenadas(), "B");  
+            $this->getPdf()->Cell(48, 8, "s: ".$aplicacion->getPista()->getGMDLat()." o: ".$aplicacion->getPista()->getGMDLong(), "B");  
             $this->getPdf()->SetXY(125, 90);
             $this->getPdf()->Cell(31, 8, 'Coord/Cultivo:', 0);           
-            $this->getPdf()->Cell(48, 8, $aplicacion->getCoordCul(), "B");
+            $this->getPdf()->Cell(48, 8, "s: ".$aplicacion->getGMDLat()." o: ".$aplicacion->getGMDLong(), "B");
             /*---------------------------------------------------------------*/
             $this->getPdf()->SetXY(10, 120);
             $this->getPdf()->Cell(27, 8, 'Productos:', 0);

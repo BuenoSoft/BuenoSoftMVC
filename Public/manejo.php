@@ -58,6 +58,7 @@
          
         <script src="Public/js/manejo/jquery-ui-1.9.2.custom.min.js" type="text/javascript"></script> 
         <script src="Public/js/manejo/bootstrap.min.js" type="text/javascript"></script>
+        <script src="Public/js/manejo/detect.js" type="text/javascript"></script>
      <!--    -->
         <script src="Public/js/manejo/moment.js" type="text/javascript"></script>
         <script src="Public/js/manejo/magicsuggest.js" type="text/javascript"></script>
