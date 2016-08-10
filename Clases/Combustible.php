@@ -61,12 +61,11 @@ class Combustible implements IPersiste
         $date = date_create($this->fecUC);
         return date_format($date, "Y-m-d\TH:i:s");
     }
-    /*----------------------------------------*/
-    /*
+    /*----------------------------------------*/    
     public function addStock($cant){
         $this->stock += $cant;
         $this->save();
-    }*/
+    }
     public function delStock($cant){
         if($this->hayStock($cant)){            
             $this->stock -= $cant;

@@ -1,6 +1,7 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Movimientos del Combustible&nbsp;<?php echo $combustible->getNombre(); ?></h3>
 <h4>
-    <i class="fa fa-angle-right"></i>&nbsp;Tipo:&nbsp;<?php echo $combustible->getTipo()->getNombre(); ?>
+    <i class="fa fa-angle-right"></i>&nbsp;Tipo:&nbsp;<?php echo $combustible->getTipo()->getNombre(); ?>&nbsp;
+    <i class="fa fa-angle-right"></i>&nbsp;Stock Actual:&nbsp;<?php echo $combustible->getStock(); ?>
 </h4>
 <form class="form-horizontal style-form" method="post" action="index.php?c=combustibles&a=add_mov&d=<?php echo \App\Session::get('com'); ?>" name="frmadd">
     <div class="row mt">
@@ -19,13 +20,13 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Vehículo Emisor&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Stock Emisor&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input name="vehemi" id="emi" required="required" tabindex="3" />                        
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Vehículo Receptor&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Stock Receptor&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input name="vehrec" id="rec" required="required" tabindex="3" />                        
                     </div>
@@ -53,14 +54,22 @@
                                 <td><?php echo $movimiento->inverseDateIni();?></td>
                                 <td><?php echo $movimiento->getCantidad();?></td>
                                 <td>
-                                    <a href="index.php?c=combustibles&a=vehiculo&d=<?php echo $movimiento->getEmisor()->getId();?>">
-                                        <?php echo $movimiento->getEmisor()->getMatricula();?>
-                                    </a>
+                                    <?php if($movimiento->getEmisor() != null) { ?>
+                                        <a href="index.php?c=combustibles&a=vehiculo&d=<?php echo $movimiento->getEmisor()->getId();?>">
+                                            <?php echo $movimiento->getEmisor()->getMatricula();?>
+                                        </a>
+                                    <?php } else { 
+                                        echo $combustible->getNombre();
+                                    } ?>
                                 </td>
                                 <td>
-                                    <a href="index.php?c=combustibles&a=vehiculo&d=<?php echo $movimiento->getReceptor()->getId();?>">
-                                        <?php echo $movimiento->getReceptor()->getMatricula();?>
-                                    </a>                                    
+                                    <?php if($movimiento->getReceptor() != null) { ?>
+                                        <a href="index.php?c=combustibles&a=vehiculo&d=<?php echo $movimiento->getReceptor()->getId();?>">
+                                            <?php echo $movimiento->getReceptor()->getMatricula();?>
+                                        </a>
+                                    <?php } else { 
+                                        echo $combustible->getNombre();
+                                    } ?>
                                 <td>
                                     <a href="index.php?c=combustibles&a=del_mov&d=<?php echo $combustible->getId()?>&f=<?php echo $movimiento->getFecha(); ?>" onclick="return confirm('¿Desea borrar este movimiento?');" title="Borrar">
                                         <i class="fa fa-times-circle" style="font-size: 22px;"></i>
@@ -102,6 +111,7 @@
             placeholder: 'Seleccione un Vehículo',
             maxSelection: 1,
             data: [
+                '<?php echo $combustible->getNombre(); ?>',
                 <?php foreach ($vehiculos as $vehiculo) { 
                     if($vehiculo->getCombustible()->equals($combustible)){ ?>
                      '<?php echo $vehiculo->getMatricula(); ?>',
@@ -112,6 +122,7 @@
             placeholder: 'Seleccione un Vehículo',
             maxSelection: 1,
             data: [
+                '<?php echo $combustible->getNombre(); ?>',
                 <?php foreach ($vehiculos as $vehiculo) { 
                     if($vehiculo->getCombustible()->equals($combustible)){ ?>
                      '<?php echo $vehiculo->getMatricula(); ?>',

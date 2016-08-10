@@ -128,21 +128,18 @@ class CombustiblesController extends AppController
             Session::set("com",$_GET['d']);
             Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
             $comb = (new Combustible())->findById(Session::get("com"));
-            if (isset($_POST['btnaceptar'])) {
-                $mov = $this->createMov();                
-                if($mov->getEmisor() == null){
-                    Session::set("msg",Session::msgDanger("No ha seleccionado el vehículo emisor"));
-                } else if($mov->getReceptor() == null){
-                    Session::set("msg",Session::msgDanger("No ha seleccionado el vehículo receptor"));
-                } else if($mov->getEmisor() == $mov->getReceptor()){
-                    Session::set("msg",Session::msgDanger("El vehículo emisor debe ser distinto al receptor"));                    
-                } else if(!$mov->getEmisor()->hayStock($mov->getCantidad())){
-                    Session::set("msg",Session::msgDanger("el vehículo emisor no tiene suficiente carga para este movimiento"));                                    
+            if (isset($_POST['btnaceptar'])) {                 
+                if(!isset($_POST['vehemi'][0]) and !isset($_POST['vehrec'][0])){
+                    Session::set("msg",Session::msgDanger("Asegurese de seleccionar los stocks emisor y receptor"));
+                } else if($_POST['vehemi'][0] == $_POST['vehrec'][0] ){
+                    Session::set("msg",Session::msgDanger("Asegurese de que los stocks emisor y receptor sean distintos"));
+                } else if((isset($_POST['vehemi'][0]) and (new Vehiculo())->hayStock($_POST["txtcant"])) or ($_POST["txtcant"] > $comb->getStock())){
+                    Session::set("msg",Session::msgDanger("el stock emisor no tiene suficiente carga para este movimiento"));
                 } else {
+                    $mov = $this->createMov();
                     $id = $comb->addMov($mov);
                     if(isset($id)){
-                        $mov->getEmisor()->delStock($mov->getCantidad());
-                        $mov->getReceptor()->addStock($mov->getCantidad());
+                        $this->changeStock($mov);
                         Session::set("msg",Session::msgSuccess("Movimiento Realizado"));
                         header("Location:index.php?c=combustibles&a=add_mov&d=".Session::get("com"));
                         exit();
@@ -167,8 +164,7 @@ class CombustiblesController extends AppController
             $mov = $this->getMov($comb);
             $id = $comb->delMov($mov);
             if(isset($id)){
-                $mov->getEmisor()->addStock($mov->getCantidad());
-                $mov->getReceptor()->delStock($mov->getCantidad());
+                $this->changeDelStock($mov);
                 Session::set("msg",Session::msgSuccess("Movimiento Borrado"));
             } else {
                 Session::set("msg",Session::msgDanger("No se pudo borrar el movimiento"));
@@ -184,6 +180,30 @@ class CombustiblesController extends AppController
         $mov->setReceptor((new Vehiculo())->findByMat((isset($_POST['vehrec'][0])) ? $_POST['vehrec'][0] : 0));
         $mov->setUsuario(Session::get("log_in"));
         return $mov;
+    }
+    private function changeStock($mov){
+        if($mov->getEmisor() != null and $mov->getReceptor() == null){
+            $mov->getEmisor()->delStock($mov->getCantidad());
+            $mov->getEmisor()->getCombustible()->addStock($mov->getCantidad());
+        } else if($mov->getEmisor() == null and $mov->getReceptor() != null){
+            $mov->getReceptor()->getCombustible()->delStock($mov->getCantidad());
+            $mov->getReceptor()->addStock($mov->getCantidad());
+        } else {
+            $mov->getEmisor()->delStock($mov->getCantidad());
+            $mov->getReceptor()->addStock($mov->getCantidad());
+        }       
+    }
+    private function changeDelStock($mov){
+        if($mov->getEmisor() != null and $mov->getReceptor() == null){
+            $mov->getEmisor()->addStock($mov->getCantidad());
+            $mov->getEmisor()->getCombustible()->delStock($mov->getCantidad());
+        } else if($mov->getEmisor() == null and $mov->getReceptor() != null){
+            $mov->getReceptor()->getCombustible()->addStock($mov->getCantidad());
+            $mov->getReceptor()->delStock($mov->getCantidad());
+        } else {
+            $mov->getEmisor()->addStock($mov->getCantidad());
+            $mov->getReceptor()->delStock($mov->getCantidad());
+        }
     }
     private function getMov($comb){
         foreach ($comb->getMovimientos() as $mov) {

@@ -11,19 +11,32 @@ class MovimientoModel extends AppModel
     }
     protected function getCreateParameter($object) {
         return [
-            $object->getEmisor()->getCombustible()->getId(),$object->getFecha(),$object->getCantidad(),
-            $object->getEmisor()->getId(),$object->getReceptor()->getId(),$object->getUsuario()->getId()
+            $this->changeVeh($object)->getId(),$object->getFecha(),$object->getCantidad(),
+            $this->checkEmisor($object),$this->checkReceptor($object),$object->getUsuario()->getId()
         ];
     }
     protected function getCreateQuery() {
         return "insert into movimientos(comId,movFecha,movCant,vehEmi,vehRec,usuId) values (?,?,?,?,?,?)";
+    }
+    private function changeVeh($object){
+        if($object->getEmisor() != null){
+            return $object->getEmisor()->getCombustible();
+        } else {
+            return $object->getReceptor()->getCombustible();
+        }
+    }
+    private function checkEmisor($object){
+        return ($object->getEmisor() == null) ? NULL : $object->getEmisor()->getId();
+    }
+    private function checkReceptor($object){
+        return ($object->getReceptor() == null) ? NULL : $object->getReceptor()->getId();
     }
     /*-------------------------------------------------------------------------------*/
     public function delMov($object){
         return $this->execute($this->getDeleteQuery(), $this->getDeleteParameter($object));
     }
     protected function getDeleteParameter($object) {
-        return [$object->getEmisor()->getCombustible()->getId(),$object->getFecha()];
+        return [$this->changeVeh($object)->getId(),$object->getFecha()];
     }
     protected function getDeleteQuery($notUsed = true) {
         return "delete from movimientos where comId = ? and movFecha = ?";
