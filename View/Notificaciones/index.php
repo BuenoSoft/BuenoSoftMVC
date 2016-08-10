@@ -33,7 +33,7 @@
                                 </a>
                             <?php } else { ?>
                                 <a href="index.php?c=usuarios&a=view&d=<?php echo $notificacion->getUsuario()->getId(); ?>">
-                                    <?php echo $notificacion->getUsuario()->getRol()->getNombre().": ". $notificacion->getUsuario()->getDatoUsu()->getNombre(); ?>
+                                    <?php echo $notificacion->getUsuario()->getRol()->getNombre().": ". $notificacion->getUsuario()->getNomReal(); ?>
                                 </a>
                             <?php } ?>
                         </td>                        

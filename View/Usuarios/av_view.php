@@ -17,7 +17,7 @@
             </div>
             <div style="text-align: center;">
                 <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
-                <a href="index.php?c=usuarios&a=edit&d=<?php echo \App\Session::get('usu'); ?>"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme05"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>
+                <a href="index.php?c=usuarios&a=view&d=<?php echo \App\Session::get('usu'); ?>"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme05"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>
             </div>
         </div>        
     </div>

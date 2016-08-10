@@ -22,7 +22,7 @@
                 <?php foreach($usuarios as $usuario) { ?>  
                     <tr style="<?php echo $style; ?>">                        
                         <td><?php echo $usuario->getNombre(); ?></td>
-                        <td><?php echo $usuario->getDatoUsu()->getNombre(); ?></td>
+                        <td><?php echo $usuario->getNomReal(); ?></td>
                         <td><?php echo $usuario->getRol()->getNombre(); ?></td>                        
                         <td>
                             <a href="index.php?c=usuarios&a=view&d=<?php echo $usuario->getId(); ?>" title="Ver">

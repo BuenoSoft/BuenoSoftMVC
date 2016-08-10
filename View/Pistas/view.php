@@ -19,7 +19,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Usuario&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $pista->getCliente()->getDatoUsu()->getNombre(); ?>
+                        <?php echo $pista->getCliente()->getNomReal(); ?>
                     </div>
                 </div>
             </div>

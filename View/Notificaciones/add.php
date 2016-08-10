@@ -51,7 +51,7 @@
             maxSelection: 1,
             data: [
                 <?php foreach ($usuarios as $usuario){ ?>
-                     '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                     '<?php echo $usuario->getNomReal(); ?>',
                 <?php } ?>
             ]
         });

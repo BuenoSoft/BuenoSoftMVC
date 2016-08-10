@@ -4,7 +4,6 @@ use \App\Session;
 use \App\Breadcrumbs;
 use \Lib\Upload;
 use \Clases\Rol;
-use \Clases\DatosUsu;
 use \Clases\Usuario;
 class UsuariosController extends AppController
 {
@@ -59,11 +58,9 @@ class UsuariosController extends AppController
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
             if(isset($_POST["btnaceptar"])){               
-                $datousu = $this->createDatoUsu();
-                $datousu->save();
-                $usuario = $this->createUsuario();
-                $id = $usuario->save();
+                $usuario = $this->createEntity();
                 if($usuario->getRol() != null) {
+                    $id = $usuario->save();
                     if(isset($id)){
                         Session::set("msg",Session::msgSuccess("Usuario Creado"));
                         header("Location:index.php?c=usuarios&a=index");
@@ -73,7 +70,7 @@ class UsuariosController extends AppController
                     }                 
                 } else {
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el rol"));
-                }               
+                }              
             }
             $this->redirect_administrador(["add.php"],[
                 "roles" => (new Rol())->find()
@@ -89,13 +86,10 @@ class UsuariosController extends AppController
             Session::set('enlaces', $bc->display());
             Session::set("usu",$_GET['d']); 
             if (Session::get('usu')!=null && isset($_POST['btnaceptar'])){
-                $datousu = $this->createDatoUsu();
-                $idu = $datousu->save();
-                $usuario = $this->createUsuario();
-                $usuario->setDatoUsu($datousu);
+                $usuario = $this->createEntity();
                 if($usuario->getRol() != null) {
                     $id = $usuario->save();
-                    if(isset($idu) or isset($id)){
+                    if(isset($id)){
                         Session::set("msg",Session::msgSuccess("Usuario Editado"));
                         header("Location:index.php?c=usuarios&a=index");
                         exit();
@@ -127,7 +121,6 @@ class UsuariosController extends AppController
                         $usuario = (new Usuario())->findById(Session::get('usu'));
                         $usuario->setAvatar($ruta);
                         $usuario->avatar();
-                       // header("Location:index.php?c=usuarios&a=edit&p=".$usuario->getId());
                         header("Location:index.php?c=usuarios&a=avatar");
                         exit();                    
                     }
@@ -138,14 +131,43 @@ class UsuariosController extends AppController
             ]);
         }
     }
+    public function av_view(){
+        if(Session::get("log_in") != null){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb("index.php?c=usuarios&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
+            if (isset($_POST['btnaceptar'])) {
+                if(isset($_FILES['avatar'])){
+                    $ruta = $this->upload->uploadImage($_FILES['avatar']);
+                    if($ruta!= null){
+                        $usuario = (new Usuario())->findById(Session::get('usu'));
+                        $usuario->setAvatar($ruta);
+                        $usuario->avatar();
+                        header("Location:index.php?c=usuarios&a=av_view");
+                        exit();                    
+                    }
+                }                                             
+            }
+            $this->redirect_administrador(['av_view.php'],[
+                'usuario' => (new Usuario())->findById(Session::get('usu'))
+            ]);
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));
+            header("Location:index.php?c=todos&a=index");
+        }
+    }
     public function view(){
         if(Session::get("log_in") != null){
             $bc = new Breadcrumbs();
             $bc->add_crumb("index.php?c=inicio&a=index");
             $bc->add_crumb($_SERVER['HTTP_REFERER']);
             $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set("usu",$_GET['d']); 
             Session::set('enlaces', $bc->display());
-            $this->redirect_administrador(["view.php"],["usuario" => (new Usuario())->findById($_GET['d'])]);
+            $this->redirect_administrador(["view.php"],["usuario" => (new Usuario())->findById(Session::get('usu'))]);
         } else {
             Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));
             header("Location:index.php?c=todos&a=index");
@@ -156,7 +178,7 @@ class UsuariosController extends AppController
             if (isset($_GET['d'])){
                 $usuario = (new Usuario())->findById($_GET['d']);
                 if(Session::get("log_in")->equals($usuario)){
-                    Session::set("msg",Session::msgDanger("No se puede eliminar a ud mismo"));
+                    Session::set("msg",Session::msgDanger("No se puede eliminar a usted mismo"));
                 } else {
                     $id = $usuario->del();
                     if(isset($id)){
@@ -172,33 +194,24 @@ class UsuariosController extends AppController
                             }
                         }
                     }
-                    //Session::set("msg", (isset($id)) ? Session::msgSuccess("Usuario Borrado") : Session::msgDanger("No se pudo borrar el usuario"));                    
                 }
                 header("Location:index.php?&c=usuarios&a=index");
             }            
         }
     }
-    private function createDatoUsu(){
-        $dato = new DatosUsu();
-        $dato->setId(isset($_POST['hid']) ? $_POST['hid'] : 0);
-        $dato->setDocumento($_POST['txtdoc']);
-        $dato->setNombre($_POST['txtnom']);
-        $dato->setDireccion($_POST['txtdir']);
-        $dato->setTelefono($_POST['txttelefono']);
-        $dato->setCelular($_POST['txtcelular']);
-        $dato->setTipo($_POST['rbtntipo']);
-        return $dato;
-    }
-    private function createUsuario(){   
-        $datousu = isset($_POST['hid']) ? $this->createDatoUsu() : (new DatosUsu())->findById((new DatosUsu())->maxID());
-        $ruta= (isset($_FILES['avatar']) ? $this->upload->uploadImage($_FILES['avatar']) : '');
+    private function createEntity(){   
         $usuario = new Usuario();
         $usuario->setId(isset($_POST['hid']) ? $_POST['hid'] : 0);
+        $usuario->setDocumento($_POST['txtdoc']);        
+        $usuario->setNomReal($_POST['txtnom']);        
         $usuario->setNombre($this->clean($_POST['txtuser']));
         $usuario->setPass($_POST['txtpass']);
+        $usuario->setAvatar((isset($_FILES['avatar']) ? $this->upload->uploadImage($_FILES['avatar']) : ''));
+        $usuario->setDireccion($_POST['txtdir']);
+        $usuario->setTelefono($_POST['txttelefono']);
+        $usuario->setCelular($_POST['txtcelular']);
+        $usuario->setTipo($_POST['rbtntipo']);
         $usuario->setRol((new Rol())->findByX((isset($_POST['rol'][0])) ? $_POST['rol'][0] : 0));
-        $usuario->setAvatar($ruta);
-        $usuario->setDatoUsu($datousu);
         return $usuario; 
     }
     protected function getRoles() {

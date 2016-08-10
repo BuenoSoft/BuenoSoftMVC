@@ -33,7 +33,7 @@
                         </td>
                         <td>
                             <a href="index.php?c=pistas&a=usuario&d=<?php echo $pista->getCliente()->getId(); ?>">
-                                <?php echo $pista->getCliente()->getDatoUsu()->getNombre(); ?>
+                                <?php echo $pista->getCliente()->getNomReal(); ?>
                             </a>                           
                         </td>
                         <td>

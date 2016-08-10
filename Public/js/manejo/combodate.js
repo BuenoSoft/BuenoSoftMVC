@@ -474,8 +474,8 @@
         template: 'YYYY-MM-DD HH:mm',
         //initial value, can be `new Date()`    
         value: new Date(),                       
-        minYear: 1970,
-        maxYear: 2100,
+        minYear: new Date().getFullYear() -11,
+        maxYear: new Date().getFullYear() + 2,
         yearDescending: true,
         minuteStep: 1,
         secondStep: 1,

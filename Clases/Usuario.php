@@ -9,7 +9,12 @@ class Usuario implements IPersiste
     private $pass;
     private $rol;
     private $avatar;
-    private $datousu;
+    private $documento;
+    private $nomReal;
+    private $direccion;
+    private $telefono;
+    private $celular;
+    private $tipo;
     function getId() {
         return $this->id;
     }
@@ -25,8 +30,23 @@ class Usuario implements IPersiste
     function getAvatar() {
         return $this->avatar;
     }
-    function getDatoUsu() {
-        return $this->datousu;
+    function getDocumento() {
+        return $this->documento;
+    }
+    function getNomReal() {
+        return $this->nomReal;
+    }
+    function getDireccion() {
+        return $this->direccion;
+    }
+    function getTelefono() {
+        return $this->telefono;
+    }
+    function getCelular() {
+        return $this->celular;
+    }
+    function getTipo() {
+        return $this->tipo;
     }
     function setId($id) {
         $this->id = $id;
@@ -43,14 +63,29 @@ class Usuario implements IPersiste
     function setAvatar($avatar) {
         $this->avatar = $avatar;
     }
-    function setDatoUsu($datousu) {
-        $this->datousu = $datousu;
+    function setDocumento($documento) {
+        $this->documento = $documento;
     }
+    function setNomReal($nomReal) {
+        $this->nomReal = $nomReal;
+    }
+    function setDireccion($direccion) {
+        $this->direccion = $direccion;
+    }
+    function setTelefono($telefono) {
+        $this->telefono = $telefono;
+    }
+    function setCelular($celular) {
+        $this->celular = $celular;
+    }
+    function setTipo($tipo) {
+        $this->tipo = $tipo;
+    }
+    /*---------------------------------------------*/
     function __construct() { }
     public function equals(Usuario $obj){
-        return $this->nombre == $obj->nombre;                
+        return ($this->nombre == $obj->nombre) or ($this->documento == $obj->documento);                
     }
-/*---------------------------------------------*/
     public function del() {
         return (new UsuarioModel())->delete($this);
     }

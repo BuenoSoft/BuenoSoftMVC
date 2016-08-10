@@ -182,12 +182,12 @@
             placeholder: "xxx xx xx",
             autoclear: false }).val('<?php echo \App\Session::get("pass")[2]; ?>');
         $('#fecini').combodate({
-            value: '',
+            value: '<?php echo \App\Session::get("pass")[6]; ?>',
             format: 'DD-MM-YYYY-HH-mm',
             template: 'DD / MM / YYYY     HH : mm' 
         });
         $('#fecfin').combodate({
-            value: '',
+            value: '<?php echo \App\Session::get("pass")[7]; ?>',
             format: 'DD-MM-YYYY-HH-mm',
             template: 'DD / MM / YYYY     HH : mm' 
         });
@@ -209,7 +209,7 @@
             data: [
                 <?php foreach ($usuarios as $usuario){
                     if($usuario->getRol()->getNombre() == "Cliente") { ?>
-                        '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                        '<?php echo $usuario->getNomReal(); ?>',
                 <?php } } ?>
             ]
         });
@@ -244,7 +244,7 @@
             data: [
                 <?php foreach ($usuarios as $usuario){
                         if($usuario->getRol()->getNombre() == "Chofer") { ?> 
-                                '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                                '<?php echo $usuario->getNomReal(); ?>',
                 <?php } } ?>
             ]
         });
@@ -266,7 +266,7 @@
             data: [
                 <?php foreach ($usuarios as $usuario){
                         if($usuario->getRol()->getNombre() == "Piloto") { ?>
-                                '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                                '<?php echo $usuario->getNomReal(); ?>',
                 <?php } } ?>
             ]
         });

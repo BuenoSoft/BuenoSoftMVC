@@ -8,11 +8,11 @@ class PdfController extends AppController
         if($this->checkUser()){
             $aplicaciones = (new Aplicacion())->findAdvance([
                 "aeronave" => isset($_POST["aeronave"][0]) ? $_POST["aeronave"][0] : null,
-                    "piloto" => (isset($_POST["piloto"][0]) and Session::get('log_in')->getRol()->getNombre() != "Piloto") ? $_POST["piloto"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Piloto") ? Session::get('log_in')->getDatoUsu()->getNombre() : null),
-                    "tipo" => isset($_POST["tipo"][0]) ? $_POST["tipo"][0] : null,
-                    "cliente" => (isset($_POST["cliente"][0]) and Session::get('log_in')->getRol()->getNombre() != "Cliente") ? $_POST["cliente"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Cliente") ? Session::get('log_in')->getDatoUsu()->getNombre() : null),
-                    "fec1" => isset($_POST["fec1"]) ? $this->inverseDat($_POST["fec1"]) : null,
-                    "fec2" => isset($_POST["fec2"]) ? $this->inverseDat($_POST["fec2"]) : null
+                "piloto" => (isset($_POST["piloto"][0]) and Session::get('log_in')->getRol()->getNombre() != "Piloto") ? $_POST["piloto"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Piloto") ? Session::get('log_in')->getNomReal() : null),
+                "tipo" => isset($_POST["tipo"][0]) ? $_POST["tipo"][0] : null,
+                "cliente" => (isset($_POST["cliente"][0]) and Session::get('log_in')->getRol()->getNombre() != "Cliente") ? $_POST["cliente"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Cliente") ? Session::get('log_in')->getNomReal() : null),
+                "fec1" => isset($_POST["fec1"]) ? $this->inverseDat($_POST["fec1"]) : null,
+                "fec2" => isset($_POST["fec2"]) ? $this->inverseDat($_POST["fec2"]) : null
             ]);
             $this->getPdf()->AddPage();
             $this->getPdf()->SetFont('Arial','B',16);
@@ -20,18 +20,18 @@ class PdfController extends AppController
             $this->getPdf()->Image('Public/img/manejo/logo.png', 165, 5, 40, 24,'PNG');
             $this->getPdf()->Ln(10);
             $this->getPdf()->SetFont('Arial','B',10);
-            $this->getPdf()->Cell(40,10,'Hecho por: '.Session::get('log_in')->getDatoUsu()->getNombre());
+            $this->getPdf()->Cell(40,10,'Hecho por: '.Session::get('log_in')->getNomReal());
             $this->getPdf()->Ln(10);
             $this->getPdf()->Cell(30, 8, 'Piloto',"TB", 0 ,'C');
             $this->getPdf()->Cell(29, 8, 'Aeronave',"TB", 0 ,'C');
-            $this->getPdf()->Cell(27, 8, 'Cliente',"TB", 0 ,'C');
+            $this->getPdf()->Cell(27, 8, 'Usuario',"TB", 0 ,'C');
             $this->getPdf()->Cell(32, 8, 'Pista',"TB", 0 ,'C');
             $this->getPdf()->Cell(32, 8, utf8_decode("Hectáreas"),"TB", 0 ,'C');
             $this->getPdf()->Cell(25, 8, 'Tipo',"TB", 0 ,'C');
             $this->getPdf()->Cell(20, 8, 'Fecha',"TB", 0 ,'C');
             $this->getPdf()->Ln(8);
             foreach ($aplicaciones as $aplicacion){
-                $this->getPdf()->Cell(30, 8, $aplicacion->getPiloto()->getDatoUsu()->getNombre(), 0, 0 ,'C');
+                $this->getPdf()->Cell(30, 8, $aplicacion->getPiloto()->getNomReal(), 0, 0 ,'C');
                 $this->getPdf()->Cell(29, 8, $aplicacion->getAeronave()->getMatricula(), 0, 0 ,'C');
                 $this->getPdf()->Cell(27, 8, $aplicacion->getCliente()->getNombre(), 0, 0 ,'C');
                 $this->getPdf()->Cell(32, 8, $aplicacion->getPista()->getNombre(), 0, 0 ,'C');
@@ -48,7 +48,7 @@ class PdfController extends AppController
             $aplicacion = (new Aplicacion())->findById($_GET['d']);
             $this->getPdf()->AddPage();
             $this->getPdf()->SetFont('Arial','B',12);
-            $this->getPdf()->Image('Public/img/manejo/logo.png', 25, 5, 72, 42,'PNG');
+            $this->getPdf()->Image('Public/img/manejo/logo.png', 35, 10, 52, 32,'PNG');
             $this->getPdf()->SetXY(115, 10);
             $this->getPdf()->Cell(40,10,  utf8_decode('FICHA DE OPERACIONES AGRICOLAS'));
             $this->getPdf()->SetXY(150, 20);
@@ -65,7 +65,7 @@ class PdfController extends AppController
             $this->getPdf()->Cell(40, 8, $aplicacion->getAeronave()->getMatricula(), "B");
             $this->getPdf()->SetXY(10, 60);
             $this->getPdf()->Cell(23, 8, 'Usuario:', 0);
-            $this->getPdf()->Cell(40, 8, $aplicacion->getCliente()->getDatoUsu()->getNombre(), "B");
+            $this->getPdf()->Cell(40, 8, $aplicacion->getCliente()->getNomReal(), "B");
             $this->getPdf()->SetXY(10, 70);
             $this->getPdf()->Cell(23, 8, 'Cultivo:', 0);
             $this->getPdf()->Cell(40, 8, $aplicacion->getCultivo(), "B");
@@ -81,10 +81,10 @@ class PdfController extends AppController
             /*---------------------------------------------------------------*/
             $this->getPdf()->SetXY(125, 50);
             $this->getPdf()->Cell(15, 8, 'Piloto:', 0);        
-            $this->getPdf()->Cell(48, 8, $aplicacion->getPiloto()->getDatoUsu()->getNombre(), "B");  
+            $this->getPdf()->Cell(48, 8, $aplicacion->getPiloto()->getNomReal(), "B");  
             $this->getPdf()->SetXY(125, 60);
             $this->getPdf()->Cell(12, 8, 'RUT:', 0);
-            $this->getPdf()->Cell(48, 8, $aplicacion->getCliente()->getDatoUsu()->getDocumento(), "B");
+            $this->getPdf()->Cell(48, 8, $aplicacion->getCliente()->getDocumento(), "B");
             $this->getPdf()->SetXY(125, 70);
             $this->getPdf()->Cell(18, 8, 'Padron:', 0);
             $this->getPdf()->Cell(48, 8, $aplicacion->getPadron(), "B");
@@ -126,7 +126,7 @@ class PdfController extends AppController
             /*---------------------------------------------------------------*/
             $this->getPdf()->SetXY(10, 210);
             $this->getPdf()->Cell(17, 8, 'Chofer:', 0);
-            $this->getPdf()->Cell(40, 8, $aplicacion->getChofer()->getDatoUsu()->getNombre(),"B");
+            $this->getPdf()->Cell(40, 8, $aplicacion->getChofer()->getNomReal(),"B");
             /*---------------------------------------------------------------*/
             $this->getPdf()->SetXY(40, 230);
             $this->getPdf()->Cell(50, 10, 'TE', 1,0,"C");
@@ -140,8 +140,12 @@ class PdfController extends AppController
         }
     }
     private function inverseDat($date){
-        $arrdate = explode("-", $date);
-        return $arrdate[2]."-".$arrdate[1]."-".$arrdate[0];
+        if($date != null){
+            $arrdate = explode("-", $date);
+            return $arrdate[2]."-".$arrdate[1]."-".$arrdate[0];        
+        } else {
+            return null;
+        }
     }
     private function getTime($datetime){
         if($datetime == "0000-00-00 00:00:00"){

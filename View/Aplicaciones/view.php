@@ -22,7 +22,9 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Usuario</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $aplicacion->getCliente()->getNombre(); ?>
+                        <a href="index.php?c=aplicaciones&a=usuario&d=<?php echo $aplicacion->getCliente()->getId(); ?>">
+                            <?php echo $aplicacion->getCliente()->getNomReal(); ?>
+                        </a>
                     </div>
                 </div>
                 <div class="form-group">
@@ -81,7 +83,7 @@
                     <label class="col-sm-2 col-sm-2 control-label">Chofer</label>
                     <div class="col-sm-10" style="text-align: center;">
                         <a href="index.php?c=aplicaciones&a=usuario&d=<?php echo $aplicacion->getChofer()->getId(); ?>">
-                            <?php echo $aplicacion->getChofer()->getDatoUsu()->getNombre(); ?>
+                            <?php echo $aplicacion->getChofer()->getNomReal(); ?>
                         </a>
                     </div>
                 </div>
@@ -103,7 +105,7 @@
                     <label class="col-sm-2 col-sm-2 control-label">Piloto</label>
                     <div class="col-sm-10" style="text-align: center;">
                         <a href="index.php?c=aplicaciones&a=usuario&d=<?php echo $aplicacion->getPiloto()->getId(); ?>">
-                            <?php echo $aplicacion->getPiloto()->getDatoUsu()->getNombre(); ?>
+                            <?php echo $aplicacion->getPiloto()->getNomReal(); ?>
                         </a>                            
                     </div>
                 </div>                    

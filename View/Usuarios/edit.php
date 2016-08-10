@@ -8,7 +8,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tipo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <?php if($usuario->getDatoUsu()->getTipo() == "Persona") {?>
+                        <?php if($usuario->getTipo() == "Persona") {?>
                             <p>
                                 <input type="radio" name="rbtntipo" value="Persona" checked="checked" /><b>&nbsp;Persona</b>    <!-- Sin tabindex, ya que no llega al segundo option radio -->                        
                             </p>
@@ -28,31 +28,31 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label" id="doc">Documento&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" id="txtdoc" name="txtdoc" class="form-control"  required="required" onkeypress="return validarNumero(event);" pattern="[\d]*" value="<?php echo $usuario->getDatoUsu()->getDocumento(); ?>" tabindex="1"/>
+                        <input type="text" id="txtdoc" name="txtdoc" class="form-control"  required="required" onkeypress="return validarNumero(event);" pattern="[\d]*" value="<?php echo $usuario->getDocumento(); ?>" tabindex="1"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtnom" class="form-control" required="required" placeholder="Ej: Luis Ottonello" onkeypress="return validarTexto(event);" pattern="[A-Za-z\s]*" maxlength="21" value="<?php echo $usuario->getDatoUsu()->getNombre(); ?>" tabindex="2">
+                        <input type="text" name="txtnom" class="form-control" required="required" placeholder="Ej: Luis Ottonello" onkeypress="return validarTexto(event);" pattern="[A-Za-z\s]*" maxlength="21" value="<?php echo $usuario->getNomReal(); ?>" tabindex="2">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Dirección&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtdir" class="form-control" required="required" placeholder="Ej: Dr. Soca 300" value="<?php echo $usuario->getDatoUsu()->getDireccion(); ?>" tabindex="3">
+                        <input type="text" name="txtdir" class="form-control" required="required" placeholder="Ej: Dr. Soca 300" value="<?php echo $usuario->getDireccion(); ?>" tabindex="3">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Teléfono</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txttelefono" class="form-control"  placeholder="Ej: 47358545" onkeypress="return validarNumero(event);" pattern="[\d]*"  maxlength="8" value="<?php echo $usuario->getDatoUsu()->getTelefono(); ?>" tabindex="4">
+                        <input type="text" name="txttelefono" class="form-control"  placeholder="Ej: 47358545" onkeypress="return validarNumero(event);" pattern="[\d]*"  maxlength="8" value="<?php echo $usuario->getTelefono(); ?>" tabindex="4">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Celular</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcelular" class="form-control" placeholder="Ej: 099564565" onkeypress="return validarNumero(event);" pattern="[\d]*" maxlength="9" value="<?php echo $usuario->getDatoUsu()->getCelular(); ?>" tabindex="5">
+                        <input type="text" name="txtcelular" class="form-control" placeholder="Ej: 099564565" onkeypress="return validarNumero(event);" pattern="[\d]*" maxlength="9" value="<?php echo $usuario->getCelular(); ?>" tabindex="5">
                     </div>
                 </div>
                              

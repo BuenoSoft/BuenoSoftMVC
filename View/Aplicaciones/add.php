@@ -208,7 +208,7 @@
             data: [
                 <?php foreach ($usuarios as $usuario){
                     if($usuario->getRol()->getNombre() == "Cliente") { ?>
-                        '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                        '<?php echo $usuario->getNomReal(); ?>',
                 <?php } } ?>
             ]
         });
@@ -237,7 +237,7 @@
             data: [
                 <?php foreach ($usuarios as $usuario){
                     if($usuario->getRol()->getNombre() == "Chofer") { ?>
-                     '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                     '<?php echo $usuario->getNomReal(); ?>',
                 <?php } } ?>
             ]
         });
@@ -260,7 +260,7 @@
             data: [
                 <?php foreach ($usuarios as $usuario){
                     if($usuario->getRol()->getNombre() == "Piloto") { ?>
-                     '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                     '<?php echo $usuario->getNomReal(); ?>',
                 <?php } } ?>
             ]
         });

@@ -48,12 +48,12 @@
             autoclear: false }).val('<?php echo $pista->getGMDLong(); ?>');
         $('#cliente').magicSuggest({
             placeholder: 'Seleccione Usuario',
-            value: ['<?php echo $pista->getCliente()->getDatoUsu()->getNombre(); ?>'],
+            value: ['<?php echo $pista->getCliente()->getNomReal(); ?>'],
             maxSelection: 1,
             data: [
                 <?php foreach ($usuarios as $usuario){
                     if($usuario->getRol()->getNombre() == "Cliente") { ?>
-                        '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                        '<?php echo $usuario->getNomReal(); ?>',
                 <?php } } ?>
             ]
         });

@@ -1,6 +1,7 @@
 <?php
 namespace App;
 use \PDO;
+use \Exception;
 use \App\Session;
 abstract class Model implements IModel
 {
@@ -12,9 +13,13 @@ abstract class Model implements IModel
         return $this->db->getConnect();
     }    
     protected function execute($query, $parameter = []){
-        $consulta = $this->getBD()->prepare($query);
-        $consulta->execute($parameter);  
-        return ($consulta->rowCount() > 0) ? true  : false;
+        try {
+            $consulta = $this->getBD()->prepare($query);
+            $consulta->execute($parameter);  
+            return ($consulta->rowCount() > 0) ? true  : false;         
+        }  catch (Exception $ex){
+            echo $ex->getMessage();
+        }
     }
     protected function findByCondition($query, $parameter = []) {
         $consulta = $this->getBD()->prepare($query);

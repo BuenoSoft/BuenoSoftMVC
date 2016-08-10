@@ -1,5 +1,5 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Crear Usuario</h3>
-<form class="form-horizontal style-form" method="post" action="index.php?c=usuarios&a=add" name="frmadd" onsubmit="return (document.getElementById('rper').value === 'Persona') ? validarCedula(this.txtdoc.value) : null;" id="add" enctype="multipart/form-data" autocomplete="off">
+<form class="form-horizontal style-form" method="post" action="index.php?c=usuarios&a=add" name="frmadd" onsubmit="return (document.getElementById('rbtntipo').value === 'Persona') ? validarCedula(this.txtdoc.value) : null;" enctype="multipart/form-data" autocomplete="off">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
@@ -8,7 +8,7 @@
                     <label class="col-sm-2 col-sm-2 control-label">Tipo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">                        
                         <p>
-                            <input type="radio" name="rbtntipo" value="Persona" id="rper"/><b>&nbsp;Persona</b>    <!-- Sin tabindex, ya que no llega al segundo option radio -->                        
+                            <input type="radio" name="rbtntipo" value="Persona" /><b>&nbsp;Persona</b>    <!-- Sin tabindex, ya que no llega al segundo option radio -->                        
                         </p>
                         <p>
                             <input type="radio" name="rbtntipo" value="Empresa" /><b>&nbsp;Empresa</b>  
@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtnom" class="form-control" required="required" placeholder="Ej: Luis Ottonello" onkeypress="return validarTexto(event);" pattern="[A-Za-z\s]*" maxlength="21" tabindex="2" />
+                        <input type="text" name="txtnom" class="form-control" required="required" placeholder="Ej: Luis Ottonello" onkeypress="return validarTexto(event);" pattern="[A-Za-z\s]*" maxlength="30" tabindex="2" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -105,9 +105,18 @@
             placeholder: 'Seleccione un Rol',
             maxSelection: 1,
             data: [
-                <?php foreach($roles as $rol){ ?>
-                     '<?php echo $rol->getNombre(); ?>',
-                <?php } ?>
+                <?php foreach($roles as $rol){ 
+                    if(App\Session::get('log_in')->getRol()->getNombre() == "Administrador"){
+                        if($rol->getNombre() != "Supervisor"){
+                ?>
+                            '<?php echo $rol->getNombre(); ?>',
+                <?php 
+                        }                         
+                    } else { ?>
+                        '<?php echo $rol->getNombre(); ?>',
+                <?php                 
+                    } }
+                ?>
             ]
         });
     }); 

@@ -61,11 +61,11 @@
         });
         $('#u').magicSuggest({
             placeholder: 'Seleccione un Usuario',
-            value: ['<?php echo ($notificacion->getUsuario() != null) ? $notificacion->getUsuario()->getDatoUsu()->getNombre() : null; ?>'],
+            value: ['<?php echo ($notificacion->getUsuario() != null) ? $notificacion->getUsuario()->getNomReal() : null; ?>'],
             maxSelection: 1,
             data: [
                 <?php foreach ($usuarios as $usuario){ ?>
-                     '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                     '<?php echo $usuario->getNomReal(); ?>',
                 <?php } ?>
             ]
         });

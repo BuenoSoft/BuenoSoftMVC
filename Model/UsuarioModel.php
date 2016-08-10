@@ -7,7 +7,7 @@ class UsuarioModel extends AppModel
         parent::__construct();
     }
     protected function getFindXNomDatoUsuQuery() {
-        return "select * from usuarios u inner join datosusu d on u.datId = d.datId where d.datNombre = ?";
+        return "select * from usuarios u where u.usuNomReal = ?";
     }
     public function findByNombre($nom) {        
         return $this->findByCondition($this->getFindXNomDatoUsuQuery(), [$nom]);
@@ -27,17 +27,23 @@ class UsuarioModel extends AppModel
         return "El Usuario ya existe.";
     }
     protected function getCheckParameter($unique) {
-        return [$unique->getNombre()];
+        return [$unique->getNombre(),$unique->getDocumento()];
     }    
     protected function getCheckQuery() {
-        return "select * from usuarios where usuNombre = ?";
+        return "select * from usuarios where usuNombre = ? or usuDocumento = ?";
     }
     /*------------------------------------------------------------------------------------*/
     protected function getCreateParameter($object) {
-        return [$object->getNombre(), md5($object->getPass()), $object->getRol()->getId(),$object->getAvatar(),$object->getDatoUsu()->getId()];
+        return [
+                $object->getDocumento(), $object->getNombre(), $object->getNomReal(), 
+                md5($object->getPass()), $object->getAvatar(), $object->getDireccion(),
+                $object->getTelefono(), $object->getCelular(), $object->getTipo(),
+                $object->getRol()->getId()
+            ];
     }
     protected function getCreateQuery() {
-        return "insert into usuarios(usuNombre,usuPass,rolId,usuAvatar,datId) values(?,?,?,?,?)"; 
+        return "insert into usuarios(usuDocumento,usuNombre,usuNomReal,usuPass,usuAvatar,usuDireccion,"
+        . "usuTelefono,usuCelular,usuTipo,rolId) values(?,?,?,?,?,?,?,?,?,?)"; 
     }
     /*------------------------------------------------------------------------------------*/
     public function getAvatar($object){
@@ -68,9 +74,9 @@ class UsuarioModel extends AppModel
     }
     protected function getFindQuery($criterio = null) {
         if($criterio == null){
-            return "select * from usuarios u inner join datosusu d on u.datId = d.datId order by u.usuNombre";
+            return "select * from usuarios u order by u.usuNombre";
         } else {
-            return "select * from usuarios u inner join datosusu d on u.datId = d.datId where d.datNombre like :filtro or d.datDocumento like :filtro order by u.usuNombre";         
+            return "select * from usuarios u where u.usuNomReal like :filtro or u.usuDocumento like :filtro order by u.usuNombre";         
         }
     }
     /*------------------------------------------------------------------------------------*/
@@ -79,10 +85,17 @@ class UsuarioModel extends AppModel
     }
     /*------------------------------------------------------------------------------------*/
     protected function getUpdateParameter($object) {
-        return [$object->getNombre(), $object->getPass(), $object->getRol()->getId(),$object->getDatoUsu()->getId(), $object->getId()];
+        return [
+                $object->getDocumento(), $object->getNombre(), $object->getNomReal(), 
+                md5($object->getPass()), $object->getAvatar(), $object->getDireccion(),
+                $object->getTelefono(), $object->getCelular(), $object->getTipo(),
+                $object->getRol()->getId(), $object->getId()
+            ];
     }
     protected function getUpdateQuery() {
-        return "update usuarios set usuNombre = ?,usuPass = ?,rolId = ?,datId = ? where usuId = ?";
+        return "update usuarios set usuDocumento = ?,usuNombre = ?,usuNomReal = ?,usuPass = ?,"
+            . "usuAvatar = ?,usuDireccion = ?,usuTelefono = ?,usuCelular = ?,usuTipo = ?,"
+            . "rolId = ? where usuId = ?";
     }
     /*------------------------------------------------------------------------------------*/
     public function createEntity($row) {
@@ -92,7 +105,12 @@ class UsuarioModel extends AppModel
         $usuario->setPass($row['usuPass']);
         $usuario->setRol((new RolModel())->findById($row['rolId']));
         $usuario->setAvatar($row['usuAvatar']);
-        $usuario->setDatoUsu((new DatosUsuModel())->findById($row['datId']));
+        $usuario->setNomReal($row['usuNomReal']);
+        $usuario->setDocumento($row['usuDocumento']);
+        $usuario->setDireccion($row['usuDireccion']);
+        $usuario->getTelefono($row['usuTelefono']);
+        $usuario->setCelular($row['usuCelular']);
+        $usuario->setTipo($row['usuTipo']);
         return $usuario;
     }
 }

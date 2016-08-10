@@ -47,7 +47,7 @@
             data: [
                 <?php foreach ($usuarios as $usuario){
                     if($usuario->getRol()->getNombre() == "Cliente") { ?>
-                        '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                        '<?php echo $usuario->getNomReal(); ?>',
                 <?php } } ?>
             ]
         });

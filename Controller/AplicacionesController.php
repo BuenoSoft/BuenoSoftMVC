@@ -25,9 +25,9 @@ class AplicacionesController extends AppController
             $apl = $this->getPaginator()->paginar(
                 (new Aplicacion())->findAdvance([
                     "aeronave" => isset($_POST["aeronave"][0]) ? $_POST["aeronave"][0] : null,
-                    "piloto" => (isset($_POST["piloto"][0]) and Session::get('log_in')->getRol()->getNombre() != "Piloto") ? $_POST["piloto"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Piloto") ? Session::get('log_in')->getDatoUsu()->getNombre() : null),
+                    "piloto" => (isset($_POST["piloto"][0]) and Session::get('log_in')->getRol()->getNombre() != "Piloto") ? $_POST["piloto"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Piloto") ? Session::get('log_in')->getNomReal() : null),
                     "tipo" => isset($_POST["tipo"][0]) ? $_POST["tipo"][0] : null,
-                    "cliente" => (isset($_POST["cliente"][0]) and Session::get('log_in')->getRol()->getNombre() != "Cliente") ? $_POST["cliente"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Cliente") ? Session::get('log_in')->getDatoUsu()->getNombre() : null),
+                    "cliente" => (isset($_POST["cliente"][0]) and Session::get('log_in')->getRol()->getNombre() != "Cliente") ? $_POST["cliente"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Cliente") ? Session::get('log_in')->getNomReal() : null),
                     "fec1" => isset($_POST["fec1"]) ? $this->inverseDat($_POST["fec1"]) : null,
                     "fec2" => isset($_POST["fec2"]) ? $this->inverseDat($_POST["fec2"]) : null
                 ]), 
@@ -283,11 +283,11 @@ class AplicacionesController extends AppController
             isset($_POST['txtdosis']) ? $this->clean($_POST['txtdosis']) : 
                 ((Session::get("app")!= 0) ? $apl->getDosis() : null), 
             isset($_POST['cliente'][0]) ?  $_POST['cliente'][0] : 
-                ((Session::get("app")!= 0) ? $apl->getCliente()->getDatoUsu()->getNombre() : null), 
+                ((Session::get("app")!= 0) ? $apl->getCliente()->getNomReal() : null), 
             isset($_POST['piloto'][0]) ? $_POST['piloto'][0] : 
-                ((Session::get("app")!= 0) ? $apl->getPiloto()->getDatoUsu()->getNombre() : null),
+                ((Session::get("app")!= 0) ? $apl->getPiloto()->getNomReal() : null),
             isset($_POST['chofer'][0]) ? $_POST['chofer'][0] : 
-                ((Session::get("app")!= 0) ? $apl->getChofer()->getDatoUsu()->getNombre() : null), 
+                ((Session::get("app")!= 0) ? $apl->getChofer()->getNomReal() : null), 
             isset($_POST['aeronave'][0]) ? $_POST['aeronave'][0] : 
                 ((Session::get("app")!= 0) ? $apl->getAeronave()->getMatricula() : null),
             isset($_POST['terrestre'][0]) ? $_POST['terrestre'][0] : 
@@ -344,8 +344,12 @@ class AplicacionesController extends AppController
         }
     }
     private function inverseDat($date){
-        $arrdate = explode("-", $date);
-        return $arrdate[2]."-".$arrdate[1]."-".$arrdate[0];
+        if($date != null){
+            $arrdate = explode("-", $date);
+            return $arrdate[2]."-".$arrdate[1]."-".$arrdate[0];        
+        } else {
+            return null;
+        }
     }
     protected function getRoles() {
         return ["Administrador","Supervisor","Piloto"];

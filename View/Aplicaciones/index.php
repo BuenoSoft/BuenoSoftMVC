@@ -51,7 +51,7 @@
             <thead>                
                 <th>Piloto</th>
                 <th>Aeronave</th>                
-                <th>Cliente</th>
+                <th>Usuario</th>
                 <th>Pista</th>
                 <th>Tipo</th>
                 <th>Estado</th>
@@ -62,7 +62,7 @@
                     <tr>
                         <td>
                             <a href="index.php?c=usuarios&a=view&d=<?php echo $aplicacion->getPiloto()->getId(); ?>">
-                                <?php echo $aplicacion->getPiloto()->getDatoUsu()->getNombre(); ?>
+                                <?php echo $aplicacion->getPiloto()->getNomReal(); ?>
                             </a>                                                                    
                         </td>
                         <td>
@@ -72,7 +72,7 @@
                         </td>
                         <td>
                             <a href="index.php?c=usuarios&a=view&d=<?php echo $aplicacion->getCliente()->getId(); ?>">
-                                <?php echo $aplicacion->getCliente()->getNombre(); ?>
+                                <?php echo $aplicacion->getCliente()->getNomReal(); ?>
                             </a>
                         </td>
                         <td>
@@ -153,7 +153,7 @@
             data: [
                 <?php foreach ($usuarios as $usuario){
                     if($usuario->getRol()->getNombre() == "Piloto") { ?>
-                     '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                     '<?php echo $usuario->getNomReal(); ?>',
                 <?php } }?>
             ]
         });
@@ -169,12 +169,12 @@
         });
         $('#cliente').magicSuggest({
             style: 'margin-left:10px',
-            placeholder: 'Seleccione Cliente',
+            placeholder: 'Seleccione Usuario',
             maxSelection: 1,
             data: [
                 <?php foreach ($usuarios as $usuario){
                     if($usuario->getRol()->getNombre() == "Cliente") { ?>
-                     '<?php echo $usuario->getDatoUsu()->getNombre(); ?>',
+                     '<?php echo $usuario->getNomReal(); ?>',
                 <?php } } ?>
             ]
         });

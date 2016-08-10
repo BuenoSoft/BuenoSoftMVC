@@ -85,7 +85,6 @@ class ProductosController extends AppController
             if (isset($_GET['d'])){
                 $producto = (new Producto())->findById($_GET['d']);
                 $id = $producto->del();                
-                //Session::set("msg", (isset($id)) ? Session::msgSuccess("Producto Borrado") : Session::msgDanger("No se pudo borrar el producto"));
                 if(isset($id)){
                     if((new Producto())->findById($producto->getId()) == null){
                         Session::set("msg", Session::msgSuccess("Producto Borrado"));

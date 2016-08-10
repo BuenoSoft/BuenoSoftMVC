@@ -7,37 +7,37 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Documento</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $usuario->getDatoUsu()->getDocumento(); ?>
+                        <?php echo $usuario->getDocumento(); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Nombre</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $usuario->getDatoUsu()->getNombre(); ?>
+                        <?php echo $usuario->getNomReal(); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Dirección</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $usuario->getDatoUsu()->getDireccion(); ?>
+                        <?php echo $usuario->getDireccion(); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Teléfono</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $usuario->getDatoUsu()->getTelefono(); ?>
+                        <?php echo $usuario->getTelefono(); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Celular</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $usuario->getDatoUsu()->getCelular(); ?>
+                        <?php echo $usuario->getCelular(); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tipo</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $usuario->getDatoUsu()->getTipo(); ?>
+                        <?php echo $usuario->getTipo(); ?>
                     </div>
                 </div>               
             </div>
