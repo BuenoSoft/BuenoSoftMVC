@@ -8,7 +8,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Mensaje de la Notificación&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <textarea name="txtlog" rows="5" cols="67" required="required" placeholder="Ej: Cambio de las ruedas traseras" class="form-control" tabindex="1"><?php echo $notificacion->getLog(); ?></textarea>
+                        <textarea name="txtlog" rows="5" cols="67" required="required" placeholder="Ej: Cambio de las ruedas traseras" class="form-control" tabindex="1"><?php echo $notificacion->getMensaje(); ?></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -21,12 +21,6 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Fecha de Cierre</label>
-                    <div class="col-sm-10">
-                        <input type="text" id="fecfin" name="dtfechafin" value="<?php echo ($notificacion->getFechafin() == null) ? "" : $notificacion->mostrarDateFin(); ?>" tabindex="3" />
-                    </div>
-                </div> 
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
@@ -63,6 +57,7 @@
             placeholder: 'Seleccione un Usuario',
             value: ['<?php echo ($notificacion->getUsuario() != null) ? $notificacion->getUsuario()->getNomReal() : null; ?>'],
             maxSelection: 1,
+            maxDropHeight: 150,            
             data: [
                 <?php foreach ($usuarios as $usuario){ ?>
                      '<?php echo $usuario->getNomReal(); ?>',
@@ -73,6 +68,7 @@
             placeholder: 'Seleccione un Vehículo',
             value: ['<?php echo ($notificacion->getVehiculo() != null) ? $notificacion->getVehiculo()->getMatricula() : null ; ?>'], 
             maxSelection: 1,
+            maxDropHeight: 150,            
             data: [
                 <?php foreach ($vehiculos as $vehiculo) { ?>
                      '<?php echo $vehiculo->getMatricula(); ?>',

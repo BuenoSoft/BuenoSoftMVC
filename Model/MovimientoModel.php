@@ -1,13 +1,28 @@
 <?php
 namespace Model;
+use \App\Session;
 use \Clases\Movimiento;
 class MovimientoModel extends AppModel
 {
     public function __construct() {
         parent::__construct();
-    }
+    }    
     public function addMov($object){
-       return $this->execute($this->getCreateQuery(), $this->getCreateParameter($object)); 
+        if($object->getEmisor() != null){
+            if(!$object->getEmisor()->hayStock($object->getCantidad())){
+                Session::set("msg",Session::msgDanger("El stock emisor no cuenta con suficiente carga"));
+                return false;
+            } else {
+                return $this->execute($this->getCreateQuery(), $this->getCreateParameter($object));
+            }
+        } else if($object->getEmisor() == null){
+            if(!$object->getReceptor()->getCombustible()->hayStock($object->getCantidad())){
+                Session::set("msg",Session::msgDanger("El stock emisor no cuenta con suficiente carga"));
+                return false;
+            } else {
+                return $this->execute($this->getCreateQuery(), $this->getCreateParameter($object));
+            }
+        }               
     }
     protected function getCreateParameter($object) {
         return [

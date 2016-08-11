@@ -118,7 +118,7 @@ class Combustible implements IPersiste
     }
     /*---------------------------------------*/
     public function addMov($mov){
-        return (new CombustibleModel())->addMov($mov);
+        return (new CombustibleModel())->addMov($mov);                
     }
     public function delMov($mov){
         return (new CombustibleModel())->delMov($mov);        

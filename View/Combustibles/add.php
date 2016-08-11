@@ -51,6 +51,7 @@
         $('#tipo').magicSuggest({
             placeholder: 'Seleccione un Tipo de Vehículo',
             maxSelection: 1,
+            maxDropHeight: 150,            
             data: [
                 <?php foreach($tipos as $tipo){ ?>
                      '<?php echo $tipo->getNombre(); ?>',

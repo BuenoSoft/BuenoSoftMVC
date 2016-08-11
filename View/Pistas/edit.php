@@ -1,5 +1,5 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Editar Pista número&nbsp;<?php echo $pista->getId(); ?></h3>
-<form class="form-horizontal style-form" method="post" action="index.php?c=pistas&a=edit&d=<?php echo \App\Session::get('pis');?>" name="frmedit">
+<form class="form-horizontal style-form" method="post" action="index.php?c=pistas&a=edit&d=<?php echo \App\Session::get('pis');?>" name="frmedit" autocomplete="off">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
@@ -50,6 +50,7 @@
             placeholder: 'Seleccione Usuario',
             value: ['<?php echo $pista->getCliente()->getNomReal(); ?>'],
             maxSelection: 1,
+            maxDropHeight: 150,            
             data: [
                 <?php foreach ($usuarios as $usuario){
                     if($usuario->getRol()->getNombre() == "Cliente") { ?>

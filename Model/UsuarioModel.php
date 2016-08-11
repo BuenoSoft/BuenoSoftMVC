@@ -76,7 +76,8 @@ class UsuarioModel extends AppModel
         if($criterio == null){
             return "select * from usuarios u order by u.usuNombre";
         } else {
-            return "select * from usuarios u where u.usuNomReal like :filtro or u.usuDocumento like :filtro order by u.usuNombre";         
+            return "select * from usuarios u where u.usuNomReal like :filtro or "
+            . "u.usuDocumento like :filtro order by u.usuNombre";         
         }
     }
     /*------------------------------------------------------------------------------------*/

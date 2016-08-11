@@ -7,7 +7,7 @@
     <section id="unseen" style="padding-left: 5px; padding-right: 5px;">
         <p>
             <form name="frmsearch" method="post" action="index.php?c=usuarios&a=index"> 
-                <input type="search" name="txtbuscador" placeholder="Nombre del Usuario" width="50" class="form-control_index" tabindex="1" autofocus="autofocus" />&nbsp;
+                <input type="search" name="txtbuscador" placeholder="Documento o Nombre Real" width="50" class="form-control_index" tabindex="1" autofocus="autofocus" />&nbsp;
                 <input type="button" onclick="frmsearch.submit();" name="btnsearch" value="Buscar" class="btn btn-theme01" tabindex="2"/>
             </form>        
         </p>

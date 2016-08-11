@@ -43,8 +43,8 @@ class NotificacionesController extends AppController
                 } else if($not->getVehiculo() != null and $not->getUsuario() != null){
                     Session::set("msg",Session::msgDanger("Asegurese de que la notificación sea para el usuario o para vehículo"));
                 } else {
-                    $id = $not->save();
-                    if(isset($id)){
+                    //$id = $not->save();
+                    if($not->save()){
                         Session::set("msg",Session::msgSuccess("Notificación Creada"));
                         header("Location:index.php?c=notificaciones&a=index");
                         exit();
@@ -74,8 +74,8 @@ class NotificacionesController extends AppController
                 } else if($not->getVehiculo() != null and $not->getUsuario() != null){
                     Session::set("msg",Session::msgDanger("Asegurese de que la notificación sea para el usuario o para vehículo"));
                 } else {                
-                    $id = $not->save();
-                    if(isset($id)){
+                    //$id = $not->save();
+                    if($not->save()){
                         Session::set("msg",Session::msgSuccess("Notificación Editada"));
                         header("Location:index.php?c=notificaciones&a=index");
                         exit();
@@ -127,9 +127,8 @@ class NotificacionesController extends AppController
     private function createEntity(){
         $not = new Notificacion();
         $not->setId(isset($_POST["hid"]) ? $_POST["hid"] : 0);
-        $not->setLog($this->clean($_POST["txtlog"])); 
-        $not->setFechaini($this->inverseDate($_POST["dtfechaini"]));
-        $not->setFechafin(isset($_POST["dtfechafin"]) ? $this->inverseDate($_POST["dtfechafin"]) : null);
+        $not->setMensaje($this->clean($_POST["txtlog"])); 
+        $not->setFecha($this->inverseDate($_POST["dtfechaini"]));
         $not->setVehiculo((new Vehiculo())->findByMat((isset($_POST["veh"][0]) ? $_POST["veh"][0] : 0)));
         $not->setUsuario((new Usuario())->findByNombre((isset($_POST["usu"][0]) ? $_POST["usu"][0] : 0)));
         return $not;

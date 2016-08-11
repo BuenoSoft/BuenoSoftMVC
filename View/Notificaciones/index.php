@@ -9,7 +9,7 @@
     <section id="unseen" style="padding-left: 5px; padding-right: 5px;">
         <p>
             <form name="frmsearch" method="post" action="index.php?c=notificaciones&a=index"> 
-                <input type="search" name="txtbuscador" placeholder="Log o Matrícula del Vehículo" width="50" class="form-control_index" tabindex="1" autofocus="autofocus" />&nbsp;
+                <input type="search" name="txtbuscador" placeholder="Usuario o Vehículo" width="50" class="form-control_index" tabindex="1" autofocus="autofocus" />&nbsp;
                 <input type="button" onclick="frmsearch.submit();" name="btnsearch" value="Buscar" class="btn btn-theme01" tabindex="2"/ >
             </form>        
         </p>
@@ -17,8 +17,7 @@
             <thead>                
                 <th>Destinatario</th>
                 <th>Mensaje</th>
-                <th>Fecha de Inicio</th>
-                <th>Fecha de Cierre</th>
+                <th>Fecha</th>
                 <th>Opciones</th>
             </thead>
             <tbody>
@@ -37,9 +36,8 @@
                                 </a>
                             <?php } ?>
                         </td>                        
-                        <td><?php echo $notificacion->getLog(); ?></td>
-                        <td><?php echo ($notificacion->getFechaini() == null or $notificacion->getFechaini() == "0000-00-00") ? "" : $notificacion->inverseDateIni(); ?></td>
-                        <td><?php echo ($notificacion->getFechafin() == null or $notificacion->getFechafin() == "0000-00-00") ? "" : $notificacion->inverseDateFin(); ?></td>
+                        <td><?php echo $notificacion->getMensaje(); ?></td>
+                        <td><?php echo ($notificacion->getFecha() == null or $notificacion->getFecha() == "0000-00-00") ? "" : $notificacion->inverseDateIni(); ?></td>
                         <td>
                             <a href="index.php?c=notificaciones&a=view&d=<?php echo $notificacion->getId(); ?>" title="Ver">
                                 <i class="fa fa-eye" style="font-size: 22px;"></i>

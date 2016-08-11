@@ -1,9 +1,9 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Movimientos del Combustible&nbsp;<?php echo $combustible->getNombre(); ?></h3>
 <h4>
     <i class="fa fa-angle-right"></i>&nbsp;Tipo:&nbsp;<?php echo $combustible->getTipo()->getNombre(); ?>&nbsp;
-    <i class="fa fa-angle-right"></i>&nbsp;Stock Actual:&nbsp;<?php echo $combustible->getStock(); ?>
+    <i class="fa fa-angle-right"></i>&nbsp;Stock Actual:&nbsp;<?php echo $combustible->getStock()." L"; ?>
 </h4>
-<form class="form-horizontal style-form" method="post" action="index.php?c=combustibles&a=add_mov&d=<?php echo \App\Session::get('com'); ?>" name="frmadd">
+<form class="form-horizontal style-form" method="post" action="index.php?c=combustibles&a=add_mov&d=<?php echo \App\Session::get('com'); ?>" name="frmadd" autocomplete="off">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
@@ -16,7 +16,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Cantidad&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcant" class="form-control" required="required" placeholder="Ej: -" onkeypress="return validarNumero(event);" tabindex="2" />
+                        <input type="text" name="txtcant" class="form-control" required="required" placeholder="Ej: 15.8" onkeypress="return validarNumeroP(event);" tabindex="2" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -108,8 +108,9 @@
             template: 'DD / MM / YYYY     HH : mm'
         });
         $('#emi').magicSuggest({
-            placeholder: 'Seleccione un Vehículo',
+            placeholder: 'Seleccione Stock Emisor',
             maxSelection: 1,
+            maxDropHeight: 150,            
             data: [
                 '<?php echo $combustible->getNombre(); ?>',
                 <?php foreach ($vehiculos as $vehiculo) { 
@@ -119,8 +120,9 @@
             ]
         });
         $('#rec').magicSuggest({
-            placeholder: 'Seleccione un Vehículo',
+            placeholder: 'Seleccione Stock Receptor',
             maxSelection: 1,
+            maxDropHeight: 150,            
             data: [
                 '<?php echo $combustible->getNombre(); ?>',
                 <?php foreach ($vehiculos as $vehiculo) { 

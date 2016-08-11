@@ -48,10 +48,10 @@
                                                     <br />
                                                     <i style="font-size: 13px;">                                             
                                                         <?php
-                                                            if(strlen($notificacion->getLog()) > 45){
-                                                                echo getSubString($notificacion->getLog(), 45); 
+                                                            if(strlen($notificacion->getMensaje()) > 45){
+                                                                echo getSubString($notificacion->getMensaje(), 45); 
                                                             } else {
-                                                                echo $notificacion->getLog();
+                                                                echo $notificacion->getMensaje();
                                                             }
                                                         ?>
                                                     </i>

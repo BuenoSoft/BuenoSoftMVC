@@ -32,7 +32,7 @@ class NotificacionModel extends AppModel
                 $sql .=" where (n.notLog like :filtro or v.vehMatricula like :filtro) and n.usuId = :log";
             }            
         }
-        $sql .= " order by notFechaIni desc, notEstado desc";
+        $sql .= " order by notEstado,notFecha desc";
         return $sql;
     }
     /*------------------------------------------------------------------------------------*/
@@ -40,22 +40,22 @@ class NotificacionModel extends AppModel
         return $this->execute($this->getCreateQuery(),  $this->getCreateParameter($object));
     }   
     protected function getCreateParameter($object) {       
-        return [$object->getLog(),$object->getFechaini(),$object->getFechafin(),'N',
-            $this->checkVehNull($object),$this->checkUsuNull($object)];
+        return [$object->getMensaje(),$object->getFecha(),'N',$this->checkVehNull($object),$this->checkUsuNull($object)];
     }
     protected function getCreateQuery() {        
-        return "insert into notificaciones(notLog,notFechaIni,notFechaFin,notEstado,vehId,usuId) values (?,?,?,?,?,?)";
+        return "insert into notificaciones(notMensaje,notFecha,notEstado,vehId,usuId) values (?,?,?,?,?)";
     } 
     /*------------------------------------------------------------------------------------*/
     public function modNot($object){
         return $this->execute($this->getUpdateQuery(), $this->getUpdateParameter($object));        
     }
     protected function getUpdateParameter($object) {
-        return [$object->getLog(),$object->getFechaini(),$object->getFechafin(),'L',
-            $this->checkVehNull($object),$this->checkUsuNull($object),$object->getId()];
+        return [
+            $object->getMensaje(),$object->getFecha(),'L',$this->checkVehNull($object),
+            $this->checkUsuNull($object),$object->getId()];
     }
     protected function getUpdateQuery() {
-        return "update notificaciones set notLog = ?,notFechaIni = ?,notFechaFin = ?,notEstado = ?,vehId = ?,usuId = ? where notId = ?";
+        return "update notificaciones set notMensaje = ?,notFecha = ?,notEstado = ?,vehId = ?,usuId = ? where notId = ?";
     }
     /*------------------------------------------------------------------------------------*/
     private function checkVehNull($object){        
@@ -76,14 +76,12 @@ class NotificacionModel extends AppModel
         return "select * from notificaciones where notId = ?";
     }
     public function createEntity($row) {
-        //$veh = ($row["vehId"] == null) ? null : (new VehiculoModel())->findById($row["vehId"]);
         $veh = (new VehiculoModel())->findById($row["vehId"]);
         $usu = (new UsuarioModel())->findById($row["usuId"]);
         $not = new Notificacion();
         $not->setId($row["notId"]);
-        $not->setLog($row["notLog"]); 
-        $not->setFechaini($row["notFechaIni"]);
-        $not->setFechafin($row["notFechaFin"]);
+        $not->setMensaje($row["notMensaje"]); 
+        $not->setFecha($row["notFecha"]);
         $not->setEstado($row["notEstado"]);
         $not->setVehiculo($veh);
         $not->setUsuario($usu);
@@ -93,11 +91,11 @@ class NotificacionModel extends AppModel
     private function getShowQuery(){
         $sql = "select * from notificaciones";
         if(Session::get("log_in")->getRol()->getNombre() == "Administrador" or Session::get("log_in")->getRol()->getNombre() == "Supervisor"){
-            $sql.= " where date(notFechaIni) = date(now())";
+            $sql.= " where date(notFecha) = date(now())";
         } else {
-            $sql.=" where date(notFechaIni) = date(now()) and usuId = ?";
+            $sql.=" where date(notFecha) = date(now()) and usuId = ?";
         }
-        $sql.= " order by notFechaIni desc, notEstado limit 0,5";
+        $sql.= " order by notEstado,notFecha desc limit 0,5";
         return $sql;
     }
     private function getShowParam(){

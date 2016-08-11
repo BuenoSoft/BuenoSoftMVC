@@ -24,7 +24,7 @@ class RolModel extends AppModel
         return [$object->getNombre()];
     }
     protected function getCreateQuery() {
-        return "insert into roles(rolNombre) values (?,?)";
+        return "insert into roles(rolNombre) values (?)";
     }
     /*------------------------------------------------------------------------------------*/    
     protected function getDeleteParameter($object) {

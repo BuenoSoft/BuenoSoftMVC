@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Nombre&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Nombre Real&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input type="text" name="txtnom" class="form-control" required="required" placeholder="Ej: Luis Ottonello" onkeypress="return validarTexto(event);" pattern="[A-Za-z\s]*" maxlength="21" value="<?php echo $usuario->getNomReal(); ?>" tabindex="2">
                     </div>
@@ -127,6 +127,7 @@
             placeholder: 'Seleccione un Rol',
             value: ['<?php echo $usuario->getRol()->getNombre(); ?>'], 
             maxSelection: 1,
+            maxDropHeight: 150,            
             data: [
                 <?php foreach($roles as $rol){ ?>
                      '<?php echo $rol->getNombre(); ?>',

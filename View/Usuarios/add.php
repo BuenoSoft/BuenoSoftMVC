@@ -22,7 +22,7 @@
                     </div>
                 </div> 
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Nombre&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Nombre Real&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input type="text" name="txtnom" class="form-control" required="required" placeholder="Ej: Luis Ottonello" onkeypress="return validarTexto(event);" pattern="[A-Za-z\s]*" maxlength="30" tabindex="2" />
                     </div>
@@ -104,6 +104,7 @@
         $('#rol').magicSuggest({
             placeholder: 'Seleccione un Rol',
             maxSelection: 1,
+            maxDropHeight: 150,            
             data: [
                 <?php foreach($roles as $rol){ 
                     if(App\Session::get('log_in')->getRol()->getNombre() == "Administrador"){

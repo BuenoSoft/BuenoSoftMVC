@@ -29,8 +29,7 @@ class TipovController extends AppController
             if (isset($_POST['btnaceptar'])) {
                 $tv = $this->createEntity();
                 if($tv->getMedida() != null){
-                    $id = $tv->save();
-                    if(isset($id)){
+                    if($tv->save()){
                         Session::set("msg",Session::msgSuccess("Tipo de Vehículo Creado"));
                         header("Location:index.php?c=tipov&a=index");
                         exit();
@@ -55,8 +54,7 @@ class TipovController extends AppController
             if (Session::get('tv')!=null && isset($_POST['btnaceptar'])){
                 $tv = $this->createEntity();
                 if($tv->getMedida() != null){
-                    $id = $tv->save();
-                    if(isset($id)){
+                    if($tv->save()){
                         Session::set("msg",Session::msgSuccess("Tipo de Vehículo Editado"));
                         header("Location:index.php?c=tipov&a=index");
                         exit();

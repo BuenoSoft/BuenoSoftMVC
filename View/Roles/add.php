@@ -1,5 +1,5 @@
 <h3><i class="fa fa-angle-right"></i>Crear Rol</h3>
-<form class="form-horizontal style-form" method="post" action="index.php?c=roles&a=add" name="frmadd">
+<form class="form-horizontal style-form" method="post" action="index.php?c=roles&a=add" name="frmadd" autocomplete="off">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">

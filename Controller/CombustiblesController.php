@@ -32,7 +32,7 @@ class CombustiblesController extends AppController
             if(isset($_POST['btnaceptar'])){
                 $combustible = $this->createEntity();
                 if($combustible->getStock() < 0){
-                    Session::set("msg",Session::msgDanger("Asegurese que el stock sea mayor al stock mínimo"));                    
+                    Session::set("msg",Session::msgDanger("Asegurese que el stock sea mayor a 0"));                    
                 } else if($combustible->getStock() > $combustible->getStockMax()){
                     Session::set("msg",Session::msgDanger("Asegurese que el stock sea menor al stock máximo"));
                 } else if($combustible->getStockMin() >= $combustible->getStockMax()){
@@ -40,8 +40,7 @@ class CombustiblesController extends AppController
                 } else if($combustible->getTipo() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));    
                 } else {                
-                    $id = $combustible->save();
-                    if(isset($id)){
+                    if($combustible->save()){
                         Session::set("msg",Session::msgSuccess("Combustible Creado"));
                         header("Location:index.php?c=combustibles&a=index");
                         exit();                
@@ -66,7 +65,7 @@ class CombustiblesController extends AppController
             if (Session::get('com')!=null && isset($_POST['btnaceptar'])){
                 $combustible = $this->createEntity();
                 if($combustible->getStock() < 0){
-                    Session::set("msg",Session::msgDanger("Asegurese que el stock sea mayor al stock mínimo"));
+                    Session::set("msg",Session::msgDanger("Asegurese que el stock sea mayor a 0"));
                 } else if($combustible->getStock() > $combustible->getStockMax()){
                     Session::set("msg",Session::msgDanger("Asegurese que el stock sea menor al stock máximo"));
                 } else if($combustible->getStockMin() >= $combustible->getStockMax()){
@@ -74,8 +73,7 @@ class CombustiblesController extends AppController
                 } else if($combustible->getTipo() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
                 } else {
-                    $id = $combustible->save();
-                    if(isset($id)){
+                    if($combustible->save()){
                         Session::set("msg",Session::msgSuccess("Combustible Editado"));
                         header("Location:index.php?c=combustibles&a=index");
                         exit();                
@@ -130,22 +128,19 @@ class CombustiblesController extends AppController
             $comb = (new Combustible())->findById(Session::get("com"));
             if (isset($_POST['btnaceptar'])) {                 
                 if(!isset($_POST['vehemi'][0]) and !isset($_POST['vehrec'][0])){
-                    Session::set("msg",Session::msgDanger("Asegurese de seleccionar los stocks emisor y receptor"));
+                    Session::set("msg",Session::msgDanger("Asegurese de seleccionar al menos el stock emisor o receptor"));
                 } else if($_POST['vehemi'][0] == $_POST['vehrec'][0] ){
                     Session::set("msg",Session::msgDanger("Asegurese de que los stocks emisor y receptor sean distintos"));
-                } else if((isset($_POST['vehemi'][0]) and (new Vehiculo())->hayStock($_POST["txtcant"])) or ($_POST["txtcant"] > $comb->getStock())){
-                    Session::set("msg",Session::msgDanger("el stock emisor no tiene suficiente carga para este movimiento"));
                 } else {
                     $mov = $this->createMov();
-                    $id = $comb->addMov($mov);
-                    if(isset($id)){
+                    if($comb->addMov($mov)){
                         $this->changeStock($mov);
                         Session::set("msg",Session::msgSuccess("Movimiento Realizado"));
                         header("Location:index.php?c=combustibles&a=add_mov&d=".Session::get("com"));
                         exit();
                     } else {
-                        Session::set("msg",Session::msgDanger("Error al realizar el movimiento"));
-                    }
+                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    } 
                 }
             }
             $this->redirect_administrador(['add_mov.php'],[
@@ -155,15 +150,15 @@ class CombustiblesController extends AppController
                 "paginador" => $this->getPaginator()->getPages()
             ]);
         }                    
-    }   
+    }
     public function del_mov(){
         if($this->checkUser()){
             Session::set("com",$_GET['d']);
             Session::set("f",$_GET['f']);
             $comb = (new Combustible())->findById(Session::get("com"));
             $mov = $this->getMov($comb);
-            $id = $comb->delMov($mov);
-            if(isset($id)){
+            //$id = $comb->delMov($mov);
+            if($comb->delMov($mov)){
                 $this->changeDelStock($mov);
                 Session::set("msg",Session::msgSuccess("Movimiento Borrado"));
             } else {

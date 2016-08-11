@@ -49,6 +49,7 @@
         $('#u').magicSuggest({
             placeholder: 'Seleccione un Usuario',
             maxSelection: 1,
+            maxDropHeight: 150,            
             data: [
                 <?php foreach ($usuarios as $usuario){ ?>
                      '<?php echo $usuario->getNomReal(); ?>',
@@ -58,6 +59,7 @@
         $('#v').magicSuggest({
             placeholder: 'Seleccione un Vehículo',
             maxSelection: 1,
+            maxDropHeight: 150,            
             data: [
                 <?php foreach ($vehiculos as $vehiculo) { ?>
                      '<?php echo $vehiculo->getMatricula(); ?>',

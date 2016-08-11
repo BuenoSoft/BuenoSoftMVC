@@ -28,8 +28,7 @@ class RolesController extends AppController
             Session::set('enlaces', $bc->display());
             if (isset($_POST['btnaceptar'])) {
                 $rol = $this->createEntity();
-                $id = $rol->save();
-                if(isset($id)){
+                if($rol->save()){
                     Session::set("msg",Session::msgSuccess("Rol Creado"));
                     header("Location:index.php?c=roles&a=index");
                     exit();
@@ -50,8 +49,7 @@ class RolesController extends AppController
             Session::set("rol",$_GET['d']);
             if (Session::get('rol')!=null && isset($_POST['btnaceptar'])){
                 $rol = $this->createEntity();
-                $id = $rol->save();
-                if(isset($id)){
+                if($rol->save()){
                     Session::set("msg",Session::msgSuccess("Rol Editado"));
                     header("Location:index.php?c=roles&a=index");
                     exit();

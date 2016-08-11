@@ -28,8 +28,7 @@ class TipopController extends AppController
             Session::set('enlaces', $bc->display());
             if (isset($_POST['btnaceptar'])) {
                 $tp = $this->createEntity();
-                $id = $tp->save();
-                if(isset($id)){
+                if($tp->save()){
                     Session::set("msg",Session::msgSuccess("Tipo de Producto Creado"));
                     header("Location:index.php?c=tipop&a=index");
                     exit();
@@ -50,8 +49,7 @@ class TipopController extends AppController
             Session::set("tp",$_GET['d']);
             if (Session::get('tp')!=null && isset($_POST['btnaceptar'])){
                 $tp = $this->createEntity();
-                $id = $tp->save();
-                if(isset($id)){
+                if($tp->save()){
                     Session::set("msg",Session::msgSuccess("Tipo de Producto Editado"));
                     header("Location:index.php?c=tipop&a=index");
                     exit();

@@ -34,8 +34,8 @@ class ProductosController extends AppController
             if(isset($_POST['btnaceptar'])){
                 $producto = $this->createEntity();
                 if($producto->getTipo() != null){
-                    $id = $producto->save();
-                    if(isset($id)){
+                    //$id = $producto->save();
+                    if($producto->save()){
                         Session::set("msg",Session::msgSuccess("Producto Creado"));
                         header("Location:index.php?c=productos&a=index");
                         exit();                
@@ -62,8 +62,8 @@ class ProductosController extends AppController
             if (Session::get('prod')!=null && isset($_POST['btnaceptar'])){
                 $producto = $this->createEntity();
                 if($producto->getTipo() != null){
-                    $id = $producto->save();
-                    if(isset($id)){
+                    //$id = $producto->save();
+                    if($producto->save()){
                         Session::set("msg",Session::msgSuccess("Producto Editado"));
                         header("Location:index.php?c=productos&a=index");
                         exit();                
@@ -84,8 +84,8 @@ class ProductosController extends AppController
         if($this->checkUser()){
             if (isset($_GET['d'])){
                 $producto = (new Producto())->findById($_GET['d']);
-                $id = $producto->del();                
-                if(isset($id)){
+                //$id = $producto->del();                
+                if($producto->del()){
                     if((new Producto())->findById($producto->getId()) == null){
                         Session::set("msg", Session::msgSuccess("Producto Borrado"));
                     } else {

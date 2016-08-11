@@ -5,23 +5,19 @@ use \Model\NotificacionModel;
 class Notificacion implements IPersiste
 {
     private $id;
-    private $log;
-    private $fechaini;
-    private $fechafin;
+    private $mensaje;
+    private $fecha;
     private $estado;
     private $vehiculo;
     private $usuario;
     function getId() {
         return $this->id;
     }
-    function getLog() {
-        return $this->log;
+    function getMensaje() {
+        return $this->mensaje;
     }
-    function getFechaini() {
-        return $this->fechaini;
-    }
-    function getFechafin() {
-        return $this->fechafin;
+    function getFecha() {
+        return $this->fecha;
     }
     function getEstado() {
         return $this->estado;
@@ -35,14 +31,11 @@ class Notificacion implements IPersiste
     function setId($id) {
         $this->id = $id;
     }
-    function setLog($log) {
-        $this->log = $log;
+    function setMensaje($mensaje) {
+        $this->mensaje = $mensaje;
     }
-    function setFechaini($fechaini) {
-        $this->fechaini = $fechaini;
-    }
-    function setFechafin($fechafin) {
-        $this->fechafin = $fechafin;
+    function setFecha($fecha) {
+        $this->fecha = $fecha;
     }
     function setEstado($estado) {
         $this->estado = $estado;
@@ -55,19 +48,11 @@ class Notificacion implements IPersiste
     }
     function __construct() { }
     public function mostrarDateIni(){
-        $date = date_create($this->fechaini);
-        return date_format($date, "d-m-Y");
-    }
-    public function mostrarDateFin(){
-        $date = date_create($this->fechafin);
+        $date = date_create($this->fecha);
         return date_format($date, "d-m-Y");
     }
     public function inverseDateIni(){
-        $arrdate = explode("-", $this->fechaini);
-        return $arrdate[2]."/".$arrdate[1]."/".$arrdate[0];
-    }
-    public function inverseDateFin(){
-        $arrdate = explode("-", $this->fechafin);
+        $arrdate = explode("-", $this->fecha);
         return $arrdate[2]."/".$arrdate[1]."/".$arrdate[0];
     }
     /*----------------------------------*/

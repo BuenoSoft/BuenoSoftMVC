@@ -30,6 +30,20 @@
                     </div>
                 </div>               
             </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div style="padding-left: 150px;" >
+                    <table>
+                        <tr>
+                            <td style="padding-top: 18px; padding-right: 5px;">
+                                <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="9"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
+                            </td>
+                            <td>
+                                <a href="index.php?c=vehiculos&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04" tabindex="10"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
+                            </td>
+                        </tr>                   
+                    </table>                
+                </div>
+            </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
@@ -40,9 +54,11 @@
                             <b>Cantidad Actual:</b>&nbsp;<input type="hidden" name="hdnstock" value="<?php echo $vehiculo->getStock(); ?>" /><?php echo $vehiculo->getStock(); ?>
                         </p>
                         <p>
-                            <b>Cantidad a Agregar:</b>&nbsp;<input type="text" name="txtstock" onkeypress="return validarNumeroPC(event); " class="form-control" placeholder="Ej: 25.8" tabindex="5" />
+                            <b>Combustible del vehículo:&nbsp;<?php echo $vehiculo->getCombustible()->getNombre(); ?></b>&nbsp;                            
                         </p>
-                        
+                        <p>
+                            <b>Cantidad a Agregar:</b>&nbsp;<input type="text" name="txtstock" onkeypress="return validarNumeroPC(event); " class="form-control" placeholder="Ej: 25.8" tabindex="5" />
+                        </p>                        
                     </div>
                 </div>
                 <div class="form-group">
@@ -69,18 +85,13 @@
                         <?php echo $vehiculo->getTaquiDif(); ?>&nbsp;
                         <a href="index.php?c=vehiculos&a=reiniciar&d=<?php echo $vehiculo->getId(); ?>" onclick="return confirm('¿Desea reiniciar el taquímetro del vehículo?')">
                             Reiniciar
-                        </a>
-                        
+                        </a>                        
                     </div>
                 </div>  
             </div>
+            
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
-            <div style="text-align: center;">
-                <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="9"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
-                <a href="index.php?c=vehiculos&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04" tabindex="10"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
-            </div>
-        </div>
+        
     </div>
 </form>
 <script>
@@ -89,6 +100,7 @@
             placeholder: 'Seleccione un Tipo de Vehículo',
             value: ['<?php echo $vehiculo->getTipo()->getNombre(); ?>'],            
             maxSelection: 1,
+            maxDropHeight: 150,            
             data: [
                 <?php foreach($tipos as $tipo){ ?>
                      '<?php echo $tipo->getNombre(); ?>',

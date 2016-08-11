@@ -47,6 +47,7 @@
             placeholder: 'Seleccione un Tipo de Producto',
             value: ['<?php echo $producto->getTipo()->getNombre(); ?>'],            
             maxSelection: 1,
+            maxDropHeight: 150,            
             data: [
                 <?php foreach($tipos as $tipo){ ?>
                      '<?php echo $tipo->getNombre(); ?>',

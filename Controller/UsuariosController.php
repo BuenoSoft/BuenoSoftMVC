@@ -60,8 +60,7 @@ class UsuariosController extends AppController
             if(isset($_POST["btnaceptar"])){               
                 $usuario = $this->createEntity();
                 if($usuario->getRol() != null) {
-                    $id = $usuario->save();
-                    if(isset($id)){
+                    if($usuario->save()){
                         Session::set("msg",Session::msgSuccess("Usuario Creado"));
                         header("Location:index.php?c=usuarios&a=index");
                         exit();
@@ -88,8 +87,7 @@ class UsuariosController extends AppController
             if (Session::get('usu')!=null && isset($_POST['btnaceptar'])){
                 $usuario = $this->createEntity();
                 if($usuario->getRol() != null) {
-                    $id = $usuario->save();
-                    if(isset($id)){
+                    if($usuario->save()){
                         Session::set("msg",Session::msgSuccess("Usuario Editado"));
                         header("Location:index.php?c=usuarios&a=index");
                         exit();

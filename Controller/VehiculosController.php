@@ -34,24 +34,25 @@ class VehiculosController extends AppController
             $bc->add_crumb($_SERVER['HTTP_REFERER']);
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
-            if (isset($_POST['btnaceptar'])) {
-                $veh = $this->createEntity();
-                if($veh->getTipo() == null){
+            if (isset($_POST['btnaceptar'])) {                
+                if(!isset($_POST['tipo'][0])){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
-                } else if($veh->getStock() > $veh->getCapcarga()){
+                } else if($_POST['txtstock'] > $_POST['txtcap']){
                     Session::set("msg",Session::msgDanger("El stock ingresado excede a la capacidad de carga"));
-                } else if(!$veh->getCombustible()->hayStock($veh->getStock())){
-                    Session::set("msg",Session::msgDanger("El combustible no puede cargar el stock ingresado"));    
                 } else {                
-                    $id = $veh->save();
-                    if(isset($id)){
-                        $veh->getCombustible()->delStock($veh->getStock());
-                        $this->notifyDown($veh);
-                        Session::set("msg",Session::msgSuccess("Vehículo Creado"));
-                        header("Location:index.php?c=vehiculos&a=index");
-                        exit();
+                    $veh = $this->createEntity();
+                    if(!$veh->getCombustible()->hayStock($veh->getStock())){
+                        Session::set("msg",Session::msgDanger("El combustible ingresado no es soportado por el tanque principal"));
                     } else {
-                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                        if($veh->save()){
+                            $veh->getCombustible()->delStock($veh->getStock());
+                            $this->notifyDown($veh);
+                            Session::set("msg",Session::msgSuccess("Vehículo Creado"));
+                            header("Location:index.php?c=vehiculos&a=index");
+                            exit();
+                        } else {
+                            Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                        }
                     }                                    
                 }
             }
@@ -68,24 +69,25 @@ class VehiculosController extends AppController
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
             Session::set("vh",$_GET['d']);
-            if (Session::get('vh')!=null && isset($_POST['btnaceptar'])){
-                $veh = $this->createEntity();
-                if($veh->getTipo() == null){
+            if (Session::get('vh')!=null && isset($_POST['btnaceptar'])){                
+                if(!isset($_POST['tipo'][0])){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
-                } else if($veh->getStock() > $veh->getCapcarga()){
+                } else if(($_POST['hdnstock'] + $_POST['txtstock']) > $_POST['txtcap']){
                     Session::set("msg",Session::msgDanger("El stock ingresado excede a la capacidad de carga"));
-                } else if(!$veh->getCombustible()->hayStock($_POST['txtstock'])){
-                    Session::set("msg",Session::msgDanger("El combustible no puede cargar el stock ingresado"));
-                } else {                    
-                    $id = $veh->save();
-                    if(isset($id)){
-                        $veh->getCombustible()->delStock(isset($_POST['txtstock']) ? $_POST['txtstock'] : 0);
-                        $this->notifyDown($veh);
-                        Session::set("msg",Session::msgSuccess("Vehículo Editado"));
-                        header("Location:index.php?c=vehiculos&a=index");
-                        exit();
+                } else {
+                    $veh = $this->createEntity();
+                    if(!$veh->getCombustible()->hayStock($veh->getStock())){
+                        Session::set("msg",Session::msgDanger("El combustible ingresado no es soportado por el tanque principal"));
                     } else {
-                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                        if($veh->save()){
+                            $veh->getCombustible()->delStock(isset($_POST['txtstock']) ? $_POST['txtstock'] : 0);
+                            $this->notifyDown($veh);
+                            Session::set("msg",Session::msgSuccess("Vehículo Editado"));
+                            header("Location:index.php?c=vehiculos&a=index");
+                            exit();
+                        } else {
+                            Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                        }                     
                     }                                    
                 }
             }
@@ -124,8 +126,8 @@ class VehiculosController extends AppController
         if($this->checkUser()){
             if (isset($_GET['d'])){
                 $vehiculo = (new Vehiculo())->findById($_GET['d']);
-                $id = $vehiculo->del();
-                if(isset($id)){
+                //$id = $vehiculo->del();
+                if($vehiculo->del()){
                     if((new Vehiculo())->findById($vehiculo->getId()) == null){
                         Session::set("msg", Session::msgSuccess("Vehículo Borrado"));
                     } else {
@@ -149,18 +151,17 @@ class VehiculosController extends AppController
         }
     }
     private function createEntity(){
-        $tipo = (new TipoVehiculo())->findByX((isset($_POST['tipo'][0])) ? $_POST['tipo'][0] : 0);
         $vehiculo = new Vehiculo();
         $vehiculo->setId((isset($_POST['hid'])) ? $_POST['hid'] : 0);
         $vehiculo->setMatricula($this->clean($_POST['txtmat']));
         $vehiculo->setPadron($this->clean($_POST['txtpadron']));
-        $vehiculo->setTipo($tipo);
+        $vehiculo->setTipo((new TipoVehiculo())->findByX((isset($_POST['tipo'][0])) ? $_POST['tipo'][0] : 0));
         $vehiculo->setCapcarga($this->clean($_POST['txtcap']));
         $vehiculo->setStock((isset($_POST['hid'])) ? ($this->clean($_POST['txtstock']) + $this->clean($_POST['hdnstock'])) : $this->clean($_POST['txtstock']));
         $vehiculo->setModelo($this->clean($_POST['txtmodelo']));
         $vehiculo->setMarca($this->clean($_POST['txtmarca']));
         $vehiculo->setAnio($this->clean($_POST['txtanio']));
-        $vehiculo->setCombustible($this->getCombustible($tipo->getId()));
+        $vehiculo->setCombustible($this->getCombustible($vehiculo->getTipo()->getId()));
         return $vehiculo;
     }
     private function getCombustible($tipo) {

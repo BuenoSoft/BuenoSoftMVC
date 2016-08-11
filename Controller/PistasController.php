@@ -34,10 +34,9 @@ class PistasController extends AppController
             if (isset($_POST['btnaceptar'])) {
                 $pis = $this->createEntity();
                 if($pis->getCliente() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el cliente"));
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el usuario"));
                 } else {
-                    $id = $pis->save();
-                    if(isset($id)){
+                    if($pis->save()){
                         Session::set("msg",Session::msgSuccess("Pista Creada"));
                         header("Location:index.php?c=pistas&a=index");
                         exit();
@@ -62,10 +61,9 @@ class PistasController extends AppController
             if (Session::get('pis')!=null && isset($_POST['btnaceptar'])){
                 $pis = $this->createEntity();
                 if($pis->getCliente() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el cliente"));
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el usuario"));
                 } else {
-                    $id = $pis->save();
-                    if(isset($id)){
+                    if($pis->save()){
                         Session::set("msg",Session::msgSuccess("Pista Editada"));
                         header("Location:index.php?c=pistas&a=index");
                         exit();

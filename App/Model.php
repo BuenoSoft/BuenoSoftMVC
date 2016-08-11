@@ -18,7 +18,7 @@ abstract class Model implements IModel
             $consulta->execute($parameter);  
             return ($consulta->rowCount() > 0) ? true  : false;         
         }  catch (Exception $ex){
-            echo $ex->getMessage();
+            //echo $ex->getMessage();
         }
     }
     protected function findByCondition($query, $parameter = []) {
@@ -61,7 +61,7 @@ abstract class Model implements IModel
         if($ok){
             return true;
         } else {
-            Session::set('msg', Session::msgDanger("Error al guardar"));
+            Session::set('msg', Session::msgDanger($this->getCheckMessage()));
             return false;
         }
     }
@@ -71,20 +71,20 @@ abstract class Model implements IModel
         if(!$object->equals($aux)){
             if($this->check($object)){
                 Session::set('msg', Session::msgDanger($this->getCheckMessage()));
-                return null;
+                return false;
             }        
         }
         $ok = $this->execute($this->getUpdateQuery(), $this->getUpdateParameter($object)); 
         if($ok){
             return true;
         } else {
-            Session::set('msg', Session::msgDanger("Error al editar"));
+            Session::set('msg', Session::msgDanger($this->getCheckMessage()));
             return false;
         }
     }
     /*------------------------------------------------------------------------*/
-    public function delete($object, $notUsed = true) {
-        return $this->execute($this->getDeleteQuery($notUsed), $this->getDeleteParameter($object)); 
+    public function delete($object, $notUsed = true) {        
+        return $this->execute($this->getDeleteQuery($notUsed), $this->getDeleteParameter($object));        
     }
     /*--------------------------------------------------------------------*/
     public function find($criterio = null) {

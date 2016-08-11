@@ -46,3 +46,7 @@ function validarTextoyNum(e) {
 function validarNumeroComa(e){
     return validarPattern(e,/[\d\,]/);
 }
+//Chequeo solo para número, punto.
+function validarNumeroP(e){
+    return validarPattern(e,/[\d\.]/);
+}
