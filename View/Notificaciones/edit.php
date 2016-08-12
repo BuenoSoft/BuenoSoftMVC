@@ -57,7 +57,8 @@
             placeholder: 'Seleccione un Usuario',
             value: ['<?php echo ($notificacion->getUsuario() != null) ? $notificacion->getUsuario()->getNomReal() : null; ?>'],
             maxSelection: 1,
-            maxDropHeight: 150,            
+            maxDropHeight: 150,
+            sortDir: 'asc',
             data: [
                 <?php foreach ($usuarios as $usuario){ ?>
                      '<?php echo $usuario->getNomReal(); ?>',
@@ -68,7 +69,8 @@
             placeholder: 'Seleccione un Vehículo',
             value: ['<?php echo ($notificacion->getVehiculo() != null) ? $notificacion->getVehiculo()->getMatricula() : null ; ?>'], 
             maxSelection: 1,
-            maxDropHeight: 150,            
+            maxDropHeight: 150,
+            sortDir: 'asc',
             data: [
                 <?php foreach ($vehiculos as $vehiculo) { ?>
                      '<?php echo $vehiculo->getMatricula(); ?>',

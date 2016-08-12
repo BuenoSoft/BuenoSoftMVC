@@ -104,7 +104,8 @@
         $('#rol').magicSuggest({
             placeholder: 'Seleccione un Rol',
             maxSelection: 1,
-            maxDropHeight: 150,            
+            maxDropHeight: 150,
+            sortDir: 'asc',
             data: [
                 <?php foreach($roles as $rol){ 
                     if(App\Session::get('log_in')->getRol()->getNombre() == "Administrador"){

@@ -50,7 +50,8 @@
             placeholder: 'Seleccione Usuario',
             value: ['<?php echo $pista->getCliente()->getNomReal(); ?>'],
             maxSelection: 1,
-            maxDropHeight: 150,            
+            maxDropHeight: 150,
+            sortDir: 'asc',
             data: [
                 <?php foreach ($usuarios as $usuario){
                     if($usuario->getRol()->getNombre() == "Cliente") { ?>

@@ -127,11 +127,21 @@
             placeholder: 'Seleccione un Rol',
             value: ['<?php echo $usuario->getRol()->getNombre(); ?>'], 
             maxSelection: 1,
-            maxDropHeight: 150,            
+            maxDropHeight: 150,
+            sortDir: 'asc',
             data: [
-                <?php foreach($roles as $rol){ ?>
-                     '<?php echo $rol->getNombre(); ?>',
-                <?php } ?>
+                <?php foreach($roles as $rol){ 
+                    if(App\Session::get('log_in')->getRol()->getNombre() == "Administrador"){
+                        if($rol->getNombre() != "Supervisor"){
+                ?>
+                            '<?php echo $rol->getNombre(); ?>',
+                <?php 
+                        }                         
+                    } else { ?>
+                        '<?php echo $rol->getNombre(); ?>',
+                <?php                 
+                    } }
+                ?>
             ]
         });
     }); 

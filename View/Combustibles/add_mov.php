@@ -110,7 +110,8 @@
         $('#emi').magicSuggest({
             placeholder: 'Seleccione Stock Emisor',
             maxSelection: 1,
-            maxDropHeight: 150,            
+            maxDropHeight: 150,
+            sortDir: 'asc',
             data: [
                 '<?php echo $combustible->getNombre(); ?>',
                 <?php foreach ($vehiculos as $vehiculo) { 
@@ -122,7 +123,8 @@
         $('#rec').magicSuggest({
             placeholder: 'Seleccione Stock Receptor',
             maxSelection: 1,
-            maxDropHeight: 150,            
+            maxDropHeight: 150,
+            sortDir: 'asc',
             data: [
                 '<?php echo $combustible->getNombre(); ?>',
                 <?php foreach ($vehiculos as $vehiculo) { 

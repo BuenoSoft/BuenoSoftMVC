@@ -195,6 +195,7 @@
             value: ['<?php echo \App\Session::get("pass")[20]; ?>'],
             maxSelection: 1,
             maxDropHeight: 150,
+            sortDir: 'asc',
             data: [
                 <?php foreach ($vehiculos as $vehiculo) { 
                     if($vehiculo->getTipo()->getNombre() == "Aeronave"){ ?>
@@ -207,6 +208,7 @@
             value: ['<?php echo \App\Session::get("pass")[17]; ?>'], 
             maxSelection: 1,
             maxDropHeight: 150,
+            sortDir: 'asc',
             data: [
                 <?php foreach ($usuarios as $usuario){
                     if($usuario->getRol()->getNombre() == "Cliente") { ?>
@@ -219,6 +221,7 @@
             value: ['<?php echo \App\Session::get("pass")[10]; ?>'],            
             maxSelection: 1,
             maxDropHeight: 150,
+            sortDir: 'asc',
             data: [
                 <?php foreach($tipos as $tipo){ ?>
                      '<?php echo $tipo->getNombre(); ?>',
@@ -228,6 +231,7 @@
         $('#producto').magicSuggest({
             placeholder: 'Seleccione Productos',
             maxDropHeight: 150,
+            sortDir: 'asc',
             data: [
                 <?php foreach($productos as $producto){ ?>
                      '<?php echo $producto->getNombre(); ?>',
@@ -238,7 +242,8 @@
             placeholder: 'Seleccione Chofer',
             value: ['<?php echo \App\Session::get("pass")[19]; ?>'],
             maxSelection: 1,
-            maxDropHeight: 150,            
+            maxDropHeight: 150,
+            sortDir: 'asc',
             data: [
                 <?php foreach ($usuarios as $usuario){
                     if($usuario->getRol()->getNombre() == "Chofer") { ?>
@@ -251,6 +256,7 @@
             value: ['<?php echo \App\Session::get("pass")[21]; ?>'],
             maxSelection: 1,
             maxDropHeight: 150,
+            sortDir: 'asc',
             data: [
                 <?php foreach ($vehiculos as $vehiculo) { 
                     if($vehiculo->getTipo()->getNombre() != "Aeronave"){ ?>
@@ -263,7 +269,8 @@
             placeholder: 'Seleccione Piloto',
             value: ['<?php echo \App\Session::get("pass")[18]; ?>'], 
             maxSelection: 1,
-            maxDropHeight: 150,            
+            maxDropHeight: 150,
+            sortDir: 'asc',
             data: [
                 <?php foreach ($usuarios as $usuario){
                     if($usuario->getRol()->getNombre() == "Piloto") { ?>
@@ -275,7 +282,8 @@
             placeholder: 'Seleccione Pista',
             value: ['<?php echo \App\Session::get("pass")[3]; ?>'], 
             maxSelection: 1,
-            maxDropHeight: 150,            
+            maxDropHeight: 150,
+            sortDir: 'asc',
             data: [
                 <?php foreach ($pistas as $pista){ ?>
                      '<?php echo $pista->getNombre(); ?>',
