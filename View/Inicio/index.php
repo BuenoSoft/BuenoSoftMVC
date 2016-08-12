@@ -1,4 +1,4 @@
-<table width="100%"> 
+<table width="100%" style="margin-left:20px;"> 
     <tr>
         <td class="tablesize">
             <?php

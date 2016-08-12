@@ -32,13 +32,13 @@ class CombustiblesController extends AppController
             if(isset($_POST['btnaceptar'])){
                 $combustible = $this->createEntity();
                 if($combustible->getStock() < 0){
-                    Session::set("msg",Session::msgDanger("Asegurese que el stock sea mayor a 0"));                    
+                    Session::set("msg",Session::msgDanger("Asegurese que el stock sea mayor o igual a 0"));                    
                 } else if($combustible->getStock() > $combustible->getStockMax()){
                     Session::set("msg",Session::msgDanger("Asegurese que el stock sea menor al stock máximo"));
                 } else if($combustible->getStockMin() >= $combustible->getStockMax()){
                     Session::set("msg",Session::msgDanger("Asegurese que el stock mínimo sea menor al stock máximo"));
                 } else if($combustible->getTipo() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));    
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo de Vehículo"));    
                 } else {                
                     if($combustible->save()){
                         Session::set("msg",Session::msgSuccess("Combustible Creado"));
@@ -65,13 +65,13 @@ class CombustiblesController extends AppController
             if (Session::get('com')!=null && isset($_POST['btnaceptar'])){
                 $combustible = $this->createEntity();
                 if($combustible->getStock() < 0){
-                    Session::set("msg",Session::msgDanger("Asegurese que el stock sea mayor a 0"));
+                    Session::set("msg",Session::msgDanger("Asegurese que el stock sea mayor o igual a 0"));
                 } else if($combustible->getStock() > $combustible->getStockMax()){
                     Session::set("msg",Session::msgDanger("Asegurese que el stock sea menor al stock máximo"));
                 } else if($combustible->getStockMin() >= $combustible->getStockMax()){
                     Session::set("msg",Session::msgDanger("Asegurese que el stock mínimo sea menor al stock máximo")); 
                 } else if($combustible->getTipo() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo de Vehículo"));
                 } else {
                     if($combustible->save()){
                         Session::set("msg",Session::msgSuccess("Combustible Editado"));

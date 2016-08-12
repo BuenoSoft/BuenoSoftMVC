@@ -35,7 +35,7 @@ class VehiculosController extends AppController
             Session::set('enlaces', $bc->display());
             if (isset($_POST['btnaceptar'])) {                
                 if(!isset($_POST['tipo'][0])){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo de Vehiculo"));
                 } else if($_POST['txtstock'] > $_POST['txtcap']){
                     Session::set("msg",Session::msgDanger("El stock ingresado excede a la capacidad de carga"));
                 } else {                
@@ -64,7 +64,7 @@ class VehiculosController extends AppController
             Session::set("vh",$_GET['d']);
             if (Session::get('vh')!=null && isset($_POST['btnaceptar'])){                
                 if(!isset($_POST['tipo'][0])){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo de Vehiculo"));
                 } else if(($_POST['hdnstock'] + $_POST['txtstock']) > $_POST['txtcap']){
                     Session::set("msg",Session::msgDanger("El stock ingresado excede a la capacidad de carga"));
                 } else {

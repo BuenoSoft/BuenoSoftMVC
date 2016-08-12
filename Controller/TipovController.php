@@ -79,7 +79,7 @@ class TipovController extends AppController
                     if((new TipoVehiculo())->findById($tp->getId()) == null){
                         Session::set("msg",Session::msgSuccess("Tipo de Vehículo Borrado"));
                     } else {
-                        Session::set("msg",Session::msgDanger("Hay vehículos usando este tipo"));
+                        Session::set("msg",Session::msgDanger("Hay vehículos usando este tipo de Vehiculo"));
                     }
                 }
                 header("Location:index.php?c=tipov&a=index");

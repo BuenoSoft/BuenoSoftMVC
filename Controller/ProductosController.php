@@ -43,7 +43,7 @@ class ProductosController extends AppController
                         Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                     }                
                 } else {
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo de Producto"));
                 }
             }
             $this->redirect_administrador(['add.php'],[
@@ -71,7 +71,7 @@ class ProductosController extends AppController
                         Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                     }
                 } else {
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo de Producto"));
                 }
             }
             $this->redirect_administrador(['edit.php'],[

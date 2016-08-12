@@ -62,10 +62,10 @@ class AplicacionesController extends AppController
                 } else if(Session::get("pass")[17] == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Usuario"));
                 } else if(Session::get("pass")[10] == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo"));
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo de Producto"));
                 } else if(Session::get("pass")[19] == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Chofer"));
-                } else if(Session::get("pass")[20] == null){
+                } else if(Session::get("pass")[21] == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Terrestre"));
                 } else if(Session::get("pass")[18] == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Piloto"));                                    
@@ -123,10 +123,10 @@ class AplicacionesController extends AppController
                 } else if(Session::get("pass")[17] == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Usuario"));
                 } else if(Session::get("pass")[10] == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo"));
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo de Producto"));
                 } else if(Session::get("pass")[19] == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Chofer"));
-                } else if(Session::get("pass")[20] == null){
+                } else if(Session::get("pass")[21] == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Terrestre"));
                 } else if(Session::get("pass")[18] == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Piloto"));                                    
