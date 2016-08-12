@@ -47,7 +47,6 @@
                 </p>
             <?php endif ?>
             <?php endforeach ?>
-
         </td>
         <td border>
         <table class="tabletop">

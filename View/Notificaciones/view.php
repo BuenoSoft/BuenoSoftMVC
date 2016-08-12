@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Dedicado a&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Usuario</label>
                     <div class="col-sm-10" style="text-align: center;">
                         <?php echo ($notificacion->getUsuario()!= null) ? $notificacion->getUsuario()->getNomReal() : " "; ?>                        
                     </div>

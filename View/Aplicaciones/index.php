@@ -40,7 +40,7 @@
                     <b>Período Inicial:&nbsp;</b><input type="text" name="fec1" id="fecini" />&nbsp;
                     <b>Período Final:&nbsp;</b><input type="text" name="fec2" id="fecfin" />&nbsp;
                     <input type="button" onclick="frmsearch.submit();" name="btnsearch" value="Buscar" class="btn btn-theme01" tabindex="2" />&nbsp;
-                    <a href="index.php?c=pdf&a=todos" target="_blank">
+                    <a href="index.php?c=pdf&a=imprimir" target="_blank">
                         <input type="button" value="Imprimir" class="btn btn-theme01" tabindex="3" />
                         <!--<button class="btn btn-theme05" tabindex="3"><i class="fa fa-print"></i>&nbsp;Imprimir</button>-->
                     </a>
@@ -84,7 +84,7 @@
                         <td>
                             <?php  
                                 if($aplicacion->getFechaFin() == null or $aplicacion->getFechaFin() == "0000-00-00 00:00:00"){
-                                    if($aplicacion->getFechaIni() == "0000-00-00 00:00:00"){
+                                    if($aplicacion->getFechaIni() == null or $aplicacion->getFechaIni() == "0000-00-00 00:00:00"){
                                         echo "En espera";
                                     }
                                     else {
@@ -139,6 +139,7 @@
             style: 'margin-bottom: 5px; margin-top: 5px; margin-left:5px',
             placeholder: 'Seleccione Aeronave',            
             maxSelection: 1,
+            sortDir: 'asc',
             data: [
                 <?php foreach ($vehiculos as $vehiculo) { 
                     if($vehiculo->getTipo()->getNombre() == "Aeronave"){ ?>
@@ -150,6 +151,7 @@
             style: 'margin-left:10px',
             placeholder: 'Seleccione Piloto', 
             maxSelection: 1,
+            sortDir: 'asc',
             data: [
                 <?php foreach ($usuarios as $usuario){
                     if($usuario->getRol()->getNombre() == "Piloto") { ?>
@@ -161,6 +163,7 @@
             style: 'margin-left:5px',
             placeholder: 'Seleccione un Tipo de Producto',
             maxSelection: 1,
+            sortDir: 'asc',
             data: [
                 <?php foreach($tipos as $tipo){ ?>
                      '<?php echo $tipo->getNombre(); ?>',
@@ -171,6 +174,7 @@
             style: 'margin-left:10px',
             placeholder: 'Seleccione Usuario',
             maxSelection: 1,
+            sortDir: 'asc',
             data: [
                 <?php foreach ($usuarios as $usuario){
                     if($usuario->getRol()->getNombre() == "Cliente") { ?>

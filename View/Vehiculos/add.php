@@ -55,7 +55,13 @@
                     <div class="col-sm-10">
                         <input type="text" name="txtanio" class="form-control" rrequired="required" placeholder="Ej: 2010" onkeypress="return validarNumero(event);" tabindex="11" />
                     </div>
-                </div>                
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Horas a recorrer</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="txthoras" class="form-control" required="required" placeholder="Ej: 50" onkeypress="return validarNumero(event);" tabindex="12" />
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">

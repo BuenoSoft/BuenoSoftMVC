@@ -154,13 +154,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Taquímetro Inicial</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txttaquiIni" onkeypress="return validarNumeroComa(event)" pattern="[\d\,]*" class="form-control" placeholder="" tabindex="22" value="<?php echo \App\Session::get("pass")[11]; ?>"/>
+                        <input type="text" name="txttaquiIni" onkeypress="return validarNumeroP(event)" pattern="[\d\.]*" class="form-control" placeholder="" tabindex="22" value="<?php echo \App\Session::get("pass")[11]; ?>"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Taquímetro Final</label>                        
                     <div class="col-sm-10">
-                        <input type="text" name="txttaquiFin" onkeypress="return validarNumeroComa(event)" pattern="[\d\,]*" class="form-control" placeholder="" tabindex="23" value="<?php echo \App\Session::get("pass")[12]; ?>"/>
+                        <input type="text" name="txttaquiFin" onkeypress="return validarNumeroP(event)" pattern="[\d\.]*" class="form-control" placeholder="" tabindex="23" value="<?php echo \App\Session::get("pass")[12]; ?>"/>
                     </div>
                 </div> 
             </div>            
@@ -181,12 +181,12 @@
             placeholder: "xxx xx xx",
             autoclear: false }).val('<?php echo \App\Session::get("pass")[2]; ?>'); 
         $('#fecini').combodate({
-            value: '',
+            value: null,
             format: 'DD-MM-YYYY-HH-mm',
             template: 'DD / MM / YYYY     HH : mm'           
         });
         $('#fecfin').combodate({
-            value: '',
+            value: null,
             format: 'DD-MM-YYYY-HH-mm',
             template: 'DD / MM / YYYY     HH : mm'       
         });

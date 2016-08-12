@@ -19,7 +19,9 @@ class NotificacionModel extends AppModel
         }       
     }
     protected function getFindQuery($criterio = null) {
-        $sql = "select * from notificaciones n left join vehiculos v on n.vehId = v.vehId";
+        $sql = "select * from notificaciones n "
+                . "left join vehiculos v on n.vehId = v.vehId "
+                . "left join usuarios u on n.usuId = u.usuId";
         if($criterio == null){
             if(Session::get("log_in")->getRol()->getNombre() == "Administrador" or Session::get("log_in")->getRol()->getNombre() == "Supervisor"){
             } else {
@@ -27,9 +29,9 @@ class NotificacionModel extends AppModel
             }
         } else {
             if(Session::get("log_in")->getRol()->getNombre() == "Administrador" or Session::get("log_in")->getRol()->getNombre() == "Supervisor"){
-                $sql .=" where n.notLog like :filtro or v.vehMatricula like :filtro";
+                $sql .=" where n.notMensaje like :filtro or v.vehMatricula like :filtro or u.usuNomReal like :filtro";
             } else {
-                $sql .=" where (n.notLog like :filtro or v.vehMatricula like :filtro) and n.usuId = :log";
+                $sql .=" where (n.notMensaje like :filtro or v.vehMatricula like :filtro or u.usuNomReal like :filtro) and n.usuId = :log";
             }            
         }
         $sql .= " order by notEstado,notFecha desc";

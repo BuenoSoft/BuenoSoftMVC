@@ -27,7 +27,13 @@
                     <div class="col-sm-10" style="text-align: center;">
                         <?php echo $vehiculo->getCapcarga(); ?>
                     </div>
-                </div>               
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Horas a recorrer</label>
+                    <div class="col-sm-10" style="text-align: center;">
+                        <?php echo $vehiculo->getHorasRec(); ?>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">

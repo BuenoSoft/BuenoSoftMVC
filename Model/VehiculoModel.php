@@ -28,12 +28,12 @@ class VehiculoModel extends AppModel
         return [
             $object->getMatricula(),$object->getPadron(),$object->getTipo()->getId(),
             $object->getCapcarga(),$object->getStock(),$object->getModelo(),$object->getMarca(),
-            $object->getAnio(),0,$object->getCombustible()->getId()
+            $object->getAnio(),0,$object->getHorasRec(),$object->getCombustible()->getId()
         ];
     }
     protected function getCreateQuery() {
         return "insert into vehiculos(vehMatricula,vehPadron,tvId,vehCapCarga,vehStock,"
-        . "vehModelo,vehMarca,vehAnio,vehTaquiDif,comId) values(?,?,?,?,?,?,?,?,?,?)";
+        . "vehModelo,vehMarca,vehAnio,vehTaquiDif,vehHorasRec,comId) values(?,?,?,?,?,?,?,?,?,?,?)";
     }
     /*------------------------------------------------------------------------------------*/
     protected function getDeleteParameter($object) {
@@ -63,12 +63,12 @@ class VehiculoModel extends AppModel
         return [
             $object->getMatricula(),$object->getPadron(),$object->getTipo()->getId(),
             $object->getCapcarga(),$object->getStock(),$object->getModelo(),$object->getMarca(),
-            $object->getAnio(),$object->getCombustible()->getId(), $object->getId()
+            $object->getAnio(),$object->getHorasRec(),$object->getCombustible()->getId(), $object->getId()
         ];
     }
     protected function getUpdateQuery() {
         return "update vehiculos set vehMatricula = ?,vehPadron = ?,tvId = ?,vehCapCarga = ?,"
-        . "vehStock = ?,vehModelo = ?,vehMarca = ?,vehAnio = ?,comId = ? where vehId = ?";
+        . "vehStock = ?,vehModelo = ?,vehMarca = ?,vehAnio = ?,vehHorasRec = ?,comId = ? where vehId = ?";
     }
     /*------------------------------------------------------------------------------------*/
     private function getUpdateTaquiParameter($object) {
@@ -96,6 +96,7 @@ class VehiculoModel extends AppModel
         $vehiculo->setMarca($row["vehMarca"]);
         $vehiculo->setAnio($row["vehAnio"]);
         $vehiculo->setTaquiDif($row["vehTaquiDif"]);
+        $vehiculo->setHorasRec($row["vehHorasRec"]);
         $vehiculo->setCombustible((new CombustibleModel())->findById($row["comId"]));
         return $vehiculo;
     }

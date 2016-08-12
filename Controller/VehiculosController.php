@@ -5,7 +5,6 @@ use \App\Breadcrumbs;
 use \Clases\TipoVehiculo;
 use \Clases\Combustible;
 use \Clases\Vehiculo;
-use \Clases\Notificacion;
 class VehiculosController extends AppController
 {
     public function __construct() {
@@ -41,19 +40,13 @@ class VehiculosController extends AppController
                     Session::set("msg",Session::msgDanger("El stock ingresado excede a la capacidad de carga"));
                 } else {                
                     $veh = $this->createEntity();
-                    if(!$veh->getCombustible()->hayStock($veh->getStock())){
-                        Session::set("msg",Session::msgDanger("El combustible ingresado no es soportado por el tanque principal"));
+                    if($veh->save()){
+                        Session::set("msg",Session::msgSuccess("Vehículo Creado"));
+                        header("Location:index.php?c=vehiculos&a=index");
+                        exit();
                     } else {
-                        if($veh->save()){
-                            $veh->getCombustible()->delStock($veh->getStock());
-                            $this->notifyDown($veh);
-                            Session::set("msg",Session::msgSuccess("Vehículo Creado"));
-                            header("Location:index.php?c=vehiculos&a=index");
-                            exit();
-                        } else {
-                            Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
-                        }
-                    }                                    
+                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    }                                                        
                 }
             }
             $this->redirect_administrador(["add.php"],[
@@ -76,35 +69,19 @@ class VehiculosController extends AppController
                     Session::set("msg",Session::msgDanger("El stock ingresado excede a la capacidad de carga"));
                 } else {
                     $veh = $this->createEntity();
-                    if(!$veh->getCombustible()->hayStock($veh->getStock())){
-                        Session::set("msg",Session::msgDanger("El combustible ingresado no es soportado por el tanque principal"));
+                    if($veh->save()){
+                        Session::set("msg",Session::msgSuccess("Vehículo Editado"));
+                        header("Location:index.php?c=vehiculos&a=index");
+                        exit();
                     } else {
-                        if($veh->save()){
-                            $veh->getCombustible()->delStock(isset($_POST['txtstock']) ? $_POST['txtstock'] : 0);
-                            $this->notifyDown($veh);
-                            Session::set("msg",Session::msgSuccess("Vehículo Editado"));
-                            header("Location:index.php?c=vehiculos&a=index");
-                            exit();
-                        } else {
-                            Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
-                        }                     
-                    }                                    
+                        Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                    }                                                                             
                 }
             }
             $this->redirect_administrador(["edit.php"],[
                 'vehiculo' => (new Vehiculo())->findById(Session::get('vh')),
                 "tipos" => (new TipoVehiculo())->find() 
             ]);
-        }
-    }
-    private function notifyDown($veh){
-        if($veh->getCombustible()->isDown()){
-            $not = new Notificacion();
-            $not->setId(0);
-            $not->setLog("El combustible ".$veh->getCombustible()->getNombre()." necesita ser recargado");
-            $not->setFechaini(date("Y-m-d"));
-            $not->setVehiculo($veh);
-            $not->save();
         }
     }
     public function view(){
@@ -126,8 +103,8 @@ class VehiculosController extends AppController
         if($this->checkUser()){
             if (isset($_GET['d'])){
                 $vehiculo = (new Vehiculo())->findById($_GET['d']);
-                //$id = $vehiculo->del();
-                if($vehiculo->del()){
+                $id = $vehiculo->del();
+                if(isset($id)){
                     if((new Vehiculo())->findById($vehiculo->getId()) == null){
                         Session::set("msg", Session::msgSuccess("Vehículo Borrado"));
                     } else {
@@ -157,10 +134,11 @@ class VehiculosController extends AppController
         $vehiculo->setPadron($this->clean($_POST['txtpadron']));
         $vehiculo->setTipo((new TipoVehiculo())->findByX((isset($_POST['tipo'][0])) ? $_POST['tipo'][0] : 0));
         $vehiculo->setCapcarga($this->clean($_POST['txtcap']));
-        $vehiculo->setStock((isset($_POST['hid'])) ? ($this->clean($_POST['txtstock']) + $this->clean($_POST['hdnstock'])) : $this->clean($_POST['txtstock']));
+        $vehiculo->setStock($this->clean($_POST['txtstock']));
         $vehiculo->setModelo($this->clean($_POST['txtmodelo']));
         $vehiculo->setMarca($this->clean($_POST['txtmarca']));
         $vehiculo->setAnio($this->clean($_POST['txtanio']));
+        $vehiculo->setHorasRec($this->clean($_POST['txthoras']));
         $vehiculo->setCombustible($this->getCombustible($vehiculo->getTipo()->getId()));
         return $vehiculo;
     }

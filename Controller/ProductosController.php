@@ -84,8 +84,8 @@ class ProductosController extends AppController
         if($this->checkUser()){
             if (isset($_GET['d'])){
                 $producto = (new Producto())->findById($_GET['d']);
-                //$id = $producto->del();                
-                if($producto->del()){
+                $id = $producto->del();                
+                if(isset($id)){
                     if((new Producto())->findById($producto->getId()) == null){
                         Session::set("msg", Session::msgSuccess("Producto Borrado"));
                     } else {

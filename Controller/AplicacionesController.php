@@ -33,8 +33,9 @@ class AplicacionesController extends AppController
                 ]), 
                 Session::get('p')
             );
+            Session::set("filtro", $apl);
             $this->redirect_administrador(['index.php'],[
-                "aplicaciones" => $apl,
+                "aplicaciones" => Session::get('filtro'),
                 "vehiculos" => (new Vehiculo())->find(),
                 "usuarios" => (new Usuario())->find(),
                 "tipos" => (new TipoProducto())->find(),
@@ -55,27 +56,32 @@ class AplicacionesController extends AppController
             Session::set('enlaces', $bc->display());
             $this->passDates();
             $productos = (Session::get("pass")[10] != "") ? (new Producto())->findByTipo((new TipoProducto())->findByX(Session::get("pass")[10])->getId()) : array();
-            if (isset($_POST['btnaceptar'])) {
-                $apl = $this->createEntity();
-                if($apl->getTipo() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
-                } else if($apl->getPista() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado la pista"));
-                } else if($apl->getCliente() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Usuario"));
-                } else if($apl->getPiloto() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Piloto"));
-                } else if($apl->getChofer() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Chofer"));
-                } else if($apl->getAeronave() == null){
+            if (isset($_POST['btnaceptar'])) {                
+                if(Session::get("pass")[20] == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Aeronave"));
-                } else if($apl->getTerrestre() == null){
+                } else if(Session::get("pass")[17] == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Usuario"));
+                } else if(Session::get("pass")[10] == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo"));
+                } else if(Session::get("pass")[19] == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Chofer"));
+                } else if(Session::get("pass")[20] == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Terrestre"));
-                } else if($apl->getFechaFin() != null and $apl->getFechaIni() > $apl->getFechaFin()){
+                } else if(Session::get("pass")[18] == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Piloto"));                                    
+                } else if(Session::get("pass")[3] == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado la Pista"));
+                } else if((Session::get("pass")[6] != null and Session::get("pass")[7] != null) and (Session::get("pass")[6] > Session::get("pass")[7])){
                     Session::set("msg",Session::msgDanger("Asegurese de que la fecha de inicio sea menor a la fecha final"));
+                } else if((Session::get("pass")[11] != null and Session::get("pass")[12] != null) and (Session::get("pass")[11] > Session::get("pass")[12])){
+                    Session::set("msg",Session::msgDanger("Asegurese de que el taquimetro inicial sea menor al final"));                    
+                } else if((Session::get("pass")[6] == null or Session::get("pass")[7] == null) and (Session::get("pass")[11] != null or Session::get("pass")[12] != null)){
+                    Session::set("msg",Session::msgDanger("Asegurese que para los taquímetros tener las fechas ingresadas"));
                 } else {
+                    $apl = $this->createEntity();
                     $apl->save();
                     $this->addProductos();
+                    $this->increaseTaqui($apl);
                     Session::set("msg",Session::msgSuccess("Aplicación Creada"));
                     header("Location:index.php?c=aplicaciones&a=index");
                     exit();
@@ -111,25 +117,29 @@ class AplicacionesController extends AppController
             Session::set("app",$_GET['d']);
             $this->passDates();
             $productos = (Session::get("pass")[10] != "") ? (new Producto())->findByTipo((new TipoProducto())->findByX(Session::get("pass")[10])->getId()) : array();
-            if (Session::get('app')!=null && isset($_POST['btnaceptar'])){
-                $apl = $this->createEntity();
-                if($apl->getTipo() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el tipo"));
-                } else if($apl->getPista() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado la pista"));
-                } else if($apl->getCliente() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Usuario"));
-                } else if($apl->getPiloto() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Piloto"));
-                } else if($apl->getChofer() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Chofer"));
-                } else if($apl->getAeronave() == null){
+            if (Session::get('app')!=null && isset($_POST['btnaceptar'])){                
+                if(Session::get("pass")[20] == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Aeronave"));
-                } else if($apl->getTerrestre() == null){
+                } else if(Session::get("pass")[17] == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Usuario"));
+                } else if(Session::get("pass")[10] == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo"));
+                } else if(Session::get("pass")[19] == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Chofer"));
+                } else if(Session::get("pass")[20] == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Terrestre"));
-                } else if($apl->getFechaFin() != null and $apl->getFechaIni() > $apl->getFechaFin()){
-                    Session::set("msg",Session::msgDanger("Asegurese de que la fecha de inicio sea menor a la fecha final"));    
+                } else if(Session::get("pass")[18] == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Piloto"));                                    
+                } else if(Session::get("pass")[3] == null){
+                    Session::set("msg",Session::msgDanger("No se ha seleccionado la Pista"));
+                } else if((Session::get("pass")[6] != null and Session::get("pass")[7] != null) and (Session::get("pass")[6] > Session::get("pass")[7])){
+                    Session::set("msg",Session::msgDanger("Asegurese de que la fecha de inicio sea menor a la fecha final"));
+                } else if((Session::get("pass")[11] != null and Session::get("pass")[12] != null) and (Session::get("pass")[11] > Session::get("pass")[12])){
+                    Session::set("msg",Session::msgDanger("Asegurese de que el taquimetro inicial sea menor al final"));
+                } else if((Session::get("pass")[6] == null or Session::get("pass")[7] == null) and (Session::get("pass")[11] != null or Session::get("pass")[12] != null)){
+                    Session::set("msg",Session::msgDanger("Asegurese que para los taquímetros tener las fechas ingresadas"));
                 } else {
+                    $apl = $this->createEntity();
                     $apl->save();
                     $this->modProductos($apl);
                     $this->increaseTaqui($apl);
@@ -162,16 +172,16 @@ class AplicacionesController extends AppController
     private function increaseTaqui($apl){
         if($apl->getFechaFin() != null){
             if($apl->getTaquiIni() != null and $apl->getTaquiFin() != null){
-                $sum = $apl->getTaquiFin() - $apl->getTaquiIni();
+                $sum = $apl->taquiDif();
                 $apl->getAeronave()->addTaqui($sum);
-                if($apl->getAeronave()->getTaquiDif() >= 1500){
+                if($apl->getAeronave()->getTaquiDif() >= $apl->getAeronave()->getHorasRec()){
                     $not = new Notificacion();
                     $not->setId(0);
                     $not->setLog("Usted debe realizar a la aeronave ".$apl->getAeronave()->getMatricula()." un mantenimiento");
                     $not->setFechaini(date("Y-m-d"));
                     $not->setVehiculo($apl->getAeronave());
                     $not->save();
-                    $apl->getAeronave()->setTaquiDif(($apl->getAeronave()->getTaquiDif() - 1500));
+                    $apl->getAeronave()->setTaquiDif(($apl->getAeronave()->getTaquiDif() - $apl->getAeronave()->getHorasRec()));
                     $apl->getAeronave()->change();
                 }
             }

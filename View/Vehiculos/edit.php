@@ -50,15 +50,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Stock del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <p>
-                            <b>Cantidad Actual:</b>&nbsp;<input type="hidden" name="hdnstock" value="<?php echo $vehiculo->getStock(); ?>" /><?php echo $vehiculo->getStock(); ?>
-                        </p>
-                        <p>
-                            <b>Combustible del vehículo:&nbsp;<?php echo $vehiculo->getCombustible()->getNombre(); ?></b>&nbsp;                            
-                        </p>
-                        <p>
-                            <b>Cantidad a Agregar:</b>&nbsp;<input type="text" name="txtstock" onkeypress="return validarNumeroPC(event); " class="form-control" placeholder="Ej: 25.8" tabindex="5" />
-                        </p>                        
+                        <input type="text" name="txtstock" onkeypress="return validarNumeroPC(event); " class="form-control" required="required" placeholder="Ej: 25.8" tabindex="8" value="<?php echo $vehiculo->getStock(); ?>"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -78,7 +70,13 @@
                     <div class="col-sm-10">
                         <input type="text" name="txtanio" class="form-control" required="required" placeholder="Ej: 2010" onkeypress="return validarNumero(event);" value="<?php echo $vehiculo->getAnio(); ?>" tabindex="8" />
                     </div>
-                </div>  
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Horas a recorrer</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="txthoras" class="form-control" required="required" placeholder="Ej: 50" onkeypress="return validarNumero(event);" value="<?php echo $vehiculo->getHorasRec(); ?>" tabindex="9"  />
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Taquímetro del Vehículo</label>
                     <div class="col-sm-10" style="text-align: center;">
@@ -88,8 +86,7 @@
                         </a>                        
                     </div>
                 </div>  
-            </div>
-            
+            </div>           
         </div>
         
     </div>

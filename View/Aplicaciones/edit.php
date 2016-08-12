@@ -92,7 +92,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
-                <?php if(\App\Session::get('log_in')!= null and (\App\Session::get('log_in')->getRol()->getNombre() == "Administrador" or \App\Session::get('log_in')->getRol()->getNombre() == "Administrador")){?>
+                <?php if(\App\Session::get('log_in')!= null and (\App\Session::get('log_in')->getRol()->getNombre() == "Administrador" or \App\Session::get('log_in')->getRol()->getNombre() == "Supervisor")){?>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Piloto&nbsp;<font color="red">*</font></label>
                         <div class="col-sm-10">
@@ -141,13 +141,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Inicio</label>
                     <div class="col-sm-10">
-                        <input type="text" name="dtfechaini" id="fecini" tabindex="21" value="<?php echo \App\Session::get("pass")[6]; ?>"/>
+                        <input type="text" name="dtfechaini" id="fecini" tabindex="21" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Fecha de Cierre</label>
                     <div class="col-sm-10">
-                        <input type="text" name="dtfechafin" id="fecfin" tabindex="22" value="<?php echo \App\Session::get("pass")[7]; ?>" />
+                        <input type="text" name="dtfechafin" id="fecfin" tabindex="22" />
                     </div>
                 </div> 
             </div>
@@ -155,13 +155,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Taquímetro Inicial</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txttaquiIni" onkeypress="return validarNumeroPC(event);" pattern="[\d\.\,\-]*" class="form-control" placeholder="" tabindex="23" value="<?php echo \App\Session::get("pass")[11]; ?>"/>
+                        <input type="text" name="txttaquiIni" onkeypress="return validarNumeroP(event)" pattern="[\d\.]*" class="form-control" placeholder="" tabindex="23" value="<?php echo \App\Session::get("pass")[11]; ?>"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Taquímetro Final</label>                        
                     <div class="col-sm-10">
-                        <input type="text" name="txttaquiFin" onkeypress="return validarNumeroPC(event);" pattern="[\d\.\,\-]*" class="form-control" placeholder="" tabindex="24" value="<?php echo \App\Session::get("pass")[12]; ?>"/>
+                        <input type="text" name="txttaquiFin" onkeypress="return validarNumeroP(event)" pattern="[\d\.]*" class="form-control" placeholder="" tabindex="24" value="<?php echo \App\Session::get("pass")[12]; ?>"/>
                     </div>
                 </div> 
             </div>            

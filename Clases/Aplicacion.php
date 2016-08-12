@@ -157,12 +157,20 @@ class Aplicacion implements IPersiste
         return $this->taquiFin - $this->taquiIni;
     }
     public function mostrarDateTimeIni(){
-        $date = date_create($this->fechaIni);
-        return date_format($date, "d-m-Y-H-i");
+        if($this->fechaIni != null){
+            $date = date_create($this->fechaIni);
+            return date_format($date, "d-m-Y-H-i");         
+        } else {
+            return null;
+        }
     }
     public function mostrarDateTimeFin(){
-        $date = date_create($this->fechaFin);
-        return date_format($date, "d-m-Y-H-i");
+        if($this->fechaFin != null){
+            $date = date_create($this->fechaFin);
+            return date_format($date, "d-m-Y-H-i");         
+        } else {
+            return null;
+        }
     }
     public function inverseDateIni(){
         if($this->fechaIni != null){

@@ -4,16 +4,9 @@ use \App\Session;
 use \Clases\Aplicacion;
 class PdfController extends AppController
 {
-    public function todos(){
+    public function imprimir(){
         if($this->checkUser()){
-            $aplicaciones = (new Aplicacion())->findAdvance([
-                "aeronave" => isset($_POST["aeronave"][0]) ? $_POST["aeronave"][0] : null,
-                "piloto" => (isset($_POST["piloto"][0]) and Session::get('log_in')->getRol()->getNombre() != "Piloto") ? $_POST["piloto"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Piloto") ? Session::get('log_in')->getNomReal() : null),
-                "tipo" => isset($_POST["tipo"][0]) ? $_POST["tipo"][0] : null,
-                "cliente" => (isset($_POST["cliente"][0]) and Session::get('log_in')->getRol()->getNombre() != "Cliente") ? $_POST["cliente"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Cliente") ? Session::get('log_in')->getNomReal() : null),
-                "fec1" => isset($_POST["fec1"]) ? $this->inverseDat($_POST["fec1"]) : null,
-                "fec2" => isset($_POST["fec2"]) ? $this->inverseDat($_POST["fec2"]) : null
-            ]);
+            $aplicaciones = Session::get("filtro");
             $this->getPdf()->AddPage();
             $this->getPdf()->SetFont('Arial','B',16);
             $this->getPdf()->Cell(40,10,'Informe de Aplicaciones');

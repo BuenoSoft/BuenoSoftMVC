@@ -21,13 +21,13 @@
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Vehículo</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input name="veh" id="v" required="required" tabindex="3" />                        
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Dedicado a</label>
+                    <label class="col-sm-2 col-sm-2 control-label">Usuario&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input name="usu" id="u" required="required" tabindex="4" />                        
                     </div>
