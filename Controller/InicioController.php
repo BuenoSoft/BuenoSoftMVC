@@ -2,7 +2,6 @@
 namespace Controller;
 use \App\Breadcrumbs;
 use \App\Session;
-use \Lib\simple_html_dom;
 class InicioController extends AppController
 {
     public function __construct() {
@@ -20,6 +19,6 @@ class InicioController extends AppController
         return ["Administrador","Supervisor","Cliente","Piloto"];
     }
     protected function getMessageRole() {
-        return "cualquier usuario menos uno tipo cliente";
+        return "cualquier usuario menos chofer";
     }
 }

@@ -12,7 +12,7 @@ class CombustiblesController extends AppController
         parent::__construct();
     }
     public function index(){
-        if($this->checkUser()){
+        if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer" and Session::get('log_in')->getRol()->getNombre() != "Cliente")){
             $bc = new Breadcrumbs();
             $bc->add_crumb("index.php?c=inicio&a=index");
             $bc->add_crumb($_SERVER['REQUEST_URI']);
@@ -20,6 +20,9 @@ class CombustiblesController extends AppController
             $this->redirect_administrador(['index.php'],[
                 "combustibles" => (new Combustible())->find()
             ]);
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como administrador o supervisor o piloto para acceder."));
+            header("Location:index.php?c=todos&a=index");
         }
     }
     public function add(){
@@ -105,7 +108,7 @@ class CombustiblesController extends AppController
         }
     }
     public function view(){
-        if($this->checkUser()){
+        if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer" and Session::get('log_in')->getRol()->getNombre() != "Cliente")){
             $bc = new Breadcrumbs();
             $bc->add_crumb("index.php?c=inicio&a=index");
             $bc->add_crumb($_SERVER['HTTP_REFERER']);
@@ -114,10 +117,13 @@ class CombustiblesController extends AppController
             $this->redirect_administrador(["view.php"], [
                 "combustible" => (new Combustible())->findById($_GET['d'])
             ]);        
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como administrador o supervisor o piloto para acceder."));
+            header("Location:index.php?c=todos&a=index");
         }
     }
     public function add_mov(){
-        if($this->checkUser()){
+        if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer" and Session::get('log_in')->getRol()->getNombre() != "Cliente")){
             $bc = new Breadcrumbs();
             $bc->add_crumb("index.php?c=inicio&a=index");
             $bc->add_crumb("index.php?c=combustibles&a=index");
@@ -149,15 +155,17 @@ class CombustiblesController extends AppController
                 "movimientos" => $comb->getMovimientos(),
                 "paginador" => $this->getPaginator()->getPages()
             ]);
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como administrador o supervisor o piloto para acceder."));
+            header("Location:index.php?c=todos&a=index");
         }                    
     }
     public function del_mov(){
-        if($this->checkUser()){
+        if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer" and Session::get('log_in')->getRol()->getNombre() != "Cliente")){
             Session::set("com",$_GET['d']);
             Session::set("f",$_GET['f']);
             $comb = (new Combustible())->findById(Session::get("com"));
             $mov = $this->getMov($comb);
-            //$id = $comb->delMov($mov);
             if($comb->delMov($mov)){
                 $this->changeDelStock($mov);
                 Session::set("msg",Session::msgSuccess("Movimiento Borrado"));
@@ -165,6 +173,9 @@ class CombustiblesController extends AppController
                 Session::set("msg",Session::msgDanger("No se pudo borrar el movimiento"));
             }
             header("Location:index.php?c=combustibles&a=add_mov&d=".Session::get("com"));
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como administrador o supervisor o piloto para acceder."));
+            header("Location:index.php?c=todos&a=index");
         }
     }
     private function createMov(){

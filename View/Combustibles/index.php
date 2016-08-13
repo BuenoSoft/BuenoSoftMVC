@@ -1,7 +1,9 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Mantenimiento de Combustibles</h3>
 <p>
     <a href="index.php?c=inicio&a=index"><button class="btn btn-theme05" tabindex="3"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;
-    <a href="index.php?c=combustibles&a=add"><button class="btn btn-theme05" tabindex="4"><i class="fa fa-plus"></i>&nbsp;Crear</button></a>        
+    <?php if(App\Session::get('log_in') != null and (\App\Session::get('log_in')->getRol()->getNombre() == "Administrador" or \App\Session::get('log_in')->getRol()->getNombre() == "Supervisor")) { ?>
+        <a href="index.php?c=combustibles&a=add"><button class="btn btn-theme05" tabindex="4"><i class="fa fa-plus"></i>&nbsp;Crear</button></a> 
+    <?php } ?>
 </p>
 <div class="content-panel">
     <section id="unseen" style="padding-left: 5px; padding-right: 5px;">
@@ -22,12 +24,14 @@
                             <a href="index.php?c=combustibles&a=view&d=<?php echo $combustible->getId(); ?>" title="Ver">
                                 <i class="fa fa-eye" style="font-size: 22px;"></i>
                             </a>&nbsp;
-                            <a href="index.php?c=combustibles&a=edit&d=<?php echo $combustible->getId(); ?>" title="Editar">
-                                <i class="fa fa-edit" style="font-size: 22px;"></i>
-                            </a>&nbsp;
-                            <a href="index.php?c=combustibles&a=delete&d=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea borrar el combustible seleccionado?');" title="Borrar">
-                                <i class="fa fa-times-circle" style="font-size: 22px;"></i>
-                            </a>&nbsp;
+                            <?php if(App\Session::get('log_in') != null and (\App\Session::get('log_in')->getRol()->getNombre() == "Administrador" or \App\Session::get('log_in')->getRol()->getNombre() == "Supervisor")) { ?>
+                                <a href="index.php?c=combustibles&a=edit&d=<?php echo $combustible->getId(); ?>" title="Editar">
+                                    <i class="fa fa-edit" style="font-size: 22px;"></i>
+                                </a>&nbsp;
+                                <a href="index.php?c=combustibles&a=delete&d=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea borrar el combustible seleccionado?');" title="Borrar">
+                                    <i class="fa fa-times-circle" style="font-size: 22px;"></i>
+                                </a>&nbsp;
+                            <?php } ?>
                             <a href="index.php?c=combustibles&a=add_mov&d=<?php echo $combustible->getId(); ?>" title="Movimientos">
                                 <i class="fa fa-retweet" style="font-size: 22px;"></i>
                             </a>
