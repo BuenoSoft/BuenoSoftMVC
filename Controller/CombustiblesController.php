@@ -247,7 +247,7 @@ class CombustiblesController extends AppController
     private function inverseDate($date){
         if($date != null){
             $arrdate = explode("-", $date);
-            return $arrdate[2]."-".$arrdate[1]."-".$arrdate[0]." ".$arrdate[3].":".$arrdate[4];
+            return $arrdate[2]."-".$arrdate[1]."-".$arrdate[0]." ".$arrdate[3].":".$arrdate[4].":".$arrdate[5];
         } else {
             return null;
         }

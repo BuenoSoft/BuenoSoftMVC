@@ -9,15 +9,15 @@ class MovimientoModel extends AppModel
     }    
     public function addMov($object){
         if($object->getEmisor() != null){
-            if(!$object->getEmisor()->hayStock($object->getCantidad())){
-                Session::set("msg",Session::msgDanger("El stock emisor no cuenta con suficiente carga"));
+            if($object->getEmisor()->getCapcarga() < $object->getCantidad()){
+                Session::set("msg",Session::msgDanger("El stock emisor no cuenta con suficiente capacidad"));
                 return false;
             } else {
                 return $this->execute($this->getCreateQuery(), $this->getCreateParameter($object));
             }
         } else if($object->getEmisor() == null){
-            if(!$object->getReceptor()->getCombustible()->hayStock($object->getCantidad())){
-                Session::set("msg",Session::msgDanger("El stock emisor no cuenta con suficiente carga"));
+            if($object->getReceptor()->getCombustible()->getStock() < $object->getCantidad()){
+                Session::set("msg",Session::msgDanger("El stock emisor no cuenta con suficiente capacidad"));
                 return false;
             } else {
                 return $this->execute($this->getCreateQuery(), $this->getCreateParameter($object));

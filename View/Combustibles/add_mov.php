@@ -104,8 +104,8 @@
 <script>
     $(function(){
         $('#fecha').combodate({
-            format: 'DD-MM-YYYY-HH-mm',
-            template: 'DD / MM / YYYY     HH : mm'
+            format: 'DD-MM-YYYY-HH-mm-ss',
+            template: 'DD / MM / YYYY     HH : mm : ss'
         });
         $('#emi').magicSuggest({
             placeholder: 'Seleccione Stock Emisor',
