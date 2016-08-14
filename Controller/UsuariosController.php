@@ -204,7 +204,7 @@ class UsuariosController extends AppController
         $usuario->setNomReal($_POST['txtnom']);        
         $usuario->setNombre($this->clean($_POST['txtuser']));
         $usuario->setPass($_POST['txtpass']);
-        $usuario->setAvatar((isset($_FILES['avatar']) ? $this->upload->uploadImage($_FILES['avatar']) : ''));
+        $usuario->setAvatar((isset($_FILES['avatar']) ? $this->upload->uploadImage($_FILES['avatar']) : (new Usuario())->findById($usuario->getId())->getAvatar()));
         $usuario->setDireccion($_POST['txtdir']);
         $usuario->setTelefono($_POST['txttelefono']);
         $usuario->setCelular($_POST['txtcelular']);

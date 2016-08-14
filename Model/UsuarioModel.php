@@ -88,7 +88,7 @@ class UsuarioModel extends AppModel
     protected function getUpdateParameter($object) {
         return [
                 $object->getDocumento(), $object->getNombre(), $object->getNomReal(), 
-                md5($object->getPass()), $object->getAvatar(), $object->getDireccion(),
+                $this->getCheckPass($object), $object->getAvatar(), $object->getDireccion(),
                 $object->getTelefono(), $object->getCelular(), $object->getTipo(),
                 $object->getRol()->getId(), $object->getId()
             ];
@@ -97,6 +97,14 @@ class UsuarioModel extends AppModel
         return "update usuarios set usuDocumento = ?,usuNombre = ?,usuNomReal = ?,usuPass = ?,"
             . "usuAvatar = ?,usuDireccion = ?,usuTelefono = ?,usuCelular = ?,usuTipo = ?,"
             . "rolId = ? where usuId = ?";
+    }
+    private function getCheckPass($object){
+        $usuario = $this->findById($object->getId());
+        if($usuario->getPass() != $object->getPass()){
+            return md5($object->getPass());
+        } else {
+            return $usuario->getPass(); 
+        }
     }
     /*------------------------------------------------------------------------------------*/
     public function createEntity($row) {
