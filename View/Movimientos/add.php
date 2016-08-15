@@ -12,7 +12,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Cantidad&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcant" class="form-control" required="required" placeholder="Ej: 15.8" onkeypress="return validarNumeroP(event)" pattern="[\d\.]*" tabindex="2" />
+                        <input type="text" name="txtcant" class="form-control" maxlength="15" required="required" placeholder="Ej: 15.8" onkeypress="return validarNumeroP(event)" pattern="[\d\.]*" tabindex="2" />
                     </div>
                 </div>
                 <div class="form-group">

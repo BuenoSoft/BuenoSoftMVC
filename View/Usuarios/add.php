@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Dirección&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtdir" class="form-control" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d]*" placeholder="Ej: Dr. Soca 300" tabindex="3" required="required" />
+                        <input type="text" name="txtdir" class="form-control" maxlength="30" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d]*" placeholder="Ej: Dr. Soca 300" tabindex="3" required="required" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -59,7 +59,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Contraseña&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="password" name="txtpass" class="form-control" required="required" placeholder="Ej: penelope4512" tabindex="7" />
+                        <input type="password" name="txtpass" class="form-control" maxlength="32" required="required" placeholder="Ej: penelope4512" tabindex="7" />
                     </div>
                 </div>
                 <div class="form-group">
