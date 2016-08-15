@@ -3,7 +3,6 @@ namespace Controller;
 use \App\Session;
 use \App\Breadcrumbs;
 use \Clases\TipoVehiculo;
-use \Clases\Combustible;
 use \Clases\Vehiculo;
 class VehiculosController extends AppController
 {
@@ -46,7 +45,7 @@ class VehiculosController extends AppController
                         exit();
                     } else {
                         Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
-                    }                                                        
+                    }                                                                                                           
                 }
             }
             $this->redirect_administrador(["add.php"],[
@@ -65,7 +64,7 @@ class VehiculosController extends AppController
             if (Session::get('vh')!=null && isset($_POST['btnaceptar'])){                
                 if(!isset($_POST['tipo'][0])){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo de Vehiculo"));
-                } else if(($_POST['hdnstock'] + $_POST['txtstock']) > $_POST['txtcap']){
+                } else if($_POST['txtstock'] > $_POST['txtcap']){
                     Session::set("msg",Session::msgDanger("El stock ingresado excede a la capacidad de carga"));
                 } else {
                     $veh = $this->createEntity();
@@ -75,7 +74,7 @@ class VehiculosController extends AppController
                         exit();
                     } else {
                         Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
-                    }                                                                             
+                    }                                                                                                                      
                 }
             }
             $this->redirect_administrador(["edit.php"],[
@@ -108,7 +107,7 @@ class VehiculosController extends AppController
                     if((new Vehiculo())->findById($vehiculo->getId()) == null){
                         Session::set("msg", Session::msgSuccess("Vehículo Borrado"));
                     } else {
-                        Session::set("msg", Session::msgDanger("El vehículo está siendo usado en algunas aplicaciones"));
+                        Session::set("msg", Session::msgDanger("El vehículo está en algunas aplicaciones y/o movimientos"));
                     }
                 }
                 header("Location:index.php?&c=vehiculos&a=index");
@@ -139,12 +138,7 @@ class VehiculosController extends AppController
         $vehiculo->setMarca($this->clean($_POST['txtmarca']));
         $vehiculo->setAnio($this->clean($_POST['txtanio']));
         $vehiculo->setHorasRec($this->clean($_POST['txthoras']));
-        $vehiculo->setCombustible($this->getCombustible($vehiculo->getTipo()->getId()));
         return $vehiculo;
-    }
-    private function getCombustible($tipo) {
-        $combustible = (new Combustible())->findByTipo($tipo);
-        return ($combustible != null) ? $combustible : null;
     }
     protected function getRoles() {
         return ["Administrador","Supervisor"];

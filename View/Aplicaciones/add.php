@@ -100,9 +100,9 @@
                     </div>
                 <?php } ?>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Padrón&nbsp;<font color="red">*</font></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Padrón</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtpadron" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d]*" maxlength="15" class="form-control"  placeholder="" required="required" tabindex="14" value="<?php echo \App\Session::get("pass")[13]; ?>" />
+                        <input type="text" name="txtpadron" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d]*" maxlength="15" class="form-control"  placeholder="" tabindex="14" value="<?php echo \App\Session::get("pass")[13]; ?>" />
                     </div>
                 </div>
                 <div class="form-group">
@@ -273,7 +273,7 @@
             sortDir: 'asc',
             data: [
                 <?php foreach ($usuarios as $usuario){
-                    if($usuario->getRol()->getNombre() == "Piloto") { ?>
+                    if($usuario->getRol()->getNombre() == "Piloto" or $usuario->getRol()->getNombre() == "Administrador") { ?>
                      '<?php echo $usuario->getNomReal(); ?>',
                 <?php } } ?>
             ]

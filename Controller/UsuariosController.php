@@ -184,7 +184,7 @@ class UsuariosController extends AppController
                             Session::set("msg",Session::msgSuccess("Usuario Borrado"));
                         } else {
                             if($usuario->getRol()->getNombre() == "Cliente"){
-                                Session::set("msg",Session::msgDanger("El cliente tiene pistas a su nombre"));  
+                                Session::set("msg",Session::msgDanger("El cliente tiene pistas a su nombre y/o solicitó aplicaciones"));  
                             } else if($usuario->getRol()->getNombre() == "Piloto"){
                                 Session::set("msg",Session::msgDanger("El piloto tiene aeronaves asignadas"));
                             } else {

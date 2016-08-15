@@ -27,13 +27,13 @@ class VehiculoModel extends AppModel
     protected function getCreateParameter($object) {
         return [
             $object->getMatricula(),$object->getPadron(),$object->getTipo()->getId(),
-            $object->getCapcarga(),$object->getStock(),$object->getModelo(),$object->getMarca(),
-            $object->getAnio(),0,$object->getHorasRec(),$object->getCombustible()->getId()
+            $object->getCapcarga(),$object->getStock(),$object->getModelo(),
+            $object->getMarca(),$object->getAnio(),0,$object->getHorasRec()
         ];
     }
     protected function getCreateQuery() {
         return "insert into vehiculos(vehMatricula,vehPadron,tvId,vehCapCarga,vehStock,"
-        . "vehModelo,vehMarca,vehAnio,vehTaquiDif,vehHorasRec,comId) values(?,?,?,?,?,?,?,?,?,?,?)";
+        . "vehModelo,vehMarca,vehAnio,vehTaquiDif,vehHorasRec) values(?,?,?,?,?,?,?,?,?,?)";
     }
     /*------------------------------------------------------------------------------------*/
     protected function getDeleteParameter($object) {
@@ -43,7 +43,9 @@ class VehiculoModel extends AppModel
         $sql = "delete from vehiculos where vehId = ?";
         if($notUsed){
             $sql .= "and vehId not in (select distinct vehAero from aplicaciones)"
-                . "and vehId not in (select distinct vehTerr from aplicaciones)";
+                . "and vehId not in (select distinct vehTerr from aplicaciones)"
+                . "and vehId not in (select distinct vehEmi from movimientos)"
+                . "and vehId not in (select distinct vehRec from movimientos)";
         }
         return $sql;
     }
@@ -63,12 +65,12 @@ class VehiculoModel extends AppModel
         return [
             $object->getMatricula(),$object->getPadron(),$object->getTipo()->getId(),
             $object->getCapcarga(),$object->getStock(),$object->getModelo(),$object->getMarca(),
-            $object->getAnio(),$object->getHorasRec(),$object->getCombustible()->getId(), $object->getId()
+            $object->getAnio(),$object->getHorasRec(), $object->getId()
         ];
     }
     protected function getUpdateQuery() {
         return "update vehiculos set vehMatricula = ?,vehPadron = ?,tvId = ?,vehCapCarga = ?,"
-        . "vehStock = ?,vehModelo = ?,vehMarca = ?,vehAnio = ?,vehHorasRec = ?,comId = ? where vehId = ?";
+        . "vehStock = ?,vehModelo = ?,vehMarca = ?,vehAnio = ?,vehHorasRec = ? where vehId = ?";
     }
     /*------------------------------------------------------------------------------------*/
     private function getUpdateTaquiParameter($object) {
@@ -97,7 +99,6 @@ class VehiculoModel extends AppModel
         $vehiculo->setAnio($row["vehAnio"]);
         $vehiculo->setTaquiDif($row["vehTaquiDif"]);
         $vehiculo->setHorasRec($row["vehHorasRec"]);
-        $vehiculo->setCombustible((new CombustibleModel())->findById($row["comId"]));
         return $vehiculo;
     }
 }

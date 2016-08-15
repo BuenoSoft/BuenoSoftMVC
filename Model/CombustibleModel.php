@@ -6,8 +6,8 @@ class CombustibleModel extends AppModel
     public function __construct() {
         parent::__construct();
     }
-    public function findByTipo($tipo){
-        return $this->findByCondition("select * from combustibles where tvId = ?", [$tipo]);
+    public function findByX($x) {        
+        return $this->findByCondition($this->getCheckQuery(), [$x]);
     }
     /*-------------------------------------------------------------------------------*/
     protected function getCheckMessage() {
@@ -34,7 +34,8 @@ class CombustibleModel extends AppModel
     protected function getDeleteQuery($notUsed = true) {
         $sql ="delete from combustibles where comId = ?";
         if($notUsed){
-            $sql .= "and comId not in (select distinct comId from vehiculos)";
+            $sql .= "and comId not in (select distinct comEmi from movimientos)"
+                    . "and comId not in (select distinct comRec from movimientos)";
         }
         return $sql;
     }
@@ -72,15 +73,5 @@ class CombustibleModel extends AppModel
         $combustible->setFecUC($row["comFecUC"]);
         $combustible->setTipo((new TipoVehiculoModel())->findById($row["tvId"]));
         return $combustible;
-    }
-    /*-------------------------------------------------------------------------------*/
-    public function addMov($mov){
-        return (new MovimientoModel())->addMov($mov);
-    }
-    public function delMov($mov){
-        return (new MovimientoModel())->delMov($mov);        
-    }
-    public function getMovimientos($comb){
-        return (new MovimientoModel())->getMovimientos($comb);
     }
 }

@@ -15,7 +15,6 @@ class Vehiculo implements IPersiste
     private $anio;
     private $taquiDif;
     private $horasRec;
-    private $combustible;
     function getId() {
         return $this->id;
     }
@@ -49,9 +48,6 @@ class Vehiculo implements IPersiste
     function getHorasRec() {
         return $this->horasRec;
     }
-    function getCombustible() {
-        return $this->combustible;
-    }
     function setId($id) {
         $this->id = $id;
     }
@@ -84,9 +80,6 @@ class Vehiculo implements IPersiste
     }
     function setHorasRec($horasRec) {
         $this->horasRec = $horasRec;
-    }
-    function setCombustible($combustible) {
-        $this->combustible = $combustible;
     }
     /*------------------------------------------*/    
     function __construct() { }

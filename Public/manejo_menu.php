@@ -115,8 +115,8 @@
                                 </a>
                             </li>
                             <li class="sub-menu">
-                                <a href="index.php?c=combustibles&a=index">
-                                    <i class="fa fa-fire"></i>&nbsp;Combustibles
+                                <a href="index.php?c=movimientos&a=index">
+                                    <i class="fa fa-retweet"></i>&nbsp;Movimientos
                                 </a>
                             </li>
                 <?php   } 
@@ -129,6 +129,11 @@
                             <li class="sub-menu">
                                 <a href="index.php?c=usuarios&a=index">
                                     <i class="fa fa-users"></i>&nbsp;Usuarios
+                                </a>
+                            </li>
+                            <li class="sub-menu">
+                                <a href="index.php?c=combustibles&a=index">
+                                    <i class="fa fa-fire"></i>&nbsp;Combustibles
                                 </a>
                             </li>
                             <li class="sub-menu">

@@ -66,10 +66,8 @@ class Breadcrumbs
             return "Ver Vehículo";
         } else if($array[0] == "producto"){
             return "Ver Producto";
-        } else if($array[0] == "historial"){
-            return "Historial de Combustible";
-        } else if($array[0] == "add_mov"){
-            return "Movimientos";    
+        } else if($array[0] == "combustible"){
+            return "Ver Combustible";    
         } else {
             return $array[0]." ".$array[1];
         }        

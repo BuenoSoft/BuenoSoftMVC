@@ -1,12 +1,13 @@
-<table width="100%" style="margin-left:20px;"> 
+<table width="100%"> 
     <tr>
-        <td class="tablesize">
+        <td>
             <?php
             header('Content-Type: text/html; charset=utf-8');
             //if (!ini_get('date.timezone')) {
               //  date_default_timezone_set('America/Argentina');
             //}
             require_once 'Lib/Feed.php';
+      
             $rss = Feed::loadRss('http://www.espectador.com/rss/agro.xml');
             ?>
             <table style="margin: 0 auto;">
@@ -48,8 +49,9 @@
             <?php endif ?>
             <?php endforeach ?>
         </td>
-        <td border>
-        <table class="tabletop">
+        <td width="15" style="min-width:15px;"></td>
+        <td valign="top">
+            <table class="tabletop">
            <tr>
                <td class="centrado titulonoticia">
                    Tomás Gomensoro

@@ -56,12 +56,6 @@
                         <?php echo $vehiculo->getAnio(); ?>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Combustible</label>
-                    <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $vehiculo->getCombustible()->getNombre(); ?>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

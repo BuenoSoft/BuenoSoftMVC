@@ -59,7 +59,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Horas a recorrer</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txthoras" class="form-control" required="required" placeholder="Ej: 50" onkeypress="return validarNumero(event);" tabindex="12" />
+                        <input type="text" name="txthoras" class="form-control" placeholder="Ej: 50" onkeypress="return validarNumero(event);" tabindex="12" />
                     </div>
                 </div>
             </div>

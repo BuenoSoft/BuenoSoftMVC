@@ -177,8 +177,8 @@ class AplicacionesController extends AppController
                 if($apl->getAeronave()->getTaquiDif() >= $apl->getAeronave()->getHorasRec()){
                     $not = new Notificacion();
                     $not->setId(0);
-                    $not->setLog("Usted debe realizar a la aeronave ".$apl->getAeronave()->getMatricula()." un mantenimiento");
-                    $not->setFechaini(date("Y-m-d"));
+                    $not->setMensaje("Usted debe realizar a la aeronave ".$apl->getAeronave()->getMatricula()." un mantenimiento");
+                    $not->setFecha(date("Y-m-d"));
                     $not->setVehiculo($apl->getAeronave());
                     $not->save();
                     $apl->getAeronave()->setTaquiDif(($apl->getAeronave()->getTaquiDif() - $apl->getAeronave()->getHorasRec()));

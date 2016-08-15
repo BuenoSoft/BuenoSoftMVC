@@ -63,8 +63,10 @@ class UsuarioModel extends AppModel
         $sql ="delete from usuarios where usuId = ?";
         if($notUsed){
             $sql .= "and usuId not in (select distinct usuId from pistas)"
+                . "and usuId not in (select distinct usuId from aplicaciones)"    
                 . "and usuId not in (select distinct usuPiloto from aplicaciones)"
-                . "and usuId not in (select distinct usuChofer from aplicaciones)";
+                . "and usuId not in (select distinct usuChofer from aplicaciones)"
+                . "and usuId not in (select distinct usuId from movimientos)";
         }
         return $sql;
     }

@@ -157,7 +157,7 @@ class Feed
 		} elseif (self::$cacheDir && $data = @file_get_contents($cacheFile)) {
 			// ok
 		} else {
-			throw new FeedException('No se puede cargar feed.');
+			throw new FeedException('No se puede cargar el feed de las noticias, intente de nuevo.');
 		}
 		return new SimpleXMLElement($data, LIBXML_NOWARNING | LIBXML_NOERROR);
 	}

@@ -110,20 +110,10 @@ class Combustible implements IPersiste
     public function findById($id) {
         return (new CombustibleModel())->findById($id);
     }
-    public function findByTipo($tipo) {
-        return (new CombustibleModel())->findByTipo($tipo);
-    }
     public function save() {
         return ($this->id == 0) ? (new CombustibleModel())->create($this) : (new CombustibleModel())->update($this);
     }
-    /*---------------------------------------*/
-    public function addMov($mov){
-        return (new CombustibleModel())->addMov($mov);                
+    public function findByX($x) {        
+        return (new CombustibleModel())->findByX($x);
     }
-    public function delMov($mov){
-        return (new CombustibleModel())->delMov($mov);        
-    }
-    public function getMovimientos(){
-        return (new CombustibleModel())->getMovimientos($this->id);
-    } 
 }
