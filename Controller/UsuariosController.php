@@ -183,8 +183,8 @@ class UsuariosController extends AppController
                         if((new Usuario())->findById($usuario->getId()) == null){
                             Session::set("msg",Session::msgSuccess("Usuario Borrado"));
                         } else {
-                            if($usuario->getRol()->getNombre() == "Administrador"){
-                                Session::set("msg",Session::msgDanger("El administrador tiene movimientos asignados"));
+                            if($usuario->getRol()->getNombre() == "Administrador" or $usuario->getRol()->getNombre() == "Supervisor"){
+                                Session::set("msg",Session::msgDanger("El ".$usuario->getRol()->getNombre()." tiene movimientos asignados"));
                             }
                             else if($usuario->getRol()->getNombre() == "Cliente"){
                                 Session::set("msg",Session::msgDanger("El cliente tiene pistas a su nombre y/o solicitó aplicaciones"));  
