@@ -30,20 +30,6 @@
                     </div>
                 </div>               
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div style="padding-left: 150px;" >
-                    <table>
-                        <tr>
-                            <td style="padding-top: 18px; padding-right: 5px;">
-                                <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="9"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
-                            </td>
-                            <td>
-                                <a href="index.php?c=vehiculos&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04" tabindex="10"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
-                            </td>
-                        </tr>                   
-                    </table>                
-                </div>
-            </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
@@ -86,9 +72,12 @@
                         </a>                        
                     </div>
                 </div>  
-            </div>           
-        </div>
-        
+            </div>
+            <div style="text-align: center;">
+                <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="12"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;
+                <a href="index.php?c=vehiculos&a=index"><button type="button" name="btncancelar" value="Cancelar" class="btn btn-theme04" tabindex="13"><i class="fa fa-times"></i>&nbsp;Cancelar</button></a>
+            </div>            
+        </div>        
     </div>
 </form>
 <script>

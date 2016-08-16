@@ -2,6 +2,7 @@
 namespace Controller;
 use \App\Session;
 use \App\Breadcrumbs;
+use \Clases\Usuario;
 use \Clases\Combustible;
 use \Clases\Vehiculo;
 use \Clases\Movimiento;
@@ -152,6 +153,19 @@ class MovimientosController extends AppController
             ]);        
         } else {
             Session::set("msg", Session::msgDanger("Debe loguearse como administrador o supervisor o piloto para acceder."));
+            header("Location:index.php?c=todos&a=index");
+        }
+    }
+    public function usuario(){
+        if(Session::get("log_in") != null){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
+            $this->redirect_administrador(["usuario.php"],["usuario" => (new Usuario())->findById($_GET['d'])]);
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));
             header("Location:index.php?c=todos&a=index");
         }
     }

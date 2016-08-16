@@ -53,7 +53,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Año del Vehículo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtanio" class="form-control" rrequired="required" placeholder="Ej: 2010" onkeypress="return validarNumero(event);" tabindex="11" />
+                        <input type="text" name="txtanio" class="form-control" required="required" placeholder="Ej: 2010" onkeypress="return validarNumero(event);" tabindex="11" />
                     </div>
                 </div>
                 <div class="form-group">

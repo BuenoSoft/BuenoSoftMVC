@@ -17,6 +17,7 @@
                 <th>Cantidad</th>
                 <th>Emisor</th>
                 <th>Receptor</th>
+                <th>Usuario</th>
                 <th>Opciones</th>                
             </thead>
             <tbody>
@@ -45,6 +46,11 @@
                                     <?php echo $movimiento->getVehRec()->getMatricula(); ?>
                                 </a>
                             <?php } ?>
+                        </td>
+                        <td>
+                            <a href="index.php?c=movimientos&a=usuario&d=<?php echo $movimiento->getUsuario()->getId(); ?>">
+                                <?php echo $movimiento->getUsuario()->getNomReal(); ?>
+                            </a>                            
                         </td>
                         <td>
                             <a href="index.php?c=movimientos&a=delete&d=<?php echo $movimiento->getId()?>" onclick="return confirm('¿Desea borrar este movimiento?');" title="Borrar">
