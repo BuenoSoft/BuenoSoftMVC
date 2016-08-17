@@ -15,14 +15,15 @@ class EstadisticasController extends AppController
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
             $this->redirect_administrador(["index.php"],[
-                "estadistica" => (new EstadisticaModel())->lists()
+                "estadistica" => (new EstadisticaModel())->lists(),
+                "pilotos" => (new EstadisticaModel())->listHsXPiloto()
             ]);
         }
     }
     protected function getRoles() {
-        return ["Administrador","Supervisor","Piloto"];
+        return ["Administrador","Supervisor"];
     }
     protected function getMessageRole() {
-        return "cualquier usuario menos chofer y cliente";
+        return "administrador o supervisor";
     }
 }
