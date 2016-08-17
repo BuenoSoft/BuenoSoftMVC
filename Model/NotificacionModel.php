@@ -23,8 +23,7 @@ class NotificacionModel extends AppModel
                 . "left join vehiculos v on n.vehId = v.vehId "
                 . "left join usuarios u on n.usuId = u.usuId";
         if($criterio == null){
-            if(Session::get("log_in")->getRol()->getNombre() == "Administrador" or Session::get("log_in")->getRol()->getNombre() == "Supervisor"){
-            } else {
+            if(Session::get("log_in")->getRol()->getNombre() != "Administrador" and Session::get("log_in")->getRol()->getNombre() != "Supervisor"){
                 $sql .=" where n.usuId = :log";
             }
         } else {

@@ -52,7 +52,8 @@
                 <th>Piloto</th>
                 <th>Aeronave</th>                
                 <th>Usuario</th>
-                <th>Pista</th>
+                <th>Hectáreas</th>                
+                <th>Caudal</th>
                 <th>Tipo</th>
                 <th>Estado</th>
                 <th>Opciones</th>
@@ -75,11 +76,8 @@
                                 <?php echo $aplicacion->getCliente()->getNomReal(); ?>
                             </a>
                         </td>
-                        <td>
-                            <a href="index.php?c=pistas&a=view&d=<?php echo $aplicacion->getPista()->getId(); ?>">
-                                <?php echo $aplicacion->getPista()->getNombre(); ?>
-                            </a>
-                        </td>
+                        <td><?php echo $aplicacion->getAreaapl(); ?></td>                        
+                        <td><?php echo $aplicacion->getCaudal(); ?></td>
                         <td><?php echo $aplicacion->getTipo()->getNombre(); ?></td>
                         <td>
                             <?php  

@@ -19,24 +19,45 @@
                 <th>Opciones</th>                
             </thead>
             <tbody>
-                <?php foreach($usuarios as $usuario) { ?>  
-                    <tr style="<?php echo $style; ?>">                        
-                        <td><?php echo $usuario->getNombre(); ?></td>
-                        <td><?php echo $usuario->getNomReal(); ?></td>
-                        <td><?php echo $usuario->getRol()->getNombre(); ?></td>                        
-                        <td>
-                            <a href="index.php?c=usuarios&a=view&d=<?php echo $usuario->getId(); ?>" title="Ver">
-                                <i class="fa fa-eye" style="font-size: 22px;"></i>
-                            </a>&nbsp;
-                            <a href="index.php?c=usuarios&a=edit&d=<?php echo $usuario->getId(); ?>" title="Editar">
-                                <i class="fa fa-edit" style="font-size: 22px;"></i>
-                            </a>&nbsp;
-                            <a href="index.php?c=usuarios&a=delete&d=<?php echo $usuario->getId(); ?>" onclick="return confirm('¿Desea borrar el usuario seleccionado?');" title="Borrar">
-                                <i class="fa fa-times-circle" style="font-size: 22px;"></i>
-                            </a>
-                        </td>
-                    </tr>
-                <?php } ?>
+                <?php foreach($usuarios as $usuario) {
+                    if(App\Session::get('log_in')->getRol()->getNombre() == "Administrador"){
+                        if($usuario->getRol()->getNombre() != "Supervisor"){
+                ?>  
+                            <tr>                        
+                                <td><?php echo $usuario->getNombre(); ?></td>
+                                <td><?php echo $usuario->getNomReal(); ?></td>
+                                <td><?php echo $usuario->getRol()->getNombre(); ?></td>                        
+                                <td>
+                                    <a href="index.php?c=usuarios&a=view&d=<?php echo $usuario->getId(); ?>" title="Ver">
+                                        <i class="fa fa-eye" style="font-size: 22px;"></i>
+                                    </a>&nbsp;
+                                    <a href="index.php?c=usuarios&a=edit&d=<?php echo $usuario->getId(); ?>" title="Editar">
+                                        <i class="fa fa-edit" style="font-size: 22px;"></i>
+                                    </a>&nbsp;
+                                    <a href="index.php?c=usuarios&a=delete&d=<?php echo $usuario->getId(); ?>" onclick="return confirm('¿Desea borrar el usuario seleccionado?');" title="Borrar">
+                                        <i class="fa fa-times-circle" style="font-size: 22px;"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                <?php   } 
+                    } else {?>
+                            <tr>                        
+                                <td><?php echo $usuario->getNombre(); ?></td>
+                                <td><?php echo $usuario->getNomReal(); ?></td>
+                                <td><?php echo $usuario->getRol()->getNombre(); ?></td>                        
+                                <td>
+                                    <a href="index.php?c=usuarios&a=view&d=<?php echo $usuario->getId(); ?>" title="Ver">
+                                        <i class="fa fa-eye" style="font-size: 22px;"></i>
+                                    </a>&nbsp;
+                                    <a href="index.php?c=usuarios&a=edit&d=<?php echo $usuario->getId(); ?>" title="Editar">
+                                        <i class="fa fa-edit" style="font-size: 22px;"></i>
+                                    </a>&nbsp;
+                                    <a href="index.php?c=usuarios&a=delete&d=<?php echo $usuario->getId(); ?>" onclick="return confirm('¿Desea borrar el usuario seleccionado?');" title="Borrar">
+                                        <i class="fa fa-times-circle" style="font-size: 22px;"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                <?php }} ?>            
             </tbody>
         </table>
         <?php if ($paginador != null) { ?> 

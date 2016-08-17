@@ -106,7 +106,14 @@
                                 <a href="index.php?c=aplicaciones&a=index">
                                     <i class="fa fa-plane"></i>&nbsp;Aplicaciones
                                 </a>
-                            </li>                                    
+                            </li>
+                            <?php if(App\Session::get('log_in')->getRol()->getNombre() != "Chofer" and App\Session::get('log_in')->getRol()->getNombre() != "Cliente"){ ?>
+                                <li class="sub-menu">
+                                    <a href="index.php?c=estadisticas&a=index">
+                                        <i class="fa fa-bar-chart"></i>&nbsp;Estadísticas
+                                    </a>
+                                </li>
+                            <?php } ?>
                 <?php   } 
                         if(App\Session::get('log_in')->getRol()->getNombre() != "Chofer" and App\Session::get('log_in')->getRol()->getNombre() != "Cliente"){ ?>            
                             <li class="sub-menu">
@@ -114,26 +121,23 @@
                                     <i class="fa fa-warning"></i>&nbsp;Notificaciones
                                 </a>
                             </li>
+                            <?php if((App\Session::get('log_in')->getRol()->getNombre() == "Administrador" or App\Session::get('log_in')->getRol()->getNombre() == "Supervisor")){ ?>
+                                <li class="sub-menu">
+                                    <a href="index.php?c=combustibles&a=index">
+                                        <i class="fa fa-fire"></i>&nbsp;Combustibles
+                                    </a>
+                                </li> 
+                            <?php } ?>
                             <li class="sub-menu">
                                 <a href="index.php?c=movimientos&a=index">
                                     <i class="fa fa-retweet"></i>&nbsp;Movimientos
                                 </a>
                             </li>
                 <?php   } 
-                        if((App\Session::get('log_in')->getRol()->getNombre() == "Administrador" or App\Session::get('log_in')->getRol()->getNombre() == "Supervisor")){ ?>                                
-                            <li class="sub-menu">
-                                <a href="index.php?c=estadisticas&a=index">
-                                    <i class="fa fa-bar-chart"></i>&nbsp;Estadísticas
-                                </a>
-                            </li> 
+                        if((App\Session::get('log_in')->getRol()->getNombre() == "Administrador" or App\Session::get('log_in')->getRol()->getNombre() == "Supervisor")){ ?>                                                             
                             <li class="sub-menu">
                                 <a href="index.php?c=usuarios&a=index">
                                     <i class="fa fa-users"></i>&nbsp;Usuarios
-                                </a>
-                            </li>
-                            <li class="sub-menu">
-                                <a href="index.php?c=combustibles&a=index">
-                                    <i class="fa fa-fire"></i>&nbsp;Combustibles
                                 </a>
                             </li>
                             <li class="sub-menu">

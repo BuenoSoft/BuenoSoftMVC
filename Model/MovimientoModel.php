@@ -57,23 +57,40 @@ class MovimientoModel extends AppModel
     }
     /*-------------------------------------------------------------------------------*/
     protected function getFindParameter($criterio = null) { 
-        return ["filtro" => "%".$criterio."%"];       
+        if($criterio == null){
+            if(Session::get("log_in")->getRol()->getNombre() != "Administrador" and Session::get("log_in")->getRol()->getNombre() != "Supervisor"){
+                return ["log" => Session::get("log_in")->getId()];
+            } 
+        }
+        else {
+            if(Session::get("log_in")->getRol()->getNombre() == "Administrador" or Session::get("log_in")->getRol()->getNombre() == "Supervisor"){
+                return ["filtro" => "%".$criterio."%"];
+            } else {
+                return ["filtro" => "%".$criterio."%", "log" => Session::get("log_in")->getId()];
+            }
+        }
     }
     protected function getFindQuery($criterio = null) { 
+        $sql = "select * from movimientos m";
         if($criterio == null){
-            return "select * from movimientos order by movFecha";
+            if(Session::get("log_in")->getRol()->getNombre() != "Administrador" and Session::get("log_in")->getRol()->getNombre() != "Supervisor"){
+                $sql .=" where m.usuId = :log";                       
+            }
         } else {
-            return "select * from movimientos m "
-            . "left join combustibles ce on m.comEmi = ce.comId "
-            . "left join combustibles cr on m.comRec = cr.comId "
-            . "left join vehiculos ve on m.vehEmi = ve.vehId "
-            . "left join vehiculos vr on m.vehRec = vr.vehId "        
-            . "where ce.comNombre like :filtro or "
-            . "cr.comNombre like :filtro or "
-            . "ve.vehMatricula like :filtro or "
-            . "vr.vehMatricula like :filtro "
-            . "order by m.movFecha";         
+            $sql .= "left join combustibles ce on m.comEmi = ce.comId "
+                . "left join combustibles cr on m.comRec = cr.comId "
+                . "left join vehiculos ve on m.vehEmi = ve.vehId "
+                . "left join vehiculos vr on m.vehRec = vr.vehId "
+                . "where ce.comNombre like :filtro or "
+                . "cr.comNombre like :filtro or "
+                . "ve.vehMatricula like :filtro or "
+                . "vr.vehMatricula like :filtro ";
+            if(Session::get("log_in")->getRol()->getNombre() != "Administrador" and Session::get("log_in")->getRol()->getNombre() != "Supervisor"){
+                $sql .="and m.usuId = :log";
+            }
         }
+        $sql .= " order by m.movFecha";
+        return $sql;
     }
     /*-------------------------------------------------------------------------------*/
     protected function getFindXIdQuery() { 

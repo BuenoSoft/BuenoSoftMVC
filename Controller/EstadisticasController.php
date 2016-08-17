@@ -20,9 +20,9 @@ class EstadisticasController extends AppController
         }
     }
     protected function getRoles() {
-        return ["Administrador","Supervisor"];
+        return ["Administrador","Supervisor","Piloto"];
     }
     protected function getMessageRole() {
-        return "administrador o supervisor";
+        return "cualquier usuario menos chofer y cliente";
     }
 }
