@@ -26,8 +26,9 @@ class EstadisticaModel extends AppModel
             . "from usuarios u "
             . "inner join aplicaciones a on a.usuPiloto = u.usuId "
             . "inner join vehiculos v on a.vehAero = v.vehId "
-            . "where a.aplFechaIni is not null and year(a.aplFechaIni) = year(now()) and a.aplFechaIni > 0 " 
-            ." group by month(a.aplFechaIni), a.usuPiloto";
+            . "where a.aplFechaIni is not null and year(a.aplFechaIni) = year(now()) and a.aplTaquiIni > 0 " 
+            . "group by month(a.aplFechaIni), a.usuPiloto "
+            . "order by u.usuNomReal";
     }
     public function listHsXPiloto(){
         $datos = [];

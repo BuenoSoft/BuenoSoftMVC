@@ -75,8 +75,8 @@ class AplicacionesController extends AppController
                     Session::set("msg",Session::msgDanger("Asegurese de que la fecha de inicio sea menor a la fecha final"));
                 } else if((Session::get("pass")[11] != null and Session::get("pass")[12] != null) and (Session::get("pass")[11] > Session::get("pass")[12])){
                     Session::set("msg",Session::msgDanger("Asegurese de que el taquimetro inicial sea menor al final"));                    
-                } else if((Session::get("pass")[6] == null or Session::get("pass")[7] == null) and (Session::get("pass")[11] != null or Session::get("pass")[12] != null)){
-                    Session::set("msg",Session::msgDanger("Asegurese que para los taquímetros tener las fechas ingresadas"));
+                } else if(Session::get("pass")[6] == null and (Session::get("pass")[11] != null or Session::get("pass")[12] != null)){
+                    Session::set("msg",Session::msgDanger("Asegurese que para los taquímetros tener las fecha inicial ingresada"));
                 } else {
                     $apl = $this->createEntity();
                     $apl->save();
@@ -136,8 +136,8 @@ class AplicacionesController extends AppController
                     Session::set("msg",Session::msgDanger("Asegurese de que la fecha de inicio sea menor a la fecha final"));
                 } else if((Session::get("pass")[11] != null and Session::get("pass")[12] != null) and (Session::get("pass")[11] > Session::get("pass")[12])){
                     Session::set("msg",Session::msgDanger("Asegurese de que el taquimetro inicial sea menor al final"));
-                } else if((Session::get("pass")[6] == null or Session::get("pass")[7] == null) and (Session::get("pass")[11] > 0 or Session::get("pass")[12] > 0)){
-                    Session::set("msg",Session::msgDanger("Asegurese que para los taquímetros tener las fechas ingresadas"));
+                } else if(Session::get("pass")[6] == null and (Session::get("pass")[11] > 0 or Session::get("pass")[12] > 0)){
+                    Session::set("msg",Session::msgDanger("Asegurese que para los taquímetros tener las fechas inicial ingresada"));
                 } else {
                     $apl = $this->createEntity();
                     $apl->save();
