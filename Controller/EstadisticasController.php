@@ -16,7 +16,8 @@ class EstadisticasController extends AppController
             Session::set('enlaces', $bc->display());
             $this->redirect_administrador(["index.php"],[
                 "estadistica" => (new EstadisticaModel())->lists(),
-                "pilotos" => (new EstadisticaModel())->listHsXPiloto()
+                "pilotos" => (new EstadisticaModel())->listHsXPiloto(),
+                "vehiculos" => (new EstadisticaModel())->listHsXVehiculo()
             ]);
         }
     }

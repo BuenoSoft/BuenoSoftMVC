@@ -43,6 +43,27 @@ class EstadisticaModel extends AppModel
         }
         return $datos;
     }
+    private function getListHsXVehiculo(){
+        return "select distinct month(a.aplFechaIni) as mes, year(a.aplFechaIni)as anio, " 
+            . "sum((a.aplTaquiFin-a.aplTaquiIni)+v.vehHorasRec) as horas,v.vehMatricula as aeronave " 
+            . "from vehiculos v inner join aplicaciones a on a.vehAero = v.vehId "
+            . "where a.aplFechaIni is not null and year(a.aplFechaIni) = year(now()) and a.aplTaquiIni > 0 "
+            . "group by month(a.aplFechaIni), a.vehAero "
+            . "order by v.vehMatricula";
+    }
+    public function listHsXVehiculo(){
+        $datos = [];
+        foreach ($this->fetchValues($this->getListHsXVehiculo()) as $row){
+            $dato = [];
+            $dato[0]= $row["mes"];
+            $dato[1]= $row["anio"];
+            $dato[2]= $row["horas"];
+            $dato[3]= $row["aeronave"];
+            //En efecto, pero esta el problema de que debe verse en una misma linea varios nombres de piloto
+            array_push($datos, $dato);
+        }
+        return $datos;
+    }
     public function createEntity($row) { }
     protected function getCheckMessage() {}
     protected function getCheckParameter($unique) {}
