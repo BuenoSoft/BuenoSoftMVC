@@ -85,7 +85,6 @@ class AplicacionesController extends AppController
                     Session::set("msg",Session::msgSuccess("Aplicación Creada"));
                     header("Location:index.php?c=aplicaciones&a=index");
                     exit();
-                    $this->addProductos();
                 }             
             }
             $this->redirect_administrador(['add.php'],[

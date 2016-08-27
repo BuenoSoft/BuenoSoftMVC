@@ -44,7 +44,7 @@ class MovimientosController extends AppController
                     Session::set("msg",Session::msgDanger("Asegurese de seleccionar el stock emisor"));
                 } else if(isset($_POST['emi'][0]) and !isset($_POST['rec'][0])){
                     Session::set("msg",Session::msgDanger("Asegurese de seleccionar el stock receptor"));
-                } else if($_POST['emi'][0] == $_POST['rec'][0] ){
+                } else if($_POST['emi'][0] == $_POST['rec'][0]){
                     Session::set("msg",Session::msgDanger("Asegurese de que los stocks emisor y receptor sean distintos"));
                 } else {
                     $mov = $this->createEntity();
