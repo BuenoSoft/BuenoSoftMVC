@@ -16,7 +16,7 @@
         <link href="Public/css/manejo/magicsuggest.css" rel="stylesheet" type="text/css" />
         <link href="Public/css/manejo/zabuto_calendar.css" rel="stylesheet" type="text/css" >
         <link href="Public/js/manejo/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"  />
-        <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
+        <link href="Public/css/manejo/morris.css" rel="stylesheet" type="text/css" />
         <!-- Calendario -->
         <link href="Public/js/manejo/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" type="text/css" />
         <!-- Efecto de imagen -->
@@ -67,8 +67,8 @@
         <script src="Public/js/manejo/jquery.dcjqaccordion.2.7.js" class="include" type="text/javascript"></script>
         <script src="Public/js/manejo/jquery.nicescroll.js" type="text/javascript"></script>
         <!--common script for all pages-->
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js" type="text/javascript"></script>
- 	<script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js" type="text/javascript"></script>
+        <script src="Public/js/manejo/raphael.min.js" type="text/javascript"></script>
+        <script src="Public/js/manejo/morris.min.js" type="text/javascript"></script>
         <script src="Public/js/manejo/common-scripts.js" type="text/javascript"></script>
         <script src="Public/js/manejo/gritter/js/jquery.gritter.js" type="text/javascript"></script>
         <script src="Public/js/manejo/gritter-conf.js" type="text/javascript"></script>
