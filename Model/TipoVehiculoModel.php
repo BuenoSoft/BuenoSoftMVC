@@ -1,6 +1,7 @@
 <?php
 namespace Model;
-use Clases\TipoVehiculo;
+use \App\Session;
+use \Clases\TipoVehiculo;
 class TipoVehiculoModel extends AppModel
 {
     public function __construct() {
@@ -56,10 +57,15 @@ class TipoVehiculoModel extends AppModel
         return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) {
-        $sql = "delete from tipo_vehiculo where tvId = ?";
-        if($notUsed){
-            $sql .= "and tvId not in (select distinct tvId from vehiculos)";
-        }
-        return $sql;
+        return "delete from tipo_vehiculo where tvId = ?";
     }
+    protected function getCheckDelete($object) {
+        if($this->execute("select * from vehiculos where tvId = ?", [$object->getId()])){
+            Session::set("msg", Session::msgDanger("Hay vehículos utilizando este tipo"));
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

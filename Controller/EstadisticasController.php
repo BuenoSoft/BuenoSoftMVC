@@ -17,7 +17,8 @@ class EstadisticasController extends AppController
             $this->redirect_administrador(["index.php"],[
                 "estadistica" => (new EstadisticaModel())->lists(),
                 "pilotos" => (new EstadisticaModel())->listHsXPiloto(),
-                "vehiculos" => (new EstadisticaModel())->listHsXVehiculo()
+                "vehiculos" => (new EstadisticaModel())->listHsXVehiculo(),
+                "combustibles" => (new EstadisticaModel())->ListCantXCombustible()
             ]);
         }
     }

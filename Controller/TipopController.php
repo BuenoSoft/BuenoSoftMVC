@@ -67,12 +67,10 @@ class TipopController extends AppController
             if (isset($_GET['d'])){
                 $tp = (new TipoProducto())->findById($_GET['d']);
                 $id = $tp->del();
-                if(isset($id)){
-                    if((new TipoProducto())->findById($tp->getId()) == null){
-                        Session::set("msg",Session::msgSuccess("Tipo de Producto Borrado"));
-                    } else {
-                        Session::set("msg",Session::msgDanger("Hay productos usando este tipo"));
-                    }
+                if($id){
+                    Session::set("msg",Session::msgSuccess("Tipo de producto Borrado"));
+                } else {
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }
                 header("Location:index.php?c=tipop&a=index");
             }            

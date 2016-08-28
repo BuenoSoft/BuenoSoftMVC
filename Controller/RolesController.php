@@ -67,12 +67,10 @@ class RolesController extends AppController
             if (isset($_GET['d'])){
                 $rol = (new Rol())->findById($_GET['d']);
                 $id = $rol->del();
-                if(isset($id)){
-                    if((new Rol())->findById($rol->getId()) == null){
-                        Session::set("msg", Session::msgSuccess("Rol Borrado"));
-                    } else {
-                        Session::set("msg", Session::msgDanger("Hay usuarios con este rol"));
-                    }
+                if($id){
+                    Session::set("msg",Session::msgSuccess("Rol Borrado"));
+                } else {
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }
                 header("Location:index.php?c=roles&a=index");
             }            

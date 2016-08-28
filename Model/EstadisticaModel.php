@@ -80,6 +80,29 @@ class EstadisticaModel extends AppModel
         }
         return $datos;
     }
+    /*----------------------------------------------------------------------*/
+    private function getListCantXCombustible(){
+        return "select month(m.movFecha) as mes, year(m.movFecha)as anio, 
+            sum(m.movCant) as cantCombustible, c.comNombre as nomCombustible 
+            from movimientos m 
+            inner join combustibles c on m.comEmi = c.comId
+            where m.movFecha is not null and year(m.movFecha) = year(now()) and m.movCant > 0 
+            group by month(m.movFecha), c.comNombre 
+            order by month(m.movFecha),c.comNombre";
+    }
+    public function ListCantXCombustible(){
+        $datos = [];
+        foreach ($this->fetchValues($this->getListCantXCombustible()) as $row){
+            $dato = [];
+            $dato[0]= $row["mes"];
+            $dato[1]= $row["anio"];
+            $dato[2]= $row["cantCombustible"];
+            $dato[3]= $row["nomCombustible"];
+            //En efecto, pero esta el problema de que debe verse en una misma linea varios nombres de piloto
+            array_push($datos, $dato);
+        }
+        return $datos;
+    }
     public function createEntity($row) { }
     protected function getCheckMessage() {}
     protected function getCheckParameter($unique) {}
@@ -92,5 +115,6 @@ class EstadisticaModel extends AppModel
     protected function getFindQuery($criterio = null) { }
     protected function getFindXIdQuery() { }
     protected function getUpdateParameter($object) { }
-    protected function getUpdateQuery() { }    
+    protected function getUpdateQuery() { }
+    protected function getCheckDelete($object) {}
 }

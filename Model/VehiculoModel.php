@@ -1,5 +1,6 @@
 <?php
 namespace Model;
+use \App\Session;
 use \Clases\Vehiculo;
 class VehiculoModel extends AppModel 
 {
@@ -40,14 +41,24 @@ class VehiculoModel extends AppModel
         return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) {
-        $sql = "delete from vehiculos where vehId = ?";
-        if($notUsed){
-            $sql .= "and vehId not in (select distinct vehAero from aplicaciones)"
-                . "and vehId not in (select distinct vehTerr from aplicaciones)"
-                . "and vehId not in (select distinct vehEmi from movimientos)"
-                . "and vehId not in (select distinct vehRec from movimientos)";
+        return "delete from vehiculos where vehId = ?";
+    }
+    protected function getCheckDelete($object) {
+        if($this->execute("select * from aplicaciones where vehAero = ?", [$object->getId()])){
+            Session::set("msg", Session::msgDanger("Esta aeronave está siendo usada en alguna aplicación"));
+            return false;
+        } else if($this->execute("select * from aplicaciones where vehTerr = ?", [$object->getId()])){
+            Session::set("msg", Session::msgDanger("Este vehículo terrestre está siendo usado en alguna aplicación"));
+            return false;
+        } else if($this->execute("select * from movimientos where vehEmi = ?", [$object->getId()])){
+            Session::set("msg", Session::msgDanger("Este vehículo es emisor en algún movimiento"));
+            return false;
+        } else if($this->execute("select * from movimientos where vehRec = ?", [$object->getId()])){
+            Session::set("msg", Session::msgDanger("Este vehículo es receptor en algún movimiento"));
+            return false;
+        } else {
+            return true;         
         }
-        return $sql;
     }
     /*------------------------------------------------------------------------------------*/
     protected function getFindParameter($criterio = null) {

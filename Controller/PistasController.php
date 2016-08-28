@@ -83,13 +83,11 @@ class PistasController extends AppController
             if (isset($_GET['d'])){
                 $pis = (new Pista())->findById($_GET['d']);
                 $id = $pis->del();
-                if(isset($id)){
-                    if((new Pista())->findById($pis->getId()) == null){
-                        Session::set("msg",Session::msgSuccess("Pista Borrada"));
-                    } else {
-                        Session::set("msg",Session::msgDanger("Hay aplicaciones que tienen esta pista"));
-                    }
-                }
+                if($id){
+                    Session::set("msg",Session::msgSuccess("Pista Borrada"));
+                } else {
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                } 
                 header("Location:index.php?c=pistas&a=index");
             }            
         }

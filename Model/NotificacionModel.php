@@ -72,6 +72,9 @@ class NotificacionModel extends AppModel
     protected function getDeleteQuery($notUsed = true) { 
         return "delete from notificaciones where notId = ?";
     }
+    protected function getCheckDelete($object) {
+        return true;
+    }
     /*------------------------------------------------------------------------------------*/    
     protected function getFindXIdQuery() {
         return "select * from notificaciones where notId = ?";

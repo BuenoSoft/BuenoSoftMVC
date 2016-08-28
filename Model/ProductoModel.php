@@ -1,5 +1,6 @@
 <?php
 namespace Model;
+use \App\Session;
 use \Clases\Producto;
 class ProductoModel extends AppModel
 {
@@ -45,11 +46,15 @@ class ProductoModel extends AppModel
         return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) {
-        $sql ="delete from productos where proId = ?";
-        if($notUsed){
-            $sql .="and proId not in (select distinct proId from tiene)";
+        return "delete from productos where proId = ?";
+    }
+    protected function getCheckDelete($object) {
+        if($this->execute("select * from tiene where proId = ?", [$object->getId()])){
+            Session::set("msg", Session::msgDanger("Este producto está siendo usado en alguna aplicación"));
+            return false;
+        } else {
+            return true;
         }
-        return $sql;
     }
     /*---------------------------------------------------------------------*/
     protected function getFindParameter($criterio = null) {

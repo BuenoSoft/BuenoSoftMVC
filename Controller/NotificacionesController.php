@@ -43,7 +43,6 @@ class NotificacionesController extends AppController
                 } else if($not->getVehiculo() != null and $not->getUsuario() != null){
                     Session::set("msg",Session::msgDanger("Asegurese de que la notificación sea para el usuario o para vehículo"));
                 } else {
-                    //$id = $not->save();
                     if($not->save()){
                         Session::set("msg",Session::msgSuccess("Notificación Creada"));
                         header("Location:index.php?c=notificaciones&a=index");
@@ -74,7 +73,6 @@ class NotificacionesController extends AppController
                 } else if($not->getVehiculo() != null and $not->getUsuario() != null){
                     Session::set("msg",Session::msgDanger("Asegurese de que la notificación sea para el usuario o para vehículo"));
                 } else {                
-                    //$id = $not->save();
                     if($not->save()){
                         Session::set("msg",Session::msgSuccess("Notificación Editada"));
                         header("Location:index.php?c=notificaciones&a=index");

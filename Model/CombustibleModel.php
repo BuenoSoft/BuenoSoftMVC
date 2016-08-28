@@ -1,5 +1,6 @@
 <?php
 namespace Model;
+use \App\Session;
 use \Clases\Combustible;
 class CombustibleModel extends AppModel 
 {
@@ -32,12 +33,18 @@ class CombustibleModel extends AppModel
         return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) {
-        $sql ="delete from combustibles where comId = ?";
-        if($notUsed){
-            $sql .= "and comId not in (select distinct comEmi from movimientos)"
-                    . "and comId not in (select distinct comRec from movimientos)";
+        return "delete from combustibles where comId = ?";
+    }
+    protected function getCheckDelete($object) {
+        if($this->execute("select * from movimientos where comEmi = ?", [$object->getId()])){
+            Session::set("msg", Session::msgDanger("Este combustible es emisor de un movimiento"));
+            return false;
+        } else if($this->execute("select * from movimientos where comRec = ?", [$object->getId()])){
+            Session::set("msg", Session::msgDanger("Este combustible es receptor de un movimiento"));
+            return false;
+        } else {
+            return true;
         }
-        return $sql;
     }
     /*-------------------------------------------------------------------------------*/
     protected function getFindParameter($criterio = null) {

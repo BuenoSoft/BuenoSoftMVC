@@ -83,8 +83,12 @@ abstract class Model implements IModel
         }
     }
     /*------------------------------------------------------------------------*/
-    public function delete($object, $notUsed = true) {        
-        return $this->execute($this->getDeleteQuery($notUsed), $this->getDeleteParameter($object));        
+    public function delete($object, $notUsed = true) { 
+        if($this->getCheckDelete($object)){
+            return $this->execute($this->getDeleteQuery($notUsed), $this->getDeleteParameter($object));         
+        } else {
+            return false;
+        }       
     }
     /*--------------------------------------------------------------------*/
     public function find($criterio = null) {
@@ -98,6 +102,7 @@ abstract class Model implements IModel
     abstract protected function getCheckQuery();
     abstract protected function getCheckParameter($unique);
     abstract protected function getCheckMessage();
+    abstract protected function getCheckDelete($object);
     abstract protected function getCreateQuery();
     abstract protected function getCreateParameter($object);    
     abstract protected function getUpdateQuery();

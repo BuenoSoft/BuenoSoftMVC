@@ -1,5 +1,6 @@
 <?php
 namespace Model;
+use \App\Session;
 use \Clases\Rol;
 class RolModel extends AppModel
 {
@@ -37,6 +38,14 @@ class RolModel extends AppModel
         }
         return $sql;
     }
+    protected function getCheckDelete($object) {
+        if($this->execute("select * from usuarios where rolId = ?", [$object->getId()])){
+            Session::set("msg", Session::msgDanger("Hay usuarios utilizando este rol"));
+            return false;
+        } else {
+            return true;        
+        }
+    }
     /*------------------------------------------------------------------------------------*/    
     protected function getFindParameter($criterio = null) {
         return [$criterio];
@@ -60,5 +69,5 @@ class RolModel extends AppModel
         $rol->setId($row["rolId"]);
         $rol->setNombre($row["rolNombre"]);
         return $rol;
-    }
+    }    
 }

@@ -1,5 +1,6 @@
 <?php
 namespace Model;
+use \App\Session;
 use \Clases\TipoProducto;
 class TipoProductoModel extends AppModel
 {
@@ -55,10 +56,14 @@ class TipoProductoModel extends AppModel
         return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) { 
-        $sql = "delete from tipo_producto where tpId = ?";
-        if($notUsed){
-            $sql .= "and tpId not in (select distinct tpId from productos)";
+        return "delete from tipo_producto where tpId = ?";
+    }
+    protected function getCheckDelete($object) {
+        if($this->execute("select * from productos where tpId = ?", [$object->getId()])){
+            Session::set("msg", Session::msgDanger("Hay productos utilizando este tipo"));
+            return false;
+        } else {
+            return true;
         }
-        return $sql;
     }
 }

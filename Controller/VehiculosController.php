@@ -103,13 +103,11 @@ class VehiculosController extends AppController
             if (isset($_GET['d'])){
                 $vehiculo = (new Vehiculo())->findById($_GET['d']);
                 $id = $vehiculo->del();
-                if(isset($id)){
-                    if((new Vehiculo())->findById($vehiculo->getId()) == null){
-                        Session::set("msg", Session::msgSuccess("Vehículo Borrado"));
-                    } else {
-                        Session::set("msg", Session::msgDanger("El vehículo está en algunas aplicaciones y/o movimientos"));
-                    }
-                }
+                if($id){
+                    Session::set("msg",Session::msgSuccess("Vehículo Borrado"));
+                } else {
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                } 
                 header("Location:index.php?&c=vehiculos&a=index");
             }            
         }

@@ -55,6 +55,9 @@ class MovimientoModel extends AppModel
     protected function getDeleteQuery($notUsed = true) {
         return "delete from movimientos where movId = ?";
     }
+    protected function getCheckDelete($object) {
+        return true;
+    }
     /*-------------------------------------------------------------------------------*/
     protected function getFindParameter($criterio = null) { 
         if($criterio == null){

@@ -45,4 +45,5 @@ class TieneModel extends AppModel
     protected function getFindXIdQuery() { }
     protected function getUpdateParameter($object) { }
     protected function getUpdateQuery() { }
+    protected function getCheckDelete($object) { }
 }

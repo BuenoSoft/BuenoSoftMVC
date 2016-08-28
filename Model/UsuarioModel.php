@@ -1,5 +1,6 @@
 <?php
 namespace Model;
+use \App\Session;
 use \Clases\Usuario;
 class UsuarioModel extends AppModel
 {
@@ -60,15 +61,27 @@ class UsuarioModel extends AppModel
         return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) {
-        $sql ="delete from usuarios where usuId = ?";
-        if($notUsed){
-            $sql .= "and usuId not in (select distinct usuId from pistas)"
-                . "and usuId not in (select distinct usuId from aplicaciones)"    
-                . "and usuId not in (select distinct usuPiloto from aplicaciones)"
-                . "and usuId not in (select distinct usuChofer from aplicaciones)"
-                . "and usuId not in (select distinct usuId from movimientos)";
+        return "delete from usuarios where usuId = ?";
+    }
+    protected function getCheckDelete($object) {
+        if($this->execute("select * from pistas where usuId = ?", [$object->getId()])){
+            Session::set("msg", Session::msgDanger("Este cliente tiene pistas a su nombre"));
+            return false;
+        } else if($this->execute("select * from aplicaciones where usuId = ?", [$object->getId()])){
+            Session::set("msg", Session::msgDanger("Este cliente tiene aplicaciones solicitadas"));
+            return false;
+        } else if($this->execute("select * from aplicaciones where usuPiloto = ?", [$object->getId()])){
+            Session::set("msg", Session::msgDanger("Este piloto está siendo usado en algunas aplicaciones"));
+            return false;
+        } else if($this->execute("select * from aplicaciones where usuChofer = ?", [$object->getId()])){
+            Session::set("msg", Session::msgDanger("Este chofer está siendo usado en algunas aplicaciones"));
+            return false;
+        } else if($this->execute("select * from movimientos where usuId = ?", [$object->getId()])){
+            Session::set("msg", Session::msgDanger("Este usuario realizó movimientos"));
+            return false;
+        } else {
+            return true;        
         }
-        return $sql;
     }
     /*------------------------------------------------------------------------------------*/
     protected function getFindParameter($criterio = null) {

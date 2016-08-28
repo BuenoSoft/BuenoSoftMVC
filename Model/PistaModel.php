@@ -1,5 +1,6 @@
 <?php
 namespace Model;
+use \App\Session;
 use \Clases\Pista;
 class PistaModel extends AppModel
 {
@@ -61,10 +62,14 @@ class PistaModel extends AppModel
         return [$object->getId()];        
     }
     protected function getDeleteQuery($notUsed = true) {
-        $sql = "delete from pistas where pisId = ?";
-        if($notUsed){
-            $sql .= "and pisId not in (select distinct pisId from aplicaciones)";
+        return "delete from pistas where pisId = ?";
+    }
+    protected function getCheckDelete($object) {
+        if($this->execute("select * from aplicaciones where pisId = ?", [$object->getId()])){
+            Session::set("msg", Session::msgDanger("Esta pista está siendo usada en alguna aplicación"));
+            return false;
+        } else {
+            return true;
         }
-        return $sql;
     }
 }

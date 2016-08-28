@@ -125,6 +125,9 @@ class AplicacionModel extends AppModel
     protected function getDeleteQuery($notUsed = true) { 
         return "delete from aplicaciones where aplId = ?";
     }
+    protected function getCheckDelete($object) {
+        return true;
+    }
     /*------------------------------------------------------------------------------------*/
     public function createEntity($row) {
         $aplicacion = new Aplicacion();
