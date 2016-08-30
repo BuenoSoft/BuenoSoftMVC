@@ -10,9 +10,9 @@ class EstadisticaModel extends AppModel
         return "SELECT 
             MONTH(a.aplFechaIni) mes, 
             YEAR(a.aplFechaIni) anio, 
-            SUM(IF(t.tpNombre = 'Solida', 1, 0)) cantSol, 
-            SUM(IF(t.tpNombre = 'Liquida', 1, 0)) cantLiq, 
-            SUM(IF(t.tpNombre = 'Siembra', 1, 0)) cantSiembra
+            SUM(IF(t.tpNombre = 'Solida', a.aplAreaAplicada, 0)) cantSol, 
+            SUM(IF(t.tpNombre = 'Liquida', a.aplAreaAplicada, 0)) cantLiq, 
+            SUM(IF(t.tpNombre = 'Siembra', a.aplAreaAplicada, 0)) cantSiembra
             FROM aplicaciones a
             INNER JOIN tipo_producto t ON a.tpId = t.tpId
             WHERE YEAR(a.aplFechaIni) = YEAR(now())
@@ -33,6 +33,18 @@ class EstadisticaModel extends AppModel
         return $datos;
     }
     //Esta es la de Horas de vuelo por Persona. Osea va como la primera parte, la primera grafica
+    /*----------------------------------------------------------------------*/
+    private function totalXPiloto(){
+        return " select sum((a.aplTaquiFin-a.aplTaquiIni)+v.vehHorasRec) as horas 
+            from usuarios u 
+            inner join aplicaciones a on a.usuPiloto = u.usuId 
+            inner join vehiculos v on a.vehAero = v.vehId
+            where a.aplFechaIni is not null and year(a.aplFechaIni) = year(now()) and a.aplTaquiIni > 0
+            and u.usuNomReal = ?";
+    }
+    public function TotPiloto($nom){
+        return $this->fetchValues($this->totalXPiloto(),[$nom])[0]['horas'];
+    }
     /*----------------------------------------------------------------------*/
     private function getListHsXPiloto(){
         return "select distinct month(a.aplFechaIni) as mes, year(a.aplFechaIni)as anio, 
@@ -58,6 +70,16 @@ class EstadisticaModel extends AppModel
         return $datos;
     }
     /*----------------------------------------------------------------------*/
+    private function totalXAeronave(){
+        return "sum((a.aplTaquiFin-a.aplTaquiIni)+v.vehHorasRec) as horas 
+            from vehiculos v inner join aplicaciones a on a.vehAero = v.vehId
+            where a.aplFechaIni is not null and year(a.aplFechaIni) = year(now()) and a.aplTaquiIni > 0
+            and v.vehMatricula = ?";
+    }
+    public function TotAeronave($mat){
+        return $this->fetchValues($this->totalXAeronave(),[$mat])[0]['horas'];
+    }
+    /*----------------------------------------------------------------------*/
     private function getListHsXVehiculo(){
         return "select distinct month(a.aplFechaIni) as mes, 
             year(a.aplFechaIni) as anio, 
@@ -79,6 +101,17 @@ class EstadisticaModel extends AppModel
             array_push($datos, $dato);
         }
         return $datos;
+    }
+    /*----------------------------------------------------------------------*/
+    private function totalXComb(){
+        return "select sum(m.movCant) as cant 
+            from movimientos m 
+            inner join combustibles c on m.comEmi = c.comId
+            where m.movFecha is not null and year(m.movFecha) = year(now()) and m.movCant > 0
+            and c.comNombre = ?";
+    }
+    public function TotComb($com){
+        return $this->fetchValues($this->totalXComb(),[$com])[0]['cant'];
     }
     /*----------------------------------------------------------------------*/
     private function getListCantXCombustible(){

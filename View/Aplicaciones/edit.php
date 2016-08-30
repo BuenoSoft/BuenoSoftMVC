@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Área Aplicada&nbsp;<font color="red">*</font></label>                                           
                     <div class="col-sm-10">
-                        <input type="text" name="txtarea_apl" onkeypress="return validarTextoyNumPC(event);" pattern="[A-Za-z\s\d\.\,\/]*" class="form-control" required="required" placeholder="" tabindex="7" value="<?php echo \App\Session::get("pass")[4]; ?>" /> 
+                        <input type="text" name="txtarea_apl" onkeypress="return validarNumeroP(event)" pattern="[\d\.]*" class="form-control" required="required" placeholder="" tabindex="7" value="<?php echo \App\Session::get("pass")[4]; ?>" /> 
                     </div>
                 </div>
                 <div class="form-group">

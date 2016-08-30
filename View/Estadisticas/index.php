@@ -3,7 +3,7 @@
     <a href="index.php?c=inicio&a=index"><button class="btn btn-theme05" tabindex="3"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;
 </p>
 <ul class="nav nav-tabs" role="tablist" id="myTab">
-    <li class="active"><a href="#g1" role="tab" data-toggle="tab">Hectáreas</a></li>
+    <li class="active"><a href="#g1" role="tab" data-toggle="tab">Hectáreas aplicadas</a></li>
     <li><a href="#g2" role="tab" data-toggle="tab">Horas de vuelo por piloto</a></li>
     <li><a href="#g3" role="tab" data-toggle="tab">Horas de vuelo por aeronave</a></li>
      <li><a href="#g4" role="tab" data-toggle="tab">Consumo de combustible</a></li>
@@ -12,7 +12,14 @@
 <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="g1">
         <div class="showback">
-            <h4><i class="fa fa-angle-right"></i>&nbsp;Hectareas</h4>
+            <h4><i class="fa fa-angle-right"></i>&nbsp;Hectáreas aplicadas</h4>
+            <p>
+                <a href="index.php?c=pdf&a=cant" target="_blank">
+                    <button class="btn btn-theme05">
+                        <i class="fa fa-print"></i>&nbsp;Imprimir
+                    </button>
+                </a>
+            </p>
             <div class="panel-body">
                 <div id="hero-graph"></div>
             </div>
@@ -21,6 +28,13 @@
     <div role="tabpanel" class="tab-pane" id="g2">
         <div class="showback">
             <h4><i class="fa fa-angle-right"></i>&nbsp;Horas de vuelo por Piloto</h4>
+            <p>
+                <a href="index.php?c=pdf&a=xpil" target="_blank">
+                    <button class="btn btn-theme05">
+                        <i class="fa fa-print"></i>&nbsp;Imprimir
+                    </button>
+                </a>
+            </p>
             <div class="panel-body">
                 <div id="hero-graph2"></div>
             </div>
@@ -29,6 +43,13 @@
     <div role="tabpanel" class="tab-pane" id="g3">
         <div class="showback">
             <h4><i class="fa fa-angle-right"></i>&nbsp;Horas de vuelo por Aeronave</h4>
+            <p>
+                <a href="index.php?c=pdf&a=xaero" target="_blank">
+                    <button class="btn btn-theme05">
+                        <i class="fa fa-print"></i>&nbsp;Imprimir
+                    </button>
+                </a>
+            </p>
             <div class="panel-body">
                 <div id="hero-graph3"></div>
             </div>
@@ -37,6 +58,13 @@
     <div role="tabpanel" class="tab-pane" id="g4">
             <div class="showback">
             <h4><i class="fa fa-angle-right"></i>&nbsp;Consumo de Combustible</h4>
+            <p>
+                <a href="index.php?c=pdf&a=xcomb" target="_blank">
+                    <button class="btn btn-theme05">
+                        <i class="fa fa-print"></i>&nbsp;Imprimir
+                    </button>
+                </a>
+            </p>
             <div class="panel-body">
                 <div id="hero-graph4"></div>
             </div>

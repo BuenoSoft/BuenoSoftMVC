@@ -86,7 +86,7 @@ class ProductosController extends AppController
                 $producto = (new Producto())->findById($_GET['d']);
                 $id = $producto->del();                
                 if($id){
-                    Session::set("msg",Session::msgSuccess("Pista Borrado"));
+                    Session::set("msg",Session::msgSuccess("Producto Borrado"));
                 } else {
                     Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
                 }

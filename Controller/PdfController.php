@@ -2,6 +2,7 @@
 namespace Controller;
 use \App\Session;
 use \Clases\Aplicacion;
+use \Model\EstadisticaModel;
 class PdfController extends AppController
 {
     public function imprimir(){
@@ -132,6 +133,317 @@ class PdfController extends AppController
             $this->getPdf()->Output();
         }
     }
+    /*---------------------------------------------------------------*/
+    public function cant(){
+        if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() == "Administrador" or Session::get('log_in')->getRol()->getNombre() == "Supervisor")){
+            $this->getPdf()->AddPage();            
+            $this->getPdf()->SetFont('Arial','B',16);
+            $this->getPdf()->Cell(40,10,utf8_decode('Hectáreas aplicadas por tipo'));
+            $this->getPdf()->Image('Public/img/manejo/logo.png', 165, 5, 40, 24,'PNG');
+            $this->getPdf()->Ln(10);
+            $this->getPdf()->SetFont('Arial','B',10);
+            $this->getPdf()->Cell(40,10,'Hecho por: '.Session::get('log_in')->getNomReal());
+            $this->getPdf()->Ln(10);
+            $cantidades = (new EstadisticaModel())->lists();
+            $totsol = 0;
+            $totliq = 0;
+            $totsiem = 0;
+            $sim = " Has.";
+            foreach ($cantidades as $cantidad){
+                $this->getPdf()->SetFont('Arial','B',12);
+                $subtotal = $cantidad[2] + $cantidad[3] + $cantidad[4];
+                $this->getPdf()->Cell(40, 10, utf8_decode('Período: '.$this->getMonthString($cantidad[0])." - ".$cantidad[1]), 0,0,"L");
+                $this->getPdf()->Ln(8);
+                $this->getPdf()->SetFont('Arial','',11);
+                $this->getPdf()->Cell(50 ,10, utf8_decode("Sólidas"), 0,0,"R");
+                $this->getPdf()->Cell(45, 10, utf8_decode("Líquidas"), 0,0,"R");
+                $this->getPdf()->Cell(45, 10, utf8_decode("Siembras"), 0,0,"R");
+                $this->getPdf()->Cell(40, 10, "Subtotal",0,0,"R");
+                $this->getPdf()->Ln(8);
+                $this->getPdf()->Cell(50 ,10, $cantidad[2].$sim, "B",0,"R");
+                $totsol += $cantidad[2];
+                $this->getPdf()->Cell(45, 10, $cantidad[3].$sim, "B",0,"R");
+                $totliq += $cantidad[3];
+                $this->getPdf()->Cell(45, 10, $cantidad[4].$sim, "B",0,"R");
+                $totsiem += $cantidad[4];
+                $this->getPdf()->Cell(40, 10, $subtotal.$sim,"B",0,"R");
+                $this->getPdf()->Ln(10);                
+            }
+            $this->getPdf()->SetFont('Arial','B',12);
+            $this->getPdf()->Cell(40, 10, "Totales", 0,0,"L");
+            $this->getPdf()->Ln(8);
+            $this->getPdf()->SetFont('Arial','',11);
+            $this->getPdf()->Cell(50 ,10, utf8_decode("Total de Sólidas"), 0,0,"R");
+            $this->getPdf()->Cell(45, 10, utf8_decode("Total de Líquidas"), 0,0,"R");
+            $this->getPdf()->Cell(45, 10, "Total de Siembras", 0,0,"R");
+            $this->getPdf()->Cell(40, 10, "Total",0,0,"R");
+            $this->getPdf()->Ln(8);
+            $this->getPdf()->Cell(50 ,10, $totsol.$sim , "B",0,"R");
+            $this->getPdf()->Cell(45, 10, $totliq.$sim , "B",0,"R");
+            $this->getPdf()->Cell(45, 10, $totsiem.$sim, "B",0,"R");
+            $this->getPdf()->Cell(40, 10, ($totsol + $totliq + $totsiem).$sim,"B",0,"R");
+            $this->getPdf()->Output();
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como administrador o supervisor para acceder."));
+            header("Location:index.php?c=todos&a=index");
+        }
+    }
+    /*---------------------------------------------------------------*/
+    public function xpil(){
+        if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() == "Administrador" or Session::get('log_in')->getRol()->getNombre() == "Supervisor")){
+            $this->getPdf()->AddPage();
+            $this->getPdf()->SetFont('Arial','B',16);
+            $this->getPdf()->Cell(40,10,'Horas de vuelo por piloto');
+            $this->getPdf()->Image('Public/img/manejo/logo.png', 165, 5, 40, 24,'PNG');
+            $this->getPdf()->Ln(10);
+            $this->getPdf()->SetFont('Arial','B',10);
+            $this->getPdf()->Cell(40,10,'Hecho por: '.Session::get('log_in')->getNomReal());
+            $pilotos = (new EstadisticaModel())->listHsXPiloto();
+            $titles = $this->getStringTitle($pilotos);
+            $aux = $pilotos;            
+            $max = 0;
+            $hs = " Hs.";
+            $this->getPdf()->Ln(10);
+            foreach ($pilotos as $piloto) {
+                if($piloto[0] > $max){
+                    $max = $piloto[0];
+                    $this->getPdf()->SetFont('Arial','B',12);
+                    $this->getPdf()->Cell(40, 10, utf8_decode('Período: '.$this->getMonthString($piloto[0])." - ".$piloto[1]), 0,0,"L");
+                    $this->getPdf()->Ln(8);
+                    $this->getPdf()->SetFont('Arial','',11);
+                    $this->getPdf()->Cell(40 ,10, "Piloto", 0,0,"R");
+                    $this->getPdf()->Cell(25, 10, "Cantidad", 0,0,"R");
+                    $this->getPdf()->Ln(8);
+                    $last = end($titles);                    
+                    foreach ($titles as $title) {
+                        $cant = 0;
+                        if($title != $last){
+                            $this->getPdf()->Cell(40, 10, $title,0,0,"R");                        
+                        } else {
+                            $this->getPdf()->Cell(40, 10, $title,"B",0,"R");
+                        }
+                        foreach($aux as $a){
+                            if($max == $a[0] and $title == $a[3]){ 
+                                $cant += $a[2];
+                            }
+                        }
+                        if($title != $last){
+                            $this->getPdf()->Cell(25, 10, $cant.$hs,0,0,"R");                        
+                        } else {
+                            $this->getPdf()->Cell(25, 10, $cant.$hs,"B",0,"R");
+                        }
+                        $this->getPdf()->Ln(5);                             
+                    }
+                    $this->getPdf()->Ln(5);                    
+                }                
+            }
+            $this->getPdf()->SetFont('Arial','B',12);
+            $this->getPdf()->Cell(40, 10, "Totales", 0,0,"L");
+            $this->getPdf()->Ln(8);
+            $this->getPdf()->SetFont('Arial','',11);
+            $this->getPdf()->Cell(40 ,10, "Piloto", 0,0,"R");
+            $this->getPdf()->Cell(25, 10, "Total", 0,0,"R");
+            $this->getPdf()->Ln(8);
+            foreach ($titles as $title) {
+                if($title != $last){
+                    $this->getPdf()->Cell(40, 10, $title,0,0,"R");                        
+                } else {
+                    $this->getPdf()->Cell(40, 10, $title,"B",0,"R");
+                }
+                if($title != $last){
+                    $this->getPdf()->Cell(25, 10, (new EstadisticaModel())->TotPiloto($title).$hs,0,0,"R");                        
+                } else {
+                    $this->getPdf()->Cell(25, 10, (new EstadisticaModel())->TotPiloto($title).$hs,"B",0,"R");
+                }
+                $this->getPdf()->Ln(5);
+            }
+            $this->getPdf()->Output();
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como administrador o supervisor para acceder."));
+            header("Location:index.php?c=todos&a=index");
+        }
+    }    
+    /*---------------------------------------------------------------*/
+    public function xaero(){
+        if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() == "Administrador" or Session::get('log_in')->getRol()->getNombre() == "Supervisor")){
+            $this->getPdf()->AddPage();
+            $this->getPdf()->SetFont('Arial','B',16);
+            $this->getPdf()->Cell(40,10,'Horas de vuelo por aeronave');
+            $this->getPdf()->Image('Public/img/manejo/logo.png', 165, 5, 40, 24,'PNG');
+            $this->getPdf()->Ln(10);
+            $this->getPdf()->SetFont('Arial','B',10);
+            $this->getPdf()->Cell(40,10,'Hecho por: '.Session::get('log_in')->getNomReal());
+            $vehiculos = (new EstadisticaModel())->listHsXVehiculo();
+            $titles = $this->getStringTitle($vehiculos);
+            $aux = $vehiculos;
+            $max = 0;
+            $hs = " Hs.";
+            $this->getPdf()->Ln(10);
+            foreach ($vehiculos as $vehiculo) {
+                if($vehiculo[0] > $max){
+                    $max = $vehiculo[0];
+                    $this->getPdf()->SetFont('Arial','B',12);
+                    $this->getPdf()->Cell(40, 10, utf8_decode('Período: '.$this->getMonthString($vehiculo[0])." - ".$vehiculo[1]), 0,0,"L");
+                    $this->getPdf()->Ln(8);
+                    $this->getPdf()->SetFont('Arial','',11);
+                    $this->getPdf()->Cell(40 ,10, "Aeronave", 0,0,"R");
+                    $this->getPdf()->Cell(25, 10, "Cantidad", 0,0,"R");
+                    $this->getPdf()->Ln(8);
+                    $last = end($titles);                    
+                    foreach ($titles as $title) {
+                        $cant = 0;
+                        if($title != $last){
+                            $this->getPdf()->Cell(40, 10, $title,0,0,"R");                        
+                        } else {
+                            $this->getPdf()->Cell(40, 10, $title,"B",0,"R");
+                        }
+                        foreach($aux as $a){
+                            if($max == $a[0] and $title == $a[3]){ 
+                                $cant += $a[2];
+                            }
+                        }
+                        if($title != $last){
+                            $this->getPdf()->Cell(25, 10, $cant.$hs,0,0,"R");                        
+                        } else {
+                            $this->getPdf()->Cell(25, 10, $cant.$hs,"B",0,"R");
+                        }
+                        $this->getPdf()->Ln(5);                             
+                    }
+                    $this->getPdf()->Ln(5);                    
+                }                
+            }
+            $this->getPdf()->SetFont('Arial','B',12);
+            $this->getPdf()->Cell(40, 10, "Totales", 0,0,"L");
+            $this->getPdf()->Ln(8);
+            $this->getPdf()->SetFont('Arial','',11);
+            $this->getPdf()->Cell(40 ,10, "Aeronave", 0,0,"R");
+            $this->getPdf()->Cell(25, 10, "Total", 0,0,"R");
+            $this->getPdf()->Ln(8);
+            foreach ($titles as $title) {
+                if($title != $last){
+                    $this->getPdf()->Cell(40, 10, $title,0,0,"R");                        
+                } else {
+                    $this->getPdf()->Cell(40, 10, $title,"B",0,"R");
+                }
+                if($title != $last){
+                    $this->getPdf()->Cell(25, 10, (new EstadisticaModel())->TotAeronave($title).$hs,0,0,"R");                        
+                } else {
+                    $this->getPdf()->Cell(25, 10, (new EstadisticaModel())->TotAeronave($title).$hs,"B",0,"R");
+                }
+                $this->getPdf()->Ln(5);
+            }
+            $this->getPdf()->Output();
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como administrador o supervisor para acceder."));
+            header("Location:index.php?c=todos&a=index");
+        }
+    }
+    /*---------------------------------------------------------------*/
+    public function xcomb(){
+        if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() == "Administrador" or Session::get('log_in')->getRol()->getNombre() == "Supervisor")){
+            $this->getPdf()->AddPage();
+            $this->getPdf()->SetFont('Arial','B',16);
+            $this->getPdf()->Cell(40,10,'Consumo de combustibles');
+            $this->getPdf()->Image('Public/img/manejo/logo.png', 165, 5, 40, 24,'PNG');
+            $this->getPdf()->Ln(10);
+            $this->getPdf()->SetFont('Arial','B',10);
+            $this->getPdf()->Cell(40,10,'Hecho por: '.Session::get('log_in')->getNomReal());
+            $combustibles = (new EstadisticaModel())->ListCantXCombustible();
+            $titles = $this->getStringTitle($combustibles);
+            $aux = $combustibles;
+            $max = 0;
+            $lts = " Lts.";
+            $this->getPdf()->Ln(10);
+            foreach ($combustibles as $combustible) {
+                if($combustible[0] > $max){
+                    $max = $combustible[0];
+                    $this->getPdf()->SetFont('Arial','B',12);
+                    $this->getPdf()->Cell(40, 10, utf8_decode('Período: '.$this->getMonthString($combustible[0])." - ".$combustible[1]), 0,0,"L");
+                    $this->getPdf()->Ln(8);
+                    $this->getPdf()->SetFont('Arial','',11);
+                    $this->getPdf()->Cell(40 ,10, "Combustible", 0,0,"R");
+                    $this->getPdf()->Cell(25, 10, "Cantidad", 0,0,"R");
+                    $this->getPdf()->Ln(8);
+                    $last = end($titles);                    
+                    foreach ($titles as $title) {
+                        $cant = 0;
+                        if($title != $last){
+                            $this->getPdf()->Cell(40, 10, $title,0,0,"R");                        
+                        } else {
+                            $this->getPdf()->Cell(40, 10, $title,"B",0,"R");
+                        }
+                        foreach($aux as $a){
+                            if($max == $a[0] and $title == $a[3]){ 
+                                $cant += $a[2];
+                            }
+                        }
+                        if($title != $last){
+                            $this->getPdf()->Cell(25, 10, $cant.$lts,0,0,"R");                        
+                        } else {
+                            $this->getPdf()->Cell(25, 10, $cant.$lts,"B",0,"R");
+                        }
+                        $this->getPdf()->Ln(5);                             
+                    }
+                    $this->getPdf()->Ln(5);                    
+                }                
+            }
+            $this->getPdf()->SetFont('Arial','B',12);
+            $this->getPdf()->Cell(40, 10, "Totales", 0,0,"L");
+            $this->getPdf()->Ln(8);
+            $this->getPdf()->SetFont('Arial','',11);
+            $this->getPdf()->Cell(40 ,10, "Aeronave", 0,0,"R");
+            $this->getPdf()->Cell(25, 10, "Total", 0,0,"R");
+            $this->getPdf()->Ln(8);
+            foreach ($titles as $title) {
+                if($title != $last){
+                    $this->getPdf()->Cell(40, 10, $title,0,0,"R");                        
+                } else {
+                    $this->getPdf()->Cell(40, 10, $title,"B",0,"R");
+                }
+                if($title != $last){
+                    $this->getPdf()->Cell(25, 10, (new EstadisticaModel())->TotComb($title).$lts,0,0,"R");                        
+                } else {
+                    $this->getPdf()->Cell(25, 10, (new EstadisticaModel())->TotComb($title).$lts,"B",0,"R");
+                }
+                $this->getPdf()->Ln(5);
+            }
+            $this->getPdf()->Output();
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como administrador o supervisor para acceder."));
+            header("Location:index.php?c=todos&a=index");
+        }
+    }
+    /*---------------------------------------------------------------*/
+    public function getStringTitle($arr){
+        $title = [];
+        $unique = [];
+        foreach ($arr as $a) {        
+            array_push($unique, $a[3]);                                        
+        }
+        $res = array_unique($unique);
+        foreach($res as $r){
+            array_push($title, $r);
+        }
+        return $title;
+    }
+    public function getMonthString($int){
+        switch ($int) {
+            case 1: return "Enero";
+            case 2: return "Febrero";
+            case 3: return "Marzo";
+            case 4: return "Abril";
+            case 5: return "Mayo";
+            case 6: return "Junio";
+            case 7: return "Julio";
+            case 8: return "Agosto";
+            case 9: return "Septiembre";
+            case 10: return "Octubre";
+            case 11: return "Noviembre";
+            case 12: return "Diciembre";
+            default: return "--Error--";
+        }
+    }
+    
     private function inverseDat($date){
         if($date != null){
             $arrdate = explode("-", $date);
