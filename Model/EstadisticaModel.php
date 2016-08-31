@@ -43,7 +43,7 @@ class EstadisticaModel extends AppModel
             and u.usuNomReal = ?";
     }
     public function TotPiloto($nom){
-        return $this->fetchValues($this->totalXPiloto(),[$nom])[0]['horas'];
+        return round($this->fetchValues($this->totalXPiloto(),[$nom])[0]['horas']);
     }
     /*----------------------------------------------------------------------*/
     private function getListHsXPiloto(){
@@ -71,13 +71,13 @@ class EstadisticaModel extends AppModel
     }
     /*----------------------------------------------------------------------*/
     private function totalXAeronave(){
-        return "sum((a.aplTaquiFin-a.aplTaquiIni)+v.vehHorasRec) as horas 
+        return "select sum((a.aplTaquiFin-a.aplTaquiIni)+v.vehHorasRec) as horas 
             from vehiculos v inner join aplicaciones a on a.vehAero = v.vehId
             where a.aplFechaIni is not null and year(a.aplFechaIni) = year(now()) and a.aplTaquiIni > 0
             and v.vehMatricula = ?";
     }
     public function TotAeronave($mat){
-        return $this->fetchValues($this->totalXAeronave(),[$mat])[0]['horas'];
+        return round($this->fetchValues($this->totalXAeronave(),[$mat])[0]['horas']);
     }
     /*----------------------------------------------------------------------*/
     private function getListHsXVehiculo(){
@@ -111,7 +111,7 @@ class EstadisticaModel extends AppModel
             and c.comNombre = ?";
     }
     public function TotComb($com){
-        return $this->fetchValues($this->totalXComb(),[$com])[0]['cant'];
+        return round($this->fetchValues($this->totalXComb(),[$com])[0]['cant']);
     }
     /*----------------------------------------------------------------------*/
     private function getListCantXCombustible(){

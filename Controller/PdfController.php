@@ -160,13 +160,13 @@ class PdfController extends AppController
                 $this->getPdf()->Cell(45, 10, utf8_decode("Siembras"), 0,0,"R");
                 $this->getPdf()->Cell(40, 10, "Subtotal",0,0,"R");
                 $this->getPdf()->Ln(8);
-                $this->getPdf()->Cell(50 ,10, $cantidad[2].$sim, "B",0,"R");
+                $this->getPdf()->Cell(50 ,10, round($cantidad[2],1).$sim, "B",0,"R");
                 $totsol += $cantidad[2];
-                $this->getPdf()->Cell(45, 10, $cantidad[3].$sim, "B",0,"R");
+                $this->getPdf()->Cell(45, 10, round($cantidad[3],1).$sim, "B",0,"R");
                 $totliq += $cantidad[3];
-                $this->getPdf()->Cell(45, 10, $cantidad[4].$sim, "B",0,"R");
+                $this->getPdf()->Cell(45, 10, round($cantidad[4],1).$sim, "B",0,"R");
                 $totsiem += $cantidad[4];
-                $this->getPdf()->Cell(40, 10, $subtotal.$sim,"B",0,"R");
+                $this->getPdf()->Cell(40, 10, round($subtotal,1).$sim,"B",0,"R");
                 $this->getPdf()->Ln(10);                
             }
             $this->getPdf()->SetFont('Arial','B',12);
@@ -178,10 +178,10 @@ class PdfController extends AppController
             $this->getPdf()->Cell(45, 10, "Total de Siembras", 0,0,"R");
             $this->getPdf()->Cell(40, 10, "Total",0,0,"R");
             $this->getPdf()->Ln(8);
-            $this->getPdf()->Cell(50 ,10, $totsol.$sim , "B",0,"R");
-            $this->getPdf()->Cell(45, 10, $totliq.$sim , "B",0,"R");
-            $this->getPdf()->Cell(45, 10, $totsiem.$sim, "B",0,"R");
-            $this->getPdf()->Cell(40, 10, ($totsol + $totliq + $totsiem).$sim,"B",0,"R");
+            $this->getPdf()->Cell(50 ,10, round($totsol,1).$sim , "B",0,"R");
+            $this->getPdf()->Cell(45, 10, round($totliq,1).$sim , "B",0,"R");
+            $this->getPdf()->Cell(45, 10, round($totsiem,1).$sim, "B",0,"R");
+            $this->getPdf()->Cell(40, 10, round($totsol + $totliq + $totsiem,1).$sim,"B",0,"R");
             $this->getPdf()->Output();
         } else {
             Session::set("msg", Session::msgDanger("Debe loguearse como administrador o supervisor para acceder."));
@@ -224,13 +224,13 @@ class PdfController extends AppController
                         }
                         foreach($aux as $a){
                             if($max == $a[0] and $title == $a[3]){ 
-                                $cant += $a[2];
+                               $cant += $a[2];
                             }
                         }
                         if($title != $last){
-                            $this->getPdf()->Cell(25, 10, $cant.$hs,0,0,"R");                        
+                            $this->getPdf()->Cell(25, 10, round($cant,1).$hs,0,0,"R");                        
                         } else {
-                            $this->getPdf()->Cell(25, 10, $cant.$hs,"B",0,"R");
+                            $this->getPdf()->Cell(25, 10, round($cant,1).$hs,"B",0,"R");
                         }
                         $this->getPdf()->Ln(5);                             
                     }
@@ -251,9 +251,9 @@ class PdfController extends AppController
                     $this->getPdf()->Cell(40, 10, $title,"B",0,"R");
                 }
                 if($title != $last){
-                    $this->getPdf()->Cell(25, 10, (new EstadisticaModel())->TotPiloto($title).$hs,0,0,"R");                        
+                    $this->getPdf()->Cell(25, 10, round((new EstadisticaModel())->TotPiloto($title),1).$hs,0,0,"R");                        
                 } else {
-                    $this->getPdf()->Cell(25, 10, (new EstadisticaModel())->TotPiloto($title).$hs,"B",0,"R");
+                    $this->getPdf()->Cell(25, 10, round((new EstadisticaModel())->TotPiloto($title),1).$hs,"B",0,"R");
                 }
                 $this->getPdf()->Ln(5);
             }
@@ -303,9 +303,9 @@ class PdfController extends AppController
                             }
                         }
                         if($title != $last){
-                            $this->getPdf()->Cell(25, 10, $cant.$hs,0,0,"R");                        
+                            $this->getPdf()->Cell(25, 10, round($cant,1).$hs,0,0,"R");                        
                         } else {
-                            $this->getPdf()->Cell(25, 10, $cant.$hs,"B",0,"R");
+                            $this->getPdf()->Cell(25, 10, round($cant,1).$hs,"B",0,"R");
                         }
                         $this->getPdf()->Ln(5);                             
                     }
@@ -326,9 +326,9 @@ class PdfController extends AppController
                     $this->getPdf()->Cell(40, 10, $title,"B",0,"R");
                 }
                 if($title != $last){
-                    $this->getPdf()->Cell(25, 10, (new EstadisticaModel())->TotAeronave($title).$hs,0,0,"R");                        
+                    $this->getPdf()->Cell(25, 10, round((new EstadisticaModel())->TotAeronave($title),1).$hs,0,0,"R");                        
                 } else {
-                    $this->getPdf()->Cell(25, 10, (new EstadisticaModel())->TotAeronave($title).$hs,"B",0,"R");
+                    $this->getPdf()->Cell(25, 10, round((new EstadisticaModel())->TotAeronave($title),1).$hs,"B",0,"R");
                 }
                 $this->getPdf()->Ln(5);
             }
@@ -378,9 +378,9 @@ class PdfController extends AppController
                             }
                         }
                         if($title != $last){
-                            $this->getPdf()->Cell(25, 10, $cant.$lts,0,0,"R");                        
+                            $this->getPdf()->Cell(25, 10, round($cant,1).$lts,0,0,"R");                        
                         } else {
-                            $this->getPdf()->Cell(25, 10, $cant.$lts,"B",0,"R");
+                            $this->getPdf()->Cell(25, 10, round($cant,1).$lts,"B",0,"R");
                         }
                         $this->getPdf()->Ln(5);                             
                     }
@@ -391,7 +391,7 @@ class PdfController extends AppController
             $this->getPdf()->Cell(40, 10, "Totales", 0,0,"L");
             $this->getPdf()->Ln(8);
             $this->getPdf()->SetFont('Arial','',11);
-            $this->getPdf()->Cell(40 ,10, "Aeronave", 0,0,"R");
+            $this->getPdf()->Cell(40 ,10, "Combustible", 0,0,"R");
             $this->getPdf()->Cell(25, 10, "Total", 0,0,"R");
             $this->getPdf()->Ln(8);
             foreach ($titles as $title) {
@@ -401,9 +401,9 @@ class PdfController extends AppController
                     $this->getPdf()->Cell(40, 10, $title,"B",0,"R");
                 }
                 if($title != $last){
-                    $this->getPdf()->Cell(25, 10, (new EstadisticaModel())->TotComb($title).$lts,0,0,"R");                        
+                    $this->getPdf()->Cell(25, 10, round((new EstadisticaModel())->TotComb($title),1).$lts,0,0,"R");                        
                 } else {
-                    $this->getPdf()->Cell(25, 10, (new EstadisticaModel())->TotComb($title).$lts,"B",0,"R");
+                    $this->getPdf()->Cell(25, 10, round((new EstadisticaModel())->TotComb($title),1).$lts,"B",0,"R");
                 }
                 $this->getPdf()->Ln(5);
             }
