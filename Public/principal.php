@@ -168,7 +168,7 @@ $(function() {
   <div class="row">
   <div class="col-sm-6 wowload fadeInup">
     <p>En Bueno Servicios Aéreos tenemos como objetivo la satisfacci&oacuten de nuestros clientes, mediante el cuidado de sus cultivos y el cuidado del medio
-     ambiente. M&aacutes de 30 años de trayectoria en el plano de la aviaci&oacuten agr&iacutecola abalan nuestros servicios, brindando confianza y seguridad
+     ambiente. M&aacutes de 30 años de trayectoria en el plano de la aviaci&oacuten agr&iacutecola avalan nuestros servicios, brindando confianza y seguridad
      a la hora de sobrevolar sus campos...</p>
   </div>
   <div class="col-sm-6 wowload fadeInRight">
@@ -263,7 +263,7 @@ $(function() {
             <td style="min-width:50%; vertical-align:top;">
             <h3 style="text-align: center; margin-top: 0px;">Efectividad Garantizada</h3>
             <p align="justify" style="max-width:90%; margin: 0 auto;">
- Las aeronaves cuentan con sistemas de posicionamiento global modernos lo cual permiten tener una precisión inferior a los 50 centímetros entre "pasada y pasada".
+ Las aeronaves cuentan con sistemas de posicionamiento global modernos lo cual permite tener una precisión inferior a los 50 centímetros entre "pasada y pasada".
  Los equipos de aplicación tanto de sólidos como de líquidos son lo último en el mercado como boquillas de líquido tipo "CP" y díspersores de sólido tipo "SWATHMASTER" los cuales permiten un ancho de franja uniforme.
  Los equipos de apoyo terrestres cuentan con herramientas eficientes para el abastecimiento del avión las cuales permiten ahorrar tiempo en preparar el caldo a aplicar en caso de ser líquidos cumpliendo con las normas del MGAP (triple lavado y destrucción de envases) y en el caso de sólidos con embudos y guinches de gran capacidad para evitar derrames y pérdidas.
             </p>
@@ -285,7 +285,7 @@ $(function() {
             <table  width="100%">
                 <tr height="150">
                     <td align="center">
-                        <label style="font-size:250%; vertical-align:middle">P&oacutengase en contacto con nosotros!</label>
+                        <label style="font-size:250%; vertical-align:middle">¡P&oacutengase en contacto con nosotros!</label>
                     </td>
                 </tr>
             </table>
@@ -299,6 +299,7 @@ $(function() {
 	<br><br><br><br>
         <h4><i class="fa fa-envelope-o" aria-hidden="true"></i><b>Email</b></h4>
         <div class="info-de-contacto">buenoserviciosaereos@gmail.com</div><br><br>
+        <div class="info-de-contacto">contacto@buenoserviciosaereos.com.uy</div><br><br>
         <h4><i class="fa fa-phone" aria-hidden="true"></i><b>Telefono</b></h4>
         <div class="info-de-contacto">4777 2138</div><br><br>
         <h4><i class="fa fa-mobile" aria-hidden="true"></i><b>Celular</b></h4>
@@ -327,7 +328,7 @@ $(function() {
             mail($admin_email, "$subject", $comment, "From:" . $email);
 
             //Email response
-            echo "Gracias por contactarnos!";
+            echo "¡Gracias por contactarnos!";
         }
 
         //if "email" variable is not filled out, display the form
@@ -361,7 +362,8 @@ $(function() {
 
 <!-- Footer Starts -->
 
-    
+<div class="text-center spacer">
+</div>
 <div class="footer text-center spacer">
   <p class="wowload flipInX">
   <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.buenoserviciosaereos.com.uy"><i class="fa fa-facebook fa-2x"></i></a> 
