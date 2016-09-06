@@ -25,7 +25,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tratamiento&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <textarea rows="5" cols="67" name="txttrat" onkeypress="return validarTextoyNumPC(event);" required="required" class="form-control" placeholder="Ej: Fungicida" tabindex="6"><?php echo \App\Session::get("pass")[8]; ?></textarea> <!-- pattern no permitid -->
+                        <textarea rows="5" cols="67" name="txttrat" onkeypress="return validarTextoyNum(event);" required="required" class="form-control" placeholder="Ej: Fungicida" tabindex="6"><?php echo \App\Session::get("pass")[8]; ?></textarea> <!-- pattern no permitid -->
                     </div>
                 </div>
                 <div class="form-group">
@@ -37,7 +37,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Caudal&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcaudal" onkeypress="return validarTextoyNumPC(event);" pattern="[A-Za-z\s\d\.\,\/]*" class="form-control" required="required" placeholder="" tabindex="8" value="<?php echo \App\Session::get("pass")[15]; ?>"/>
+                        <input type="text" name="txtcaudal" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d\/]*" class="form-control" required="required" placeholder="" tabindex="8" value="<?php echo \App\Session::get("pass")[15]; ?>"/>
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Viento&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtviento" onkeypress="return validarTextoyNumPC(event);" pattern="[A-Za-z\s\d\.\,\/]*"  class="form-control" required="required" placeholder="" tabindex="11" value="<?php echo \App\Session::get("pass")[9]; ?>"/>
+                        <input type="text" name="txtviento" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d\/]*"  class="form-control" required="required" placeholder="" tabindex="11" value="<?php echo \App\Session::get("pass")[9]; ?>"/>
                     </div>
                 </div>
             </div>
@@ -125,7 +125,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Faja&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtfaja" onkeypress="return validarTextoyNumPC(event);" pattern="[A-Za-z\s\d\.\,\/]*" class="form-control" required="required" placeholder="" tabindex="19" value="<?php echo \App\Session::get("pass")[5]; ?>"/>
+                        <input type="text" name="txtfaja" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d\/]*" class="form-control" required="required" placeholder="" tabindex="19" value="<?php echo \App\Session::get("pass")[5]; ?>"/>
                     </div>
                 </div>
                 <div class="form-group">

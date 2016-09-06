@@ -35,10 +35,6 @@ function validarTexto(e) {
 function validarNumeroPC(e){
     return validarPattern(e,/[\d\.\,\-]/);
 }
-//Chequeo solo para texto, numero, comas y puntos.
-function validarTextoyNumPC(e) {
-    return validarPattern(e,/[A-Za-z\s\d\.\,\/]/);
-}
 function validarTextoyNum(e) {
     return validarPattern(e,/[A-Za-z\s\d]/);
 }
