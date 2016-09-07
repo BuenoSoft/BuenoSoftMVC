@@ -107,7 +107,7 @@
                                     <i class="fa fa-plane"></i>&nbsp;Aplicaciones
                                 </a>
                             </li>
-                            <?php if(App\Session::get('log_in')->getRol()->getNombre() != "Chofer" and App\Session::get('log_in')->getRol()->getNombre() != "Cliente"){ ?>
+                            <?php if(App\Session::get('log_in')->getRol()->getNombre() != "Chofer" and App\Session::get('log_in')->getRol()->getNombre() != "Cliente" or App\Session::get('log_in')->getRol()->getNombre() != "Piloto"){ ?>
                                 <li class="sub-menu">
                                     <a href="index.php?c=estadisticas&a=index">
                                         <i class="fa fa-bar-chart"></i>&nbsp;Estadísticas
