@@ -5,6 +5,7 @@ use \App\Breadcrumbs;
 use \Clases\Usuario;
 use \Clases\Combustible;
 use \Clases\Vehiculo;
+use \Clases\Notificacion;
 use \Clases\Movimiento;
 class MovimientosController extends AppController
 {
@@ -50,6 +51,7 @@ class MovimientosController extends AppController
                     $mov = $this->createEntity();
                     if($mov->save()){
                         $this->changeStock($mov);
+                        $this->notifyStock($mov);
                         Session::set("msg",Session::msgSuccess("Movimiento Realizado"));
                         header("Location:index.php?c=movimientos&a=index");
                         exit();                              
@@ -85,6 +87,20 @@ class MovimientosController extends AppController
                 }
             } 
         }       
+    }
+    
+    private function notifyStock($mov){
+        if($mov->getComEmi() != null){
+            if($mov->getComEmi()->isDown()){
+                $not = new Notificacion();
+                $not->setId(0);
+                $not->setFecha(date("Y-m-d"));
+                $not->setMensaje("El combustible ".$mov->getComEmi()->getNombre()." necesita ser recargado.");
+                $not->setUsuario(null);
+                $not->setVehiculo(null);
+                $not->save();            
+            }
+        } 
     }
     /*-------------------------------------------------------------------------------*/
     public function delete(){

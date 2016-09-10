@@ -99,8 +99,10 @@ $(function() {
                             <?php } else {?>
                                 <li>
                                     <a href="#" id="hrefAbrirPopup" data-type="zoomin">Iniciar Sesion</a>
-                                    <div id="popup" class="overlay-container">
+                                    <div id="popup" class="overlay-container">                                        
                                         <div class="popup-contenedor zoomin">
+                                            <a href="#" class="close" aria-label="close" style="margin-top: -5px;">&times</a>
+                                            <br />
                                             <?php if(\App\Session::get('msg') != null) {?>
                                                 <div id="resultado" class="alert alert-<?php echo \App\Session::get('msg')[0]; ?> fade in">
                                                     <i class="fa fa-<?php echo \App\Session::get('msg')[1]; ?>" style="font-size: 24px;"></i>&nbsp;
@@ -109,8 +111,8 @@ $(function() {
                                             <?php } ?>
                                             <p class="popup-titulo">Iniciar Sesi&oacuten</p>
                                             <form action="index.php?c=usuarios&a=login" class="frm-login" method="post" name="frmlogin" id="login">
-                                                <input name="txtuser" type="text" placeholder="Usuario" class="popup-textbox" autofocus="autofocus" required="required" />
-                                                <input name="txtpass" type="password" placeholder="Contraseña"  class="popup-textbox" required="required" />
+                                                <input name="txtuser" type="text" placeholder="Usuario" class="popup-textbox" autofocus="autofocus" required="required" id="login_user" />
+                                                <input name="txtpass" type="password" placeholder="Contraseña"  class="popup-textbox" required="required" id="login_pass" />
                                                 <input name="btnaceptar" type="submit" value="Aceptar" class="popup-btn popup-hover-btn"/>
                                             </form>
                                         </div>
@@ -231,12 +233,33 @@ $(function() {
             <p>Vuele con nosotros para tomar las mejores fotograf&iacuteas de su vida!<br>        
         </figcaption>
     </figure>
+     <figure class="effect-oscar  wowload fadeInUp">
+        <img src="Public/img/principal/portfolio/4.jpg" alt="img04"/>
+        <figcaption>
+            <h2>SIEMBRA</h2>
+            <p>Experimente los grandes resultados de la siembra directa desde el aire.<br>       
+        </figcaption>
+    </figure>
+     <figure class="effect-oscar  wowload fadeInUp">
+        <img src="Public/img/principal/portfolio/5.jpg" alt="img05"/>
+        <figcaption>
+            <h2>VUELOS DE BAUTISMO</h2>
+            <p>Disfruta de un paseo por los cielos, guiado por uno de nuestros experimentados pilotos<br>           
+        </figcaption>
+    </figure>
+     <figure class="effect-oscar  wowload fadeInUp">
+        <img src="Public/img/principal/portfolio/6.jpg" alt="img06"/>
+        <figcaption>
+            <h2>INSTRUCCI&OacuteN DE VUELO</h2>
+            <p>Ofrecemos la mejor formaci&oacuten profesional en aviaci&oacuten agr&iacutecola<br>        
+        </figcaption>
+    </figure>
     </div>
 <!-- works -->
 
 
 <div id="partners" class="container spacer ">
-  <h2 class="text-center  wowload fadeInUp">Contamos con los mejores recursos!</h2>
+  <h2 class="text-center  wowload fadeInUp">¡Contamos con los mejores recursos!</h2>
   <div class="clearfix">
     <div class="col-sm-6 partners  wowload fadeInLeft">
          <img src="Public/img/principal/partners/1.jpg" alt="partners">
@@ -264,7 +287,7 @@ $(function() {
             <h3 style="text-align: center; margin-top: 0px;">Efectividad Garantizada</h3>
             <p align="justify" style="max-width:90%; margin: 0 auto;">
  Las aeronaves cuentan con sistemas de posicionamiento global modernos lo cual permite tener una precisión inferior a los 50 centímetros entre "pasada y pasada".
- Los equipos de aplicación tanto de sólidos como de líquidos son lo último en el mercado como boquillas de líquido tipo "CP" y díspersores de sólido tipo "SWATHMASTER" los cuales permiten un ancho de franja uniforme.
+ Los equipos de aplicación tanto de sólidos como de líquidos son lo último en el mercado como boquillas de líquido tipo <a title="Boquillas CP" href="http://airtractor.com/sites/default/files/wallpapers/1024/Air-Tractor-1024x768-3.jpg"><img src="" alt="CP" /></a> y díspersores de sólido tipo  <a title="Boquillas CP" href="http://www.stoll.com.br/curiosidades/teste_deposicao_solidos.pdf"><img src="" alt="SWATHMASTER" /></a> los cuales permiten un ancho de franja uniforme.
  Los equipos de apoyo terrestres cuentan con herramientas eficientes para el abastecimiento del avión las cuales permiten ahorrar tiempo en preparar el caldo a aplicar en caso de ser líquidos cumpliendo con las normas del MGAP (triple lavado y destrucción de envases) y en el caso de sólidos con embudos y guinches de gran capacidad para evitar derrames y pérdidas.
             </p>
             <td width="50%" >
@@ -360,10 +383,10 @@ $(function() {
 </div>
 <!--Contact Ends-->
 
-<!-- Footer Starts -->
+<div class="text-center spacer"></div>
 
-<div class="text-center spacer">
-</div>
+<!-- Footer Starts -->
+    
 <div class="footer text-center spacer">
   <p class="wowload flipInX">
   <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.buenoserviciosaereos.com.uy"><i class="fa fa-facebook fa-2x"></i></a> 

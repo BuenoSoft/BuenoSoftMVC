@@ -22,6 +22,13 @@
         <div class="collapse navbar-collapse menubar">
             <ul class="nav navbar-nav navbar-right">
                 <?php if(App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>
+                <li>
+                    <label style="font-size: 13px; margin-top: 17px;"><i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;<a href="mailto:buenoserviciosaereos@gmail.com" style="color:#797979; text-decoration: none;">buenoserviciosaereos@gmail.com</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                </li> 
+                <li>
+                   <label style="font-size: 13px; margin-top: 17px; margin-right: 60px;"><i class="fa fa-phone" aria-hidden="true"></i>
+4777 2138</label>
+                </li>
                     <li class='dropdown'>
                         <a href="#" class='dropdown-toggle' data-toggle='dropdown' style="font-size: 15px;">
                             <i class="fa fa-envelope"></i>&nbsp;Notificaciones
@@ -107,7 +114,8 @@
                                     <i class="fa fa-plane"></i>&nbsp;Aplicaciones
                                 </a>
                             </li>
-                            <?php if(App\Session::get('log_in')->getRol()->getNombre() != "Chofer" and App\Session::get('log_in')->getRol()->getNombre() != "Cliente" or App\Session::get('log_in')->getRol()->getNombre() != "Piloto"){ ?>
+                            <?php if(App\Session::get('log_in')->getRol()->getNombre() != "Chofer" and App\Session::get('log_in')->getRol()->getNombre() != "Cliente" and App\Session::get('log_in')->getRol()->getNombre() != "Piloto") { ?>
+                            
                                 <li class="sub-menu">
                                     <a href="index.php?c=estadisticas&a=index">
                                         <i class="fa fa-bar-chart"></i>&nbsp;Estadísticas

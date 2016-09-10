@@ -54,37 +54,44 @@ class AplicacionesController extends AppController
             $bc->add_crumb($_SERVER['HTTP_REFERER']);
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
-            $this->passDates();
-            $productos = (Session::get("pass")[10] != "") ? (new Producto())->findByTipo((new TipoProducto())->findByX(Session::get("pass")[10])->getId()) : array();
-            if (isset($_POST['btnaceptar'])) {                
-                if(Session::get("pass")[20] == null){
+            if (isset($_POST['btnaceptar'])) {
+                $apl = $this->createEntity();
+                if($apl->getAeronave() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Aeronave"));
-                } else if(Session::get("pass")[17] == null){
+                } else if($apl->getCliente() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Usuario"));
-                } else if(Session::get("pass")[10] == null){
+                } else if($apl->getTipo() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo de Producto"));
-                } else if(Session::get("pass")[19] == null){
+                } else if($apl->getChofer() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Chofer"));
-                } else if(Session::get("pass")[21] == null){
+                } else if($apl->getTerrestre() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Terrestre"));
-                } else if(Session::get("pass")[18] == null){
+                } else if($apl->getPiloto() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Piloto"));                                    
-                } else if(Session::get("pass")[3] == null){
+                } else if($apl->getPista() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado la Pista"));
-                } else if((Session::get("pass")[6] != null and Session::get("pass")[7] != null) and (Session::get("pass")[6] > Session::get("pass")[7])){
+                } else if(($apl->getFechaIni() != null and $apl->getFechaFin() != null) and ($apl->getFechaIni() > $apl->getFechaFin())){
                     Session::set("msg",Session::msgDanger("Asegurese de que la fecha de inicio sea menor a la fecha final"));
-                } else if((Session::get("pass")[11] != null and Session::get("pass")[12] != null) and (Session::get("pass")[11] > Session::get("pass")[12])){
+                } else if(($apl->getTaquiIni() != null and $apl->getTaquiFin() != null) and ($apl->getTaquiIni() > $apl->getTaquiFin())){
                     Session::set("msg",Session::msgDanger("Asegurese de que el taquimetro inicial sea menor al final"));                    
-                } else if(Session::get("pass")[6] == null and (Session::get("pass")[11] != null or Session::get("pass")[12] != null)){
+                } else if($apl->getFechaIni() == null and ($apl->getTaquiIni() != null or $apl->getTaquiFin() != null)){
                     Session::set("msg",Session::msgDanger("Asegurese que para los taquímetros tener las fecha inicial ingresada"));
                 } else {
-                    $apl = $this->createEntity();
+                    $cont = $this->checkProductos($apl);
                     $apl->save();
                     $this->addProductos();
                     $this->increaseTaqui($apl);
-                    Session::set("msg",Session::msgSuccess("Aplicación Creada"));
+                    if($cont == 0){
+                        Session::set("msg",Session::msgSuccess("Aplicación Creada"));
+                    } else {
+                        if($cont == 1){
+                            Session::set("msg",Session::msgInfo("La aplicación fue creada con un producto no acorde al tipo ".$apl->getTipo()->getNombre()));                        
+                        } else {
+                            Session::set("msg",Session::msgInfo("La aplicación fue creada con productos no acordes al tipo ".$apl->getTipo()->getNombre()));
+                        }
+                    }                    
                     header("Location:index.php?c=aplicaciones&a=index");
-                    exit();
+                    exit();                                        
                 }             
             }
             $this->redirect_administrador(['add.php'],[
@@ -92,7 +99,7 @@ class AplicacionesController extends AppController
                 "vehiculos" => (new Vehiculo())->find(),
                 "pistas" => (new Pista())->find(),
                 "tipos" => (new TipoProducto())->find(),
-                "productos" => $productos                
+                "productos" => (new Producto())->find()                 
             ]);
         }
     }
@@ -105,6 +112,16 @@ class AplicacionesController extends AppController
             }
         }
     }
+    private function checkProductos($apl){
+        $cont = 0;
+        foreach ($_POST["producto"] as $pro){
+            $producto = (new Producto())->findByX($pro);
+            if($producto->getTipo() != $apl->getTipo()){
+                $cont++;
+            }
+        }
+        return $cont;
+    }
     /*-------------------------------------------------------------------------------*/
     public function edit(){
         if($this->checkUser()){
@@ -114,45 +131,53 @@ class AplicacionesController extends AppController
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
             Session::set("app",$_GET['d']);
-            $this->passDates();
-            $productos = (Session::get("pass")[10] != "") ? (new Producto())->findByTipo((new TipoProducto())->findByX(Session::get("pass")[10])->getId()) : array();
-            if (Session::get('app')!=null && isset($_POST['btnaceptar'])){                
-                if(Session::get("pass")[20] == null){
+            if (Session::get('app')!=null && isset($_POST['btnaceptar'])){
+                $apl = $this->createEntity();
+                if($apl->getAeronave() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Aeronave"));
-                } else if(Session::get("pass")[17] == null){
+                } else if($apl->getCliente() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Usuario"));
-                } else if(Session::get("pass")[10] == null){
+                } else if($apl->getTipo() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo de Producto"));
-                } else if(Session::get("pass")[19] == null){
+                } else if($apl->getChofer() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Chofer"));
-                } else if(Session::get("pass")[21] == null){
+                } else if($apl->getTerrestre() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Terrestre"));
-                } else if(Session::get("pass")[18] == null){
+                } else if($apl->getPiloto() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Piloto"));                                    
-                } else if(Session::get("pass")[3] == null){
+                } else if($apl->getPista() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado la Pista"));
-                } else if((Session::get("pass")[6] != null and Session::get("pass")[7] != null) and (Session::get("pass")[6] > Session::get("pass")[7])){
+                } else if(($apl->getFechaIni() != null and $apl->getFechaFin() != null) and ($apl->getFechaIni() > $apl->getFechaFin())){
                     Session::set("msg",Session::msgDanger("Asegurese de que la fecha de inicio sea menor a la fecha final"));
-                } else if((Session::get("pass")[11] != null and Session::get("pass")[12] != null) and (Session::get("pass")[11] > Session::get("pass")[12])){
-                    Session::set("msg",Session::msgDanger("Asegurese de que el taquimetro inicial sea menor al final"));
-                } else if(Session::get("pass")[6] == null and (Session::get("pass")[11] > 0 or Session::get("pass")[12] > 0)){
-                    Session::set("msg",Session::msgDanger("Asegurese que para los taquímetros tener las fechas inicial ingresada"));
+                } else if(($apl->getTaquiIni() != null and $apl->getTaquiFin() != null) and ($apl->getTaquiIni() > $apl->getTaquiFin())){
+                    Session::set("msg",Session::msgDanger("Asegurese de que el taquimetro inicial sea menor al final"));                    
+                } else if($apl->getFechaIni() == null and ($apl->getTaquiIni() != 0 or $apl->getTaquiFin() != 0)){
+                    Session::set("msg",Session::msgDanger("Asegurese que para los taquímetros tener las fecha inicial ingresada"));
                 } else {
-                    $apl = $this->createEntity();
+                    $cont = $this->checkProductos($apl);
                     $apl->save();
                     $this->modProductos($apl);
                     $this->increaseTaqui($apl);
-                    Session::set("msg",Session::msgSuccess("Aplicación Editada"));
+                    if($cont == 0){
+                        Session::set("msg",Session::msgSuccess("Aplicación Editada"));
+                    } else {
+                        if($cont == 1){
+                            Session::set("msg",Session::msgInfo("La aplicación fue editada con un producto no acorde al tipo ".$apl->getTipo()->getNombre()));                        
+                        } else {
+                            Session::set("msg",Session::msgInfo("La aplicación fue editada con productos no acordes al tipo ".$apl->getTipo()->getNombre()));
+                        }
+                    } 
                     header("Location:index.php?c=aplicaciones&a=index");
                     exit();                
                 }
             } 
             $this->redirect_administrador(['edit.php'],[
+                "aplicacion" => (new Aplicacion())->findById(Session::get("app")),
                 "usuarios" => (new Usuario())->find(),
                 "vehiculos" => (new Vehiculo())->find(),
                 "pistas" => (new Pista())->find(),
                 "tipos" => (new TipoProducto())->find(),
-                "productos" => $productos  
+                "productos" => (new Producto())->find()  
             ]);    
         }
     }
@@ -254,78 +279,30 @@ class AplicacionesController extends AppController
             Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));
             header("Location:index.php?c=todos&a=index");
         }
-    }
-    private function passDates(){
-        $apl = (new Aplicacion())->findById(Session::get("app"));
-        Session::set("pass",[
-            (Session::get("app")!= 0) ? Session::get("app") : 0, 
-            isset($_POST['txtsur']) ? $this->clean($_POST['txtsur']) : 
-                ((Session::get("app")!= 0) ? $apl->getGMDLat() : null),
-            isset($_POST['txtoeste']) ? $this->clean($_POST['txtoeste']) : 
-                ((Session::get("app")!= 0) ? $apl->getGMDLong() : null),
-            isset($_POST["pista"][0]) ? $_POST["pista"][0]: 
-                ((Session::get("app")!= 0) ? $apl->getPista()->getNombre() : null), 
-            isset($_POST['txtarea_apl']) ? $this->clean($_POST['txtarea_apl']) : 
-                ((Session::get("app")!= 0) ? $apl->getAreaapl() : null),
-            isset($_POST['txtfaja']) ? $this->clean($_POST['txtfaja']) : 
-                ((Session::get("app")!= 0) ? $apl->getFaja() : null), 
-            isset($_POST['dtfechaini']) ? $this->inverseDate($_POST['dtfechaini']) : 
-                ((Session::get("app")!= 0) ? $apl->mostrarDateTimeIni() : null),
-            isset($_POST['dtfechafin']) ? $this->inverseDate($_POST['dtfechafin']) : 
-                ((Session::get("app")!= 0) ? $apl->mostrarDateTimeFin() : null), 
-            isset($_POST['txttrat']) ? $this->clean($_POST['txttrat']) : 
-                ((Session::get("app")!= 0) ? $apl->getTratamiento() : null),
-            isset($_POST['txtviento']) ? $this->clean($_POST['txtviento']) : 
-                ((Session::get("app")!= 0) ? $apl->getViento() : null), 
-            isset($_POST["tipo"][0]) ? $_POST["tipo"][0] : 
-                ((Session::get("app")!= 0) ? $apl->getTipo()->getNombre() : null),
-            isset($_POST['txttaquiIni']) ? $this->clean($_POST['txttaquiIni']) : 
-                ((Session::get("app")!= 0) ? $apl->getTaquiIni() : null), 
-            isset($_POST['txttaquiFin']) ? $this->clean($_POST['txttaquiFin']) : 
-                ((Session::get("app")!= 0) ? $apl->getTaquiFin() : null), 
-            isset($_POST['txtpadron']) ? $this->clean($_POST['txtpadron']) : 
-                ((Session::get("app")!= 0) ? $apl->getPadron() : null),
-            isset($_POST['txtcultivo']) ? $this->clean($_POST['txtcultivo']) : 
-                ((Session::get("app")!= 0) ? $apl->getCultivo() : null), 
-            isset($_POST['txtcaudal']) ? $this->clean($_POST['txtcaudal']) : 
-                ((Session::get("app")!= 0) ? $apl->getCaudal() : null),
-            isset($_POST['txtdosis']) ? $this->clean($_POST['txtdosis']) : 
-                ((Session::get("app")!= 0) ? $apl->getDosis() : null), 
-            isset($_POST['cliente'][0]) ?  $_POST['cliente'][0] : 
-                ((Session::get("app")!= 0) ? $apl->getCliente()->getNomReal() : null), 
-            isset($_POST['piloto'][0]) ? $_POST['piloto'][0] : 
-                ((Session::get("app")!= 0) ? $apl->getPiloto()->getNomReal() : null),
-            isset($_POST['chofer'][0]) ? $_POST['chofer'][0] : 
-                ((Session::get("app")!= 0) ? $apl->getChofer()->getNomReal() : null), 
-            isset($_POST['aeronave'][0]) ? $_POST['aeronave'][0] : 
-                ((Session::get("app")!= 0) ? $apl->getAeronave()->getMatricula() : null),
-            isset($_POST['terrestre'][0]) ? $_POST['terrestre'][0] : 
-                ((Session::get("app")!= 0) ? $apl->getTerrestre()->getMatricula() : null)
-        ]);       
-    }
+    }    
     private function createEntity() {        
         $aplicacion = new Aplicacion();
-        $aplicacion->setId(Session::get("pass")[0]);
-        $aplicacion->setCoordCul($this->getCoords(Session::get("pass")[1],Session::get("pass")[2]));
-        $aplicacion->setPista((new Pista())->findByX((Session::get("pass")[3] != null) ? Session::get("pass")[3] : 0));
-        $aplicacion->setAreaapl(Session::get("pass")[4]);
-        $aplicacion->setFaja(Session::get("pass")[5]);
-        $aplicacion->setFechaIni(Session::get("pass")[6]);
-        $aplicacion->setFechaFin(Session::get("pass")[7]);
-        $aplicacion->setTratamiento(Session::get("pass")[8]);
-        $aplicacion->setViento(Session::get("pass")[9]);
-        $aplicacion->setTipo((new TipoProducto())->findByX((Session::get("pass")[10] != null) ? Session::get("pass")[10] : 0));
-        $aplicacion->setTaquiIni(Session::get("pass")[11]);
-        $aplicacion->setTaquiFin(Session::get("pass")[12]);
-        $aplicacion->setPadron(Session::get("pass")[13]);
-        $aplicacion->setCultivo(Session::get("pass")[14]);
-        $aplicacion->setCaudal(Session::get("pass")[15]);
-        $aplicacion->setDosis(Session::get("pass")[16]);
-        $aplicacion->setCliente((new Usuario())->findByNombre((Session::get("pass")[17] != null) ? Session::get("pass")[17] : 0));
-        $aplicacion->setPiloto((new Usuario())->findByNombre((Session::get("pass")[18] != null) ? Session::get("pass")[18] : 0));
-        $aplicacion->setChofer((new Usuario())->findByNombre((Session::get("pass")[19] != null) ? Session::get("pass")[19] : 0));
-        $aplicacion->setAeronave((new Vehiculo())->findByMat((Session::get("pass")[20] != null) ? Session::get("pass")[20] : 0));
-        $aplicacion->setTerrestre((new Vehiculo())->findByMat((Session::get("pass")[21] != null) ? Session::get("pass")[21] : 0));
+        $aplicacion->setId(isset($_POST['hid']) ? $_POST['hid'] : 0);
+        $aplicacion->setCoordCul($this->getCoords($_POST['txtsur'],$_POST['txtoeste']));
+        $aplicacion->setPista((new Pista())->findByX((isset($_POST["pista"][0])) ? $_POST["pista"][0] : 0));
+        $aplicacion->setAreaapl($this->clean($_POST['txtarea_apl']));
+        $aplicacion->setFaja($this->clean($_POST['txtfaja']));
+        $aplicacion->setFechaIni($this->inverseDate($_POST['dtfechaini']));
+        $aplicacion->setFechaFin($this->inverseDate($_POST['dtfechafin']));
+        $aplicacion->setTratamiento($this->clean($_POST['txttrat']));
+        $aplicacion->setViento($this->clean($_POST['txtviento']));
+        $aplicacion->setTipo((new TipoProducto())->findByX(isset($_POST["tipo"][0]) ? $_POST["tipo"][0] : 0));
+        $aplicacion->setTaquiIni($_POST['txttaquiIni']);
+        $aplicacion->setTaquiFin($_POST['txttaquiFin']);
+        $aplicacion->setPadron($this->clean($_POST['txtpadron']));
+        $aplicacion->setCultivo($this->clean($_POST['txtcultivo']));
+        $aplicacion->setCaudal($this->clean($_POST['txtcaudal']));
+        $aplicacion->setDosis($this->clean($_POST['txtdosis']));
+        $aplicacion->setCliente((new Usuario())->findByNombre(isset($_POST['cliente'][0]) ?  $_POST['cliente'][0] : 0));
+        $aplicacion->setPiloto((new Usuario())->findByNombre(isset($_POST['piloto'][0]) ? $_POST['piloto'][0] : 0));
+        $aplicacion->setChofer((new Usuario())->findByNombre(isset($_POST['chofer'][0]) ? $_POST['chofer'][0] :  0));
+        $aplicacion->setAeronave((new Vehiculo())->findByMat(isset($_POST['aeronave'][0]) ? $_POST['aeronave'][0] : 0));
+        $aplicacion->setTerrestre((new Vehiculo())->findByMat(isset($_POST['terrestre'][0]) ? $_POST['terrestre'][0] : 0));
         return $aplicacion;
     }
     private function getCoords($sur,$oeste){

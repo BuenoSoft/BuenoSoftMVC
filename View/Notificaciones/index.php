@@ -30,11 +30,15 @@
                                 <a href="index.php?c=vehiculos&a=view&d=<?php echo $notificacion->getVehiculo()->getId(); ?>">
                                     <?php echo "Vehículo: ". $notificacion->getVehiculo()->getMatricula(); ?>
                                 </a>
-                            <?php } else { ?>
+                            <?php } else if($notificacion->getUsuario() != null) { ?>
                                 <a href="index.php?c=usuarios&a=view&d=<?php echo $notificacion->getUsuario()->getId(); ?>">
                                     <?php echo $notificacion->getUsuario()->getRol()->getNombre().": ". $notificacion->getUsuario()->getNomReal(); ?>
                                 </a>
-                            <?php } ?>
+                            <?php                                 
+                                } else { 
+                                    echo "Sistema";
+                                }  
+                            ?>
                         </td>                        
                         <td><?php echo $notificacion->getMensaje(); ?></td>
                         <td><?php echo ($notificacion->getFecha() == null or $notificacion->getFecha() == "0000-00-00") ? "" : $notificacion->inverseDateIni(); ?></td>

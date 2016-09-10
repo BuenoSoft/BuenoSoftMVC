@@ -45,16 +45,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tipo&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
-                        <table style="width: 100%;">
-                            <tr>
-                                <td style="width: 82%;">
-                                    <input id="tipo" name="tipo" required="required" tabindex="8" />
-                                </td>
-                                <td style="width: 18%;">
-                                    <input type="button" onclick="frmadd.submit();" tabindex="9" value="Buscar" class="btn btn-theme01" style="margin-left: 5px;" />
-                                </td>
-                            </tr>
-                        </table>                                                
+                        <input id="tipo" name="tipo" required="required" tabindex="8" />                                                                        
                     </div>
                 </div>
                 <div class="form-group">
@@ -192,7 +183,6 @@
         });
         $('#aeronave').magicSuggest({
             placeholder: 'Seleccione Aeronave',
-            value: ['<?php echo \App\Session::get("pass")[20]; ?>'],
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -205,7 +195,6 @@
         });
         $('#cliente').magicSuggest({
             placeholder: 'Seleccione Usuario',
-            value: ['<?php echo \App\Session::get("pass")[17]; ?>'], 
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -218,7 +207,6 @@
         });
         $('#tipo').magicSuggest({
             placeholder: 'Seleccione un Tipo de Producto',
-            value: ['<?php echo \App\Session::get("pass")[10]; ?>'],            
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -240,7 +228,6 @@
         });
         $('#chofer').magicSuggest({
             placeholder: 'Seleccione Chofer',
-            value: ['<?php echo \App\Session::get("pass")[19]; ?>'],
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -253,7 +240,6 @@
         });
         $('#terrestre').magicSuggest({
             placeholder: 'Seleccione Terrestre',
-            value: ['<?php echo \App\Session::get("pass")[21]; ?>'],
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -267,7 +253,6 @@
         });
         $('#piloto').magicSuggest({
             placeholder: 'Seleccione Piloto',
-            value: ['<?php echo \App\Session::get("pass")[18]; ?>'], 
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -280,7 +265,6 @@
         });
         $('#pista').magicSuggest({
             placeholder: 'Seleccione Pista',
-            value: ['<?php echo \App\Session::get("pass")[3]; ?>'], 
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
