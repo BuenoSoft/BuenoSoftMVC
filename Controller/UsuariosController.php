@@ -11,7 +11,7 @@ class UsuariosController extends AppController
         parent::__construct();
         $this->upload = new Upload("usuarios");
     }
-    public function login(){
+    public function login(){        
         if(isset($_POST['btnaceptar'])) {
             if(empty($_POST['txtuser']) or empty($_POST['txtpass'])){ 
                 Session::set("msg","Ingrese los datos obligatorios (*) para continuar.");
@@ -23,9 +23,9 @@ class UsuariosController extends AppController
                     Session::set("msg", Session::msgInfo("Acceso concedido... Usuario: ". $usuario->getNombre()));
                     header("Location:index.php?c=inicio&a=index");
                     exit();
-                } else {
+                } else {     
                     Session::set("msg",Session::msgDanger("Acceso denegado."));
-                    header("Location:index.php?c=todos&a=index");
+                    header("Location:index.php?c=todos&a=index#popup");                    
                 }
             }
         }                

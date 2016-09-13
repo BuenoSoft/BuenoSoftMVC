@@ -4,7 +4,7 @@
             <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Navegacion"></div>
         </div>        
         <!--logo start-->
-        <a href="index.php" class="logo"><b>Bueno Servicios Aereos</b></a>
+        <a href="index.php" class="logo logocel"><b>Bueno Servicios Aereos</b></a>
         <!--logo end-->
         <?php 
             function getSubString($string, $length=NULL) {
@@ -23,15 +23,24 @@
             <ul class="nav navbar-nav navbar-right">
                 <?php if(App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>
                 <li>
-                    <label style="font-size: 13px; margin-top: 17px;"><i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;<a href="mailto:buenoserviciosaereos@gmail.com" style="color:#797979; text-decoration: none;">buenoserviciosaereos@gmail.com</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <label style="font-size: 13px; margin-top: 17px;">
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;
+                        <a href="mailto:buenoserviciosaereos@gmail.com" class="labelcontacto" style="color:#797979; text-decoration: none;">
+                            buenoserviciosaereos@gmail.com
+                        </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </label>
                 </li> 
                 <li>
-                   <label style="font-size: 13px; margin-top: 17px; margin-right: 60px;"><i class="fa fa-phone" aria-hidden="true"></i>
-4777 2138</label>
+                    <label style="font-size: 13px; margin-top: 17px;">
+                        <i class="fa fa-phone alinearcentro" aria-hidden="true"></i>&nbsp;                       
+                        <label style="font-size: 13px; margin-top: 17px; margin-right: 60px;" class="labelcontacto">
+                            4777 2138
+                        </label>                        
+                    </label>                                           
                 </li>
                     <li class='dropdown'>
                         <a href="#" class='dropdown-toggle' data-toggle='dropdown' style="font-size: 15px;">
-                            <i class="fa fa-envelope"></i>&nbsp;Notificaciones
+                            <i class="fa fa-envelope"></i>&nbsp;<label class="letrasmenu">Notificaciones</label>
                             <?php if($cantNot > 0){?>
                                 <span class="badge bg-theme"><?php echo $cantNot; ?></span>
                             <?php } ?>
@@ -79,7 +88,7 @@
                 <?php } ?>
                 <li>
                     <a href="index.php?c=usuarios&a=logout" style="font-size: 15px;">
-                        <i class="medium-icon fa fa-sign-out"></i>&nbsp;Salir</a>
+                        <i class="medium-icon fa fa-sign-out"></i>&nbsp;<label class="letrasmenu">Salir</label></a>
                     </a>
                 </li>
             </ul>          

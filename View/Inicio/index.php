@@ -51,7 +51,7 @@
         </td>
         <td width="15" style="min-width:15px;"></td>
         <td valign="top">
-            <table class="tabletop">
+            <table class="tabletop lateral">
            <tr>
                <td class="centrado titulonoticia">
                    Tomás Gomensoro

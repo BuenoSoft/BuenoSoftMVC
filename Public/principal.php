@@ -43,17 +43,15 @@ function initialize() {
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 <script>
-$(function() {
+    $(function() {
         function abrir(){
             $("#popup").show();
-       }
+        }
         $("#hrefAbrirPopup").click(function(){
             abrir();
-        })
-    });
+        });        
+    });   
 </script>
-
-
 </head>
 
 <body>
@@ -98,7 +96,7 @@ $(function() {
                             </li>
                             <?php } else {?>
                                 <li>
-                                    <a href="#" id="hrefAbrirPopup" data-type="zoomin">Iniciar Sesion</a>
+                                    <a href="#popup" id="hrefAbrirPopup" data-type="zoomin">Iniciar Sesion</a>
                                     <div id="popup" class="overlay-container">                                        
                                         <div class="popup-contenedor zoomin">
                                             <a href="#" class="close" aria-label="close" style="margin-top: -5px;">&times</a>
@@ -112,7 +110,7 @@ $(function() {
                                             <p class="popup-titulo">Iniciar Sesi&oacuten</p>
                                             <form action="index.php?c=usuarios&a=login" class="frm-login" method="post" name="frmlogin" id="login">
                                                 <input name="txtuser" type="text" placeholder="Usuario" class="popup-textbox" autofocus="autofocus" required="required" id="login_user" />
-                                                <input name="txtpass" type="password" placeholder="Contraseña"  class="popup-textbox" required="required" id="login_pass" />
+                                                <input name="txtpass" type="password" placeholder="Contraseña"  class="popup-textbox" required="required" id="login_pass" />                             
                                                 <input name="btnaceptar" type="submit" value="Aceptar" class="popup-btn popup-hover-btn"/>
                                             </form>
                                         </div>

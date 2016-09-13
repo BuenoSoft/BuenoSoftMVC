@@ -2241,3 +2241,47 @@ label {
 .centrarmapa{
      margin: 0 auto;
 }
+.lateral{
+     display: none;
+}
+@media screen and (min-width: 900px){
+	.lateral{
+		display: inline;
+	}
+}
+.labelcontacto{
+    display: none;
+
+}
+@media screen and (min-width: 983px){
+	.labelcontacto{
+		display: inline;
+	}
+}
+.logocel{
+    display: none;
+}
+@media screen and (min-width: 700px){
+	.logocel{
+		display: inline;
+	}
+}
+.letrasmenu{
+    display: none;
+}
+
+@media screen and (min-width: 500px){
+	.letrasmenu{
+		display: inline;
+                
+	}
+}
+.alinearcentro{
+    margin-right:90px;
+}
+@media screen and (min-width: 500px){
+
+.alinearcentro{
+    margin-right:0px;
+}
+}
