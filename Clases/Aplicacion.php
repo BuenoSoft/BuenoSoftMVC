@@ -19,7 +19,6 @@ class Aplicacion implements IPersiste
     private $padron;
     private $cultivo;
     private $caudal;
-    private $dosis;
     private $cliente;
     private $terrestre;
     private $aeronave;
@@ -69,9 +68,6 @@ class Aplicacion implements IPersiste
     }
     function getCaudal() {
         return $this->caudal;
-    }
-    function getDosis() {
-        return $this->dosis;
     }
     function getCliente() {
         return $this->cliente;
@@ -132,9 +128,6 @@ class Aplicacion implements IPersiste
     }
     function setCaudal($caudal) {
         $this->caudal = $caudal;
-    }
-    function setDosis($dosis) {
-        $this->dosis = $dosis;
     }
     function setCliente($cliente) {
         $this->cliente = $cliente;
@@ -235,8 +228,8 @@ class Aplicacion implements IPersiste
     public function find($criterio = null) { }
     
     /*-----------------------------------------*/
-    public function addPro($pro) {
-        return (new AplicacionModel())->addPro([$this->id, $pro]);
+    public function addTiene($tiene) {
+        return (new AplicacionModel())->addTiene($tiene);
     }
     public function checkPro($pro) {
         return (new AplicacionModel())->checkPro([$this->id, $pro]);
@@ -244,7 +237,7 @@ class Aplicacion implements IPersiste
     public function delPro($pro) {
         return (new AplicacionModel())->delPro([$this->id, $pro]);
     }
-    public function getProductos() {
-        return (new AplicacionModel())->getProductos([$this->id]); 
+    public function getTiene() {
+        return (new AplicacionModel())->getTiene($this->id); 
     }
 }

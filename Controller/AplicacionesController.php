@@ -9,6 +9,7 @@ use \Clases\Producto;
 use \Clases\Vehiculo;
 use \Clases\Notificacion;
 use \Clases\Aplicacion;
+use \Clases\Tiene;
 class AplicacionesController extends AppController
 {
     public function __construct() {
@@ -91,7 +92,8 @@ class AplicacionesController extends AppController
                         }
                     }                    
                     header("Location:index.php?c=aplicaciones&a=index");
-                    exit();                                        
+                    exit(); 
+                    $this->addProductos();
                 }             
             }
             $this->redirect_administrador(['add.php'],[
@@ -104,13 +106,23 @@ class AplicacionesController extends AppController
         }
     }
     private function addProductos(){
+        $datos = [];
+        $cant = count($_POST["producto"]);
         $apl = (new Aplicacion())->findById((new Aplicacion())->maxID());
-        if(isset($_POST["producto"])){
-            foreach ($_POST["producto"] as $pro){
-                $producto = (new Producto())->findByX($pro);
-                $apl->addPro($producto->getId());
-            }
+        for($int =0; $int < $cant; $int++){
+            array_push($datos, $_POST["producto"][$int]."/".$_POST["dosis"][$int]);
         }
+        echo "<br />";
+        foreach($datos as $dat){
+            $ele = explode("/",$dat);
+            $producto = (new Producto())->findByX($ele[0]);
+            $tiene = new Tiene();
+            $tiene->setApl($apl);
+            $tiene->setProducto($producto);
+            $tiene->setDosis($ele[1]);
+            $apl->addTiene($tiene);
+        }
+        
     }
     private function checkProductos($apl){
         $cont = 0;
@@ -297,7 +309,6 @@ class AplicacionesController extends AppController
         $aplicacion->setPadron($this->clean($_POST['txtpadron']));
         $aplicacion->setCultivo($this->clean($_POST['txtcultivo']));
         $aplicacion->setCaudal($this->clean($_POST['txtcaudal']));
-        $aplicacion->setDosis($this->clean($_POST['txtdosis']));
         $aplicacion->setCliente((new Usuario())->findByNombre(isset($_POST['cliente'][0]) ?  $_POST['cliente'][0] : 0));
         $aplicacion->setPiloto((new Usuario())->findByNombre(isset($_POST['piloto'][0]) ? $_POST['piloto'][0] : 0));
         $aplicacion->setChofer((new Usuario())->findByNombre(isset($_POST['chofer'][0]) ? $_POST['chofer'][0] :  0));

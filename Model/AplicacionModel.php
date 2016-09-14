@@ -14,7 +14,7 @@ class AplicacionModel extends AppModel
             $object->getCoordCul(), $object->getPista()->getId(), $object->getAreaapl(), $object->getFaja(),
             $object->getFechaIni(), $object->getFechaFin(), $object->getTratamiento(), $object->getViento(), 
             $object->getTipo()->getId(), $object->getTaquiIni(), $object->getTaquiFin(), $object->getPadron(), 
-            $object->getCultivo(), $object->getCaudal(), $object->getDosis(), $object->getCliente()->getId(),
+            $object->getCultivo(), $object->getCaudal(), $object->getCliente()->getId(),
             $object->getPiloto()->getId(),$object->getChofer()->getId(),$object->getAeronave()->getId(),
             $object->getTerrestre()->getId()
         ];
@@ -22,9 +22,8 @@ class AplicacionModel extends AppModel
     protected function getCreateQuery() {
         return "insert into aplicaciones(aplCoordCul,pisId,aplAreaAplicada,aplFaja,"
             . "aplFechaIni,aplFechaFin,aplTratamiento,aplViento,tpId,aplTaquiIni,"
-            . "aplTaquiFin,aplPadron,aplCultivo,aplCaudal,aplDosis,usuId,usuPiloto,"
-            . "usuChofer,vehAero,vehTerr)"
-            . "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            . "aplTaquiFin,aplPadron,aplCultivo,aplCaudal,usuId,usuPiloto,"
+            . "usuChofer,vehAero,vehTerr) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     }
     /*------------------------------------------------------------------------------------*/
     public function modApp($object){
@@ -34,7 +33,7 @@ class AplicacionModel extends AppModel
         return "update aplicaciones set aplCoordCul = ?,pisId = ?, aplAreaAplicada = ?, "
             . "aplFaja = ?,aplFechaIni = ?,aplFechaFin = ?,aplTratamiento = ?,aplViento = ?,"
             . "tpId = ?,aplTaquiIni = ?,aplTaquiFin = ?,aplPadron = ?,aplCultivo = ?, "
-            . "aplCaudal = ?, aplDosis = ?,usuId = ?,usuPiloto = ?,usuChofer = ?,"
+            . "aplCaudal = ?, usuId = ?,usuPiloto = ?,usuChofer = ?,"
             . "vehAero = ?,vehTerr = ? where aplId = ?";
     }
     protected function getUpdateParameter($object) {
@@ -42,7 +41,7 @@ class AplicacionModel extends AppModel
             $object->getCoordCul(), $object->getPista()->getId(), $object->getAreaapl(), $object->getFaja(), 
             $object->getFechaIni(),$object->getFechaFin(), $object->getTratamiento(), $object->getViento(), 
             $object->getTipo()->getId(),$object->getTaquiIni(), $object->getTaquiFin(), $object->getPadron(), 
-            $object->getCultivo(), $object->getCaudal(),$object->getDosis(), $object->getCliente()->getId(),
+            $object->getCultivo(), $object->getCaudal(), $object->getCliente()->getId(),
             $object->getPiloto()->getId(),$object->getChofer()->getId(),$object->getAeronave()->getId(),
             $object->getTerrestre()->getId(),$object->getId()
         ];
@@ -146,7 +145,6 @@ class AplicacionModel extends AppModel
         $aplicacion->setPadron($row["aplPadron"]);
         $aplicacion->setCultivo($row["aplCultivo"]);
         $aplicacion->setCaudal($row["aplCaudal"]);
-        $aplicacion->setDosis($row["aplDosis"]);
         $aplicacion->setCliente((new UsuarioModel())->findById($row["usuId"]));
         $aplicacion->setPiloto((new UsuarioModel())->findById($row["usuPiloto"]));
         $aplicacion->setChofer((new UsuarioModel())->findById($row["usuChofer"]));
@@ -155,14 +153,14 @@ class AplicacionModel extends AppModel
         return $aplicacion;
     }
     /*-------------------------------------------------------------------------------*/
-    public function addPro($dates = []){
-        return (new TieneModel())->addPro($dates);
+    public function addTiene($tiene){
+        return (new TieneModel())->addTiene($tiene);
     }
     public function checkPro($dates = []){
         return (new TieneModel())->checkPro($dates);
     }
-    public function getProductos($dates = []){
-        return (new TieneModel())->getProductos($dates);
+    public function getTiene($id){
+        return (new TieneModel())->getTiene($id);
     }
     public function delPro($dates = []){
         return (new TieneModel())->delPro($dates);

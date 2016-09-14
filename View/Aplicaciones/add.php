@@ -49,10 +49,37 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Productos</label>
-                    <div class="col-sm-10">
-                        <input id="producto" name="producto" required="required" tabindex="10" />                                                  
-                    </div>
+                    <table style="width:100%;">
+                        <tr>
+                            <td>    
+                                <div class="col-sm-12" id="magic" style="text-align: center; margin-top: 15px; margin-bottom: 10px;">
+                                    <p>
+                                        <input id="producto_0" name="producto[]" /> 
+                                    </p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-sm-12" style="text-align: center; margin-top: 15px; margin-bottom: 10px;" id="contenedor">                                    
+                                    <div class="added">
+                                        <p>
+                                            <input type="text" name="dosis[]" id="campo_0" placeholder="Dosis" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d]*" class="form-control" />
+                                        </p>
+                                    </div>
+                                </div>                                                
+                            </td>
+                            <td>
+                                <div class="col-sm-12 ajustebtn" style="text-align: center; margin-top: 15px; margin-bottom: 10px;">
+                                    <p>
+                                        <a id="agregarCampo" class="btn btn-info" href="#"><i class="fa fa-plus"></i></a>
+                                    </p>                                    
+                                    <p>
+                                        <a id="restarCampo" class="btn btn-info" href="#"><i class="fa fa-minus"></i></a>
+                                    </p>                                    
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    
                 </div>                
             </div>
             <div class="showback">
@@ -110,18 +137,10 @@
                         <input id="pista" required="required" name="pista" tabindex="17" />
                     </div>
                 </div>
-            </div>
-            <div class="showback">
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Faja&nbsp;<font color="red">*</font></label>
                     <div class="col-sm-10">
                         <input type="text" name="txtfaja" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d\/]*" class="form-control"  required="required" placeholder="" tabindex="18" value="<?php echo \App\Session::get("pass")[5]; ?>"/>
-                    </div>
-                </div>                               
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Dosis&nbsp;<font color="red">*</font></label>
-                    <div class="col-sm-10">
-                        <input type="text" name="txtdosis" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d]*" class="form-control" required="required" placeholder="" tabindex="19" value="<?php echo \App\Session::get("pass")[16]; ?>"/>
                     </div>
                 </div>
             </div>
@@ -163,6 +182,51 @@
     </div>
 </form>
 <script>
+    $(document).ready(function() {
+        var MaxInputs = 8; //Número Maximo de Campos
+        var contenedor = $("#contenedor"); //ID del contenedor
+        var magic = $("#magic"); //ID del contenedor
+        var AddButton = $("#agregarCampo"); //ID del Botón Agregar
+        var DelButton = $("#restarCampo"); //ID del Botón Agregar
+        //var x = número de campos existentes en el contenedor
+        var x = $("#contenedor div").length + 1;        
+        var FieldCount = x-1; //para el seguimiento de los campos
+        var y = 0;
+        $(AddButton).click(function (e) {
+            if(x <= MaxInputs) //max input box allowed
+            {
+                FieldCount++;
+                //agregar campo
+                $(magic).append('<div><p><input id="producto_'+ FieldCount +'" name="producto[]" /></p></div>');
+                $("#producto_"+ FieldCount).magicSuggest({
+                    placeholder: 'Seleccione Producto',
+                    maxSelection: 1,
+                    maxDropHeight: 150,
+                    sortDir: 'asc',
+                    data: [
+                        <?php foreach($productos as $producto){ ?>
+                            '<?php echo $producto->getNombre(); ?>',
+                        <?php } ?>
+                    ]                
+                });                
+                $(contenedor).append('<div><p><input type="text" name="dosis[]" id="campo_'+ FieldCount +'" onkeypress="return validarTextoyNum(event);" class="form-control" placeholder="Dosis '+ FieldCount +'"/></p></div>');
+                x++; //text box increment
+                y=FieldCount;
+            }
+            return false;
+        });
+        $(DelButton).click(function (e) {
+            if(x != 1) //max input box allowed
+            {
+                FieldCount--;               
+                $("#campo_"+ y).remove(); //eliminar el campo
+                $("#producto_"+ y).remove(); 
+                y--;
+                x--;
+            }
+            return false;
+        });
+    });
     $(function() {       
         $.mask.definitions['~'] = "[+-]";
         $("#sur").mask("99 99 99",{ 
@@ -216,8 +280,9 @@
                 <?php } ?>
             ]
         });
-        $('#producto').magicSuggest({
-            placeholder: 'Seleccione Productos',
+        $('#producto_0').magicSuggest({
+            placeholder: 'Seleccione Producto',
+            maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
             data: [

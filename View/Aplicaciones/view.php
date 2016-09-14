@@ -62,9 +62,9 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Productos</label>
                     <div class="col-sm-10" style="text-align: center;">                        
-                        <?php foreach ($aplicacion->getProductos() as $producto) { ?>
-                                <a href="index.php?c=aplicaciones&a=producto&d=<?php echo $producto->getId(); ?>">
-                                    <?php echo $producto->getNombre()."<br />"; ?>
+                        <?php foreach ($aplicacion->getTiene() as $tiene) { ?>
+                                <a href="index.php?c=aplicaciones&a=producto&d=<?php echo $tiene->getProducto()->getId(); ?>">
+                                    <?php echo $tiene->getProducto()->getNombre()." dosis: ".$tiene->getDosis()."<br />"; ?>
                                 </a>
                         <?php } ?>                                                    
                     </div>
@@ -127,20 +127,12 @@
                         <?php echo $aplicacion->getPista()->getNombre(); ?>
                     </div>
                 </div>
-            </div>
-            <div class="showback">
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Faja</label>
                     <div class="col-sm-10" style="text-align: center;">
                         <?php echo $aplicacion->getFaja(); ?>
                     </div>
-                </div>                               
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Dosis</label>
-                    <div class="col-sm-10" style="text-align: center;">
-                        <?php echo $aplicacion->getDosis(); ?>
-                    </div>
-                </div>
+                </div>                                               
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">

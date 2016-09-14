@@ -1,5 +1,6 @@
 <?php
 namespace Model;
+use \Clases\Tiene;
 class TieneModel extends AppModel 
 {
     public function __construct() {
@@ -10,11 +11,16 @@ class TieneModel extends AppModel
         return [$dates[0],$dates[1]];
     }
     /*---------------------------------------------------------------------*/
-    public function addPro($dates = []){
-        return $this->execute($this->getCreateQuery(), $this->getCheckTieneParameter($dates));
+    public function addTieneParameter($tiene){
+        return [$tiene->getApl()->getId(),
+            $tiene->getProducto()->getId(),
+            $tiene->getDosis()];
+    }
+    public function addTiene($tiene){
+        return $this->execute($this->getCreateQuery(), $this->addTieneParameter($tiene));
     }
     protected function getCreateQuery() {
-        return "insert into tiene(aplId,proId) values (?,?)";
+        return "insert into tiene(aplId,proId,aplDosis) values (?,?,?)";
     }
     /*---------------------------------------------------------------------*/
     public function delPro($dates = []){
@@ -24,17 +30,20 @@ class TieneModel extends AppModel
         return "delete from tiene where aplId = ? and proId = ?";
     }
     /*---------------------------------------------------------------------*/
-    public function getProductos($dates = []){
-        return $this->fetch($this->getFindQuery(), $this->getFindTieneParameter($dates));
+    public function getTiene($id){
+        return $this->fetch($this->getFindQuery(), $this->getFindTieneParameter($id));
     }
-    private function getFindTieneParameter($dates = []){
-        return [$dates[0]];        
+    private function getFindTieneParameter($id){
+        return [$id];        
     }
     protected function getFindQuery($criterio = null){        
-        return "select * from tiene t inner join productos p on t.proId = p.proId where t.aplId = ?";
+        return "select * from tiene t where t.aplId = ?";
     }
     public function createEntity($row){
-        return (new ProductoModel())->findById($row['proId']);
+        $tiene = new Tiene((new AplicacionModel())->findById($row['aplId']));
+        $tiene->setProducto((new ProductoModel())->findById($row['proId']));
+        $tiene->setDosis($row['aplDosis']);
+        return $tiene;
     }
     protected function getCheckParameter($unique) { }
     protected function getCheckMessage() { }
