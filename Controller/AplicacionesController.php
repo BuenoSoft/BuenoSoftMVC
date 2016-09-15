@@ -67,7 +67,7 @@ class AplicacionesController extends AppController
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Chofer"));
                 } else if($apl->getTerrestre() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Terrestre"));
-                } else if($apl->getPiloto() == null){
+                } else if($apl->getPiloto() == null and Session::get("log_in")->getRol()->getNombre() != "Piloto"){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Piloto"));                                    
                 } else if($apl->getPista() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado la Pista"));
@@ -107,12 +107,12 @@ class AplicacionesController extends AppController
     }
     private function addProductos(){
         $datos = [];
+        $tienes = [];
         $cant = count($_POST["producto"]);
         $apl = (new Aplicacion())->findById((new Aplicacion())->maxID());
         for($int =0; $int < $cant; $int++){
             array_push($datos, $_POST["producto"][$int]."/".$_POST["dosis"][$int]);
         }
-        echo "<br />";
         foreach($datos as $dat){
             $ele = explode("/",$dat);
             $producto = (new Producto())->findByX($ele[0]);
@@ -120,9 +120,13 @@ class AplicacionesController extends AppController
             $tiene->setApl($apl);
             $tiene->setProducto($producto);
             $tiene->setDosis($ele[1]);
-            $apl->addTiene($tiene);
+            array_push($tienes, $tiene);
         }
-        
+        foreach ($tienes as $tiene){
+            if(!$apl->checkTiene($tiene)){
+                $apl->addTiene($tiene);
+            }
+        }
     }
     private function checkProductos($apl){
         $cont = 0;
@@ -155,7 +159,7 @@ class AplicacionesController extends AppController
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Chofer"));
                 } else if($apl->getTerrestre() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Terrestre"));
-                } else if($apl->getPiloto() == null){
+                } else if($apl->getPiloto() == null and Session::get("log_in")->getRol()->getNombre() != "Piloto"){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Piloto"));                                    
                 } else if($apl->getPista() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado la Pista"));
@@ -195,13 +199,25 @@ class AplicacionesController extends AppController
     }
     //Colaboración: Rodrigo López
     private function modProductos($apl){         
-        foreach ($apl->getProductos() as $producto){
-            $apl->delPro($producto->getId());             
+        $apl->delTiene();
+        $datos = [];
+        $tienes = [];
+        $cant = count($_POST["producto"]);
+        for($int =0; $int < $cant; $int++){
+            array_push($datos, $_POST["producto"][$int]."/".$_POST["dosis"][$int]);
         }
-        if(isset($_POST["producto"])){
-            foreach ($_POST["producto"] as $pro){
-                $producto = (new Producto())->findByX($pro);
-                $apl->addPro($producto->getId());
+        foreach($datos as $dat){
+            $ele = explode("/",$dat);
+            $producto = (new Producto())->findByX($ele[0]);
+            $tiene = new Tiene();
+            $tiene->setApl($apl);
+            $tiene->setProducto($producto);
+            $tiene->setDosis($ele[1]);
+            array_push($tienes, $tiene);
+        }
+        foreach ($tienes as $tiene){
+            if(!$apl->checkTiene($tiene)){
+                $apl->addTiene($tiene);
             }
         }
     }
@@ -310,7 +326,7 @@ class AplicacionesController extends AppController
         $aplicacion->setCultivo($this->clean($_POST['txtcultivo']));
         $aplicacion->setCaudal($this->clean($_POST['txtcaudal']));
         $aplicacion->setCliente((new Usuario())->findByNombre(isset($_POST['cliente'][0]) ?  $_POST['cliente'][0] : 0));
-        $aplicacion->setPiloto((new Usuario())->findByNombre(isset($_POST['piloto'][0]) ? $_POST['piloto'][0] : 0));
+        $aplicacion->setPiloto((new Usuario())->findByNombre((Session::get("log_in")->getRol()->getNombre() == "Piloto") ? Session::get("log_in")->getNomReal() : (isset($_POST['piloto'][0]) ? $_POST['piloto'][0] : 0)));
         $aplicacion->setChofer((new Usuario())->findByNombre(isset($_POST['chofer'][0]) ? $_POST['chofer'][0] :  0));
         $aplicacion->setAeronave((new Vehiculo())->findByMat(isset($_POST['aeronave'][0]) ? $_POST['aeronave'][0] : 0));
         $aplicacion->setTerrestre((new Vehiculo())->findByMat(isset($_POST['terrestre'][0]) ? $_POST['terrestre'][0] : 0));

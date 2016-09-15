@@ -231,11 +231,11 @@ class Aplicacion implements IPersiste
     public function addTiene($tiene) {
         return (new AplicacionModel())->addTiene($tiene);
     }
-    public function checkPro($pro) {
-        return (new AplicacionModel())->checkPro([$this->id, $pro]);
+    public function checkTiene($tiene) {
+        return (new AplicacionModel())->checkTiene($tiene);
     }
-    public function delPro($pro) {
-        return (new AplicacionModel())->delPro([$this->id, $pro]);
+    public function delTiene() {
+        return (new AplicacionModel())->delTiene($this->id);
     }
     public function getTiene() {
         return (new AplicacionModel())->getTiene($this->id); 

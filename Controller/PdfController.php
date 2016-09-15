@@ -90,18 +90,15 @@ class PdfController extends AppController
             $this->getPdf()->Cell(48, 8, "s: ".$aplicacion->getGMDLat()." o: ".$aplicacion->getGMDLong(), "B");
             /*---------------------------------------------------------------*/
             $this->getPdf()->SetXY(10, 120);
-            $this->getPdf()->Cell(27, 8, 'Productos:', 0);
-            foreach($aplicacion->getProductos() as $producto){
+            $this->getPdf()->Cell(27, 8, 'Productos | Dosis:', 0);
+            foreach($aplicacion->getTiene() as $tiene){
                 $this->getPdf()->Ln(8);
-                $this->getPdf()->Cell(50, 8, $producto->getNombre(), "B");
+                $this->getPdf()->Cell(50, 8, $tiene->getProducto()->getNombre()." | ".$tiene->getDosis(), "B");
             }
             /*---------------------------------------------------------------*/
             $this->getPdf()->SetXY(125, 120);
             $this->getPdf()->Cell(12, 8, 'Faja:', 0);
             $this->getPdf()->Cell(48, 8, $aplicacion->getFaja(), "B");
-            $this->getPdf()->SetXY(125, 130);
-            $this->getPdf()->Cell(15, 8, 'Dosis:', 0);
-            $this->getPdf()->Cell(48, 8, $aplicacion->getDosis(), "B");                
             /*---------------------------------------------------------------*/
             $this->getPdf()->SetXY(10, 170);
             $this->getPdf()->Cell(27, 8, 'Viento:', 0);

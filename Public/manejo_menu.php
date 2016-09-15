@@ -24,7 +24,7 @@
                 <?php if(App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>
                 <li>
                     <label style="font-size: 13px; margin-top: 17px;">
-                        <i class="fa fa-envelope-o" aria-hidden="true"></i>&nbsp;
+                        <a style="color:#797979; text-decoration: none;" href="mailto:buenoserviciosaereos@gmail.com"><i class="fa fa-envelope-o" aria-hidden="true" title="buenoserviciosaereos@gmail.com"></i></a>&nbsp;
                         <a href="mailto:buenoserviciosaereos@gmail.com" class="labelcontacto" style="color:#797979; text-decoration: none;">
                             buenoserviciosaereos@gmail.com
                         </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -32,10 +32,62 @@
                 </li> 
                 <li>
                     <label style="font-size: 13px; margin-top: 17px;">
-                        <i class="fa fa-phone alinearcentro" aria-hidden="true"></i>&nbsp;                       
-                        <label style="font-size: 13px; margin-top: 17px; margin-right: 60px;" class="labelcontacto">
-                            4777 2138
-                        </label>                        
+                        <?php
+                            $device = '';
+
+
+                            if( stristr($_SERVER['HTTP_USER_AGENT'],'ipad') ) {
+                                $device = "ipad";
+
+                                echo '<a href="tel://+598-4777-2138">
+                                    <i class="fa fa-phone alinearcentro" aria-hidden="true"></i>
+                                </a>
+                                <label style="font-size: 13px; margin-top: 17px; margin-right: 60px;" class="labelcontacto">
+                                    4777 2138
+                                </label>';
+                                    
+
+                            } else if( stristr($_SERVER['HTTP_USER_AGENT'],'iphone') || strstr($_SERVER['HTTP_USER_AGENT'],'iphone') ) {
+                                $device = "iphone";
+
+                                echo '<a href="tel://+598-4777-2138">
+                                    <i class="fa fa-phone alinearcentro" aria-hidden="true"></i>
+                                </a>
+                                <label style="font-size: 13px; margin-top: 17px; margin-right: 60px;" class="labelcontacto">
+                                    4777 2138
+                                </label>';
+                                
+                            } else if( stristr($_SERVER['HTTP_USER_AGENT'],'blackberry') ) {
+                                $device = "blackberry";
+
+                                echo '<a href="tel://+598-4777-2138">
+                                    <i class="fa fa-phone alinearcentro" aria-hidden="true"></i>
+                                </a>
+                                <label style="font-size: 13px; margin-top: 17px; margin-right: 60px;" class="labelcontacto">
+                                    4777 2138
+                                </label>';
+
+                            } else if( stristr($_SERVER['HTTP_USER_AGENT'],'android') ) {
+                                $device = "android";
+
+                                echo '<a href="tel://+598-4777-2138">
+                                    <i class="fa fa-phone alinearcentro" aria-hidden="true"></i>
+                                </a>
+                                <label style="font-size: 13px; margin-top: 17px; margin-right: 60px;" class="labelcontacto">
+                                    4777 2138
+                                </label>';
+                            }
+
+                            if( $device == '' ) {
+
+                                echo '<i class="fa fa-phone alinearcentro" aria-hidden="true" title="4777 2138"></i>&nbsp;                       
+                                <label style="font-size: 13px; margin-top: 17px; margin-right: 60px;" class="labelcontacto">
+                                    4777 2138
+                                </label> ';
+                                    
+                                }
+                        ?>
+                                              
                     </label>                                           
                 </li>
                     <li class='dropdown'>

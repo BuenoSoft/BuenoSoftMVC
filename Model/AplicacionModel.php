@@ -15,7 +15,9 @@ class AplicacionModel extends AppModel
             $object->getFechaIni(), $object->getFechaFin(), $object->getTratamiento(), $object->getViento(), 
             $object->getTipo()->getId(), $object->getTaquiIni(), $object->getTaquiFin(), $object->getPadron(), 
             $object->getCultivo(), $object->getCaudal(), $object->getCliente()->getId(),
-            $object->getPiloto()->getId(),$object->getChofer()->getId(),$object->getAeronave()->getId(),
+            $object->getPiloto()->getId(),
+            $object->getChofer()->getId(),
+            $object->getAeronave()->getId(),
             $object->getTerrestre()->getId()
         ];
     }
@@ -23,7 +25,7 @@ class AplicacionModel extends AppModel
         return "insert into aplicaciones(aplCoordCul,pisId,aplAreaAplicada,aplFaja,"
             . "aplFechaIni,aplFechaFin,aplTratamiento,aplViento,tpId,aplTaquiIni,"
             . "aplTaquiFin,aplPadron,aplCultivo,aplCaudal,usuId,usuPiloto,"
-            . "usuChofer,vehAero,vehTerr) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            . "usuChofer,vehAero,vehTerr) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     }
     /*------------------------------------------------------------------------------------*/
     public function modApp($object){
@@ -156,14 +158,14 @@ class AplicacionModel extends AppModel
     public function addTiene($tiene){
         return (new TieneModel())->addTiene($tiene);
     }
-    public function checkPro($dates = []){
-        return (new TieneModel())->checkPro($dates);
+    public function checkTiene($tiene){
+        return (new TieneModel())->checkTiene($tiene);
     }
     public function getTiene($id){
         return (new TieneModel())->getTiene($id);
     }
-    public function delPro($dates = []){
-        return (new TieneModel())->delPro($dates);
+    public function delTiene($id){
+        return (new TieneModel())->delTiene($id);
     }
     /*-------------------------------------------------------------------------------*/
     protected function getCheckMessage() { }
