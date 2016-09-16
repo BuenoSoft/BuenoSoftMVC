@@ -38,6 +38,8 @@ class MovimientosController extends AppController
             $bc->add_crumb($_SERVER['HTTP_REFERER']);
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
+            $combustibles = (new Combustible())->find();
+            array_push($combustibles,  $this->getGhost());
             if (isset($_POST['btnaceptar'])) {
                 if(!isset($_POST['emi'][0]) and !isset($_POST['rec'][0])){
                     Session::set("msg",Session::msgDanger("Asegurese de seleccionar el stock emisor y receptor"));
@@ -47,19 +49,20 @@ class MovimientosController extends AppController
                     Session::set("msg",Session::msgDanger("Asegurese de seleccionar el stock receptor"));
                 } else if($_POST['emi'][0] == $_POST['rec'][0]){
                     Session::set("msg",Session::msgDanger("Asegurese de que los stocks emisor y receptor sean distintos"));
+                } else if($_POST['rec'][0] == "Compra"){
+                    Session::set("msg",Session::msgDanger("No seleccione Compra como receptor"));
                 } else {
                     $mov = $this->createEntity();
-                    if($mov->save()){
-                        $this->changeStock($mov);
-                        $this->notifyStock($mov);
-                        Session::set("msg",Session::msgSuccess("Movimiento Realizado"));
-                        header("Location:index.php?c=movimientos&a=index");
-                        exit();                              
-                    }                      
+                    $mov->save();
+                    $this->changeStock($mov);
+                    $this->notifyStock($mov);
+                    Session::set("msg",Session::msgSuccess("Movimiento Realizado"));
+                    header("Location:index.php?c=movimientos&a=index");
+                    exit();                                                                           
                 }
             }
             $this->redirect_administrador(["add.php"],[
-                "combustibles" => (new Combustible())->find(),   
+                "combustibles" => $combustibles,   
                 "vehiculos" => (new Vehiculo())->find()
             ]);
         } else {
@@ -68,7 +71,7 @@ class MovimientosController extends AppController
         } 
     }
     private function changeStock($mov){
-        if($mov->getComEmi() != null){
+        if($mov->getComEmi() != null and $mov->getVehEmi() == null){
             if($mov->getComRec() != null){
                 $mov->getComEmi()->delStock($mov->getCantidad());
                 $mov->getComRec()->addStock($mov->getCantidad());
@@ -76,16 +79,20 @@ class MovimientosController extends AppController
                 $mov->getComEmi()->delStock($mov->getCantidad());
                 $mov->getVehRec()->addStock($mov->getCantidad());
             }
+        } else if($mov->getComEmi() == null and $mov->getVehEmi() != null){
+            if($mov->getComRec() != null){
+                $mov->getVehEmi()->delStock($mov->getCantidad());
+                $mov->getComRec()->addStock($mov->getCantidad());
+            } else {
+                $mov->getVehEmi()->delStock($mov->getCantidad());
+                $mov->getVehRec()->addStock($mov->getCantidad());
+            }             
         } else {
-            if($mov->getVehEmi() != null){
-                if($mov->getComRec() != null){
-                    $mov->getVehEmi()->delStock($mov->getCantidad());
-                    $mov->getComRec()->addStock($mov->getCantidad());
-                } else {
-                    $mov->getVehEmi()->delStock($mov->getCantidad());
-                    $mov->getVehRec()->addStock($mov->getCantidad());
-                }
-            } 
+            if($mov->getComRec() != null){
+                $mov->getComRec()->addStock($mov->getCantidad());
+            } else {
+                $mov->getVehRec()->addStock($mov->getCantidad());
+            }
         }       
     }
     
@@ -95,7 +102,7 @@ class MovimientosController extends AppController
                 $not = new Notificacion();
                 $not->setId(0);
                 $not->setFecha(date("Y-m-d"));
-                $not->setMensaje("El combustible ".$mov->getComEmi()->getNombre()." necesita ser recargado.");
+                $not->setMensaje("El combustible ".$mov->getComEmi()->getNombre()." está con el ".$mov->getComEmi()->regla3()."% necesita ser recargado.");
                 $not->setUsuario(null);
                 $not->setVehiculo(null);
                 $not->save();            
@@ -121,7 +128,7 @@ class MovimientosController extends AppController
         }
     }
     private function rebornStock($mov){
-        if($mov->getComEmi() != null){
+        if($mov->getComEmi() != null and $mov->getVehEmi() == null){
             if($mov->getComRec() != null){
                 $mov->getComEmi()->addStock($mov->getCantidad());
                 $mov->getComRec()->delStock($mov->getCantidad());
@@ -129,16 +136,20 @@ class MovimientosController extends AppController
                 $mov->getComEmi()->addStock($mov->getCantidad());
                 $mov->getVehRec()->delStock($mov->getCantidad());
             }
+        } else if($mov->getComEmi() == null and $mov->getVehEmi() != null){
+            if($mov->getComRec() != null){
+                $mov->getVehEmi()->addStock($mov->getCantidad());
+                $mov->getComRec()->delStock($mov->getCantidad());
+            } else {
+                $mov->getVehEmi()->addStock($mov->getCantidad());
+                $mov->getVehRec()->delStock($mov->getCantidad());
+            }             
         } else {
-            if($mov->getVehEmi() != null){
-                if($mov->getComRec() != null){
-                    $mov->getVehEmi()->addStock($mov->getCantidad());
-                    $mov->getComRec()->delStock($mov->getCantidad());
-                } else {
-                    $mov->getVehEmi()->addStock($mov->getCantidad());
-                    $mov->getVehRec()->delStock($mov->getCantidad());
-                }
-            } 
+            if($mov->getComRec() != null){
+                $mov->getComRec()->delStock($mov->getCantidad());
+            } else {
+                $mov->getVehRec()->delStock($mov->getCantidad());
+            }
         }
     }
     /*-------------------------------------------------------------------------------*/
@@ -204,6 +215,13 @@ class MovimientosController extends AppController
         } else {
             return null;
         }
+    }
+    private function getGhost(){
+        $combustible = new Combustible();
+        $combustible->setId(0);
+        $combustible->setNombre("Compra");
+        $combustible->setStock(INF);
+        return $combustible;
     }
     protected function getRoles() {
         return ["Administrador","Supervisor","Piloto"];

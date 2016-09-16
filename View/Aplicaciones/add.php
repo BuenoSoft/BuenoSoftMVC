@@ -1,5 +1,5 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Crear Aplicación</h3>
-<form class="form-horizontal style-form" method="post" action="index.php?c=aplicaciones&a=add" name="frmadd" autocomplete="off">
+<form class="form-horizontal style-form" method="post" action="index.php?c=aplicaciones&a=add" name="frmadd" autocomplete="off" enctype="multipart/form-data">
     <div class="row mt">
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="showback">
@@ -171,7 +171,13 @@
                     <div class="col-sm-10">
                         <input type="text" name="txttaquiFin" onkeypress="return validarNumeroP(event)" pattern="[\d\.]*" class="form-control" placeholder="" tabindex="23" value="<?php echo \App\Session::get("pass")[12]; ?>"/>
                     </div>
-                </div> 
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Avatar</label>
+                    <div class="col-sm-10">
+                        <input type="file" name="avatar" id="foto" tabindex="9" />
+                    </div>
+                </div>
             </div>            
             <div style="text-align: center;">
                 <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="24"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;

@@ -2,6 +2,7 @@
 namespace Controller;
 use \App\Session;
 use \App\Breadcrumbs;
+use \Lib\Upload;
 use \Clases\Pista;
 use \Clases\TipoProducto;
 use \Clases\Usuario;
@@ -14,6 +15,7 @@ class AplicacionesController extends AppController
 {
     public function __construct() {
         parent::__construct();
+        $this->upload = new Upload("aplicaciones");
     }
     public function index(){
         if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
@@ -249,6 +251,31 @@ class AplicacionesController extends AppController
             }            
         }
     }
+    public function avatar(){
+        if($this->checkUser()){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb("index.php?c=usuarios&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
+            if (isset($_POST['btnaceptar'])) {
+                if(isset($_FILES['avatar'])){
+                    $ruta = $this->upload->uploadImage($_FILES['avatar']);
+                    if($ruta!= null){
+                        $aplicacion = (new Aplicacion())->findById(Session::get('app'));
+                        $aplicacion->setAvatar($ruta);
+                        $aplicacion->avatar();
+                        header("Location:index.php?c=aplicaciones&a=avatar");
+                        exit();                    
+                    }
+                }                                             
+            }
+            $this->redirect_administrador(['avatar.php'],[
+                'aplicacion' => (new Aplicacion())->findById(Session::get('app'))
+            ]);
+        }
+    }
     public function view(){
         if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
             $bc = new Breadcrumbs();
@@ -325,6 +352,7 @@ class AplicacionesController extends AppController
         $aplicacion->setPadron($this->clean($_POST['txtpadron']));
         $aplicacion->setCultivo($this->clean($_POST['txtcultivo']));
         $aplicacion->setCaudal($this->clean($_POST['txtcaudal']));
+        $aplicacion->setAvatar((isset($_FILES['avatar']) ? $this->upload->uploadImage($_FILES['avatar']) : (new Aplicacion())->findById($aplicacion->getId())->getAvatar()));
         $aplicacion->setCliente((new Usuario())->findByNombre(isset($_POST['cliente'][0]) ?  $_POST['cliente'][0] : 0));
         $aplicacion->setPiloto((new Usuario())->findByNombre((Session::get("log_in")->getRol()->getNombre() == "Piloto") ? Session::get("log_in")->getNomReal() : (isset($_POST['piloto'][0]) ? $_POST['piloto'][0] : 0)));
         $aplicacion->setChofer((new Usuario())->findByNombre(isset($_POST['chofer'][0]) ? $_POST['chofer'][0] :  0));
@@ -343,11 +371,11 @@ class AplicacionesController extends AppController
         } else {
             $arr=  explode(" ",$date);
             $p1 = $arr[1] /60;
-            $p2 = $p1 + $arr[1];
-            $p3 = $p2 /60;
-            return -1 * ($p3 + $arr[0]);         
-        }
-    }
+            $p2 = $arr[2] /3600;
+            $p3 = $arr[0] + $p1 + $p2;
+            return -1 * ($p3);
+        }        
+    } 
     private function inverseDate($date){
         if($date != null){
             $arrdate = explode("-", $date);

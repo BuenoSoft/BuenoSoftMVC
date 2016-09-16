@@ -19,6 +19,7 @@ class Aplicacion implements IPersiste
     private $padron;
     private $cultivo;
     private $caudal;
+    private $avatar;
     private $cliente;
     private $terrestre;
     private $aeronave;
@@ -68,6 +69,9 @@ class Aplicacion implements IPersiste
     }
     function getCaudal() {
         return $this->caudal;
+    }
+    function getAvatar() {
+        return $this->avatar;
     }
     function getCliente() {
         return $this->cliente;
@@ -128,6 +132,9 @@ class Aplicacion implements IPersiste
     }
     function setCaudal($caudal) {
         $this->caudal = $caudal;
+    }
+    function setAvatar($avatar) {
+        $this->avatar = $avatar;
     }
     function setCliente($cliente) {
         $this->cliente = $cliente;
@@ -195,7 +202,7 @@ class Aplicacion implements IPersiste
         $p3 = $arrp2[0];
         $p4 = ($p2 - $p3) * 60;
         $p5 = explode(".", $p4);
-        return ($p1)." ".($p3)." ".($p5[0]);
+        return ($p1)." ".($p3)." ".($p5[0]+1);
     }
     public function getGMDLong(){
         $arr = explode(",", $this->coordCul);
@@ -224,6 +231,9 @@ class Aplicacion implements IPersiste
     }
     public function del() { 
         return (new AplicacionModel())->delete($this);
+    }
+    public function avatar(){
+        return (new AplicacionModel())->getAvatar($this);
     }
     public function find($criterio = null) { }
     

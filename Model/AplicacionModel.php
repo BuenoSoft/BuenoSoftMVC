@@ -14,18 +14,16 @@ class AplicacionModel extends AppModel
             $object->getCoordCul(), $object->getPista()->getId(), $object->getAreaapl(), $object->getFaja(),
             $object->getFechaIni(), $object->getFechaFin(), $object->getTratamiento(), $object->getViento(), 
             $object->getTipo()->getId(), $object->getTaquiIni(), $object->getTaquiFin(), $object->getPadron(), 
-            $object->getCultivo(), $object->getCaudal(), $object->getCliente()->getId(),
-            $object->getPiloto()->getId(),
-            $object->getChofer()->getId(),
-            $object->getAeronave()->getId(),
+            $object->getCultivo(), $object->getCaudal(), $object->getAvatar(),$object->getCliente()->getId(),
+            $object->getPiloto()->getId(),$object->getChofer()->getId(),$object->getAeronave()->getId(),
             $object->getTerrestre()->getId()
         ];
     }
     protected function getCreateQuery() {
         return "insert into aplicaciones(aplCoordCul,pisId,aplAreaAplicada,aplFaja,"
             . "aplFechaIni,aplFechaFin,aplTratamiento,aplViento,tpId,aplTaquiIni,"
-            . "aplTaquiFin,aplPadron,aplCultivo,aplCaudal,usuId,usuPiloto,"
-            . "usuChofer,vehAero,vehTerr) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            . "aplTaquiFin,aplPadron,aplCultivo,aplCaudal,aplAvatar,usuId,usuPiloto,"
+            . "usuChofer,vehAero,vehTerr) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     }
     /*------------------------------------------------------------------------------------*/
     public function modApp($object){
@@ -35,7 +33,7 @@ class AplicacionModel extends AppModel
         return "update aplicaciones set aplCoordCul = ?,pisId = ?, aplAreaAplicada = ?, "
             . "aplFaja = ?,aplFechaIni = ?,aplFechaFin = ?,aplTratamiento = ?,aplViento = ?,"
             . "tpId = ?,aplTaquiIni = ?,aplTaquiFin = ?,aplPadron = ?,aplCultivo = ?, "
-            . "aplCaudal = ?, usuId = ?,usuPiloto = ?,usuChofer = ?,"
+            . "aplCaudal = ?,aplAvatar = ?, usuId = ?,usuPiloto = ?,usuChofer = ?,"
             . "vehAero = ?,vehTerr = ? where aplId = ?";
     }
     protected function getUpdateParameter($object) {
@@ -43,10 +41,20 @@ class AplicacionModel extends AppModel
             $object->getCoordCul(), $object->getPista()->getId(), $object->getAreaapl(), $object->getFaja(), 
             $object->getFechaIni(),$object->getFechaFin(), $object->getTratamiento(), $object->getViento(), 
             $object->getTipo()->getId(),$object->getTaquiIni(), $object->getTaquiFin(), $object->getPadron(), 
-            $object->getCultivo(), $object->getCaudal(), $object->getCliente()->getId(),
+            $object->getCultivo(), $object->getCaudal(), $object->getAvatar(), $object->getCliente()->getId(),
             $object->getPiloto()->getId(),$object->getChofer()->getId(),$object->getAeronave()->getId(),
             $object->getTerrestre()->getId(),$object->getId()
         ];
+    }
+    /*------------------------------------------------------------------------------------*/
+    public function getAvatar($object){
+        return $this->execute($this->getAvatarQuery(), $this->getAvatarParameter($object));
+    }
+    public function getAvatarQuery(){
+        return "update aplicaciones set aplAvatar = ? where aplId = ?";
+    }
+    public function getAvatarParameter($object){
+        return [$object->getAvatar(), $object->getId()];
     }
     /*------------------------------------------------------------------------------------*/
     public function findAdvance($datos = []){                
@@ -147,6 +155,7 @@ class AplicacionModel extends AppModel
         $aplicacion->setPadron($row["aplPadron"]);
         $aplicacion->setCultivo($row["aplCultivo"]);
         $aplicacion->setCaudal($row["aplCaudal"]);
+        $aplicacion->setAvatar($row["aplAvatar"]);
         $aplicacion->setCliente((new UsuarioModel())->findById($row["usuId"]));
         $aplicacion->setPiloto((new UsuarioModel())->findById($row["usuPiloto"]));
         $aplicacion->setChofer((new UsuarioModel())->findById($row["usuChofer"]));

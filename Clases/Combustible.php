@@ -82,14 +82,14 @@ class Combustible implements IPersiste
     public function regla3(){
         return round(($this->stock * 100) / $this->stockMax);
     }
-     public function aviso(){
-        return ($this->stockMax * 10) / 100;
+    public function regla3Min(){
+         return round(($this->stockMin * 100) / $this->stockMax);
     }
     public function isDown(){
         return $this->stock <= $this->stockMin;
     }
     public function isMedium(){
-       return $this->stock > $this->stockMin and $this->stock <= $this->stockMin + $this->aviso();
+       return $this->regla3() > $this->regla3Min() and $this->regla3() < 60;
     }
     public function restaCombustible(){
         return 100 - $this->regla3();
@@ -98,7 +98,7 @@ class Combustible implements IPersiste
         return $this->getStockMax() - $this->getStock();
     }
     public function isExcellent(){
-        return $this->stock == $this->stockMax;
+        return $this->regla3() >= 60 and $this->regla3() <= 100;
     }
     /*---------------------------------------*/
     public function del() {

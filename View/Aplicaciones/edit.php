@@ -167,7 +167,18 @@
                     <div class="col-sm-10">
                         <input type="text" name="txttaquiFin" onkeypress="return validarNumeroP(event)" pattern="[\d\.]*" class="form-control" placeholder="" tabindex="24" value="<?php echo $aplicacion->getTaquiFin(); ?>"/>
                     </div>
-                </div> 
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Avatar</label>
+                    <div class="col-sm-10">
+                        <?php if($aplicacion->getAvatar() == null) { ?>
+                            <img src="Public/img/manejo/profile_img.png" width='175' height='125' />&nbsp;&nbsp;
+                        <?php } else { ?>
+                            <img src="<?php echo $aplicacion->getAvatar(); ?>" width='175' height='125' />&nbsp;&nbsp;
+                        <?php } ?>
+                            <a href="index.php?c=aplicaciones&a=avatar" title="Cambiar"><button type="button" name="btnavatar" value="Avatar" class="btn btn-theme00" tabindex="10" ><i class="fa fa-photo"></i>&nbsp;Cambiar</button></a>
+                    </div>
+                </div>
             </div>            
             <div style="text-align: center;">
                 <button type="submit" name="btnaceptar" value="Aceptar" class="btn btn-theme03" tabindex="25"><i class="fa fa-check"></i>&nbsp;Aceptar</button>&nbsp;

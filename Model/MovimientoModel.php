@@ -15,15 +15,15 @@ class MovimientoModel extends AppModel
             } else {
                 return $this->execute($this->getCreateQuery(), $this->getCreateParameter($object));
             }
+        } else if($object->getVehEmi() != null) {
+            if($object->getVehEmi()->getCapcarga() < $object->getCantidad()){
+                Session::set("msg",Session::msgDanger("El stock emisor no cuenta con suficiente capacidad"));
+                return false;
+            } else {
+                return $this->execute($this->getCreateQuery(), $this->getCreateParameter($object));
+            }            
         } else {
-            if($object->getVehEmi() != null){
-                if($object->getVehEmi()->getCapcarga() < $object->getCantidad()){
-                    Session::set("msg",Session::msgDanger("El stock emisor no cuenta con suficiente capacidad"));
-                    return false;
-                } else {
-                    return $this->execute($this->getCreateQuery(), $this->getCreateParameter($object));
-                }
-            }
+            return $this->execute($this->getCreateQuery(), $this->getCreateParameter($object));
         }        
     }
     protected function getCreateParameter($object) {

@@ -35,7 +35,7 @@ class PistasController extends AppController
                 $pis = $this->createEntity();
                 if($pis->getCliente() == null){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el usuario"));
-                } else {
+                } else {                                        
                     if($pis->save()){
                         Session::set("msg",Session::msgSuccess("Pista Creada"));
                         header("Location:index.php?c=pistas&a=index");
@@ -122,8 +122,7 @@ class PistasController extends AppController
         $pista->setId(isset($_POST["hid"]) ? $_POST["hid"] : 0);
         $pista->setNombre($this->clean($_POST["txtnombre"]));
         $pista->setCoordenadas($this->getCoords($_POST["txtsur"],$_POST["txtoeste"]));
-        $pista->setCliente((new Usuario())->findByNombre(isset
-                ($_POST['cliente'][0]) ?  $_POST['cliente'][0] : 0));
+        $pista->setCliente((new Usuario())->findByNombre(isset($_POST['cliente'][0]) ?  $_POST['cliente'][0] : 0));
         return $pista;
     }
     private function getCoords($sur,$oeste){
@@ -137,9 +136,9 @@ class PistasController extends AppController
         } else {
             $arr=  explode(" ",$date);
             $p1 = $arr[1] /60;
-            $p2 = $p1 + $arr[1];
-            $p3 = $p2 /60;
-            return -1 * ($p3 + $arr[0]);
+            $p2 = $arr[2] /3600;
+            $p3 = $arr[0] + $p1 + $p2;
+            return -1 * ($p3);
         }        
     }    
     protected function getRoles() {

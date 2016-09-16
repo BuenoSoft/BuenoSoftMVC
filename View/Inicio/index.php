@@ -1,4 +1,4 @@
-<table width="100%"> 
+<table width="100%">
     <tr>
         <td>
             <?php
@@ -7,13 +7,13 @@
               //  date_default_timezone_set('America/Argentina');
             //}
             require_once 'Lib/Feed.php';
-      
+
             $rss = Feed::loadRss('http://www.espectador.com/rss/agro.xml');
             ?>
             <table style="margin: 0 auto;">
                 <tr>
                     <td>
-                        <img src="Public/img/manejo/espectador.png" height="61" width="300">
+                        <img src="Public/img/manejo/espectador.png" width="250">
                     </td>
                 </tr>
                 <tr>
@@ -27,7 +27,7 @@
                 </tr>
             </table>
             <?php foreach ($rss->item as $item): ?>
-            
+
             <h2>
                 <a href="<?php echo htmlSpecialChars($item->link) ?>" class="titulonoticia" ><?php echo htmlSpecialChars($item->title) ?></a>
                 <small class="horanoticia">
@@ -36,14 +36,14 @@
             </h2>
             <?php if (isset($item->{'content:encoded'})): ?>
                 <div>
-                    <?php 
-                    echo $item->{'content:encoded'} 
+                    <?php
+                    echo $item->{'content:encoded'}
                     ?>
                 </div>
             <?php else: ?>
             <p  align="justify"class="textonoticia">
-                    <?php 
-                    echo htmlSpecialChars($item->description) 
+                    <?php
+                    echo htmlSpecialChars($item->description)
                     ?>
                 </p>
             <?php endif ?>
@@ -57,8 +57,8 @@
                    Tomás Gomensoro
                </td>
            </tr>
-            <tr> 
-                <td> 
+            <tr>
+                <td>
                     <div id="cont_6f19c3f02e8c2b5b7368bdb73acfa82d">
                     <script type="text/javascript" async src="https://www.tiempo.com/wid_loader/6f19c3f02e8c2b5b7368bdb73acfa82d"></script>
                     </div
@@ -89,7 +89,7 @@
                             <?php
                             $venta = $html->find('td[class=sale]', 0)->innertext;
                             echo $venta;
-                            ?>        
+                            ?>
                         </td>
                     </tr>
                     <tr>
@@ -110,7 +110,7 @@
                              <?php
                             $venta = $html->find('td[class=sale]', 4)->innertext;
                             echo $venta;
-                            ?>   
+                            ?>
                         </td>
                     </tr>
                     <tr>
@@ -131,11 +131,11 @@
                             <?php
                             $venta= $html->find('td[class=sale]', 6)->innertext;
                             echo $venta;
-                            ?>  
+                            ?>
                         </td>
                     </tr>
                 </table>
             </td>
         </tr>
- </table> 
-</table> 
+ </table>
+</table>

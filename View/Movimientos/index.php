@@ -26,15 +26,18 @@
                         <td><?php echo $movimiento->inverseDateIni();?></td>
                         <td><?php echo $movimiento->getCantidad();?></td>
                         <td>
-                            <?php if($movimiento->getComEmi() != null) { ?>
+                            <?php if($movimiento->getComEmi() != null && $movimiento->getVehEmi() == null) { ?>
                                 <a href="index.php?c=movimientos&a=combustible&d=<?php echo $movimiento->getComEmi()->getId(); ?>">
                                     <?php echo $movimiento->getComEmi()->getNombre(); ?>
                                 </a>
-                            <?php } else {?>
+                            <?php } else if($movimiento->getComEmi() == null && $movimiento->getVehEmi() != null) {?>
                                 <a href="index.php?c=movimientos&a=vehiculo&d=<?php echo $movimiento->getVehEmi()->getId(); ?>">
                                     <?php echo $movimiento->getVehEmi()->getMatricula(); ?>
                                 </a>
-                            <?php } ?>
+                            <?php } else {
+                                    echo "Compra";
+                                }
+                            ?>
                         </td>
                         <td>
                             <?php if($movimiento->getComRec() != null) { ?>

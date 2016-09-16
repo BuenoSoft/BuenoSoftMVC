@@ -13,24 +13,30 @@
                 <th>Opciones</th>
             </thead>
             <tbody>
-                <?php foreach($combustibles as $combustible){ ?>
-                    <tr>
-                        <td><?php echo $combustible->getNombre(); ?></td>
-                        <td><?php echo $combustible->getStock(); ?></td>
-                        <td><?php echo $combustible->getTipo()->getNombre(); ?></td>
-                        <td>
-                            <a href="index.php?c=combustibles&a=view&d=<?php echo $combustible->getId(); ?>" title="Ver">
-                                <i class="fa fa-eye" style="font-size: 22px;"></i>
-                            </a>&nbsp;
-                            <a href="index.php?c=combustibles&a=edit&d=<?php echo $combustible->getId(); ?>" title="Editar">
-                                <i class="fa fa-edit" style="font-size: 22px;"></i>
-                            </a>&nbsp;
-                            <a href="index.php?c=combustibles&a=delete&d=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea borrar el combustible seleccionado?');" title="Borrar">
-                                <i class="fa fa-times-circle" style="font-size: 22px;"></i>
-                            </a>&nbsp;
-                        </td>                        
-                    </tr>
-                <?php } ?>
+                <?php 
+                    foreach($combustibles as $combustible){ 
+                        if($combustible->getNombre() != "Compra") {
+                ?>
+                            <tr>                        
+                                <td><?php echo $combustible->getNombre(); ?></td>
+                                <td><?php echo $combustible->getStock(); ?></td>
+                                <td><?php echo $combustible->getTipo()->getNombre(); ?></td>
+                                <td>
+                                    <a href="index.php?c=combustibles&a=view&d=<?php echo $combustible->getId(); ?>" title="Ver">
+                                        <i class="fa fa-eye" style="font-size: 22px;"></i>
+                                    </a>&nbsp;
+                                    <a href="index.php?c=combustibles&a=edit&d=<?php echo $combustible->getId(); ?>" title="Editar">
+                                        <i class="fa fa-edit" style="font-size: 22px;"></i>
+                                    </a>&nbsp;
+                                    <a href="index.php?c=combustibles&a=delete&d=<?php echo $combustible->getId(); ?>" onclick="return confirm('¿Desea borrar el combustible seleccionado?');" title="Borrar">
+                                        <i class="fa fa-times-circle" style="font-size: 22px;"></i>
+                                    </a>&nbsp;
+                                </td>                        
+                            </tr>
+                <?php 
+                        }
+                    } 
+                ?>
             </tbody>
         </table>        
     </section>    
@@ -38,26 +44,27 @@
 <br />
 <div class="content-panel">
     <section id="unseen" style="padding-left: 5px; padding-right: 5px;">
-      	    <?php foreach($combustibles as $combustible) { ?>
-                <div class="progress progress-striped active">                 
-                    <?php 
-                        $estilo = "progress-bar progress-bar-";
-                        if($combustible->isDown()){
-                            $estilo .= "danger";
-                        } else if ($combustible->isExcellent()){
-                            $estilo .= "success";
-                        }
-                         else if($combustible->isMedium()){
-                            $estilo .= "warning";
-                        } else {
-                            $estilo .= "success";
-                        }                     
-                    ?>                        
-                    <div class="<?php echo $estilo; ?>" role="progressbar" aria-valuenow="<?php echo $combustible->regla3(); ?>" aria-valuemin="0" aria-valuemax="<?php $combustible->getStockMax(); ?>" style="width:<?php echo $combustible->regla3()."%"; ?>;">
-                        <b style="color: black;"><?php echo $combustible->getNombre()."&nbsp;".$combustible->getStock()."&nbsp;L"."&nbsp;&nbsp;&nbsp;".$combustible->regla3()."%"; ?></b>
-                    </div>                    
-                </div>                                                                                                                                                                                                                                                                 
-            <?php              
+      	    <?php 
+                foreach($combustibles as $combustible){ 
+                    if($combustible->getNombre() != "Compra") {
+            ?>
+                        <div class="progress progress-striped active">                 
+                            <?php 
+                                $estilo = "progress-bar progress-bar-";
+                                if($combustible->isDown()){
+                                    $estilo .= "danger";
+                                }else if($combustible->isMedium()){
+                                    $estilo .= "warning";
+                                } else {
+                                    $estilo .= "success";
+                                }                                            
+                            ?>                        
+                            <div class="<?php echo $estilo; ?>" role="progressbar" aria-valuenow="<?php echo $combustible->regla3(); ?>" aria-valuemin="0" aria-valuemax="<?php $combustible->getStockMax(); ?>" style="width:<?php echo $combustible->regla3()."%"; ?>;">
+                                <b style="color: black;"><?php echo $combustible->getNombre()."&nbsp;".$combustible->getStock()."&nbsp;L"."&nbsp;&nbsp;&nbsp;".$combustible->regla3()."%"; ?></b>
+                            </div>                    
+                        </div>                                                                                                                                                                                                                                                                 
+            <?php 
+                    }
                 } 
             ?>                    
     </section>

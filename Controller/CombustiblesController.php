@@ -15,8 +15,10 @@ class CombustiblesController extends AppController
             $bc->add_crumb("index.php?c=inicio&a=index");
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
+            $combustibles = (new Combustible())->find();
+            array_push($combustibles,  $this->getGhost());
             $this->redirect_administrador(['index.php'],[
-                "combustibles" => (new Combustible())->find()
+                "combustibles" => $combustibles
             ]);
         } 
     }
@@ -137,6 +139,17 @@ class CombustiblesController extends AppController
         } else {
             return null;
         }
+    }
+    private function getGhost(){
+        $combustible = new Combustible();
+        $combustible->setId(0);
+        $combustible->setNombre("Compra");
+        $combustible->setStock(INF);
+        $combustible->setFecUC(date("Y-m-d\TH:i:s"));
+        $combustible->setStockMin(INF);
+        $combustible->setStockMax(INF);
+        $combustible->setTipo(null);
+        return $combustible;
     }
     protected function getRoles() {
         return ["Administrador","Supervisor"];
