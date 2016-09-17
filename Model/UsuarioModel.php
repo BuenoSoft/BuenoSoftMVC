@@ -132,7 +132,7 @@ class UsuarioModel extends AppModel
         $usuario->setNomReal($row['usuNomReal']);
         $usuario->setDocumento($row['usuDocumento']);
         $usuario->setDireccion($row['usuDireccion']);
-        $usuario->getTelefono($row['usuTelefono']);
+        $usuario->setTelefono($row['usuTelefono']);
         $usuario->setCelular($row['usuCelular']);
         $usuario->setTipo($row['usuTipo']);
         return $usuario;

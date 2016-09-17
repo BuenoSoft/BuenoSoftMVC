@@ -3,7 +3,9 @@
     <a href="index.php?c=inicio&a=index"><button class="btn btn-theme05" tabindex="3"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;
     <?php if(\App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>
         <a href="index.php?c=aplicaciones&a=add"><button class="btn btn-theme05" tabindex="4"><i class="fa fa-plus"></i>&nbsp;Crear</button></a>    
-    <?php } ?>    
+    <?php } else { ?>
+        <a href="index.php?c=aplicaciones&a=add"><button class="btn btn-theme05" tabindex="4"><i class="fa fa-calendar-plus-o"></i>&nbsp;Solicitar</button></a>
+    <?php } ?>
 </p>
 <div class="content-panel">
     <section id="unseen" style="padding-left: 5px; padding-right: 5px;">
@@ -62,23 +64,54 @@
                 <?php foreach ($aplicaciones as $aplicacion) { ?>                    
                     <tr>
                         <td>
-                            <a href="index.php?c=usuarios&a=view&d=<?php echo $aplicacion->getPiloto()->getId(); ?>">
-                                <?php echo $aplicacion->getPiloto()->getNomReal(); ?>
-                            </a>                                                                    
+                            <?php if($aplicacion->getPiloto() != null){ ?>
+                                <a href="index.php?c=usuarios&a=view&d=<?php echo $aplicacion->getPiloto()->getId(); ?>">
+                                    <?php echo $aplicacion->getPiloto()->getNomReal(); ?>
+                                </a>
+                            <?php } else {
+                                echo " ";
+                            }
+                            ?>
                         </td>
                         <td>
-                            <a href="index.php?c=vehiculos&a=view&d=<?php echo $aplicacion->getAeronave()->getId(); ?>">
-                                <?php echo $aplicacion->getAeronave()->getMatricula(); ?>
-                            </a>                                                                    
+                            <?php if($aplicacion->getAeronave() != null){ ?>
+                                <a href="index.php?c=vehiculos&a=view&d=<?php echo $aplicacion->getAeronave()->getId(); ?>">
+                                    <?php echo $aplicacion->getAeronave()->getMatricula(); ?>
+                                </a>
+                            <?php } else {
+                                echo " ";
+                            }
+                            ?>
                         </td>
                         <td>
                             <a href="index.php?c=usuarios&a=view&d=<?php echo $aplicacion->getCliente()->getId(); ?>">
                                 <?php echo $aplicacion->getCliente()->getNomReal(); ?>
                             </a>
                         </td>
-                        <td><?php echo $aplicacion->getAreaapl(); ?></td>                        
-                        <td><?php echo $aplicacion->getCaudal(); ?></td>
-                        <td><?php echo $aplicacion->getTipo()->getNombre(); ?></td>
+                        <td>
+                            <?php if($aplicacion->getAreaapl() != 0){
+                                    echo $aplicacion->getAreaapl();
+                                } else {
+                                    echo " ";
+                                }
+                            ?>
+                        </td>                        
+                        <td>
+                            <?php if($aplicacion->getCaudal() != null){ 
+                                    echo $aplicacion->getCaudal();
+                                } else {
+                                    echo " ";
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php if($aplicacion->getTipo() != null){ 
+                                    echo $aplicacion->getTipo()->getNombre();
+                                } else {
+                                    echo " ";
+                                }
+                            ?>
+                        </td>
                         <td>
                             <?php  
                                 if($aplicacion->getFechaFin() == null or $aplicacion->getFechaFin() == "0000-00-00 00:00:00"){

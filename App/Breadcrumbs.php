@@ -59,7 +59,9 @@ class Breadcrumbs
         } else if($array[0] == "avatar"){
             return "Avatar ".$this->removePlural($array[1]);
         } else if($array[0] == "av_view"){
-            return "Avatar ".$this->removePlural($array[1]);    
+            return "Avatar ".$this->removePlural($array[1]);
+        } else if($array[0] == "av_edit"){
+            return "Editar ".$this->removePlural($array[1]);    
         } else if($array[0] == "usuario"){
             return "Ver Usuario";
         } else if($array[0] == "vehiculo"){

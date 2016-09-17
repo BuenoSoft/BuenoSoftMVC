@@ -45,13 +45,13 @@ class AplicacionesController extends AppController
                 "paginador" => $this->getPaginator()->getPages()
             ]);
         } else {
-            Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));
+            Session::set("msg", Session::msgDanger("Debe loguearse usuario no chofer para acceder."));
             header("Location:index.php?c=todos&a=index");
         }
     }
     /*-------------------------------------------------------------------------------*/
     public function add(){
-        if($this->checkUser()){
+        if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() != "Chofer")){
             $bc = new Breadcrumbs();
             $bc->add_crumb("index.php?c=inicio&a=index");
             $bc->add_crumb($_SERVER['HTTP_REFERER']);
@@ -59,19 +59,19 @@ class AplicacionesController extends AppController
             Session::set('enlaces', $bc->display());
             if (isset($_POST['btnaceptar'])) {
                 $apl = $this->createEntity();
-                if($apl->getAeronave() == null){
+                if($apl->getAeronave() == null and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Aeronave"));
-                } else if($apl->getCliente() == null){
+                } else if($apl->getCliente() == null and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Usuario"));
-                } else if($apl->getTipo() == null){
+                } else if($apl->getTipo() == null and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo de Producto"));
-                } else if($apl->getChofer() == null){
+                } else if($apl->getChofer() == null and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Chofer"));
-                } else if($apl->getTerrestre() == null){
+                } else if($apl->getTerrestre() == null and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Terrestre"));
-                } else if($apl->getPiloto() == null and Session::get("log_in")->getRol()->getNombre() != "Piloto"){
+                } else if($apl->getPiloto() == null and Session::get("log_in")->getRol()->getNombre() != "Piloto" and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado el Piloto"));                                    
-                } else if($apl->getPista() == null){
+                } else if($apl->getPista() == null and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
                     Session::set("msg",Session::msgDanger("No se ha seleccionado la Pista"));
                 } else if(($apl->getFechaIni() != null and $apl->getFechaFin() != null) and ($apl->getFechaIni() > $apl->getFechaFin())){
                     Session::set("msg",Session::msgDanger("Asegurese de que la fecha de inicio sea menor a la fecha final"));
@@ -79,23 +79,27 @@ class AplicacionesController extends AppController
                     Session::set("msg",Session::msgDanger("Asegurese de que el taquimetro inicial sea menor al final"));                    
                 } else if($apl->getFechaIni() == null and ($apl->getTaquiIni() != null or $apl->getTaquiFin() != null)){
                     Session::set("msg",Session::msgDanger("Asegurese que para los taquímetros tener las fecha inicial ingresada"));
-                } else {
-                    $cont = $this->checkProductos($apl);
+                } else {                    
                     $apl->save();
-                    $this->addProductos();
-                    $this->increaseTaqui($apl);
-                    if($cont == 0){
-                        Session::set("msg",Session::msgSuccess("Aplicación Creada"));
-                    } else {
-                        if($cont == 1){
-                            Session::set("msg",Session::msgInfo("La aplicación fue creada con un producto no acorde al tipo ".$apl->getTipo()->getNombre()));                        
+                    if(Session::get("log_in")->getRol()->getNombre() != "Cliente"){
+                        $cont = $this->checkProductos($apl);
+                        $this->addProductos();
+                        $this->increaseTaqui($apl);
+                        if($cont == 0){
+                            Session::set("msg",Session::msgSuccess("Aplicación Creada"));
                         } else {
-                            Session::set("msg",Session::msgInfo("La aplicación fue creada con productos no acordes al tipo ".$apl->getTipo()->getNombre()));
+                            if($cont == 1){
+                                Session::set("msg",Session::msgInfo("La aplicación fue creada con un producto no acorde al tipo ".$apl->getTipo()->getNombre()));                        
+                            } else {
+                                Session::set("msg",Session::msgInfo("La aplicación fue creada con productos no acordes al tipo ".$apl->getTipo()->getNombre()));
+                            }
                         }
+                    } else {
+                        Session::set("msg",Session::msgSuccess("Aplicación Solicitada"));
+                        $this->messageClient();
                     }                    
                     header("Location:index.php?c=aplicaciones&a=index");
                     exit(); 
-                    $this->addProductos();
                 }             
             }
             $this->redirect_administrador(['add.php'],[
@@ -105,6 +109,9 @@ class AplicacionesController extends AppController
                 "tipos" => (new TipoProducto())->find(),
                 "productos" => (new Producto())->find()                 
             ]);
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse usuario no chofer para acceder."));
+            header("Location:index.php?c=todos&a=index");
         }
     }
     private function addProductos(){
@@ -139,6 +146,17 @@ class AplicacionesController extends AppController
             }
         }
         return $cont;
+    }
+    private function messageClient(){
+        $apl = (new Aplicacion())->findById((new Aplicacion())->maxID());
+        $not = new Notificacion();
+        $not->setId(0);
+        $not->setMensaje("El cliente ".$apl->getCliente()->getNomReal()." solicitó una aplicación");
+        $not->setFecha(date("Y-m-d\TH:i:s"));
+        $not->setEstado("N");
+        $not->setUsuario(null);
+        $not->setVehiculo(null);
+        $not->save();
     }
     /*-------------------------------------------------------------------------------*/
     public function edit(){
@@ -341,19 +359,19 @@ class AplicacionesController extends AppController
         $aplicacion->setCoordCul($this->getCoords($_POST['txtsur'],$_POST['txtoeste']));
         $aplicacion->setPista((new Pista())->findByX((isset($_POST["pista"][0])) ? $_POST["pista"][0] : 0));
         $aplicacion->setAreaapl($this->clean($_POST['txtarea_apl']));
-        $aplicacion->setFaja($this->clean($_POST['txtfaja']));
-        $aplicacion->setFechaIni($this->inverseDate($_POST['dtfechaini']));
-        $aplicacion->setFechaFin($this->inverseDate($_POST['dtfechafin']));
+        $aplicacion->setFaja(isset($_POST["txtfaja"]) ? $this->clean($_POST['txtfaja']) : null);
+        $aplicacion->setFechaIni(isset($_POST['dtfechaini']) ? $this->inverseDate($_POST['dtfechaini']) : null);
+        $aplicacion->setFechaFin(isset($_POST['dtfechafin']) ? $this->inverseDate($_POST['dtfechafin']) : null);
         $aplicacion->setTratamiento($this->clean($_POST['txttrat']));
-        $aplicacion->setViento($this->clean($_POST['txtviento']));
+        $aplicacion->setViento(isset($_POST['txtviento']) ? $this->clean($_POST['txtviento']) : null);
         $aplicacion->setTipo((new TipoProducto())->findByX(isset($_POST["tipo"][0]) ? $_POST["tipo"][0] : 0));
-        $aplicacion->setTaquiIni($_POST['txttaquiIni']);
-        $aplicacion->setTaquiFin($_POST['txttaquiFin']);
-        $aplicacion->setPadron($this->clean($_POST['txtpadron']));
+        $aplicacion->setTaquiIni(isset($_POST['txttaquiIni']) ? $_POST['txttaquiIni'] : null);
+        $aplicacion->setTaquiFin(isset($_POST['txttaquiFin']) ? $_POST['txttaquiFin'] : null);
+        $aplicacion->setPadron(isset($_POST['txtpadron']) ? $this->clean($_POST['txtpadron']) : null);
         $aplicacion->setCultivo($this->clean($_POST['txtcultivo']));
-        $aplicacion->setCaudal($this->clean($_POST['txtcaudal']));
-        $aplicacion->setAvatar((isset($_FILES['avatar']) ? $this->upload->uploadImage($_FILES['avatar']) : (new Aplicacion())->findById($aplicacion->getId())->getAvatar()));
-        $aplicacion->setCliente((new Usuario())->findByNombre(isset($_POST['cliente'][0]) ?  $_POST['cliente'][0] : 0));
+        $aplicacion->setCaudal(isset($_POST['txtcaudal']) ? $this->clean($_POST['txtcaudal']) : null);
+        $aplicacion->setAvatar(!isset($_FILES['avatar']) ? null : ((isset($_FILES['avatar']) ? $this->upload->uploadImage($_FILES['avatar']) : (new Aplicacion())->findById($aplicacion->getId())->getAvatar())));
+        $aplicacion->setCliente((new Usuario())->findByNombre((Session::get("log_in")->getRol()->getNombre() == "Cliente") ? Session::get("log_in")->getNomReal() : (isset($_POST['cliente'][0]) ?  $_POST['cliente'][0] : 0)));
         $aplicacion->setPiloto((new Usuario())->findByNombre((Session::get("log_in")->getRol()->getNombre() == "Piloto") ? Session::get("log_in")->getNomReal() : (isset($_POST['piloto'][0]) ? $_POST['piloto'][0] : 0)));
         $aplicacion->setChofer((new Usuario())->findByNombre(isset($_POST['chofer'][0]) ? $_POST['chofer'][0] :  0));
         $aplicacion->setAeronave((new Vehiculo())->findByMat(isset($_POST['aeronave'][0]) ? $_POST['aeronave'][0] : 0));

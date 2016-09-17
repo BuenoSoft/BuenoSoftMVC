@@ -104,8 +104,30 @@ class UsuariosController extends AppController
             ]);  
         }
     }
+    public function av_edit(){
+        if(Session::get("log_in") != null){
+            $bc = new Breadcrumbs();
+            $bc->add_crumb("index.php?c=inicio&a=index");
+            $bc->add_crumb($_SERVER['HTTP_REFERER']);
+            $bc->add_crumb($_SERVER['REQUEST_URI']);
+            Session::set('enlaces', $bc->display());
+            if (Session::get('usu')!=null && isset($_POST['btnaceptar'])){
+                $usuario = $this->get_User();
+                if($usuario->save()){
+                    Session::set("msg",Session::msgSuccess("Usuario Editado"));
+                    header("Location:index.php?c=usuarios&a=view&d=".Session::get('usu'));
+                    exit();
+                } else {
+                    Session::set("msg",Session::msgDanger(Session::get('msg')[2]));
+                }                    
+            }
+            $this->redirect_administrador(["av_edit.php"],[
+                "usuario" => (new Usuario())->findById(Session::get('usu')),
+            ]);  
+        }
+    }
     public function avatar(){
-        if($this->checkUser()){
+        if(Session::get("log_in") != null){
             $bc = new Breadcrumbs();
             $bc->add_crumb("index.php?c=inicio&a=index");
             $bc->add_crumb("index.php?c=usuarios&a=index");
@@ -127,10 +149,14 @@ class UsuariosController extends AppController
             $this->redirect_administrador(['avatar.php'],[
                 'usuario' => (new Usuario())->findById(Session::get('usu'))
             ]);
+        } else {
+            Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));
+            header("Location:index.php?c=todos&a=index");
         }
     }
     public function av_view(){
         if(Session::get("log_in") != null){
+            $anterior = $_SERVER['HTTP_REFERER'];
             $bc = new Breadcrumbs();
             $bc->add_crumb("index.php?c=inicio&a=index");
             $bc->add_crumb("index.php?c=usuarios&a=index");
@@ -150,7 +176,8 @@ class UsuariosController extends AppController
                 }                                             
             }
             $this->redirect_administrador(['av_view.php'],[
-                'usuario' => (new Usuario())->findById(Session::get('usu'))
+                'usuario' => (new Usuario())->findById(Session::get('usu')),
+                'anterior' => $anterior
             ]);
         } else {
             Session::set("msg", Session::msgDanger("Debe loguearse como " . $this->getMessageRole() . " para acceder."));
@@ -203,6 +230,21 @@ class UsuariosController extends AppController
         $usuario->setTipo($_POST['rbtntipo']);
         $usuario->setRol((new Rol())->findByX((isset($_POST['rol'][0])) ? $_POST['rol'][0] : 0));
         return $usuario; 
+    }
+    private function get_User(){
+        $usuario = new Usuario();
+        $usuario->setId(isset($_POST['hid']) ? $_POST['hid'] : 0);
+        $usuario->setDocumento($_POST['txtdoc']);        
+        $usuario->setNomReal($_POST['txtnom']);        
+        $usuario->setNombre($this->clean($_POST['txtuser']));
+        $usuario->setPass($_POST['txtpass']);
+        $usuario->setAvatar((isset($_FILES['avatar']) ? $this->upload->uploadImage($_FILES['avatar']) : (new Usuario())->findById($usuario->getId())->getAvatar()));
+        $usuario->setDireccion($_POST['txtdir']);
+        $usuario->setTelefono($_POST['txttelefono']);
+        $usuario->setCelular($_POST['txtcelular']);
+        $usuario->setTipo($_POST['rbtntipo']);
+        $usuario->setRol((new Usuario())->findById(Session::get('usu'))->getRol());
+        return $usuario;         
     }
     protected function getRoles() {
         return ["Administrador","Supervisor"];

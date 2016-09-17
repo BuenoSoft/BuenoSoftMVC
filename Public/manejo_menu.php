@@ -21,7 +21,7 @@
         ?>
         <div class="collapse navbar-collapse menubar">
             <ul class="nav navbar-nav navbar-right">
-                <?php if(App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>
+                
                 <li>
                     <label style="font-size: 13px; margin-top: 17px;">
                         <a style="color:#797979; text-decoration: none;" href="mailto:buenoserviciosaereos@gmail.com"><i class="fa fa-envelope-o" aria-hidden="true" title="buenoserviciosaereos@gmail.com"></i></a>&nbsp;
@@ -29,13 +29,11 @@
                             buenoserviciosaereos@gmail.com
                         </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </label>
-                </li> 
+                </li>                
                 <li>
                     <label style="font-size: 13px; margin-top: 17px;">
                         <?php
                             $device = '';
-
-
                             if( stristr($_SERVER['HTTP_USER_AGENT'],'ipad') ) {
                                 $device = "ipad";
 
@@ -45,8 +43,6 @@
                                 <label style="font-size: 13px; margin-top: 17px; margin-right: 60px;" class="labelcontacto">
                                     4777 2138
                                 </label>';
-                                    
-
                             } else if( stristr($_SERVER['HTTP_USER_AGENT'],'iphone') || strstr($_SERVER['HTTP_USER_AGENT'],'iphone') ) {
                                 $device = "iphone";
 
@@ -56,20 +52,16 @@
                                 <label style="font-size: 13px; margin-top: 17px; margin-right: 60px;" class="labelcontacto">
                                     4777 2138
                                 </label>';
-                                
                             } else if( stristr($_SERVER['HTTP_USER_AGENT'],'blackberry') ) {
                                 $device = "blackberry";
-
                                 echo '<a href="tel://+598-4777-2138">
                                     <i class="fa fa-phone alinearcentro" aria-hidden="true"></i>
                                 </a>
                                 <label style="font-size: 13px; margin-top: 17px; margin-right: 60px;" class="labelcontacto">
                                     4777 2138
                                 </label>';
-
                             } else if( stristr($_SERVER['HTTP_USER_AGENT'],'android') ) {
                                 $device = "android";
-
                                 echo '<a href="tel://+598-4777-2138">
                                     <i class="fa fa-phone alinearcentro" aria-hidden="true"></i>
                                 </a>
@@ -77,19 +69,16 @@
                                     4777 2138
                                 </label>';
                             }
-
                             if( $device == '' ) {
-
                                 echo '<i class="fa fa-phone alinearcentro" aria-hidden="true" title="4777 2138"></i>&nbsp;                       
                                 <label style="font-size: 13px; margin-top: 17px; margin-right: 60px;" class="labelcontacto">
                                     4777 2138
                                 </label> ';
-                                    
-                                }
+                            }
                         ?>
-                                              
                     </label>                                           
                 </li>
+                <?php if(App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>
                     <li class='dropdown'>
                         <a href="#" class='dropdown-toggle' data-toggle='dropdown' style="font-size: 15px;">
                             <i class="fa fa-envelope"></i>&nbsp;<label class="letrasmenu">Notificaciones</label>

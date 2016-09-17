@@ -68,6 +68,13 @@
                             <a href="index.php?c=usuarios&a=av_view" title="Cambiar"><button type="button" name="btnavatar" value="Avatar" class="btn btn-theme00" tabindex="10" ><i class="fa fa-photo"></i>&nbsp;Cambiar</button></a>                            
                     </div>
                 </div>
+                <div class="form-group" style="text-align: center;">
+                    <a href="index.php?c=usuarios&a=av_edit">
+                        <button class="btn btn-theme03">
+                            <i class="fa fa-edit"></i>&nbsp;Editar
+                        </button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

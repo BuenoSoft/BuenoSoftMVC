@@ -13,7 +13,25 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Coordenadas de la Pista</label>
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php echo "sur: ".$pista->getGMDLat()."<br /> oeste: ".$pista->getGMDLong(); ?>
+                        <?php 
+                            if($pista->getCoordenadas()!=",") { ?>
+                                <table style="width: 100%; margin: auto 0;">
+                                    <thead>
+                                        <th style="text-align: center;"><u>Sur</u></th>
+                                        <th style="text-align: center;"><u>Oeste</u></th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><?php echo $pista->getGMDLat(); ?></td>
+                                            <td><?php echo $pista->getGMDLong(); ?></td>
+                                        </tr>                                 
+                                    </tbody>
+                                </table>
+                        <?php                        
+                            } else {
+                                echo " ";
+                            }
+                        ?>
                     </div>
                 </div>
                 <div class="form-group">

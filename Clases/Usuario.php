@@ -105,16 +105,7 @@ class Usuario implements IPersiste
         return (new UsuarioModel())->findByNombre($nom);
     }
     public function save() {
-        //return ($this->id == 0) ? (new UsuarioModel())->create($this) : (new UsuarioModel())->update($this); 
-        if($this->id == 0) {
-            return (new UsuarioModel())->create($this);
-        } else {
-            try {
-                return (new UsuarioModel())->update($this);
-            } catch (Exception $ex) {
-                echo $ex->getMessage();
-            }
-        }
+        return ($this->id == 0) ? (new UsuarioModel())->create($this) : (new UsuarioModel())->update($this); 
     }
     public function login($datos = []){       
         return (new UsuarioModel())->login($datos);

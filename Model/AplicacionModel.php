@@ -11,12 +11,12 @@ class AplicacionModel extends AppModel
     }   
     protected function getCreateParameter($object) {
         return [
-            $object->getCoordCul(), $object->getPista()->getId(), $object->getAreaapl(), $object->getFaja(),
+            $object->getCoordCul(), $this->checkPista($object), $object->getAreaapl(), $object->getFaja(),
             $object->getFechaIni(), $object->getFechaFin(), $object->getTratamiento(), $object->getViento(), 
-            $object->getTipo()->getId(), $object->getTaquiIni(), $object->getTaquiFin(), $object->getPadron(), 
+            $this->checkTipo($object), $object->getTaquiIni(), $object->getTaquiFin(), $object->getPadron(), 
             $object->getCultivo(), $object->getCaudal(), $object->getAvatar(),$object->getCliente()->getId(),
-            $object->getPiloto()->getId(),$object->getChofer()->getId(),$object->getAeronave()->getId(),
-            $object->getTerrestre()->getId()
+            $this->checkPiloto($object),$this->checkChofer($object),$this->checkAero($object),
+            $this->checkTerr($object)
         ];
     }
     protected function getCreateQuery() {
@@ -24,6 +24,24 @@ class AplicacionModel extends AppModel
             . "aplFechaIni,aplFechaFin,aplTratamiento,aplViento,tpId,aplTaquiIni,"
             . "aplTaquiFin,aplPadron,aplCultivo,aplCaudal,aplAvatar,usuId,usuPiloto,"
             . "usuChofer,vehAero,vehTerr) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    }
+    private function checkPista($object){
+        return ($object->getPista() == null) ? NULL : $object->getPista()->getId();
+    }
+    private function checkPiloto($object){
+        return ($object->getPiloto() == null) ? NULL : $object->getPiloto()->getId();
+    }
+    private function checkChofer($object){
+        return ($object->getChofer() == null) ? NULL : $object->getChofer()->getId();
+    }
+    private function checkAero($object){
+        return ($object->getAeronave() == null) ? NULL : $object->getAeronave()->getId();
+    }
+    private function checkTerr($object){
+        return ($object->getTerrestre() == null) ? NULL : $object->getTerrestre()->getId();
+    }
+    private function checkTipo($object){
+        return ($object->getTipo() == null) ? NULL : $object->getTipo()->getId();
     }
     /*------------------------------------------------------------------------------------*/
     public function modApp($object){

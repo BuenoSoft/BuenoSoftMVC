@@ -39,7 +39,9 @@ class MovimientosController extends AppController
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
             $combustibles = (new Combustible())->find();
-            array_push($combustibles,  $this->getGhost());
+            if(Session::get('log_in')->getRol()->getNombre() != "Piloto"){
+                array_push($combustibles, $this->getGhost());
+            }
             if (isset($_POST['btnaceptar'])) {
                 if(!isset($_POST['emi'][0]) and !isset($_POST['rec'][0])){
                     Session::set("msg",Session::msgDanger("Asegurese de seleccionar el stock emisor y receptor"));
