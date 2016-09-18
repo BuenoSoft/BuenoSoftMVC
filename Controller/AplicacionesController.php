@@ -95,6 +95,7 @@ class AplicacionesController extends AppController
                                 Session::set("msg",Session::msgInfo("La aplicación fue creada con productos no acordes al tipo ".$apl->getTipo()->getNombre()));
                             }
                         }
+                        $this->messageToClient();
                     } else {
                         Session::set("msg",Session::msgSuccess("Aplicación Solicitada"));
                         $this->messageClient();
@@ -157,6 +158,18 @@ class AplicacionesController extends AppController
         $not->setFecha(date("Y-m-d\TH:i:s"));
         $not->setEstado("N");
         $not->setUsuario(null);
+        $not->setVehiculo(null);
+        $not->save();
+    }
+    private function messageToClient(){
+        $apl = (new Aplicacion())->findById((new Aplicacion())->maxID());
+        $id = $apl->getId();
+        $not = new Notificacion();
+        $not->setId(0);
+        $not->setMensaje("El ".Session::get("log_in")->getRol()->getNombre()." ".Session::get("log_in")->getNomReal()." creó una <a href='index.php?c=aplicaciones&a=view&d=$id'>aplicación</a> para usted.");
+        $not->setFecha(date("Y-m-d\TH:i:s"));
+        $not->setEstado("N");
+        $not->setUsuario($apl->getCliente());
         $not->setVehiculo(null);
         $not->save();
     }
@@ -378,7 +391,7 @@ class AplicacionesController extends AppController
             isset($_POST['txtoeste']) ? $this->clean($_POST['txtoeste']) : 
                 ((Session::get("app")!= 0) ? $apl->getGMDLong() : null),
             isset($_POST["pista"][0]) ? $_POST["pista"][0]: 
-                ((Session::get("app")!= 0) ? $apl->getPista()->getNombre() : null), 
+                ((Session::get("app")!= 0) ? (($apl->getPista() != null) ? $apl->getPista()->getNombre() : " ") : null), 
             isset($_POST['txtarea_apl']) ? $this->clean($_POST['txtarea_apl']) : 
                 ((Session::get("app")!= 0) ? $apl->getAreaapl() : null),
             isset($_POST['txtfaja']) ? $this->clean($_POST['txtfaja']) : 
@@ -392,7 +405,7 @@ class AplicacionesController extends AppController
             isset($_POST['txtviento']) ? $this->clean($_POST['txtviento']) : 
                 ((Session::get("app")!= 0) ? $apl->getViento() : null), 
             isset($_POST["tipo"][0]) ? $_POST["tipo"][0] : 
-                ((Session::get("app")!= 0) ? $apl->getTipo()->getNombre() : null),
+                ((Session::get("app")!= 0) ? (($apl->getTipo() != null) ? $apl->getTipo()->getNombre(): " ") : null),
             isset($_POST['txttaquiIni']) ? $this->clean($_POST['txttaquiIni']) : 
                 ((Session::get("app")!= 0) ? $apl->getTaquiIni() : null), 
             isset($_POST['txttaquiFin']) ? $this->clean($_POST['txttaquiFin']) : 
@@ -406,15 +419,15 @@ class AplicacionesController extends AppController
             isset($_POST['cliente'][0]) ?  $_POST['cliente'][0] : 
                 ((Session::get("app")!= 0) ? $apl->getCliente()->getNomReal() : null), 
             isset($_POST['piloto'][0]) ? $_POST['piloto'][0] : 
-                ((Session::get("app")!= 0) ? $apl->getPiloto()->getNomReal() : null),
+                ((Session::get("app")!= 0) ? (($apl->getPiloto() != null) ? $apl->getPiloto()->getNomReal() : " ") : null),
             isset($_POST['chofer'][0]) ? $_POST['chofer'][0] : 
-                ((Session::get("app")!= 0) ? $apl->getChofer()->getNomReal() : null), 
+                ((Session::get("app")!= 0) ? (($apl->getChofer() != null) ? $apl->getChofer()->getNomReal() : " ") : null), 
             isset($_POST['aeronave'][0]) ? $_POST['aeronave'][0] : 
-                ((Session::get("app")!= 0) ? $apl->getAeronave()->getMatricula() : null),
+                ((Session::get("app")!= 0) ? (($apl->getAeronave() != null) ? $apl->getAeronave()->getMatricula() : " ") : null),
             isset($_POST['terrestre'][0]) ? $_POST['terrestre'][0] : 
-                ((Session::get("app")!= 0) ? $apl->getTerrestre()->getMatricula() : null),
+                ((Session::get("app")!= 0) ? (($apl->getTerrestre() != null) ? $apl->getTerrestre()->getMatricula(): " ") : null),
             isset($_POST['avatar']) ? $this->upload->uploadImage($_FILES['avatar']) : 
-                ((Session::get("app")!= 0) ? $apl->getTerrestre()->getMatricula() : null)
+                ((Session::get("app")!= 0) ? $apl->getAvatar() : null)
         ]);       
     }
     private function createEntity() {        
@@ -435,11 +448,11 @@ class AplicacionesController extends AppController
         $aplicacion->setCultivo(Session::get("pass")[14]);
         $aplicacion->setCaudal(Session::get("pass")[15]);
         $aplicacion->setAvatar(Session::get("pass")[21]);
-        $aplicacion->setCliente((new Usuario())->findByNombre((Session::get("pass")[16] != null) ? Session::get("pass")[17] : 0));
-        $aplicacion->setPiloto((new Usuario())->findByNombre((Session::get("pass")[17] != null) ? Session::get("pass")[18] : 0));
-        $aplicacion->setChofer((new Usuario())->findByNombre((Session::get("pass")[18] != null) ? Session::get("pass")[19] : 0));
-        $aplicacion->setAeronave((new Vehiculo())->findByMat((Session::get("pass")[19] != null) ? Session::get("pass")[20] : 0));
-        $aplicacion->setTerrestre((new Vehiculo())->findByMat((Session::get("pass")[20] != null) ? Session::get("pass")[21] : 0));
+        $aplicacion->setCliente((new Usuario())->findByNombre((Session::get("log_in")->getRol()->getNombre() == "Cliente") ? Session::get("log_in")->getNomReal() : ((Session::get("pass")[16] != null) ? Session::get("pass")[16] : 0)));
+        $aplicacion->setPiloto((new Usuario())->findByNombre((Session::get("log_in")->getRol()->getNombre() == "Piloto") ? Session::get("log_in")->getNomReal() : ((Session::get("pass")[17] != null) ? Session::get("pass")[17] : 0)));
+        $aplicacion->setChofer((new Usuario())->findByNombre((Session::get("pass")[18] != null) ? Session::get("pass")[18] : 0));
+        $aplicacion->setAeronave((new Vehiculo())->findByMat((Session::get("pass")[19] != null) ? Session::get("pass")[19] : 0));
+        $aplicacion->setTerrestre((new Vehiculo())->findByMat((Session::get("pass")[20] != null) ? Session::get("pass")[20] : 0));
         return $aplicacion;
       }
     private function getCoords($sur,$oeste){

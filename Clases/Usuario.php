@@ -89,9 +89,6 @@ class Usuario implements IPersiste
     public function del() {
         return (new UsuarioModel())->delete($this);
     }
-    public function funcionarios(){
-        return (new UsuarioModel())->funcionarios();
-    }
     public function find($criterio = null) {
         return (new UsuarioModel())->find($criterio);
     }
