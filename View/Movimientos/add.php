@@ -48,10 +48,10 @@
             sortDir: 'asc',
             data: [
                 <?php foreach ($combustibles as $combustible) {  ?>
-                     '<?php echo $combustible->getNombre(); ?>',
+                     '<?php echo $combustible->getNombre()." ".$combustible->getStock()." L"; ?>',
                 <?php } ?>
                 <?php foreach ($vehiculos as $vehiculo) { ?>
-                     '<?php echo $vehiculo->getMatricula(); ?>',
+                     '<?php echo $vehiculo->getMatricula()." ".$vehiculo->getStock()." L"; ?>',
                 <?php } ?>
             ]
         });
@@ -62,10 +62,10 @@
             sortDir: 'asc',
             data: [
                 <?php foreach ($combustibles as $combustible) {  ?>
-                     '<?php echo $combustible->getNombre(); ?>',
+                     '<?php echo $combustible->getNombre()." ".$combustible->getStock()." L"; ?>',
                 <?php } ?>
                 <?php foreach ($vehiculos as $vehiculo) {  ?>
-                     '<?php echo $vehiculo->getMatricula(); ?>',
+                     '<?php echo $vehiculo->getMatricula()." ".$vehiculo->getStock()." L"; ?>',
                 <?php } ?>
             ]
         });

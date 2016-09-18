@@ -78,55 +78,62 @@
                         ?>
                     </label>                                           
                 </li>
-                <?php if(App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>
-                    <li class='dropdown'>
-                        <a href="#" class='dropdown-toggle' data-toggle='dropdown' style="font-size: 15px;">
-                            <i class="fa fa-envelope"></i>&nbsp;<label class="letrasmenu">Notificaciones</label>
-                            <?php if($cantNot > 0){?>
-                                <span class="badge bg-theme"><?php echo $cantNot; ?></span>
-                            <?php } ?>
-                        </a>
-                        <ul class='dropdown-menu' style="padding: 4px 4px 4px 4px; border: 2px;">
-                            <?php 
-                                foreach($notificaciones as $notificacion) { 
+                <li class='dropdown'>
+                    <a href="#" class='dropdown-toggle' data-toggle='dropdown' style="font-size: 15px;">
+                        <i class="fa fa-envelope"></i>&nbsp;<label class="letrasmenu">Notificaciones</label>
+                        <?php if($cantNot > 0){?>
+                            <span class="badge bg-theme" style="background: #ef0a0a;"><?php echo $cantNot; ?></span>
+                        <?php } ?>
+                    </a>
+                    <ul class='dropdown-menu' style="padding: 4px 4px 4px 4px; border: 2px;">
+                        <?php 
+                            foreach($notificaciones as $notificacion) { 
                                 $style = ($notificacion->getEstado() == "N") ? "color: #2E9AFE;" : "";
-                                ?>
-                                <li class="dropdown-header">
-                                    <a href="index.php?c=notificaciones&a=view&d=<?php echo $notificacion->getId(); ?>" title="Ver">
-                                        <table style="<?php echo $style; ?>">
-                                            <tr>
-                                                <td rowspan="2" align="center">
-                                                    <i class="fa fa-info-circle" style="font-size: 30px;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                                               
-                                                </td>                                                                                    
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <b style="font-size: 13px;">Mensaje:</b>&nbsp;
-                                                    <br />
-                                                    <i style="font-size: 13px;">                                             
-                                                        <?php
-                                                            if(strlen($notificacion->getMensaje()) > 45){
-                                                                echo getSubString($notificacion->getMensaje(), 45); 
-                                                            } else {
-                                                                echo $notificacion->getMensaje();
-                                                            }
-                                                        ?>
-                                                    </i>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </a>                                                                    
-                                </li>
-                            <?php } ?>
-                            <li class="divider"></li>
-                            <li class="dropdown-header" style="text-align: center;">
-                                <a href="index.php?c=notificaciones&a=index">
-                                    <b>Ver Más</b>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                <?php } ?>
+                                if(\App\Session::get('log_in')->getRol()->getNombre() != "Chofer" and \App\Session::get('log_in')->getRol()->getNombre() != "Cliente"){
+                                    $coincidencia = strpos($notificacion->getMensaje(), \App\Session::get('log_in')->getRol()->getNombre()." ".\App\Session::get('log_in')->getNomReal());                                    
+                                } else {
+                                    $coincidencia = false;
+                                }
+                                if(!$coincidencia){                                                            
+                        ?>
+                                    <li class="dropdown-header">
+                                        <a href="index.php?c=notificaciones&a=view&d=<?php echo $notificacion->getId(); ?>" title="Ver">
+                                            <table style="<?php echo $style; ?>">
+                                                <tr>
+                                                    <td rowspan="2" align="center">
+                                                        <i class="fa fa-info-circle" style="font-size: 30px;"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;                                                               
+                                                    </td>                                                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <b style="font-size: 13px;">Mensaje:</b>&nbsp;
+                                                        <br />
+                                                        <i style="font-size: 13px;">                                             
+                                                            <?php
+                                                                if(strlen($notificacion->getMensaje()) > 45){
+                                                                    echo getSubString($notificacion->getMensaje(), 45); 
+                                                                } else {
+                                                                    echo $notificacion->getMensaje();
+                                                                }                                                                                                                        
+                                                            ?>
+                                                        </i>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </a>                                                                    
+                                    </li>
+                        <?php   
+                                } 
+                            } 
+                        ?>
+                        <li class="divider"></li>
+                        <li class="dropdown-header" style="text-align: center;">
+                            <a href="index.php?c=notificaciones&a=index">
+                                <b>Ver Más</b>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li>
                     <a href="index.php?c=usuarios&a=logout" style="font-size: 15px;">
                         <i class="medium-icon fa fa-sign-out"></i>&nbsp;<label class="letrasmenu">Salir</label></a>

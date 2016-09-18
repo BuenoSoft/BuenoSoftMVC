@@ -3,12 +3,10 @@
         $titulo = "Crear";
         $area = "Aplicada";
         $font = "<font color='red'>*</font>";
-        $required = "required='required'";
     } else {
         $titulo = "Solicitar";
         $area = "a Aplicar";
         $font = " ";
-        $required = " ";
     }  
 ?>
 <h3><i class="fa fa-angle-right"></i>&nbsp;<?php echo $titulo; ?> Aplicación</h3>
@@ -21,39 +19,39 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Aeronave&nbsp;<?php echo $font; ?></label>
                         <div class="col-sm-10">
-                            <input id="aeronave" name="aeronave" required="required" tabindex="1" autofocus="autofocus" />
+                            <input id="aeronave" name="aeronave"  tabindex="1" autofocus="autofocus" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Usuario&nbsp;<?php echo $font; ?></label>
                         <div class="col-sm-10">
-                            <input id="cliente" name="cliente" required="required" tabindex="2" />
+                            <input id="cliente" name="cliente"  tabindex="2" />
                         </div>
                     </div>
                 <?php } ?>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Cultivo&nbsp;<?php echo $font; ?></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Cultivo</label>
                     <div class="col-sm-10">
-                        <input type="text" name="txtcultivo" onkeypress="return validarTexto(event)" pattern="[A-Za-z\s]*" class="form-control"  maxlength="30" placeholder="Ej: Arroz" <?php echo $required; ?> tabindex="4" value="<?php echo \App\Session::get("pass")[14]; ?>" />
+                        <input type="text" name="txtcultivo" onkeypress="return validarTexto(event)" pattern="[A-Za-z\s]*" class="form-control"  maxlength="30" placeholder="Ej: Arroz"  tabindex="4" value="<?php echo \App\Session::get("pass")[14]; ?>" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Tratamiento&nbsp;<?php echo $font; ?></label>
+                    <label class="col-sm-2 col-sm-2 control-label">Tratamiento</label>
                     <div class="col-sm-10">
-                        <textarea rows="5" cols="67" name="txttrat"  onkeypress="return validarTextoyNum(event);" class="form-control" placeholder="Ej: Fungicida" <?php echo $required; ?> tabindex="5"><?php echo \App\Session::get("pass")[8]; ?></textarea>  <!-- pattern no permitido en textarea -->
+                        <textarea rows="5" cols="67" name="txttrat"  onkeypress="return validarTextoyNum(event);" class="form-control" placeholder="Ej: Fungicida"  tabindex="5"><?php echo \App\Session::get("pass")[8]; ?></textarea>  <!-- pattern no permitido en textarea -->
                     </div>
                 </div>                
                 <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Área&nbsp;<?php echo $area; ?>&nbsp;<?php echo $font; ?></label>                                           
+                    <label class="col-sm-2 col-sm-2 control-label">Área&nbsp;<?php echo $area; ?></label>                                           
                     <div class="col-sm-10">
-                        <input type="text" name="txtarea_apl" onkeypress="return validarNumeroP(event)" pattern="[\d\.]*" class="form-control" placeholder="" <?php echo $required; ?> tabindex="6" value="<?php echo \App\Session::get("pass")[4]; ?>" /> 
+                        <input type="text" name="txtarea_apl" onkeypress="return validarNumeroP(event)" pattern="[\d\.]*" class="form-control" placeholder=""  tabindex="6" value="<?php echo \App\Session::get("pass")[4]; ?>" /> 
                     </div>
                 </div>
                 <?php if(\App\Session::get('log_in')!= null and \App\Session::get('log_in')->getRol()->getNombre() != "Cliente"){?>
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Caudal&nbsp;<?php echo $font; ?></label>
+                        <label class="col-sm-2 col-sm-2 control-label">Caudal</label>
                         <div class="col-sm-10">
-                            <input type="text" name="txtcaudal" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d\/]*" class="form-control" placeholder="" required="required" tabindex="7" value="<?php echo \App\Session::get("pass")[15]; ?>"/>
+                            <input type="text" name="txtcaudal" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d\/]*" class="form-control" placeholder=""  tabindex="7" value="<?php echo \App\Session::get("pass")[15]; ?>"/>
                         </div>
                     </div>
                 <?php } ?>
@@ -62,7 +60,7 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Tipo&nbsp;<?php echo $font; ?></label>
                     <div class="col-sm-10">
-                        <input id="tipo" name="tipo" <?php echo $required; ?> tabindex="8" />                                                                        
+                        <input id="tipo" name="tipo"  tabindex="8" />                                                                        
                     </div>
                 </div>
                 <?php if(\App\Session::get('log_in')!= null and \App\Session::get('log_in')->getRol()->getNombre() != "Cliente"){?>
@@ -103,9 +101,9 @@
             <?php if(\App\Session::get('log_in')!= null and \App\Session::get('log_in')->getRol()->getNombre() != "Cliente"){?>
                 <div class="showback">
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Viento&nbsp;<?php echo $font; ?></label>
+                        <label class="col-sm-2 col-sm-2 control-label">Viento</label>
                         <div class="col-sm-10">
-                            <input type="text" name="txtviento" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d\/]*" class="form-control" placeholder="" required="required" tabindex="10" value="<?php echo \App\Session::get("pass")[9]; ?>"/>
+                            <input type="text" name="txtviento" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d\/]*" class="form-control" placeholder=""  tabindex="10" value="<?php echo \App\Session::get("pass")[9]; ?>"/>
                         </div>
                     </div>
                 </div>
@@ -113,7 +111,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Chofer&nbsp;<?php echo $font; ?></label>
                         <div class="col-sm-10">
-                            <input id="chofer" name="chofer" required="required" tabindex="11" />
+                            <input id="chofer" name="chofer"  tabindex="11" />
                         </div>
                     </div>
                 </div>
@@ -121,7 +119,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Terrestre&nbsp;<?php echo $font; ?></label>
                         <div class="col-sm-10">
-                            <input id="terrestre" name="terrestre" required="required" tabindex="12" />
+                            <input id="terrestre" name="terrestre"  tabindex="12" />
                         </div>
                     </div>
                 </div>
@@ -133,7 +131,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Piloto&nbsp;<?php echo $font; ?></label>
                         <div class="col-sm-10">
-                            <input id="piloto" name="piloto" required="required" tabindex="13" />
+                            <input id="piloto" name="piloto"  tabindex="13" />
                         </div>
                     </div>                
                     <div class="form-group">
@@ -154,14 +152,14 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Pista&nbsp;<?php echo $font; ?></label>
                     <div class="col-sm-10">
-                        <input id="pista" <?php echo $required; ?> name="pista" tabindex="17" />
+                        <input id="pista"  name="pista" tabindex="17" />
                     </div>
                 </div>
                 <?php if(\App\Session::get('log_in')!= null and \App\Session::get('log_in')->getRol()->getNombre() != "Cliente"){?>
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Faja&nbsp;<?php echo $font; ?></label>
+                        <label class="col-sm-2 col-sm-2 control-label">Faja</label>
                         <div class="col-sm-10">
-                            <input type="text" name="txtfaja" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d\/]*" class="form-control"  required="required" placeholder="" tabindex="18" value="<?php echo \App\Session::get("pass")[5]; ?>"/>
+                            <input type="text" name="txtfaja" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d\/]*" class="form-control"   placeholder="" tabindex="18" value="<?php echo \App\Session::get("pass")[5]; ?>"/>
                         </div>
                     </div>
                 <?php } ?>
@@ -197,7 +195,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Avatar</label>
+                        <label class="col-sm-2 col-sm-2 control-label">Imagen</label>
                         <div class="col-sm-10">
                             <input type="file" name="avatar" id="foto" tabindex="9" />
                         </div>
@@ -266,17 +264,18 @@
             placeholder: "xxx xx xx",
             autoclear: false }).val('<?php echo \App\Session::get("pass")[2]; ?>'); 
         $('#fecini').combodate({
-            value: null,
+            value: '<?php echo \App\Session::get("pass")[6]; ?>',
             format: 'DD-MM-YYYY-HH-mm',
             template: 'DD / MM / YYYY     HH : mm'           
         });
         $('#fecfin').combodate({
-            value: null,
+            value: '<?php echo \App\Session::get("pass")[7]; ?>',
             format: 'DD-MM-YYYY-HH-mm',
             template: 'DD / MM / YYYY     HH : mm'       
         });
         $('#aeronave').magicSuggest({
             placeholder: 'Seleccione Aeronave',
+            value: ['<?php echo (\App\Session::get("pass")[19]) ? \App\Session::get("pass")[19] : " "; ?>'],
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -289,6 +288,7 @@
         });
         $('#cliente').magicSuggest({
             placeholder: 'Seleccione Usuario',
+            value: ['<?php echo \App\Session::get("pass")[16] ? \App\Session::get("pass")[16] : " "; ?>'],
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -301,6 +301,7 @@
         });
         $('#tipo').magicSuggest({
             placeholder: 'Seleccione un Tipo de Producto',
+            value: ['<?php echo \App\Session::get("pass")[10] ? \App\Session::get("pass")[10]: " "; ?>'],
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -323,6 +324,7 @@
         });
         $('#chofer').magicSuggest({
             placeholder: 'Seleccione Chofer',
+            value: ['<?php echo (\App\Session::get("pass")[18]) ? \App\Session::get("pass")[18] : " "; ?>'],
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -335,6 +337,7 @@
         });
         $('#terrestre').magicSuggest({
             placeholder: 'Seleccione Terrestre',
+            value: ['<?php echo (\App\Session::get("pass")[20] != null) ? \App\Session::get("pass")[20] : " "; ?>'],
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -348,6 +351,7 @@
         });
         $('#piloto').magicSuggest({
             placeholder: 'Seleccione Piloto',
+            value: ['<?php echo (\App\Session::get("pass")[17] != null) ? \App\Session::get("pass")[17] : " "; ?>'],
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -360,6 +364,7 @@
         });
         $('#pista').magicSuggest({
             placeholder: 'Seleccione Pista',
+            value: ['<?php echo (\App\Session::get("pass")[3] != null) ? \App\Session::get("pass")[3] : " "; ?>'],
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',

@@ -156,10 +156,10 @@ class UsuariosController extends AppController
     }
     public function av_view(){
         if(Session::get("log_in") != null){
-            $anterior = $_SERVER['HTTP_REFERER'];
+            $anterior = "index.php?c=usuarios&a=view&d=".Session::get('usu');
             $bc = new Breadcrumbs();
             $bc->add_crumb("index.php?c=inicio&a=index");
-            $bc->add_crumb("index.php?c=usuarios&a=index");
+            $bc->add_crumb("index.php?c=usuarios&a=view&d=".Session::get('usu'));
             $bc->add_crumb($_SERVER['HTTP_REFERER']);
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());

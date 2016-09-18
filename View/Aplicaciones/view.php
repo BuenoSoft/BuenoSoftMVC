@@ -68,8 +68,8 @@
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Caudal</label>                   
                     <div class="col-sm-10" style="text-align: center;">
-                        <?php if($aplicacion->getAreaapl() != 0){
-                                    echo $aplicacion->getAreaapl();
+                        <?php if($aplicacion->getCaudal() != null){
+                                    echo $aplicacion->getCaudal();
                                 } else {
                                     echo " ";
                                 }

@@ -55,12 +55,16 @@ class MovimientosController extends AppController
                     Session::set("msg",Session::msgDanger("No seleccione Compra como receptor"));
                 } else {
                     $mov = $this->createEntity();
-                    $mov->save();
-                    $this->changeStock($mov);
-                    $this->notifyStock($mov);
-                    Session::set("msg",Session::msgSuccess("Movimiento Realizado"));
-                    header("Location:index.php?c=movimientos&a=index");
-                    exit();                                                                           
+                    if($mov->getComEmi() == null and $mov->getVehEmi() == null and $mov->getComRec() == null and $mov->getVehRec() == null){
+                        Session::set("msg",Session::msgDanger("Error con el emisor y receptor"));
+                    } else {
+                        $mov->save();
+                        $this->changeStock($mov);
+                        $this->notifyStock($mov);
+                        Session::set("msg",Session::msgSuccess("Movimiento Realizado"));
+                        header("Location:index.php?c=movimientos&a=index");
+                        exit();                     
+                    }                                                                           
                 }
             }
             $this->redirect_administrador(["add.php"],[
@@ -203,10 +207,10 @@ class MovimientosController extends AppController
         $mov->setId(0);
         $mov->setFecha($this->inverseDate($_POST["dtfecha"]));
         $mov->setCantidad($_POST["txtcant"]);
-        $mov->setComEmi((new Combustible())->findByX((isset($_POST['emi'][0])) ? $_POST['emi'][0] : 0));
-        $mov->setComRec((new Combustible())->findByX((isset($_POST['rec'][0])) ? $_POST['rec'][0] : 0));
-        $mov->setVehEmi((new Vehiculo())->findByMat((isset($_POST['emi'][0])) ? $_POST['emi'][0] : 0));
-        $mov->setVehRec((new Vehiculo())->findByMat((isset($_POST['rec'][0])) ? $_POST['rec'][0] : 0));
+        $mov->setComEmi((new Combustible())->findByX($this->divide((isset($_POST['emi'][0])) ? $_POST['emi'][0] : null)));
+        $mov->setComRec((new Combustible())->findByX($this->divide((isset($_POST['rec'][0])) ? $_POST['rec'][0] : null)));
+        $mov->setVehEmi((new Vehiculo())->findByMat($this->divide((isset($_POST['emi'][0])) ? $_POST['emi'][0] : null)));
+        $mov->setVehRec((new Vehiculo())->findByMat($this->divide((isset($_POST['rec'][0])) ? $_POST['rec'][0] : null)));
         $mov->setUsuario(Session::get("log_in"));
         return $mov;
     }
@@ -225,6 +229,14 @@ class MovimientosController extends AppController
         $combustible->setStock(INF);
         return $combustible;
     }
+    private function divide($string){
+        if($string == null){
+            return 0;
+        } else {
+            $arr = explode(" ", $string);
+            return $arr[0]; 
+        }
+    } 
     protected function getRoles() {
         return ["Administrador","Supervisor","Piloto"];
     }

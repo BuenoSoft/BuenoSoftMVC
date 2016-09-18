@@ -113,12 +113,37 @@ class NotificacionModel extends AppModel
        return $this->fetch($this->getShowQuery(), $this->getShowParam());
     }
     /*------------------------------------------------------------------------------------*/
+    private function getCantQuery(){
+        $sql = "select * from notificaciones";
+        if(Session::get("log_in")->getRol()->getNombre() == "Administrador" or Session::get("log_in")->getRol()->getNombre() == "Supervisor"){
+            $sql.= " where date(notFecha) = date(now())";
+        } else {
+            $sql.=" where date(notFecha) = date(now()) and usuId = ?";
+        }
+        $sql.= " order by notEstado,notFecha desc";
+        return $sql;
+    }
+    private function getCantParam(){
+        if(Session::get("log_in")->getRol()->getNombre() == "Administrador" and Session::get("log_in")->getRol()->getNombre() == "Supervisor"){
+            return [];
+        } else {
+            return [Session::get("log_in")->getId()];
+        }
+    }
     public function getCantNots(){
         $cant =0;
-        foreach($this->getNotificaciones() as $not){
-            if($not->getEstado() == "N"){
-                $cant++;
+        $nots = $this->fetch($this->getCantQuery(), $this->getCantParam());
+        foreach($nots as $not){
+            if(\App\Session::get('log_in')->getRol()->getNombre() != "Chofer" and \App\Session::get('log_in')->getRol()->getNombre() != "Cliente"){
+                $coincidencia = strpos($not->getMensaje(), \App\Session::get('log_in')->getRol()->getNombre()." ".\App\Session::get('log_in')->getNomReal());                                    
+            } else {
+                $coincidencia = false;
             }
+            if(!$coincidencia){
+                if($not->getEstado() == "N"){
+                    $cant++;
+                }
+            }            
         }
         return $cant ++;
     }
