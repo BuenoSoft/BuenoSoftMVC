@@ -8,6 +8,7 @@ class PdfController extends AppController
     public function imprimir(){
         if($this->checkUser()){
             $aplicaciones = Session::get("filtro");
+            $totales = Session::get("totales");
             $this->getPdf()->AddPage();
             $this->getPdf()->SetFont('Arial','B',16);
             $this->getPdf()->Cell(40,10,'Informe de Aplicaciones');
@@ -34,6 +35,10 @@ class PdfController extends AppController
                 $this->getPdf()->Cell(20, 8, ($aplicacion->getFechaIni() == "0000-00-00 00:00:00") ? "" : $this->getDate($aplicacion->getFechaIni()), 0, 0 ,'C');
                 $this->getPdf()->Ln(8);
             }
+            $this->getPdf()->Ln(8);
+            $this->getPdf()->Cell(30, 8, utf8_decode("Total de Hectáreas: ").$totales[0],0, 0 ,'L');
+            $this->getPdf()->Ln(8);
+            $this->getPdf()->Cell(29, 8, "Total de Horas de Vuelo: ".$totales[1],0, 0 ,'L');
             $this->getPdf()->Output();         
         }
     }

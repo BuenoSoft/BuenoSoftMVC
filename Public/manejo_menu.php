@@ -90,7 +90,7 @@
                             foreach($notificaciones as $notificacion) { 
                                 $style = ($notificacion->getEstado() == "N") ? "color: #2E9AFE;" : "";
                                 if(\App\Session::get('log_in')->getRol()->getNombre() != "Chofer" and \App\Session::get('log_in')->getRol()->getNombre() != "Cliente"){
-                                    $coincidencia = strpos($notificacion->getMensaje(), \App\Session::get('log_in')->getRol()->getNombre()." ".\App\Session::get('log_in')->getNomReal());                                    
+                                    $coincidencia = strpos($notificacion->getMensaje(),"El ".\App\Session::get('log_in')->getRol()->getNombre()." ".\App\Session::get('log_in')->getNomReal());                                    
                                 } else {
                                     $coincidencia = false;
                                 }

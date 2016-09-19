@@ -230,7 +230,10 @@ class Aplicacion implements IPersiste
     }
     public function findAdvance($datos = []){
         return (new AplicacionModel())->findAdvance($datos);
-    }    
+    }
+    public function totAdvance($datos = []){
+        return (new AplicacionModel())->totAdvance($datos);
+    } 
     public function findById($id) {
         return (new AplicacionModel())->findById($id);
     }

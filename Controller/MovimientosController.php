@@ -60,6 +60,7 @@ class MovimientosController extends AppController
                     } else {
                         $mov->save();
                         $this->changeStock($mov);
+                        $this->notifyAdd($mov);
                         $this->notifyStock($mov);
                         Session::set("msg",Session::msgSuccess("Movimiento Realizado"));
                         header("Location:index.php?c=movimientos&a=index");
@@ -100,8 +101,7 @@ class MovimientosController extends AppController
                 $mov->getVehRec()->addStock($mov->getCantidad());
             }
         }       
-    }
-    
+    }    
     private function notifyStock($mov){
         if($mov->getComEmi() != null){
             if($mov->getComEmi()->isDown()){
@@ -114,6 +114,39 @@ class MovimientosController extends AppController
                 $not->save();            
             }
         } 
+    }
+    private function notifyAdd($mov){
+        $mensaje = "El ".Session::get("log_in")->getRol()->getNombre()." ".Session::get("log_in")->getNomReal()." hizo un movimiento ";
+        if($mov->getComEmi() != null and $mov->getVehEmi() == null){
+            $mensaje .= "del Combustible ".$mov->getComEmi()->getNombre()." ";
+            if($mov->getComRec() != null){ 
+                $mensaje .= "al Combustible ".$mov->getComRec()->getNombre()." ";
+            } else {
+                $mensaje .= "al Vehículo ".$mov->getVehRec()->getMatricula()." ";
+            }            
+        } else if($mov->getComEmi() == null and $mov->getVehEmi() != null){
+            $mensaje .= "del Vehículo ".$mov->getVehEmi()->getMatricula()." ";
+            if($mov->getComRec() != null){ 
+                $mensaje .= "al Combustible ".$mov->getComRec()->getNombre()." ";
+            } else {
+                $mensaje .= "al Vehículo ".$mov->getVehRec()->getMatricula()." ";
+            }
+        } else {
+            $mensaje .= "de compra ";
+            if($mov->getComRec() != null){ 
+                $mensaje .= "al Combustible ".$mov->getComRec()->getNombre()." ";
+            } else {
+                $mensaje .= "al Vehículo ".$mov->getVehRec()->getMatricula()." ";
+            }
+        } 
+        $mensaje .= "de ".$mov->getCantidad()." L"; 
+        $not = new Notificacion();
+        $not->setId(0);
+        $not->setFecha(date("Y-m-d"));
+        $not->setMensaje($mensaje);
+        $not->setUsuario(null);
+        $not->setVehiculo(null);
+        $not->save();
     }
     /*-------------------------------------------------------------------------------*/
     public function delete(){

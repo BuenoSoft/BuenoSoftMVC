@@ -97,8 +97,7 @@ class AplicacionModel extends AppModel
             array_push($rows, $datos["fec2"]);
         }
         return $rows;
-    }
-    
+    }   
     protected function getFindQueryAdvance($datos = []){                
         $where = false;
         $sql= "select * from aplicaciones a";
@@ -140,6 +139,56 @@ class AplicacionModel extends AppModel
         }
         $sql .= " order by a.aplFechaIni desc";
         return $sql;
+    }
+    /*------------------------------------------------------------------------------------*/
+    protected function getTotQueryAdvance($datos = []){                
+        $where = false;
+        $sql= "select sum(a.aplAreaAplicada) as tothec,sum(IF(a.aplTaquiIni > 0 and a.aplTaquiFin > 0, (a.aplTaquiFin-a.aplTaquiIni),0)) as horas "
+                . "from aplicaciones a inner join vehiculos v on a.vehAero = v.vehId";
+        if($datos["aeronave"] != null){
+            $sql .= " where a.vehAero = ?";
+            $where = true;
+        }
+        if($datos["piloto"] != null){
+            if($where){
+                $sql .= " and a.usuPiloto = ?";
+            } else {
+                $sql .= " where a.usuPiloto = ?";
+                $where = true;
+            }
+        }
+        if($datos["tipo"] != null){
+            if($where){
+                $sql .= " and a.tpId = ?";
+            } else {
+                $sql .= " where a.tpId = ?";
+                $where = true;
+            }
+        }
+        if($datos["cliente"] != null){
+            if($where){
+                $sql .= " and a.usuId = ?";
+            } else {
+                $sql .= " where a.usuId = ?";
+                $where = true;
+            }
+        }
+        if($datos["fec1"] != null and $datos["fec2"] != null){
+            if($where){
+                $sql .= " and date(a.aplFechaIni) between date(?) and date(?)";
+            } else {
+                $sql .= " where date(a.aplFechaIni) between date(?) and date(?)";
+                $where = true;
+            }
+        }
+        $sql .= " order by a.aplFechaIni desc";
+        return $sql;
+    }
+    public function totAdvance($datos = []){
+        $tot = [];
+        array_push($tot, $this->fetchValues($this->getTotQueryAdvance($datos), $this->getFindParameterAdvance($datos))[0]['tothec']);
+        array_push($tot, $this->fetchValues($this->getTotQueryAdvance($datos), $this->getFindParameterAdvance($datos))[0]['horas']);
+        return $tot;
     }
     /*------------------------------------------------------------------------------------*/
     protected function getFindXIdQuery() {

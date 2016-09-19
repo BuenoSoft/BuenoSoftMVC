@@ -35,7 +35,7 @@ class EstadisticaModel extends AppModel
     //Esta es la de Horas de vuelo por Persona. Osea va como la primera parte, la primera grafica
     /*----------------------------------------------------------------------*/
     private function totalXPiloto(){
-        return " select sum((a.aplTaquiFin-a.aplTaquiIni)+v.vehHorasRec) as horas 
+        return " select sum(a.aplTaquiFin-a.aplTaquiIni) as horas 
             from usuarios u 
             inner join aplicaciones a on a.usuPiloto = u.usuId 
             inner join vehiculos v on a.vehAero = v.vehId
@@ -48,7 +48,7 @@ class EstadisticaModel extends AppModel
     /*----------------------------------------------------------------------*/
     private function getListHsXPiloto(){
         return "select distinct month(a.aplFechaIni) as mes, year(a.aplFechaIni)as anio, 
-            sum((a.aplTaquiFin-a.aplTaquiIni)+v.vehHorasRec) as horas,u.usuNomReal as piloto 
+            sum(a.aplTaquiFin-a.aplTaquiIni) as horas,u.usuNomReal as piloto 
             from usuarios u 
             inner join aplicaciones a on a.usuPiloto = u.usuId 
             inner join vehiculos v on a.vehAero = v.vehId 
@@ -71,7 +71,7 @@ class EstadisticaModel extends AppModel
     }
     /*----------------------------------------------------------------------*/
     private function totalXAeronave(){
-        return "select sum((a.aplTaquiFin-a.aplTaquiIni)+v.vehHorasRec) as horas 
+        return "select sum(a.aplTaquiFin-a.aplTaquiIni) as horas 
             from vehiculos v inner join aplicaciones a on a.vehAero = v.vehId
             where a.aplFechaIni is not null and year(a.aplFechaIni) = year(now()) and a.aplTaquiIni > 0
             and v.vehMatricula = ?";
@@ -83,7 +83,7 @@ class EstadisticaModel extends AppModel
     private function getListHsXVehiculo(){
         return "select distinct month(a.aplFechaIni) as mes, 
             year(a.aplFechaIni) as anio, 
-            sum((a.aplTaquiFin-a.aplTaquiIni)+v.vehHorasRec) as horas,v.vehMatricula as aeronave 
+            sum(a.aplTaquiFin-a.aplTaquiIni) as horas,v.vehMatricula as aeronave 
             from vehiculos v inner join aplicaciones a on a.vehAero = v.vehId
             where a.aplFechaIni is not null and year(a.aplFechaIni) = year(now()) and a.aplTaquiIni > 0
             group by month(a.aplFechaIni), a.vehAero 

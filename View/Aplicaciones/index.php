@@ -48,7 +48,7 @@
                     </a>
                 </p>
             </form>       
-        </p>
+        </p>       
         <table class="table table-bordered table-striped table-condensed">
             <thead>                
                 <th>Piloto</th>
@@ -140,10 +140,17 @@
                                 </a>
                             <?php } ?>
                         </td>                                    
-                    </tr>
-                <?php } ?>
+                    </tr>                    
+                <?php } ?>                
             </tbody>
         </table>
+        <p>
+            <b>
+                Total de Hectareas&nbsp<?php echo $totales[0]; ?>
+                <br />
+                Total de Horas de Vuelo&nbsp<?php echo $totales[1]; ?>
+            </b>
+        </p>
         <?php if ($paginador != null) { ?> 
             <br />
             <?php if($paginador['primero']) { ?>	
@@ -185,7 +192,7 @@
             sortDir: 'asc',
             data: [
                 <?php foreach ($usuarios as $usuario){
-                    if($usuario->getRol()->getNombre() == "Piloto") { ?>
+                    if($usuario->getRol()->getNombre() == "Piloto" or $usuario->getRol()->getNombre() == "Administrador") { ?>
                      '<?php echo $usuario->getNomReal(); ?>',
                 <?php } }?>
             ]
