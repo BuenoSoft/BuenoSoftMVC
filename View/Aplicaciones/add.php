@@ -35,12 +35,14 @@
                         <input type="text" name="txtcultivo" onkeypress="return validarTexto(event)" pattern="[A-Za-z\s]*" class="form-control"  maxlength="30" placeholder="Ej: Arroz"  tabindex="4" value="<?php echo \App\Session::get("pass")[14]; ?>" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Tratamiento</label>
-                    <div class="col-sm-10">
-                        <textarea rows="5" cols="67" name="txttrat"  onkeypress="return validarTextoyNum(event);" class="form-control" placeholder="Ej: Fungicida"  tabindex="5"><?php echo \App\Session::get("pass")[8]; ?></textarea>  <!-- pattern no permitido en textarea -->
+                <?php if(\App\Session::get('log_in')!= null and \App\Session::get('log_in')->getRol()->getNombre() != "Cliente"){?>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Tratamiento</label>
+                        <div class="col-sm-10">
+                            <textarea rows="5" cols="67" name="txttrat"  onkeypress="return validarTextoyNum(event);" class="form-control" placeholder="Ej: Fungicida"  tabindex="5"><?php echo \App\Session::get("pass")[8]; ?></textarea>  <!-- pattern no permitido en textarea -->
+                        </div>
                     </div>
-                </div>                
+                <?php } ?>
                 <div class="form-group">
                     <label class="col-sm-2 col-sm-2 control-label">Área&nbsp;<?php echo $area; ?></label>                                           
                     <div class="col-sm-10">
@@ -125,9 +127,9 @@
                 </div>
             <?php } ?>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
-            <div class="showback">
-                <?php if(\App\Session::get('log_in')!= null and \App\Session::get('log_in')->getRol()->getNombre() != "Cliente"){?>
+        <?php if(\App\Session::get('log_in')!= null and \App\Session::get('log_in')->getRol()->getNombre() != "Cliente"){?>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="showback">                
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Piloto&nbsp;<?php echo $font; ?></label>
                         <div class="col-sm-10">
@@ -140,33 +142,29 @@
                             <input type="text" name="txtpadron" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d]*" maxlength="15" class="form-control"  placeholder="" tabindex="14" value="<?php echo \App\Session::get("pass")[13]; ?>" />
                         </div>
                     </div>
-                <?php } ?>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Coordenadas de Cultivo</label>
-                    <div class="col-sm-10">
-                        <b>Sur</b>&nbsp<input name="txtsur" id="sur" type="text" placeholder="xx xx xx" class="form-control" tabindex="15" />
-                        <br />
-                        <b>Oeste</b>&nbsp<input name="txtoeste" id="oeste" type="text" placeholder="xxx xx xx" class="form-control" tabindex="16" />
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Coordenadas de Cultivo</label>
+                        <div class="col-sm-10">
+                            <b>Sur</b>&nbsp<input name="txtsur" id="sur" type="text" placeholder="xx xx xx" class="form-control" tabindex="15" />
+                            <br />
+                            <b>Oeste</b>&nbsp<input name="txtoeste" id="oeste" type="text" placeholder="xxx xx xx" class="form-control" tabindex="16" />
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 col-sm-2 control-label">Pista&nbsp;<?php echo $font; ?></label>
-                    <div class="col-sm-10">
-                        <input id="pista"  name="pista" tabindex="17" />
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Pista&nbsp;<?php echo $font; ?></label>
+                        <div class="col-sm-10">
+                            <input id="pista"  name="pista" tabindex="17" />
+                        </div>
                     </div>
-                </div>
-                <?php if(\App\Session::get('log_in')!= null and \App\Session::get('log_in')->getRol()->getNombre() != "Cliente"){?>
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Faja</label>
                         <div class="col-sm-10">
                             <input type="text" name="txtfaja" onkeypress="return validarTextoyNum(event);" pattern="[A-Za-z\s\d\/]*" class="form-control"   placeholder="" tabindex="18" value="<?php echo \App\Session::get("pass")[5]; ?>"/>
                         </div>
-                    </div>
-                <?php } ?>
-            </div>
-        </div>       
-        <div class="col-lg-6 col-md-6 col-sm-12">
-            <?php if(\App\Session::get('log_in')!= null and \App\Session::get('log_in')->getRol()->getNombre() != "Cliente"){?>
+                    </div>                
+                </div>
+            </div> 
+            <div class="col-lg-6 col-md-6 col-sm-12">
                 <div class="showback">                                
                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">Fecha de Inicio</label>

@@ -82,14 +82,14 @@ class AplicacionesController extends AppController
                 } else if($apl->getFechaIni() == null and ($apl->getTaquiIni() != null or $apl->getTaquiFin() != null)){
                     Session::set("msg",Session::msgDanger("Asegurese que para los taquímetros tener las fecha inicial ingresada"));
                 } else {                    
-                    $apl->save();
                     if(Session::get("log_in")->getRol()->getNombre() != "Cliente"){
+                        $apl->save();                    
                         $cont = $this->checkProductos($apl);
                         $this->addProductos();                        
                         $this->increaseTaqui($apl);
                         if($cont == 0){
                             Session::set("msg",Session::msgSuccess("Aplicación Creada"));                           
-                        } else {
+                        } else {                            
                             if($cont == 1){
                                 Session::set("msg",Session::msgInfo("La aplicación fue creada con un producto no acorde al tipo ".$apl->getTipo()->getNombre()));                        
                             } else {
@@ -120,42 +120,44 @@ class AplicacionesController extends AppController
     private function addProductos(){
         $datos = [];
         $tienes = [];
-        $cant = count($_POST["producto"]);
-        $apl = (new Aplicacion())->findById((new Aplicacion())->maxID());
-        for($int =0; $int < $cant; $int++){
-            array_push($datos, $_POST["producto"][$int]."/".$_POST["dosis"][$int]);
-        }
-        foreach($datos as $dat){
-            $ele = explode("/",$dat);
-            $producto = (new Producto())->findByX($ele[0]);
-            $tiene = new Tiene();
-            $tiene->setApl($apl);
-            $tiene->setProducto($producto);
-            $tiene->setDosis($ele[1]);
-            array_push($tienes, $tiene);
-        }
-        foreach ($tienes as $tiene){
-            if(!$apl->checkTiene($tiene)){
-                $apl->addTiene($tiene);
+        if(isset($_POST["producto"])){
+            $cant = count($_POST["producto"]);
+            $apl = (new Aplicacion())->findById((new Aplicacion())->maxID());
+            for($int =0; $int < $cant; $int++){
+                array_push($datos, $_POST["producto"][$int]."/".$_POST["dosis"][$int]);
             }
+            foreach($datos as $dat){
+                $ele = explode("/",$dat);
+                $producto = (new Producto())->findByX($ele[0]);
+                $tiene = new Tiene();
+                $tiene->setApl($apl);
+                $tiene->setProducto($producto);
+                $tiene->setDosis($ele[1]);
+                array_push($tienes, $tiene);
+            }
+            foreach ($tienes as $tiene){
+                if(!$apl->checkTiene($tiene)){
+                    $apl->addTiene($tiene);
+                }
+            }        
         }
     }
     private function checkProductos($apl){
         $cont = 0;
-        foreach ($_POST["producto"] as $pro){
-            $producto = (new Producto())->findByX($pro);
-            if($producto->getTipo() != $apl->getTipo()){
-                $cont++;
-            }
+        if(isset($_POST["producto"])){
+            foreach ($_POST["producto"] as $pro){
+                $producto = (new Producto())->findByX($pro);
+                if($producto->getTipo() != $apl->getTipo()){
+                    $cont++;
+                }
+            }        
         }
         return $cont;
     }
     private function messageClient(){
-        $apl = (new Aplicacion())->findById((new Aplicacion())->maxID());
-        $id = $apl->getId();
         $not = new Notificacion();
         $not->setId(0);
-        $not->setMensaje("El cliente ".$apl->getCliente()->getNomReal()." solicitó una <a href='index.php?c=aplicaciones&a=edit&d=$id'>aplicación</a>.");
+        $not->setMensaje("El cliente ".Session::get("log_in")->getNomReal()." solicitó una aplicación de tipo ".Session::get("pass")[10]." de ".Session::get("pass")[4]." hectáreas para su cultivo de ".Session::get("pass")[14]);
         $not->setFecha(date("Y-m-d\TH:i:s"));
         $not->setEstado("N");
         $not->setUsuario(null);
@@ -167,7 +169,7 @@ class AplicacionesController extends AppController
         $id = $apl->getId();
         $not = new Notificacion();
         $not->setId(0);
-        $not->setMensaje("El ".Session::get("log_in")->getRol()->getNombre()." ".Session::get("log_in")->getNomReal()." creó una <a href='index.php?c=aplicaciones&a=view&d=$id'>aplicación</a> para usted.");
+        $not->setMensaje("El ".Session::get("log_in")->getRol()->getNombre()." ".Session::get("log_in")->getNomReal()." creó una <a href='index.php?c=aplicaciones&a=view&d=$id'>aplicación</a> a su nombre.");
         $not->setFecha(date("Y-m-d\TH:i:s"));
         $not->setEstado("N");
         $not->setUsuario($apl->getCliente());
@@ -210,7 +212,6 @@ class AplicacionesController extends AppController
                     $cont = $this->checkProductos($apl);
                     $apl->save();
                     $this->modProductos($apl);
-                    $this->messageModClient($apl);
                     $this->increaseTaqui($apl);
                     if($cont == 0){
                         Session::set("msg",Session::msgSuccess("Aplicación Editada"));
@@ -240,23 +241,25 @@ class AplicacionesController extends AppController
         $apl->delTiene();
         $datos = [];
         $tienes = [];
-        $cant = count($_POST["producto"]);
-        for($int =0; $int < $cant; $int++){
-            array_push($datos, $_POST["producto"][$int]."/".$_POST["dosis"][$int]);
-        }
-        foreach($datos as $dat){
-            $ele = explode("/",$dat);
-            $producto = (new Producto())->findByX($ele[0]);
-            $tiene = new Tiene();
-            $tiene->setApl($apl);
-            $tiene->setProducto($producto);
-            $tiene->setDosis($ele[1]);
-            array_push($tienes, $tiene);
-        }
-        foreach ($tienes as $tiene){
-            if(!$apl->checkTiene($tiene)){
-                $apl->addTiene($tiene);
+        if(isset($_POST["producto"])){
+            $cant = count($_POST["producto"]);
+            for($int =0; $int < $cant; $int++){
+                array_push($datos, $_POST["producto"][$int]."/".$_POST["dosis"][$int]);
             }
+            foreach($datos as $dat){
+                $ele = explode("/",$dat);
+                $producto = (new Producto())->findByX($ele[0]);
+                $tiene = new Tiene();
+                $tiene->setApl($apl);
+                $tiene->setProducto($producto);
+                $tiene->setDosis($ele[1]);
+                array_push($tienes, $tiene);
+            }
+            foreach ($tienes as $tiene){
+                if(!$apl->checkTiene($tiene)){
+                    $apl->addTiene($tiene);
+                }
+            }        
         }
     }
     private function increaseTaqui($apl){
@@ -276,17 +279,6 @@ class AplicacionesController extends AppController
                 }
             }
         }                
-    }
-    private function messageModClient($apl){
-        $id = $apl->getId();
-        $not = new Notificacion();
-        $not->setId(0);
-        $not->setMensaje("El ".Session::get("log_in")->getRol()->getNombre()." ".Session::get("log_in")->getNomReal()." editó una <a href='index.php?c=aplicaciones&a=view&d=$id'>aplicación</a> a su nombre.");
-        $not->setFecha(date("Y-m-d\TH:i:s"));
-        $not->setEstado("N");
-        $not->setUsuario($apl->getCliente());
-        $not->setVehiculo(null);
-        $not->save();
     }
     /*-------------------------------------------------------------------------------*/
     public function delete(){
