@@ -10,7 +10,7 @@ final class Database
     public function __construct() { 
         $this->dns='mysql:dbname=buenosoft2;host=localhost';
         $this->user='root';
-        $this->pass='j1990d21';
+        $this->pass='j1d9o9f0';
         if (!isset($this->bd)) {  
             $this->bd = new PDO($this->dns, $this->user, $this->pass);  
             $this->bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);  
