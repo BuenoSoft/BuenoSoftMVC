@@ -92,6 +92,9 @@ class AplicacionModel extends AppModel
         if($datos["cliente"] != null){
             array_push($rows, (new UsuarioModel())->findByNombre($datos["cliente"])->getId());
         }
+        if($datos["chofer"] != null){
+            array_push($rows, (new UsuarioModel())->findByNombre($datos["chofer"])->getId());
+        }
         if($datos["fec1"] != null and $datos["fec2"] != null){
             array_push($rows, $datos["fec1"]);
             array_push($rows, $datos["fec2"]);
@@ -126,6 +129,14 @@ class AplicacionModel extends AppModel
                 $sql .= " and a.usuId = ?";
             } else {
                 $sql .= " where a.usuId = ?";
+                $where = true;
+            }
+        }
+        if($datos["chofer"] != null){
+            if($where){
+                $sql .= " and a.usuChofer = ?";
+            } else {
+                $sql .= " where a.usuChofer = ?";
                 $where = true;
             }
         }

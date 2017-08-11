@@ -23,32 +23,38 @@ class AplicacionesController extends AppController
             $bc->add_crumb("index.php?c=inicio&a=index");
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
-            Session::set("app",0);
-            Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
-            $criterios = [
-                "aeronave" => isset($_POST["aeronave"][0]) ? $_POST["aeronave"][0] : null,
-                "piloto" => (isset($_POST["piloto"][0]) and Session::get('log_in')->getRol()->getNombre() != "Piloto") ? $_POST["piloto"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Piloto") ? Session::get('log_in')->getNomReal() : null),
-                "tipo" => isset($_POST["tipo"][0]) ? $_POST["tipo"][0] : null,
-                "cliente" => (isset($_POST["cliente"][0]) and Session::get('log_in')->getRol()->getNombre() != "Cliente") ? $_POST["cliente"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Cliente") ? Session::get('log_in')->getNomReal() : null),
-                "fec1" => isset($_POST["fec1"]) ? $this->inverseDat($_POST["fec1"]) : null,
-                "fec2" => isset($_POST["fec2"]) ? $this->inverseDat($_POST["fec2"]) : null
-            ];
-            $apl = $this->getPaginator()->paginar((new Aplicacion())->findAdvance($criterios), Session::get('p'));
-            $tot = (new Aplicacion())->totAdvance($criterios);
-            Session::set("filtro", $apl);
-            Session::set("totales", $tot);
+            Session::set("app",0);            
+            $this->searchSession();
+            $this->listSession();
             $this->redirect_administrador(['index.php'],[
-                "aplicaciones" => Session::get('filtro'),
                 "vehiculos" => (new Vehiculo())->find(),
                 "usuarios" => (new Usuario())->find(),
                 "tipos" => (new TipoProducto())->find(),
                 "paginador" => $this->getPaginator()->getPages(),
-                "totales" => Session::get('totales')
             ]);
         } else {
             Session::set("msg", Session::msgDanger("Debe loguearse usuario no chofer para acceder."));
             header("Location:index.php?c=todos&a=index");
         }
+    }
+    private function searchSession(){        
+        Session::set("criterios", [ 
+            "aeronave" => (Session::get("criterios")["aeronave"] != null && empty($_POST)) ? Session::get("criterios")["aeronave"] : (isset($_POST["aeronave"][0]) ? $_POST["aeronave"][0] : null),
+            "piloto" =>  (Session::get("criterios")["piloto"] != null && empty($_POST)) ? Session::get("criterios")["piloto"] : ((isset($_POST["piloto"][0]) and Session::get('log_in')->getRol()->getNombre() != "Piloto") ? $_POST["piloto"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Piloto") ? Session::get('log_in')->getNomReal() : null)),
+            "tipo" =>  (Session::get("criterios")["tipo"] != null && empty($_POST)) ? Session::get("criterios")["tipo"] : (isset($_POST["tipo"][0]) ? $_POST["tipo"][0] : null),
+            "cliente" => (Session::get("criterios")["cliente"] != null && empty($_POST)) ? Session::get("criterios")["cliente"] : ((isset($_POST["cliente"][0]) and Session::get('log_in')->getRol()->getNombre() != "Cliente") ? $_POST["cliente"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Cliente") ? Session::get('log_in')->getNomReal() : null)),
+            "chofer" => (Session::get("criterios")["chofer"] != null && empty($_POST)) ? Session::get("criterios")["chofer"] : ((isset($_POST["chofer"][0]) and Session::get('log_in')->getRol()->getNombre() != "Chofer") ? $_POST["cliente"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Chofer") ? Session::get('log_in')->getNomReal() : null)),
+            "fec1" => (Session::get("criterios")["fec1"] != null && empty($_POST)) ? Session::get("criterios")["fec1"] : (isset($_POST["fec1"]) ? $this->inverseDat($_POST["fec1"]) : null),
+            "fec2" => (Session::get("criterios")["fec2"] != null && empty($_POST)) ? Session::get("criterios")["fec2"] : (isset($_POST["fec2"]) ? $this->inverseDat($_POST["fec2"]) : null)
+        ]); 
+        
+    }
+    private function listSession(){
+        Session::set("filtro", $this->getPaginator()->paginar(
+            (new Aplicacion())->findAdvance(Session::get("criterios")), Session::get('p'))
+        );
+        Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
+        Session::set("totales", (new Aplicacion())->totAdvance(Session::get('criterios')));
     }
     /*-------------------------------------------------------------------------------*/
     public function add(){

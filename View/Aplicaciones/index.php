@@ -36,6 +36,11 @@
                             <?php } ?>
                         </td>
                     </tr>
+                    <tr>
+                        <td style="width: 50%;">
+                                <input name="chofer" id="chofer" />                         
+                        </td>
+                    </tr>
                 </table>
                 <br />
                 <p>
@@ -58,10 +63,11 @@
                 <th>Caudal</th>
                 <th>Tipo</th>
                 <th>Estado</th>
+                <th>Horas Voladas</th>
                 <th>Opciones</th>
             </thead>
             <tbody>
-                <?php foreach ($aplicaciones as $aplicacion) { ?>                    
+                <?php foreach (\App\Session::get('filtro') as $aplicacion) { ?>                    
                     <tr>
                         <td>
                             <?php if($aplicacion->getPiloto() != null){ ?>
@@ -128,6 +134,9 @@
                             ?>                        
                         </td>
                         <td>
+                            <?php echo $aplicacion->taquiDif(); ?>
+                        </td>
+                        <td>
                             <a href="index.php?c=aplicaciones&a=view&d=<?php echo $aplicacion->getId(); ?>" title="Ver">
                                 <i class="fa fa-eye" style="font-size: 22px;"></i>
                             </a>&nbsp;
@@ -146,9 +155,9 @@
         </table>
         <p>
             <b>
-                Total de Hectareas&nbsp<?php echo $totales[0]; ?>
+                Total de Hectareas&nbsp<?php echo \App\Session::get('totales')[0]; ?>
                 <br />
-                Total de Horas de Vuelo&nbsp<?php echo $totales[1]; ?>
+                Total de Horas de Vuelo&nbsp<?php echo \App\Session::get('totales')[1]; ?>
             </b>
         </p>
         <?php if ($paginador != null) { ?> 
@@ -200,7 +209,7 @@
         $('#tipo').magicSuggest({
             style: 'margin-left:5px',
             placeholder: 'Seleccione un Tipo de Producto',
-            maxSelection: 1,
+            maxSelection: 1,            
             sortDir: 'asc',
             data: [
                 <?php foreach($tipos as $tipo){ ?>
@@ -216,6 +225,18 @@
             data: [
                 <?php foreach ($usuarios as $usuario){
                     if($usuario->getRol()->getNombre() == "Cliente") { ?>
+                     '<?php echo $usuario->getNomReal(); ?>',
+                <?php } } ?>
+            ]
+        });
+        $('#chofer').magicSuggest({
+            style: 'margin-bottom: 5px; margin-top: 5px; margin-left:5px',
+            placeholder: 'Seleccione Chofer',
+            maxSelection: 1,
+            sortDir: 'asc',
+            data: [
+                <?php foreach ($usuarios as $usuario){
+                    if($usuario->getRol()->getNombre() == "Chofer") { ?>
                      '<?php echo $usuario->getNomReal(); ?>',
                 <?php } } ?>
             ]
