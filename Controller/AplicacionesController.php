@@ -67,27 +67,7 @@ class AplicacionesController extends AppController
             $this->passDates();
             if (isset($_POST['btnaceptar'])) {
                 $apl = $this->createEntity();
-                if($apl->getAeronave() == null and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Aeronave"));
-                } else if($apl->getCliente() == null and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Usuario"));
-                } else if($apl->getTipo() == null and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo de Producto"));
-                } else if($apl->getChofer() == null and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Chofer"));
-                } else if($apl->getTerrestre() == null and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Terrestre"));
-                } else if($apl->getPiloto() == null and Session::get("log_in")->getRol()->getNombre() != "Piloto" and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Piloto"));                                    
-                } else if($apl->getPista() == null and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado la Pista"));
-                } else if(($apl->getFechaIni() != null and $apl->getFechaFin() != null) and ($apl->getFechaIni() > $apl->getFechaFin())){
-                    Session::set("msg",Session::msgDanger("Asegurese de que la fecha de inicio sea menor a la fecha final"));
-                } else if(($apl->getTaquiIni() != null and $apl->getTaquiFin() != null) and ($apl->getTaquiIni() > $apl->getTaquiFin())){
-                    Session::set("msg",Session::msgDanger("Asegurese de que el taquimetro inicial sea menor al final"));                    
-                } else if($apl->getFechaIni() == null and ($apl->getTaquiIni() != null or $apl->getTaquiFin() != null)){
-                    Session::set("msg",Session::msgDanger("Asegurese que para los taquímetros tener las fecha inicial ingresada"));
-                } else {                    
+                if($this->checkDates($apl)){
                     if(Session::get("log_in")->getRol()->getNombre() != "Cliente"){
                         $apl->save();                    
                         $cont = $this->checkProductos($apl);
@@ -194,27 +174,7 @@ class AplicacionesController extends AppController
             $this->passDates();
             if (Session::get('app')!=null && isset($_POST['btnaceptar'])){
                 $apl = $this->createEntity();
-                if($apl->getAeronave() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Aeronave"));
-                } else if($apl->getCliente() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Usuario"));
-                } else if($apl->getTipo() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo de Producto"));
-                } else if($apl->getChofer() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Chofer"));
-                } else if($apl->getTerrestre() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Terrestre"));
-                } else if($apl->getPiloto() == null and Session::get("log_in")->getRol()->getNombre() != "Piloto"){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado el Piloto"));                                    
-                } else if($apl->getPista() == null){
-                    Session::set("msg",Session::msgDanger("No se ha seleccionado la Pista"));
-                } else if(($apl->getFechaIni() != null and $apl->getFechaFin() != null) and ($apl->getFechaIni() > $apl->getFechaFin())){
-                    Session::set("msg",Session::msgDanger("Asegurese de que la fecha de inicio sea menor a la fecha final"));
-                } else if(($apl->getTaquiIni() != null and $apl->getTaquiFin() != null) and ($apl->getTaquiIni() > $apl->getTaquiFin())){
-                    Session::set("msg",Session::msgDanger("Asegurese de que el taquimetro inicial sea menor al final"));                    
-                } else if($apl->getFechaIni() == null and ($apl->getTaquiIni() != 0 or $apl->getTaquiFin() != 0)){
-                    Session::set("msg",Session::msgDanger("Asegurese que para los taquímetros tener las fecha inicial ingresada"));
-                } else {
+                if($this->checkDates($apl)){
                     $cont = $this->checkProductos($apl);
                     $apl->save();
                     $this->modProductos($apl);
@@ -285,6 +245,45 @@ class AplicacionesController extends AppController
                 }
             }
         }                
+    }
+    /*-------------------------------------------------------------------------------*/
+    private function checkDates($apl){
+        if($apl->getAeronave() == null and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
+            Session::set("msg",Session::msgDanger("No se ha seleccionado el Aeronave"));
+            return false;
+        } else if($apl->getCliente() == null and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
+            Session::set("msg",Session::msgDanger("No se ha seleccionado el Usuario"));
+            return false;
+        } else if($apl->getTipo() == null and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
+            Session::set("msg",Session::msgDanger("No se ha seleccionado el Tipo de Producto"));
+            return false;
+        } else if($apl->getChofer() == null and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
+            Session::set("msg",Session::msgDanger("No se ha seleccionado el Chofer"));
+            return false;
+        } else if($apl->getTerrestre() == null and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
+            Session::set("msg",Session::msgDanger("No se ha seleccionado el Terrestre"));
+            return false;
+        } else if($apl->getPiloto() == null and Session::get("log_in")->getRol()->getNombre() != "Piloto" and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
+            Session::set("msg",Session::msgDanger("No se ha seleccionado el Piloto"));
+            return false;
+        } else if($apl->getPista() == null and Session::get("log_in")->getRol()->getNombre() != "Cliente"){
+            Session::set("msg",Session::msgDanger("No se ha seleccionado la Pista"));
+            return false;
+        } else if(($apl->getFechaIni() != null and $apl->getFechaFin() != null) and ($apl->getFechaIni() > $apl->getFechaFin())){
+            Session::set("msg",Session::msgDanger("Asegurese de que la fecha de inicio sea menor a la fecha final"));
+            return false;
+        } else if(($apl->getTaquiIni() != null and $apl->getTaquiFin() != null) and ($apl->getTaquiIni() > $apl->getTaquiFin())){
+            Session::set("msg",Session::msgDanger("Asegurese de que el taquimetro inicial sea menor al final"));                    
+            return false;            
+        } else if($apl->getFechaIni() == null and ($apl->getTaquiIni() != null or $apl->getTaquiFin() != null)){
+            Session::set("msg",Session::msgDanger("Asegurese que para los taquímetros tener las fecha inicial ingresada"));
+            return false;
+        } else if($apl->getFechaIni() == null and ($apl->getTaquiIni() != 0 or $apl->getTaquiFin() != 0)){
+            Session::set("msg",Session::msgDanger("Asegurese que para los taquímetros tener las fecha inicial ingresada"));
+            return false;        
+        } else {
+            return true;
+        }
     }
     /*-------------------------------------------------------------------------------*/
     public function delete(){

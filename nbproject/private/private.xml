@@ -12,6 +12,7 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/srv/http/BuenoSoftMVC/Controller/AplicacionesController.php</file>
             <file>file:/srv/http/BuenoSoftMVC/Clases/Aplicacion.php</file>
             <file>file:/srv/http/BuenoSoftMVC/Clases/Vehiculo.php</file>
         </group>

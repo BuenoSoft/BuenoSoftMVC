@@ -136,6 +136,7 @@ class EstadisticaModel extends AppModel
         }
         return $datos;
     }
+    /*----------------------------------------------------------------------*/
     public function createEntity($row) { }
     protected function getCheckMessage() {}
     protected function getCheckParameter($unique) {}

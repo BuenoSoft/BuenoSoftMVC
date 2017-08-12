@@ -281,7 +281,11 @@
         }); 
         $('#aeronave').magicSuggest({
             placeholder: 'Seleccione Aeronave',
-            value: ['<?php echo (\App\Session::get("pass")[19]) ? \App\Session::get("pass")[19] : " "; ?>'],
+            <?php if(\App\Session::get("pass")[19] != null){?>
+                value: ['<?php echo \App\Session::get("pass")[19]; ?>'],
+            <?php } else { ?>
+                value: [],
+            <?php }?>
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -294,7 +298,11 @@
         });
         $('#cliente').magicSuggest({
             placeholder: 'Seleccione Usuario',
-            value: ['<?php echo \App\Session::get("pass")[16] ? \App\Session::get("pass")[16] : " "; ?>'],
+            <?php if(\App\Session::get("pass")[16] != null){  ?>
+                value: ['<?php echo \App\Session::get("pass")[16]; ?>'],
+            <?php } else { ?>
+                value: [],
+            <?php } ?>
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -308,7 +316,11 @@
         
         $('#tipo').magicSuggest({
             placeholder: 'Seleccione un Tipo de Producto',
-            value: ['<?php echo \App\Session::get("pass")[10] ? \App\Session::get("pass")[10]: " "; ?>'],            
+            <?php if(\App\Session::get("pass")[10] != null){ ?>
+                value: ['<?php echo \App\Session::get("pass")[10]; ?>'],
+            <?php } else {?>
+                value: [],
+            <?php }?>            
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -321,20 +333,28 @@
         
         $('#chofer').magicSuggest({
             placeholder: 'Seleccione Chofer',
-            value: ['<?php echo (\App\Session::get("pass")[18]) ? \App\Session::get("pass")[18] : " "; ?>'], 
+            <?php if(\App\Session::get("pass")[18] != null){?>
+                value: ['<?php echo \App\Session::get("pass")[18]; ?>'],
+            <?php } else {?>
+                value: [],
+            <?php }?> 
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
             data: [
                 <?php foreach ($usuarios as $usuario){
                         if($usuario->getRol()->getNombre() == "Chofer") { ?> 
-                                '<?php echo $usuario->getNomReal(); ?>',
+                            '<?php echo $usuario->getNomReal(); ?>',
                 <?php } } ?>
             ]
         });
         $('#terrestre').magicSuggest({
             placeholder: 'Seleccione Terrestre',
-            value: ['<?php echo (\App\Session::get("pass")[20] != null) ? \App\Session::get("pass")[20] : " "; ?>'],
+            <?php if(\App\Session::get("pass")[20] != null){ ?>
+                value: ['<?php echo \App\Session::get("pass")[20]; ?>'],
+            <?php } else {?>
+                value: [],
+            <?php } ?>
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -347,7 +367,11 @@
         });
         $('#piloto').magicSuggest({
             placeholder: 'Seleccione Piloto',
-            value: ['<?php echo (\App\Session::get("pass")[17] != null) ? \App\Session::get("pass")[17] : " "; ?>'], 
+            <?php if(\App\Session::get("pass")[17] != null){ ?>
+                value: ['<?php echo \App\Session::get("pass")[17]; ?>'],
+            <?php } else { ?>
+                value : [],
+            <?php }?> 
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -360,7 +384,11 @@
         });        
         $('#pista').magicSuggest({
             placeholder: 'Seleccione Pista',
-            value: ['<?php echo (\App\Session::get("pass")[3] != null) ? \App\Session::get("pass")[3] : " "; ?>'], 
+            <?php if(\App\Session::get("pass")[3] != null){ ?>
+                value: ['<?php echo \App\Session::get("pass")[3]; ?>'],
+            <?php } else { ?>
+                value: [],
+            <?php }?> 
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
