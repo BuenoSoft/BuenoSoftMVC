@@ -3,6 +3,7 @@ namespace Controller;
 use \App\Session;
 use \Clases\Aplicacion;
 use \Model\EstadisticaModel;
+use \Model\ZafraModel;
 class PdfController extends AppController
 {
     public function imprimir(){
@@ -416,6 +417,52 @@ class PdfController extends AppController
         }
     }
     /*---------------------------------------------------------------*/
+    public function zafras(){
+        if(Session::get('log_in') != null and (Session::get('log_in')->getRol()->getNombre() == "Administrador" or Session::get('log_in')->getRol()->getNombre() == "Supervisor")){
+            $this->getPdf()->AddPage();
+            $this->getPdf()->SetFont('Arial','B',16);
+            $this->getPdf()->Cell(40,10,utf8_decode('Período de Zafras'));
+            $this->getPdf()->Image('Public/img/manejo/logo.png', 165, 5, 40, 24,'PNG');
+            $this->getPdf()->Ln(10);
+            $this->getPdf()->SetFont('Arial','B',10);
+            $dates = $this->getDates(Session::get("fec"));
+            $this->getPdf()->Cell(40,10,utf8_decode('Período Inicial: ').$dates[0]);
+            $this->getPdf()->Ln(5);
+            $this->getPdf()->Cell(40,10,utf8_decode('Período Final: ').$dates[1]);
+            $this->getPdf()->Ln(5);
+            $this->getPdf()->Cell(40,10,'Hecho por: '.Session::get('log_in')->getNomReal());
+            $this->getPdf()->Ln(10);
+            $this->getPdf()->Cell(30, 8, utf8_decode('Período'),"TB", 0 ,'C');
+            $this->getPdf()->Cell(130, 8, utf8_decode('Hectáreas'),"TB", 0 ,'C');
+            $this->getPdf()->Cell(20, 8, 'Horas',"TB", 0 ,'C');
+            $this->getPdf()->Ln(10);
+            $periodos = (new ZafraModel())->periodList($dates);
+            $tot_hec = 0;
+            $tot_hs = 0;
+            foreach($periodos as $periodo){
+                $tot_hec += $periodo[1];
+                $tot_hs += $periodo[2];
+                $this->getPdf()->Cell(30, 8, $periodo[0], 0, 0 ,'C');
+                $this->getPdf()->Cell(130, 8, $periodo[1], 0, 0 ,'C');
+                $this->getPdf()->Cell(20, 8, $periodo[2], 0, 0 ,'C');
+                $this->getPdf()->Ln(10);
+            }
+            //$this->getPdf()->Ln(3);
+            $this->getPdf()->Cell(30, 8, "Total:", "T", 0 ,'C');
+            $this->getPdf()->Cell(130, 8, $tot_hec, "T", 0 ,'C');
+            $this->getPdf()->Cell(20, 8, $tot_hs, "T", 0 ,'C');
+            $this->getPdf()->Output();
+        }
+    }
+    /*---------------------------------------------------------------*/
+    private function getDates($date){
+        //print_r($date);
+        $date2 = strtotime ('+1 year' , strtotime($date)); //Se añade un año mas
+        $date2 = date ('Y-m-d',$date2);
+        //echo "<br>";
+        //print_r($date2);
+        return [$date, $date2];
+    }
     public function getStringTitle($arr){
         $title = [];
         $unique = [];

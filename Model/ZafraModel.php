@@ -21,6 +21,29 @@ class ZafraModel extends AppModel
         return $datos;
     }
     /*----------------------------------------------------------------------*/
+    private function getPeriodoQuery(){
+        return "select CONCAT_WS('/',month(a.aplFechaIni),year(a.aplFechaIni)) as periodo, 
+            sum(a.aplAreaAplicada) as hectareas, sum(a.aplTaquiFin - a.aplTaquiIni) as horas 
+            from aplicaciones a
+            where a.aplFechaIni between ? and ?
+            group by month(a.aplFechaIni),year(a.aplFechaIni)
+            order by year(a.aplFechaIni), month(a.aplFechaIni)";
+    }
+    private function getPeriodoParam($dates = []){
+        return [$dates[0],$dates[1]];
+    }
+    public function periodList($dates = []){
+        $datos = [];
+        foreach ($this->fetchValues($this->getPeriodoQuery(), $this->getPeriodoParam($dates)) as $row){
+            $dato = [];
+            $dato[0] = $row["periodo"];
+            $dato[1] = $row["hectareas"];
+            $dato[2] = $row["horas"];
+            array_push($datos, $dato);
+        }
+        return $datos;
+    }
+    /*----------------------------------------------------------------------*/
     protected function getCheckDelete($object) { }
     protected function getCheckMessage() { }
     protected function getCheckParameter($unique) { }
