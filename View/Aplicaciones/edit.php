@@ -260,8 +260,7 @@
             return false;
         });
     });
-    $(function() {
-    
+    $(function() {    
         $.mask.definitions['~'] = "[+-]";
         $("#sur").mask("99 99 99",{ 
             placeholder: "xx xx xx",
@@ -281,11 +280,7 @@
         }); 
         $('#aeronave').magicSuggest({
             placeholder: 'Seleccione Aeronave',
-            <?php if(\App\Session::get("pass")[19] != null){?>
-                value: ['<?php echo \App\Session::get("pass")[19]; ?>'],
-            <?php } else { ?>
-                value: [],
-            <?php }?>
+            value: ['<?php echo \App\Session::get("pass")[19]; ?>'],
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -298,11 +293,7 @@
         });
         $('#cliente').magicSuggest({
             placeholder: 'Seleccione Usuario',
-            <?php if(\App\Session::get("pass")[16] != null){  ?>
-                value: ['<?php echo \App\Session::get("pass")[16]; ?>'],
-            <?php } else { ?>
-                value: [],
-            <?php } ?>
+            value: ['<?php echo \App\Session::get("pass")[16]; ?>'],
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -316,11 +307,7 @@
         
         $('#tipo').magicSuggest({
             placeholder: 'Seleccione un Tipo de Producto',
-            <?php if(\App\Session::get("pass")[10] != null){ ?>
-                value: ['<?php echo \App\Session::get("pass")[10]; ?>'],
-            <?php } else {?>
-                value: [],
-            <?php }?>            
+            value: ['<?php echo \App\Session::get("pass")[10]; ?>'],
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -333,11 +320,7 @@
         
         $('#chofer').magicSuggest({
             placeholder: 'Seleccione Chofer',
-            <?php if(\App\Session::get("pass")[18] != null){?>
-                value: ['<?php echo \App\Session::get("pass")[18]; ?>'],
-            <?php } else {?>
-                value: [],
-            <?php }?> 
+            value: ['<?php echo \App\Session::get("pass")[18]; ?>'],
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -350,11 +333,7 @@
         });
         $('#terrestre').magicSuggest({
             placeholder: 'Seleccione Terrestre',
-            <?php if(\App\Session::get("pass")[20] != null){ ?>
-                value: ['<?php echo \App\Session::get("pass")[20]; ?>'],
-            <?php } else {?>
-                value: [],
-            <?php } ?>
+            value: ['<?php echo \App\Session::get("pass")[20]; ?>'],
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',
@@ -367,11 +346,7 @@
         });
         $('#piloto').magicSuggest({
             placeholder: 'Seleccione Piloto',
-            <?php if(\App\Session::get("pass")[17] != null){ ?>
-                value: ['<?php echo \App\Session::get("pass")[17]; ?>'],
-            <?php } else { ?>
-                value : [],
-            <?php }?> 
+            value: ['<?php echo \App\Session::get("pass")[17]; ?>'],
             maxSelection: 1,
             maxDropHeight: 150,
             sortDir: 'asc',

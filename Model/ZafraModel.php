@@ -58,5 +58,4 @@ class ZafraModel extends AppModel
     protected function getUpdateParameter($object) { }
     protected function getUpdateQuery() { }
     public function createEntity($row) { }
-
 }
