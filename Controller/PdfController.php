@@ -425,10 +425,9 @@ class PdfController extends AppController
             $this->getPdf()->Image('Public/img/manejo/logo.png', 165, 5, 40, 24,'PNG');
             $this->getPdf()->Ln(10);
             $this->getPdf()->SetFont('Arial','B',10);
-            $dates = $this->getDates(Session::get("fec"));
-            $this->getPdf()->Cell(40,10,utf8_decode('Período Inicial: ').$dates[0]);
+            $this->getPdf()->Cell(40,10,utf8_decode('Período Inicial: ').Session::get('ped1'));
             $this->getPdf()->Ln(5);
-            $this->getPdf()->Cell(40,10,utf8_decode('Período Final: ').$dates[1]);
+            $this->getPdf()->Cell(40,10,utf8_decode('Período Final: ').Session::get('ped2'));
             $this->getPdf()->Ln(5);
             $this->getPdf()->Cell(40,10,'Hecho por: '.Session::get('log_in')->getNomReal());
             $this->getPdf()->Ln(10);
@@ -436,7 +435,7 @@ class PdfController extends AppController
             $this->getPdf()->Cell(130, 8, utf8_decode('Hectáreas'),"TB", 0 ,'C');
             $this->getPdf()->Cell(20, 8, 'Horas',"TB", 0 ,'C');
             $this->getPdf()->Ln(10);
-            $periodos = (new ZafraModel())->periodList($dates);
+            $periodos = (new ZafraModel())->periodList([Session::get('ped1'),Session::get('ped2')]);
             $tot_hec = 0;
             $tot_hs = 0;
             foreach($periodos as $periodo){
@@ -454,15 +453,7 @@ class PdfController extends AppController
             $this->getPdf()->Output();
         }
     }
-    /*---------------------------------------------------------------*/
-    private function getDates($date){
-        //print_r($date);
-        $date2 = strtotime ('+1 year' , strtotime($date)); //Se añade un año mas
-        $date2 = date ('Y-m-d',$date2);
-        //echo "<br>";
-        //print_r($date2);
-        return [$date, $date2];
-    }
+    /*---------------------------------------------------------------*/    
     public function getStringTitle($arr){
         $title = [];
         $unique = [];

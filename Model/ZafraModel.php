@@ -37,8 +37,8 @@ class ZafraModel extends AppModel
         foreach ($this->fetchValues($this->getPeriodoQuery(), $this->getPeriodoParam($dates)) as $row){
             $dato = [];
             $dato[0] = $row["periodo"];
-            $dato[1] = $row["hectareas"];
-            $dato[2] = $row["horas"];
+            $dato[1] = round($row["hectareas"],2);
+            $dato[2] = round($row["horas"],2);
             array_push($datos, $dato);
         }
         return $datos;

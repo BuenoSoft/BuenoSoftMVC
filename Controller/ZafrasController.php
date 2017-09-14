@@ -11,20 +11,13 @@ class ZafrasController extends AppController
             $bc->add_crumb("index.php?c=inicio&a=index");
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
-            Session::set('fec',(isset($_POST['txtanio'])) ? $this->clean($_POST['txtanio']) : Session::get('fec'));
+            Session::set('ped1',(isset($_POST['txtped1'])) ? $this->clean($_POST['txtped1']) : Session::get('ped1'));
+            Session::set('ped2',(isset($_POST['txtped2'])) ? $this->clean($_POST['txtped2']) : Session::get('ped2'));
             $this->redirect_administrador(["index.php"],[
                 "anios" => (new ZafraModel())->anioList(),
-                "periodos" => (new ZafraModel())->periodList($this->getDates(Session::get('fec')))
+                "periodos" => (new ZafraModel())->periodList([Session::get('ped1'),Session::get('ped2')])
             ]);
         }
-    }
-    private function getDates($date){
-        //print_r($date);
-        $date2 = strtotime ('+1 year' , strtotime($date)); //Se añade un año mas
-        $date2 = date ('Y-m-d',$date2);
-        //echo "<br>";
-        //print_r($date2);
-        return [$date, $date2];
     }
     protected function getRoles() {
         return ["Administrador","Supervisor"];
