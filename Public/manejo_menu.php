@@ -198,11 +198,6 @@
                                     <i class="fa fa-retweet"></i>&nbsp;Movimientos
                                 </a>
                             </li>
-                            <li class="sub-menu">
-                                <a href="index.php?c=zafras&a=index">
-                                    <i class="fa fa-book"></i>&nbsp;Zafras
-                                </a>
-                            </li>
                 <?php   } 
                         if((App\Session::get('log_in')->getRol()->getNombre() == "Administrador" or App\Session::get('log_in')->getRol()->getNombre() == "Supervisor")){ ?>                                                             
                             <li class="sub-menu">

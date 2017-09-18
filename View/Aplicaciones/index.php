@@ -2,7 +2,8 @@
 <p>
     <a href="index.php?c=inicio&a=index"><button class="btn btn-theme05" tabindex="3"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;
     <?php if(\App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>
-        <a href="index.php?c=aplicaciones&a=add"><button class="btn btn-theme05" tabindex="4"><i class="fa fa-plus"></i>&nbsp;Crear</button></a>    
+        <a href="index.php?c=zafras&a=index"><button class="btn btn-theme05" tabindex="4"><i class="fa fa-book"></i>&nbsp;Zafras</button></a>&nbsp;
+        <a href="index.php?c=aplicaciones&a=add"><button class="btn btn-theme05" tabindex="5"><i class="fa fa-plus"></i>&nbsp;Crear</button></a>    
     <?php } else { ?>
         <a href="index.php?c=aplicaciones&a=add"><button class="btn btn-theme05" tabindex="4"><i class="fa fa-calendar-plus-o"></i>&nbsp;Solicitar</button></a>
     <?php } ?>

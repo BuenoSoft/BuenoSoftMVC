@@ -6,6 +6,7 @@
     <section id="unseen" style="padding-left: 5px; padding-right: 5px;">
         <p>
             <form name="frmzafra" method="post" action="index.php?c=zafras&a=index">
+                <b>Año:&nbsp;</b><input name="txtanio" id="anio" />&nbsp;
                 <b>Período Inicial:&nbsp;</b><input name="txtped1" id="pec1" />&nbsp;
                 <b>Período Final:&nbsp;</b><input name="txtped2" id="pec2" />
                 <input name="btnaceptar" type="button" value="Aceptar" onclick="frmzafra.submit();" class="btn btn-theme01" />
@@ -51,17 +52,24 @@
 </div>
 <script>
     $(function(){
+        $("#anio").combodate({
+            minYear: [<?php echo $anios[ count($anios)-1 ]; ?>],
+            maxYear: [<?php echo $anios[0]; ?>],
+            template: 'YYYY',
+            format: 'YYYY',
+            value: [<?php echo $anios[1]; ?>]
+        });
         $("#pec1").combodate({
-            minYear: <?php echo $anios[ count($anios)-1 ] ?>,
-            maxYear: <?php echo $anios[0] ?>,
-            template: 'D/MM/YYYY',
-            format: 'YYYY-MM-DD' 
+            minYear: [<?php echo $anios[ count($anios)-1 ]; ?>],
+            maxYear: [<?php echo $anios[0]; ?>],
+            template: 'D/MM',
+            format: 'MM-DD' 
         });
         $("#pec2").combodate({
-            minYear: <?php echo $anios[ count($anios)-1 ] ?>,
-            maxYear: <?php echo $anios[0] ?>,
-            template: 'D/MM/YYYY',
-            format: 'YYYY-MM-DD' 
+            minYear: [<?php echo $anios[ count($anios)-1 ]; ?>],
+            maxYear: [<?php echo $anios[0]; ?>],
+            template: 'D/MM',
+            format: 'MM-DD' 
         });
     });
 </script>
