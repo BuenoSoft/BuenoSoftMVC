@@ -1,6 +1,6 @@
 <h3><i class="fa fa-angle-right"></i>&nbsp;Período de Zafras</h3>
 <p>
-    <a href="index.php?c=inicio&a=index"><button class="btn btn-theme05" tabindex="3"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;
+    <a href="index.php?c=aplicaciones&a=index"><button class="btn btn-theme05" tabindex="3"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;
 </p>
 <div class="content-panel">
     <section id="unseen" style="padding-left: 5px; padding-right: 5px;">

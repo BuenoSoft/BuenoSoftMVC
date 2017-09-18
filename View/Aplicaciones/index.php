@@ -156,9 +156,9 @@
         </table>
         <p>
             <b>
-                Total de Hectareas&nbsp<?php echo \App\Session::get('totales')[0]; ?>
+                Total de Hectareas:&nbsp<?php echo round(\App\Session::get('totales')[0],2); ?>
                 <br />
-                Total de Horas de Vuelo&nbsp<?php echo \App\Session::get('totales')[1]; ?>
+                Total de Horas de Vuelo:&nbsp<?php echo round(\App\Session::get('totales')[1],2); ?>
             </b>
         </p>
         <?php if ($paginador != null) { ?> 
