@@ -23,10 +23,11 @@ class AplicacionesController extends AppController
             $bc->add_crumb("index.php?c=inicio&a=index");
             $bc->add_crumb($_SERVER['REQUEST_URI']);
             Session::set('enlaces', $bc->display());
-            Session::set("app",0);            
+            Session::set("app",0);
             $this->searchSession();
             $this->listSession();
             $this->redirect_administrador(['index.php'],[
+                "anios" => (new Aplicacion())->getAnios(),
                 "vehiculos" => (new Vehiculo())->find(),
                 "usuarios" => (new Usuario())->find(),
                 "tipos" => (new TipoProducto())->find(),
@@ -37,8 +38,9 @@ class AplicacionesController extends AppController
             header("Location:index.php?c=todos&a=index");
         }
     }
-    private function searchSession(){        
-        Session::set("criterios", [ 
+    private function searchSession(){
+        Session::set("criterios", [
+            "zafra" => (Session::get("criterios")["zafra"] != null && empty($_POST)) ? Session::get("criterios")["zafra"] : (isset($_POST["txtzafra"]) ? $_POST["txtzafra"] : null),
             "aeronave" => (Session::get("criterios")["aeronave"] != null && empty($_POST)) ? Session::get("criterios")["aeronave"] : (isset($_POST["aeronave"][0]) ? $_POST["aeronave"][0] : null),
             "piloto" =>  (Session::get("criterios")["piloto"] != null && empty($_POST)) ? Session::get("criterios")["piloto"] : ((isset($_POST["piloto"][0]) and Session::get('log_in')->getRol()->getNombre() != "Piloto") ? $_POST["piloto"][0] : ((Session::get('log_in')->getRol()->getNombre() == "Piloto") ? Session::get('log_in')->getNomReal() : null)),
             "tipo" =>  (Session::get("criterios")["tipo"] != null && empty($_POST)) ? Session::get("criterios")["tipo"] : (isset($_POST["tipo"][0]) ? $_POST["tipo"][0] : null),

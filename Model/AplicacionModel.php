@@ -3,6 +3,20 @@ namespace Model;
 use \Clases\Aplicacion;
 class AplicacionModel extends AppModel
 {
+    private function getAniosQuery(){
+        return "select distinct year(a.aplFechaIni) as anio "
+            . "from aplicaciones a "
+            . "where a.aplFechaIni is not null "
+            . "group by a.aplFechaIni "
+            . "order by a.aplFechaIni desc";
+    }
+    public function anioList(){
+        $datos = [];
+        foreach ($this->fetchValues($this->getAniosQuery()) as $row){
+            array_push($datos, $row["anio"]);
+        }
+        return $datos;
+    }
     public function maxId(){
         return $this->fetchValues("select max(aplId) as maximo from aplicaciones",[])[0]['maximo'];
     }
@@ -80,6 +94,10 @@ class AplicacionModel extends AppModel
     }
     protected function getFindParameterAdvance($datos = []) {
         $rows = array();
+        if($datos["zafra"] != null){
+            array_push($rows, ($datos["zafra"] -1)."-07-01");
+            array_push($rows, $datos["zafra"]."-06-30");
+        }
         if($datos["aeronave"] != null){
             array_push($rows, (new VehiculoModel())->findByMat($datos["aeronave"])->getId());
         }                
@@ -104,9 +122,18 @@ class AplicacionModel extends AppModel
     protected function getFindQueryAdvance($datos = []){                
         $where = false;
         $sql= "select * from aplicaciones a";
-        if($datos["aeronave"] != null){
-            $sql .= " where a.vehAero = ?";
+        if($datos["zafra"] != null){
+            $sql .= " where aplFechaIni between ? and ?";
             $where = true;
+        }
+        if($datos["aeronave"] != null){
+            if($where){
+                $sql .= " and a.vehAero = ?";
+                         
+            } else {
+                $sql .= " where a.vehAero = ?";
+                $where = true;
+            }
         }
         if($datos["piloto"] != null){
             if($where){
@@ -156,9 +183,18 @@ class AplicacionModel extends AppModel
         $where = false;
         $sql= "select sum(a.aplAreaAplicada) as tothec,sum(IF(a.aplTaquiIni > 0 and a.aplTaquiFin > 0, (a.aplTaquiFin-a.aplTaquiIni),0)) as horas "
                 . "from aplicaciones a inner join vehiculos v on a.vehAero = v.vehId";
-        if($datos["aeronave"] != null){
-            $sql .= " where a.vehAero = ?";
+        if($datos["zafra"] != null){
+            $sql .= " where aplFechaIni between ? and ?";
             $where = true;
+        }
+        if($datos["aeronave"] != null){
+            if($where){
+                $sql .= " and a.vehAero = ?";
+                         
+            } else {
+                $sql .= " where a.vehAero = ?";
+                $where = true;
+            }
         }
         if($datos["piloto"] != null){
             if($where){

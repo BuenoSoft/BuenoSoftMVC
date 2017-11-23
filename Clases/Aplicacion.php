@@ -246,8 +246,7 @@ class Aplicacion implements IPersiste
     public function avatar(){
         return (new AplicacionModel())->getAvatar($this);
     }
-    public function find($criterio = null) { }
-    
+    public function find($criterio = null) { }   
     /*-----------------------------------------*/
     public function addTiene($tiene) {
         return (new AplicacionModel())->addTiene($tiene);
@@ -260,5 +259,9 @@ class Aplicacion implements IPersiste
     }
     public function getTiene() {
         return (new AplicacionModel())->getTiene($this->id); 
+    }
+    /*-----------------------------------------*/
+    public function getAnios(){
+        return (new AplicacionModel())->anioList();
     }
 }

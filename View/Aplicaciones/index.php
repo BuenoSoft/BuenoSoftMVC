@@ -2,7 +2,6 @@
 <p>
     <a href="index.php?c=inicio&a=index"><button class="btn btn-theme05" tabindex="3"><i class="fa fa-arrow-left"></i>&nbsp;Volver</button></a>&nbsp;
     <?php if(\App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>
-        <a href="index.php?c=zafras&a=index"><button class="btn btn-theme05" tabindex="4"><i class="fa fa-book"></i>&nbsp;Zafras</button></a>&nbsp;
         <a href="index.php?c=aplicaciones&a=add"><button class="btn btn-theme05" tabindex="5"><i class="fa fa-plus"></i>&nbsp;Crear</button></a>    
     <?php } else { ?>
         <a href="index.php?c=aplicaciones&a=add"><button class="btn btn-theme05" tabindex="4"><i class="fa fa-calendar-plus-o"></i>&nbsp;Solicitar</button></a>
@@ -11,8 +10,16 @@
 <div class="content-panel">
     <section id="unseen" style="padding-left: 5px; padding-right: 5px;">
         <p>
-            <form name="frmsearch" method="post" action="index.php?c=aplicaciones&a=index"> 
-                <table style="width: 99%;">
+            <form name="frmsearch" method="post" action="index.php?c=aplicaciones&a=index">
+                <table>
+                    <tr>
+                        <td>
+                            &nbsp;&nbsp;<b>Zafra:</b>&nbsp;<input name="txtzafra" id="zafra" /> 
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <table style="width: 99%;">                    
                     <tr>
                         <td style="width: 50%;">
                             <?php if(\App\Session::get('log_in') != null and App\Session::get('log_in')->getRol()->getNombre() != "Cliente") { ?>
@@ -50,7 +57,6 @@
                     <input type="button" onclick="frmsearch.submit();" name="btnsearch" value="Buscar" class="btn btn-theme01" tabindex="2" />&nbsp;
                     <a href="index.php?c=pdf&a=imprimir" target="_blank">
                         <input type="button" value="Imprimir" class="btn btn-theme01" tabindex="3" />
-                        <!--<button class="btn btn-theme05" tabindex="3"><i class="fa fa-print"></i>&nbsp;Imprimir</button>-->
                     </a>
                 </p>
             </form>       
@@ -183,6 +189,13 @@
 </div>
 <script>
     $(function(){
+        $('#zafra').combodate({
+            minYear: [<?php echo $anios[ count($anios)-1 ]; ?>],
+            maxYear: [<?php echo $anios[0] + 8; ?>],
+            template: 'YYYY',
+            format: 'YYYY',
+            value: [" "]
+        });
         $('#aeronave').magicSuggest({
             style: 'margin-bottom: 5px; margin-top: 5px; margin-left:5px',
             placeholder: 'Seleccione Aeronave',            
