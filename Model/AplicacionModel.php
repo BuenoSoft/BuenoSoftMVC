@@ -7,8 +7,7 @@ class AplicacionModel extends AppModel
         return "select distinct year(a.aplFechaIni) as anio "
             . "from aplicaciones a "
             . "where a.aplFechaIni is not null "
-            . "group by a.aplFechaIni "
-            . "order by a.aplFechaIni desc";
+            . "group by a.aplFechaIni";
     }
     public function anioList(){
         $datos = [];

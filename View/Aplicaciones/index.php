@@ -10,7 +10,7 @@
 <div class="content-panel">
     <section id="unseen" style="padding-left: 5px; padding-right: 5px;">
         <p>
-            <form name="frmsearch" method="post" action="index.php?c=aplicaciones&a=index">
+            <form name="frmsearch" method="post" action="index.php?c=aplicaciones&a=index" id="fmsearch">
                 <table>
                     <tr>
                         <td>
@@ -141,7 +141,7 @@
                             ?>                        
                         </td>
                         <td>
-                            <?php echo $aplicacion->taquiDif(); ?>
+                            <?php echo round($aplicacion->taquiDif(),2); ?>
                         </td>
                         <td>
                             <a href="index.php?c=aplicaciones&a=view&d=<?php echo $aplicacion->getId(); ?>" title="Ver">
@@ -190,11 +190,15 @@
 <script>
     $(function(){
         $('#zafra').combodate({
-            minYear: [<?php echo $anios[ count($anios)-1 ]; ?>],
+            minYear: [<?php echo $anios[0] -1; ?>],
             maxYear: [<?php echo $anios[0] + 8; ?>],
             template: 'YYYY',
             format: 'YYYY',
-            value: [" "]
+            yearDescending: false,
+            value: [" <?php echo App\Session::get("criterios")["zafra"]; ?> "]
+        });
+        $("#zafra").change(function () {
+            $("#fmsearch").submit();
         });
         $('#aeronave').magicSuggest({
             style: 'margin-bottom: 5px; margin-top: 5px; margin-left:5px',

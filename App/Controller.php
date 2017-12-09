@@ -1,7 +1,7 @@
 <?php
 namespace App;
 use \Lib\Paginador;
-include('./Lib/fpdf/FPDF.php');
+use \Lib\PDF;
 abstract class Controller 
 {
     private $paginador;
@@ -9,7 +9,7 @@ abstract class Controller
     function __construct() {
         session_start();
         $this->paginador = new Paginador();
-        $this->pdf = new \FPDF();
+        $this->pdf = new PDF();
     }
     public function redirect_administrador($file = [], $dates = []) {
         try {

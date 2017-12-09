@@ -52,10 +52,10 @@ class AplicacionesController extends AppController
         
     }
     private function listSession(){
-        Session::set("filtro", $this->getPaginator()->paginar(
-            (new Aplicacion())->findAdvance(Session::get("criterios")), Session::get('p'))
-        );
         Session::set('p', isset($_GET['p']) ? $_GET['p'] : 1);
+        Session::set("filtro", $this->getPaginator()->paginar(
+            (new Aplicacion())->findAdvance(Session::get("criterios")), Session::get('p'),30)
+        );        
         Session::set("totales", (new Aplicacion())->totAdvance(Session::get('criterios')));
     }
     /*-------------------------------------------------------------------------------*/
