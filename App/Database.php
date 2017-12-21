@@ -8,7 +8,8 @@ final class Database
     private $user;
     private $pass;
     public function __construct() { 
-        $this->dns='mysql:dbname=buenosoft2;host=localhost';
+        //$this->dns='mysql:dbname=buenosoft2;host=localhost';
+        $this->dns='mysql:dbname=code_buenosoft;host=localhost';
         $this->user='root';
         $this->pass='j1990d21';
         if (!isset($this->bd)) {  

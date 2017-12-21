@@ -12,7 +12,9 @@ class AplicacionModel extends AppModel
     public function anioList(){
         $datos = [];
         foreach ($this->fetchValues($this->getAniosQuery()) as $row){
-            array_push($datos, $row["anio"]);
+            if($row["anio"] != 0) {
+                array_push($datos, $row["anio"]);            
+            }
         }
         return $datos;
     }
@@ -95,7 +97,7 @@ class AplicacionModel extends AppModel
         $rows = array();
         if($datos["zafra"] != null){
             array_push($rows, ($datos["zafra"] -1)."-07-01");
-            array_push($rows, $datos["zafra"]."-06-30");
+            array_push($rows, $datos["zafra"]."-06-30");            
         }
         if($datos["aeronave"] != null){
             array_push($rows, (new VehiculoModel())->findByMat($datos["aeronave"])->getId());
